@@ -151,8 +151,21 @@
                     <view key="view" contentMode="scaleToFill" id="beI-et-gP9">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Opps, no result found" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DN9-f4-XTl">
+                                <rect key="frame" x="217" y="289" width="166" height="21"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="DN9-f4-XTl" firstAttribute="centerX" secondItem="beI-et-gP9" secondAttribute="centerX" id="9C9-83-oet"/>
+                            <constraint firstItem="DN9-f4-XTl" firstAttribute="centerY" secondItem="beI-et-gP9" secondAttribute="centerY" id="Zh5-xO-bZC"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="gb6-h5-sdU">
                         <nil key="title"/>
@@ -165,6 +178,7 @@
                         </textField>
                     </navigationItem>
                     <connections>
+                        <outlet property="noResultLabel" destination="DN9-f4-XTl" id="Z8X-pe-Khg"/>
                         <outlet property="searchDisplayController" destination="TdQ-U2-dDu" id="vhu-ww-d0K"/>
                         <outlet property="searchTextField" destination="5nn-ve-5oW" id="xF8-e2-Z0p"/>
                         <segue destination="Aaz-Fh-3ff" kind="show" identifier="segueFromSearchVCToCollectionVC" id="7iG-pN-Fav"/>

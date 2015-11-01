@@ -11,6 +11,8 @@ import Kanna
 
 class CollectionViewController: UICollectionViewController{
 	
+	var searchVC : SearchViewController?
+	
 	var fromSearch : Bool = false
 	var keyword : String = ""
 	
@@ -153,7 +155,24 @@ class CollectionViewController: UICollectionViewController{
 					loadMore()
 				}
 				else{
-					print ("no reslt")
+					var suggestedTag : [String] = []
+					for div in doc.css("div"){
+						if (div.className != nil) {
+							if (div.className! == "status-notice"){
+								for span in div.css("span"){
+									let a = span.css("a")[0]
+									suggestedTag.append(a.text!)
+								}
+							}
+						}
+					}
+					if (self.searchVC != nil){
+						self.searchVC!.noResult = true
+						if (suggestedTag.count > 0){
+							self.searchVC!.suggestedTag = suggestedTag
+						}
+						self.navigationController!.popViewControllerAnimated(true)
+					}
 				}
 			}
 		}
