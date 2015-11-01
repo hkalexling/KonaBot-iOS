@@ -12,6 +12,7 @@ import Kanna
 class CollectionViewController: UICollectionViewController{
 	
 	var searchVC : SearchViewController?
+	var loading : RZSquaresLoading!
 	
 	var fromSearch : Bool = false
 	var keyword : String = ""
@@ -31,6 +32,10 @@ class CollectionViewController: UICollectionViewController{
 
     override func viewDidLoad() {
         super.viewDidLoad()
+		
+		self.loading = RZSquaresLoading(frame: CGRectMake(CGSize.screenSize().width/2 - 25, CGSize.screenSize().height/2 - 25, 50, 50))
+		loading.color = UIColor.lightGrayColor()
+		self.view.addSubview(loading)
 		
 		if (!self.fromSearch){
 			navigationItem.leftBarButtonItem = UIBarButtonItem(customView: UIView())
@@ -148,6 +153,7 @@ class CollectionViewController: UICollectionViewController{
 					let width : CGFloat = CGFloat((img["width"]! as NSString).floatValue)
 					self.heightOverWidth.append(height/width)
 				}
+				self.loading.removeFromSuperview()
 			}
 			if ulList.count == 0 {
 				if (self.numberOfPagesTried < self.maxNumberOfPagesToTry){

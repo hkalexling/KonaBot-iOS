@@ -18,6 +18,7 @@
 		713B7B051BE653300038A34A /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 713B7AFB1BE653300038A34A /* AFURLResponseSerialization.m */; };
 		713B7B061BE653300038A34A /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 713B7AFD1BE653300038A34A /* AFURLSessionManager.m */; };
 		713B7B081BE681430038A34A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 713B7B071BE681430038A34A /* Assets.xcassets */; };
+		713B7B0C1BE68B230038A34A /* RZSquaresLoading.m in Sources */ = {isa = PBXBuildFile; fileRef = 713B7B0B1BE68B230038A34A /* RZSquaresLoading.m */; };
 		7152C1431BE3452400A44945 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7152C1421BE3452400A44945 /* AppDelegate.swift */; };
 		7152C1481BE3452400A44945 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7152C1461BE3452400A44945 /* Main.storyboard */; };
 		7152C14D1BE3452400A44945 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7152C14B1BE3452400A44945 /* LaunchScreen.storyboard */; };
@@ -69,6 +70,8 @@
 		713B7AFC1BE653300038A34A /* AFURLSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLSessionManager.h; sourceTree = "<group>"; };
 		713B7AFD1BE653300038A34A /* AFURLSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLSessionManager.m; sourceTree = "<group>"; };
 		713B7B071BE681430038A34A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		713B7B0A1BE68B230038A34A /* RZSquaresLoading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZSquaresLoading.h; sourceTree = "<group>"; };
+		713B7B0B1BE68B230038A34A /* RZSquaresLoading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZSquaresLoading.m; sourceTree = "<group>"; };
 		7152C13F1BE3452400A44945 /* KonaBot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KonaBot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7152C1421BE3452400A44945 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7152C1471BE3452400A44945 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -132,12 +135,22 @@
 			path = AFNetworking;
 			sourceTree = "<group>";
 		};
+		713B7B091BE68B230038A34A /* RZSquaresLoading */ = {
+			isa = PBXGroup;
+			children = (
+				713B7B0A1BE68B230038A34A /* RZSquaresLoading.h */,
+				713B7B0B1BE68B230038A34A /* RZSquaresLoading.m */,
+			);
+			path = RZSquaresLoading;
+			sourceTree = "<group>";
+		};
 		7152C1361BE3452400A44945 = {
 			isa = PBXGroup;
 			children = (
 				7152C1D61BE3E41E00A44945 /* Kanna.framework */,
 				7152C1411BE3452400A44945 /* KonaBot */,
 				7152C1401BE3452400A44945 /* Products */,
+				713B7B091BE68B230038A34A /* RZSquaresLoading */,
 				713B7AEA1BE653300038A34A /* AFNetworking */,
 				71FA55661BE55DE800E57198 /* JTSImageViewController */,
 			);
@@ -300,6 +313,7 @@
 				713B7B001BE653300038A34A /* AFHTTPSessionManager.m in Sources */,
 				71FA55741BE55DE800E57198 /* JTSImageInfo.m in Sources */,
 				7152C1DC1BE4F9AC00A44945 /* ImageCell.swift in Sources */,
+				713B7B0C1BE68B230038A34A /* RZSquaresLoading.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

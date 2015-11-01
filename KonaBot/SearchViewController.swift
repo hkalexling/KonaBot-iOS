@@ -68,7 +68,8 @@ class SearchViewController: UIViewController, UITextFieldDelegate{
 	
 	func textFieldShouldReturn(textField: UITextField) -> Bool {
 		self.hideKeyboard()
-		let searchText = self.searchTextField.text!
+		var searchText = self.searchTextField.text!
+		searchText = searchText.stringByReplacingOccurrencesOfString(" ", withString: "")
 		if (!searchText.isEmpty){
 			self.keyword = searchText
 			self.handleSearch()
@@ -99,12 +100,12 @@ class SearchViewController: UIViewController, UITextFieldDelegate{
 	
 	func showSuggestions(){
 		let buttonHeight : CGFloat = 30
-		let buttonWidht : CGFloat = CGSize.screenSize().width
+		let buttonWidht : CGFloat = 200
 		let buttonGap : CGFloat = 10
 		let count = self.suggestedTag.count
 		let y = CGSize.screenSize().height/2 - CGFloat(count)/2.0 * buttonHeight - CGFloat(count - 1)/2.0 * buttonGap
 		
-		self.youMeantLabel = UILabel(frame: CGRectMake(0, y, buttonWidht, buttonHeight))
+		self.youMeantLabel = UILabel(frame: CGRectMake(0, y, CGSize.screenSize().width, buttonHeight))
 		youMeantLabel!.text = "Maybe you meant..."
 		self.youMeantLabel!.backgroundColor = UIColor.whiteColor()
 		self.youMeantLabel!.textColor = UIColor.blackColor()
@@ -113,9 +114,9 @@ class SearchViewController: UIViewController, UITextFieldDelegate{
 		
 		for (var i : Int = 0; i < self.suggestedTag.count; i++){
 			let button = UIButton(type: UIButtonType.System) as UIButton
-			button.frame = CGRectMake((CGSize.screenSize().width - buttonWidht)/2, y + (buttonHeight + buttonGap) * CGFloat(i + 1), buttonWidht, buttonHeight)
 			button.backgroundColor = UIColor.whiteColor()
 			button.setTitle(self.suggestedTag[i], forState: .Normal)
+			button.frame = CGRectMake((CGSize.screenSize().width - buttonWidht)/2, y + (buttonHeight + buttonGap) * CGFloat(i + 1), buttonWidht, buttonHeight)
 			button.addTarget(self, action: Selector("suggestionButtonTapped:"), forControlEvents: .TouchUpInside)
 			self.tagButtons.append(button)
 			self.view.addSubview(button)

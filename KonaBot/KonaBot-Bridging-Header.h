@@ -11,4 +11,5 @@
 #import <libxml/xpathInternals.h>
 #import "JTSImageInfo.h"
 #import "JTSImageViewController.h"
+#import "RZSquaresLoading.h"
 
