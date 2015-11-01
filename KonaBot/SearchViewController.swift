@@ -14,6 +14,8 @@ class SearchViewController: UIViewController, UITextFieldDelegate{
 	@IBOutlet weak var searchTextField: UITextField!
 	@IBOutlet weak var noResultLabel: UILabel!
 	
+	var loading : RZSquaresLoading!
+	
 	var suggestedTag : [String] = []
 	var noResult : Bool = false
 	
@@ -27,6 +29,11 @@ class SearchViewController: UIViewController, UITextFieldDelegate{
 	
     override func viewDidLoad() {
         super.viewDidLoad()
+		
+		let loadingSize : CGFloat = 80
+		self.loading = RZSquaresLoading(frame: CGRectMake((CGSize.screenSize().width - loadingSize)/2, (CGSize.screenSize().height - loadingSize)/2, loadingSize, loadingSize))
+		self.loading.color = UIColor.lightGrayColor()
+		self.view.addSubview(self.loading)
 		
 		self.getTopTags()
 		
@@ -180,7 +187,6 @@ class SearchViewController: UIViewController, UITextFieldDelegate{
 			self.tagButtons.append(button)
 			self.view.addSubview(button)
 		}
-		
 	}
 	
 	func suggestionButtonTapped(sender : UIButton){
@@ -223,6 +229,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate{
 				}
 			}
 		}
+		self.loading.removeFromSuperview()
 		self.showTopTags()
 	}
 }

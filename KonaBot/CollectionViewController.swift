@@ -33,7 +33,8 @@ class CollectionViewController: UICollectionViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
 		
-		self.loading = RZSquaresLoading(frame: CGRectMake(CGSize.screenSize().width/2 - 25, CGSize.screenSize().height/2 - 25, 50, 50))
+		let loadingSize : CGFloat = 80
+		self.loading = RZSquaresLoading(frame: CGRectMake(CGSize.screenSize().width/2 - loadingSize/2, CGSize.screenSize().height/2 - loadingSize/2, loadingSize, loadingSize))
 		loading.color = UIColor.lightGrayColor()
 		self.view.addSubview(loading)
 		
@@ -84,18 +85,14 @@ class CollectionViewController: UICollectionViewController{
 		self.selectedPostUrl = self.postUrls[indexPath.row]
 		self.selectedHeightOverWidth = self.heightOverWidth[indexPath.row]
 		self.selectedSmallImage = (self.collectionView!.cellForItemAtIndexPath(indexPath) as! ImageCell).imageView!.image
-		self.performSegueWithIdentifier("segueToDetailVC", sender: self)
+		let detailVC : DetailViewController = DetailViewController()
+		detailVC.postUrl = self.selectedPostUrl
+		detailVC.heightOverWidth = self.selectedHeightOverWidth
+		detailVC.smallImage = self.selectedSmallImage
+		detailVC.view.backgroundColor = UIColor.whiteColor()
+		self.navigationController!.pushViewController(detailVC, animated: true)
 	}
-	
-	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-		if (segue.identifier == "segueToDetailVC") {
-			let destVC = segue.destinationViewController as! DetailViewController
-			destVC.postUrl = self.selectedPostUrl
-			destVC.heightOverWidth = self.selectedHeightOverWidth
-			destVC.smallImage = self.selectedSmallImage
-		}
-	}
-	
+
 	func downloadImg(url : String, view : UIImageView){
 		let requestOperation : AFHTTPRequestOperation = AFHTTPRequestOperation(request: NSURLRequest(URL: NSURL(string: url)!))
 		requestOperation.responseSerializer = AFImageResponseSerializer()

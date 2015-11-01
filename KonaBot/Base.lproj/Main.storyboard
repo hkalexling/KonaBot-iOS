@@ -56,32 +56,10 @@
                         </connections>
                     </collectionView>
                     <navigationItem key="navigationItem" id="axZ-Lr-hGs"/>
-                    <connections>
-                        <segue destination="mqc-GC-Xpe" kind="show" identifier="segueToDetailVC" id="Y1L-pN-gIy"/>
-                    </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PfI-zi-gSx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2553" y="403"/>
-        </scene>
-        <!--Detail View Controller-->
-        <scene sceneID="gmf-9Y-sNx">
-            <objects>
-                <viewController id="mqc-GC-Xpe" customClass="DetailViewController" customModule="KonaBot" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="eEr-0C-aMF"/>
-                        <viewControllerLayoutGuide type="bottom" id="h4o-bD-zPj"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="mXY-4I-B3A">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <animations/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="2TK-JD-ZF0" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3202" y="403"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="Iob-Rp-JSP">
@@ -152,8 +130,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Opps, no result found" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DN9-f4-XTl">
-                                <rect key="frame" x="217" y="289" width="166" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Opps, no result found :(" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DN9-f4-XTl">
+                                <rect key="frame" x="210" y="289" width="180" height="21"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
