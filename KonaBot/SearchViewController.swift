@@ -91,12 +91,24 @@ class SearchViewController: UIViewController, UITextFieldDelegate{
 	func textFieldShouldReturn(textField: UITextField) -> Bool {
 		self.hideKeyboard()
 		var searchText = self.searchTextField.text!
-		searchText = searchText.stringByReplacingOccurrencesOfString(" ", withString: "")
+		searchText = self.prepareSearchKeyword(searchText)
 		if (!searchText.isEmpty){
 			self.keyword = searchText
 			self.handleSearch()
 		}
 		return true
+	}
+	
+	func prepareSearchKeyword(keyword : String) -> String{
+		var original = keyword
+		while(original.hasPrefix(" ")){
+			original.removeAtIndex(original.startIndex)
+		}
+		while(original.hasSuffix(" ")){
+			original.removeAtIndex(original.endIndex.advancedBy(-1))
+		}
+		original = original.stringByReplacingOccurrencesOfString(" ", withString: "_")
+		return original
 	}
 	
 	func handleSearch(){
