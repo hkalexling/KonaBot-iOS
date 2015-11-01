@@ -1,0 +1,474 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		711098B31BE62D9D00CDACD1 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711098B21BE62D9D00CDACD1 /* SearchViewController.swift */; };
+		7152C1431BE3452400A44945 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7152C1421BE3452400A44945 /* AppDelegate.swift */; };
+		7152C1481BE3452400A44945 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7152C1461BE3452400A44945 /* Main.storyboard */; };
+		7152C14A1BE3452400A44945 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7152C1491BE3452400A44945 /* Assets.xcassets */; };
+		7152C14D1BE3452400A44945 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7152C14B1BE3452400A44945 /* LaunchScreen.storyboard */; };
+		7152C18C1BE34F1B00A44945 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7152C17A1BE34F1B00A44945 /* AFHTTPRequestOperation.m */; };
+		7152C18D1BE34F1B00A44945 /* AFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7152C17C1BE34F1B00A44945 /* AFHTTPRequestOperationManager.m */; };
+		7152C18E1BE34F1B00A44945 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7152C17E1BE34F1B00A44945 /* AFHTTPSessionManager.m */; };
+		7152C18F1BE34F1B00A44945 /* AFNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7152C1811BE34F1B00A44945 /* AFNetworkReachabilityManager.m */; };
+		7152C1901BE34F1B00A44945 /* AFSecurityPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7152C1831BE34F1B00A44945 /* AFSecurityPolicy.m */; };
+		7152C1911BE34F1B00A44945 /* AFURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7152C1851BE34F1B00A44945 /* AFURLConnectionOperation.m */; };
+		7152C1921BE34F1B00A44945 /* AFURLRequestSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 7152C1871BE34F1B00A44945 /* AFURLRequestSerialization.m */; };
+		7152C1931BE34F1B00A44945 /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 7152C1891BE34F1B00A44945 /* AFURLResponseSerialization.m */; };
+		7152C1941BE34F1B00A44945 /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7152C18B1BE34F1B00A44945 /* AFURLSessionManager.m */; };
+		7152C1D71BE3E41E00A44945 /* Kanna.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7152C1D61BE3E41E00A44945 /* Kanna.framework */; };
+		7152C1DA1BE4F97200A44945 /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7152C1D91BE4F97200A44945 /* CollectionViewController.swift */; };
+		7152C1DC1BE4F9AC00A44945 /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7152C1DB1BE4F9AC00A44945 /* ImageCell.swift */; };
+		719589311BE533940036555E /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719589301BE533940036555E /* Extension.swift */; };
+		719589331BE53C110036555E /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719589321BE53C110036555E /* DetailViewController.swift */; };
+		71FA55731BE55DE800E57198 /* JTSAnimatedGIFUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 71FA55681BE55DE800E57198 /* JTSAnimatedGIFUtility.m */; };
+		71FA55741BE55DE800E57198 /* JTSImageInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 71FA556A1BE55DE800E57198 /* JTSImageInfo.m */; };
+		71FA55751BE55DE800E57198 /* JTSImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71FA556C1BE55DE800E57198 /* JTSImageViewController.m */; };
+		71FA55761BE55DE800E57198 /* JTSSimpleImageDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 71FA556E1BE55DE800E57198 /* JTSSimpleImageDownloader.m */; };
+		71FA55771BE55DE800E57198 /* UIApplication+JTSImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71FA55701BE55DE800E57198 /* UIApplication+JTSImageViewController.m */; };
+		71FA55781BE55DE800E57198 /* UIImage+JTSImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 71FA55721BE55DE800E57198 /* UIImage+JTSImageEffects.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		7152C1751BE347B300A44945 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		711098B21BE62D9D00CDACD1 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		7152C13F1BE3452400A44945 /* KonaBot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KonaBot.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7152C1421BE3452400A44945 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		7152C1471BE3452400A44945 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		7152C1491BE3452400A44945 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		7152C14C1BE3452400A44945 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		7152C14E1BE3452400A44945 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7152C1791BE34F1B00A44945 /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
+		7152C17A1BE34F1B00A44945 /* AFHTTPRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPRequestOperation.m; sourceTree = "<group>"; };
+		7152C17B1BE34F1B00A44945 /* AFHTTPRequestOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperationManager.h; sourceTree = "<group>"; };
+		7152C17C1BE34F1B00A44945 /* AFHTTPRequestOperationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPRequestOperationManager.m; sourceTree = "<group>"; };
+		7152C17D1BE34F1B00A44945 /* AFHTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPSessionManager.h; sourceTree = "<group>"; };
+		7152C17E1BE34F1B00A44945 /* AFHTTPSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPSessionManager.m; sourceTree = "<group>"; };
+		7152C17F1BE34F1B00A44945 /* AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworking.h; sourceTree = "<group>"; };
+		7152C1801BE34F1B00A44945 /* AFNetworkReachabilityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworkReachabilityManager.h; sourceTree = "<group>"; };
+		7152C1811BE34F1B00A44945 /* AFNetworkReachabilityManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNetworkReachabilityManager.m; sourceTree = "<group>"; };
+		7152C1821BE34F1B00A44945 /* AFSecurityPolicy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFSecurityPolicy.h; sourceTree = "<group>"; };
+		7152C1831BE34F1B00A44945 /* AFSecurityPolicy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFSecurityPolicy.m; sourceTree = "<group>"; };
+		7152C1841BE34F1B00A44945 /* AFURLConnectionOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLConnectionOperation.h; sourceTree = "<group>"; };
+		7152C1851BE34F1B00A44945 /* AFURLConnectionOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLConnectionOperation.m; sourceTree = "<group>"; };
+		7152C1861BE34F1B00A44945 /* AFURLRequestSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLRequestSerialization.h; sourceTree = "<group>"; };
+		7152C1871BE34F1B00A44945 /* AFURLRequestSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLRequestSerialization.m; sourceTree = "<group>"; };
+		7152C1881BE34F1B00A44945 /* AFURLResponseSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLResponseSerialization.h; sourceTree = "<group>"; };
+		7152C1891BE34F1B00A44945 /* AFURLResponseSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLResponseSerialization.m; sourceTree = "<group>"; };
+		7152C18A1BE34F1B00A44945 /* AFURLSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLSessionManager.h; sourceTree = "<group>"; };
+		7152C18B1BE34F1B00A44945 /* AFURLSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLSessionManager.m; sourceTree = "<group>"; };
+		7152C1971BE34FBF00A44945 /* KonaBot-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "KonaBot-Bridging-Header.h"; sourceTree = "<group>"; };
+		7152C1D61BE3E41E00A44945 /* Kanna.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Kanna.framework; path = Carthage/Build/iOS/Kanna.framework; sourceTree = "<group>"; };
+		7152C1D91BE4F97200A44945 /* CollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
+		7152C1DB1BE4F9AC00A44945 /* ImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
+		719589301BE533940036555E /* Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		719589321BE53C110036555E /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		71FA55671BE55DE800E57198 /* JTSAnimatedGIFUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTSAnimatedGIFUtility.h; sourceTree = "<group>"; };
+		71FA55681BE55DE800E57198 /* JTSAnimatedGIFUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTSAnimatedGIFUtility.m; sourceTree = "<group>"; };
+		71FA55691BE55DE800E57198 /* JTSImageInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTSImageInfo.h; sourceTree = "<group>"; };
+		71FA556A1BE55DE800E57198 /* JTSImageInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTSImageInfo.m; sourceTree = "<group>"; };
+		71FA556B1BE55DE800E57198 /* JTSImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTSImageViewController.h; sourceTree = "<group>"; };
+		71FA556C1BE55DE800E57198 /* JTSImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTSImageViewController.m; sourceTree = "<group>"; };
+		71FA556D1BE55DE800E57198 /* JTSSimpleImageDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTSSimpleImageDownloader.h; sourceTree = "<group>"; };
+		71FA556E1BE55DE800E57198 /* JTSSimpleImageDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTSSimpleImageDownloader.m; sourceTree = "<group>"; };
+		71FA556F1BE55DE800E57198 /* UIApplication+JTSImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIApplication+JTSImageViewController.h"; sourceTree = "<group>"; };
+		71FA55701BE55DE800E57198 /* UIApplication+JTSImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIApplication+JTSImageViewController.m"; sourceTree = "<group>"; };
+		71FA55711BE55DE800E57198 /* UIImage+JTSImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+JTSImageEffects.h"; sourceTree = "<group>"; };
+		71FA55721BE55DE800E57198 /* UIImage+JTSImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+JTSImageEffects.m"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		7152C13C1BE3452400A44945 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7152C1D71BE3E41E00A44945 /* Kanna.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		7152C1361BE3452400A44945 = {
+			isa = PBXGroup;
+			children = (
+				7152C1D61BE3E41E00A44945 /* Kanna.framework */,
+				7152C1411BE3452400A44945 /* KonaBot */,
+				7152C1401BE3452400A44945 /* Products */,
+				71FA55661BE55DE800E57198 /* JTSImageViewController */,
+				7152C1781BE34F1B00A44945 /* AFNetworking */,
+			);
+			sourceTree = "<group>";
+		};
+		7152C1401BE3452400A44945 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7152C13F1BE3452400A44945 /* KonaBot.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7152C1411BE3452400A44945 /* KonaBot */ = {
+			isa = PBXGroup;
+			children = (
+				7152C1421BE3452400A44945 /* AppDelegate.swift */,
+				711098B21BE62D9D00CDACD1 /* SearchViewController.swift */,
+				719589321BE53C110036555E /* DetailViewController.swift */,
+				719589301BE533940036555E /* Extension.swift */,
+				7152C1D91BE4F97200A44945 /* CollectionViewController.swift */,
+				7152C1DB1BE4F9AC00A44945 /* ImageCell.swift */,
+				7152C1461BE3452400A44945 /* Main.storyboard */,
+				7152C1491BE3452400A44945 /* Assets.xcassets */,
+				7152C14B1BE3452400A44945 /* LaunchScreen.storyboard */,
+				7152C14E1BE3452400A44945 /* Info.plist */,
+				7152C1971BE34FBF00A44945 /* KonaBot-Bridging-Header.h */,
+			);
+			path = KonaBot;
+			sourceTree = "<group>";
+		};
+		7152C1781BE34F1B00A44945 /* AFNetworking */ = {
+			isa = PBXGroup;
+			children = (
+				7152C1791BE34F1B00A44945 /* AFHTTPRequestOperation.h */,
+				7152C17A1BE34F1B00A44945 /* AFHTTPRequestOperation.m */,
+				7152C17B1BE34F1B00A44945 /* AFHTTPRequestOperationManager.h */,
+				7152C17C1BE34F1B00A44945 /* AFHTTPRequestOperationManager.m */,
+				7152C17D1BE34F1B00A44945 /* AFHTTPSessionManager.h */,
+				7152C17E1BE34F1B00A44945 /* AFHTTPSessionManager.m */,
+				7152C17F1BE34F1B00A44945 /* AFNetworking.h */,
+				7152C1801BE34F1B00A44945 /* AFNetworkReachabilityManager.h */,
+				7152C1811BE34F1B00A44945 /* AFNetworkReachabilityManager.m */,
+				7152C1821BE34F1B00A44945 /* AFSecurityPolicy.h */,
+				7152C1831BE34F1B00A44945 /* AFSecurityPolicy.m */,
+				7152C1841BE34F1B00A44945 /* AFURLConnectionOperation.h */,
+				7152C1851BE34F1B00A44945 /* AFURLConnectionOperation.m */,
+				7152C1861BE34F1B00A44945 /* AFURLRequestSerialization.h */,
+				7152C1871BE34F1B00A44945 /* AFURLRequestSerialization.m */,
+				7152C1881BE34F1B00A44945 /* AFURLResponseSerialization.h */,
+				7152C1891BE34F1B00A44945 /* AFURLResponseSerialization.m */,
+				7152C18A1BE34F1B00A44945 /* AFURLSessionManager.h */,
+				7152C18B1BE34F1B00A44945 /* AFURLSessionManager.m */,
+			);
+			name = AFNetworking;
+			path = AFNetworking/AFNetworking;
+			sourceTree = "<group>";
+		};
+		71FA55661BE55DE800E57198 /* JTSImageViewController */ = {
+			isa = PBXGroup;
+			children = (
+				71FA55671BE55DE800E57198 /* JTSAnimatedGIFUtility.h */,
+				71FA55681BE55DE800E57198 /* JTSAnimatedGIFUtility.m */,
+				71FA55691BE55DE800E57198 /* JTSImageInfo.h */,
+				71FA556A1BE55DE800E57198 /* JTSImageInfo.m */,
+				71FA556B1BE55DE800E57198 /* JTSImageViewController.h */,
+				71FA556C1BE55DE800E57198 /* JTSImageViewController.m */,
+				71FA556D1BE55DE800E57198 /* JTSSimpleImageDownloader.h */,
+				71FA556E1BE55DE800E57198 /* JTSSimpleImageDownloader.m */,
+				71FA556F1BE55DE800E57198 /* UIApplication+JTSImageViewController.h */,
+				71FA55701BE55DE800E57198 /* UIApplication+JTSImageViewController.m */,
+				71FA55711BE55DE800E57198 /* UIImage+JTSImageEffects.h */,
+				71FA55721BE55DE800E57198 /* UIImage+JTSImageEffects.m */,
+			);
+			path = JTSImageViewController;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		7152C13E1BE3452400A44945 /* KonaBot */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7152C1511BE3452400A44945 /* Build configuration list for PBXNativeTarget "KonaBot" */;
+			buildPhases = (
+				7152C13B1BE3452400A44945 /* Sources */,
+				7152C13C1BE3452400A44945 /* Frameworks */,
+				7152C13D1BE3452400A44945 /* Resources */,
+				7152C1751BE347B300A44945 /* Embed Frameworks */,
+				7152C1D81BE3E43B00A44945 /* Run Script */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = KonaBot;
+			productName = KonaBot;
+			productReference = 7152C13F1BE3452400A44945 /* KonaBot.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		7152C1371BE3452400A44945 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0710;
+				LastUpgradeCheck = 0710;
+				ORGANIZATIONNAME = "Alex Ling";
+				TargetAttributes = {
+					7152C13E1BE3452400A44945 = {
+						CreatedOnToolsVersion = 7.1;
+					};
+				};
+			};
+			buildConfigurationList = 7152C13A1BE3452400A44945 /* Build configuration list for PBXProject "KonaBot" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 7152C1361BE3452400A44945;
+			productRefGroup = 7152C1401BE3452400A44945 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				7152C13E1BE3452400A44945 /* KonaBot */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		7152C13D1BE3452400A44945 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7152C14D1BE3452400A44945 /* LaunchScreen.storyboard in Resources */,
+				7152C14A1BE3452400A44945 /* Assets.xcassets in Resources */,
+				7152C1481BE3452400A44945 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		7152C1D81BE3E43B00A44945 /* Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/Kanna.framework",
+			);
+			name = "Run Script";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		7152C13B1BE3452400A44945 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				71FA55731BE55DE800E57198 /* JTSAnimatedGIFUtility.m in Sources */,
+				7152C1DA1BE4F97200A44945 /* CollectionViewController.swift in Sources */,
+				7152C1921BE34F1B00A44945 /* AFURLRequestSerialization.m in Sources */,
+				7152C1911BE34F1B00A44945 /* AFURLConnectionOperation.m in Sources */,
+				7152C1901BE34F1B00A44945 /* AFSecurityPolicy.m in Sources */,
+				7152C18C1BE34F1B00A44945 /* AFHTTPRequestOperation.m in Sources */,
+				7152C1941BE34F1B00A44945 /* AFURLSessionManager.m in Sources */,
+				7152C1931BE34F1B00A44945 /* AFURLResponseSerialization.m in Sources */,
+				71FA55781BE55DE800E57198 /* UIImage+JTSImageEffects.m in Sources */,
+				7152C18E1BE34F1B00A44945 /* AFHTTPSessionManager.m in Sources */,
+				71FA55761BE55DE800E57198 /* JTSSimpleImageDownloader.m in Sources */,
+				719589311BE533940036555E /* Extension.swift in Sources */,
+				7152C18D1BE34F1B00A44945 /* AFHTTPRequestOperationManager.m in Sources */,
+				71FA55771BE55DE800E57198 /* UIApplication+JTSImageViewController.m in Sources */,
+				7152C18F1BE34F1B00A44945 /* AFNetworkReachabilityManager.m in Sources */,
+				711098B31BE62D9D00CDACD1 /* SearchViewController.swift in Sources */,
+				719589331BE53C110036555E /* DetailViewController.swift in Sources */,
+				71FA55751BE55DE800E57198 /* JTSImageViewController.m in Sources */,
+				7152C1431BE3452400A44945 /* AppDelegate.swift in Sources */,
+				71FA55741BE55DE800E57198 /* JTSImageInfo.m in Sources */,
+				7152C1DC1BE4F9AC00A44945 /* ImageCell.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		7152C1461BE3452400A44945 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7152C1471BE3452400A44945 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		7152C14B1BE3452400A44945 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7152C14C1BE3452400A44945 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		7152C14F1BE3452400A44945 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		7152C1501BE3452400A44945 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		7152C1521BE3452400A44945 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
+				INFOPLIST_FILE = KonaBot/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = hkalexling.KonaBot;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "KonaBot/KonaBot-Bridging-Header.h";
+			};
+			name = Debug;
+		};
+		7152C1531BE3452400A44945 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
+				INFOPLIST_FILE = KonaBot/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = hkalexling.KonaBot;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "KonaBot/KonaBot-Bridging-Header.h";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		7152C13A1BE3452400A44945 /* Build configuration list for PBXProject "KonaBot" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7152C14F1BE3452400A44945 /* Debug */,
+				7152C1501BE3452400A44945 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7152C1511BE3452400A44945 /* Build configuration list for PBXNativeTarget "KonaBot" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7152C1521BE3452400A44945 /* Debug */,
+				7152C1531BE3452400A44945 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 7152C1371BE3452400A44945 /* Project object */;
+}

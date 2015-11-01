@@ -1,0 +1,157 @@
+//
+//  DetailViewController.swift
+//  KonaBot
+//
+//  Created by Alex Ling on 1/11/2015.
+//  Copyright © 2015 Alex Ling. All rights reserved.
+//
+
+import UIKit
+import Kanna
+
+class DetailViewController: UIViewController, JTSImageViewControllerInteractionsDelegate{
+	
+	var smallImage : UIImage!
+	var detailImageView: UIImageView!
+	var postUrl : String!
+	var heightOverWidth : CGFloat!
+	
+	var imageViewer = JTSImageViewController()
+	
+	var finishedDownload : Bool = false
+	var urlStr : String?
+	
+    override func viewDidLoad() {
+        super.viewDidLoad()
+		
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("downloaded:"), name: "finishedDownloading", object: nil)
+		
+		detailImageView = UIImageView()
+		let width = UIScreen.mainScreen().bounds.width
+		let height = width * self.heightOverWidth
+		detailImageView.frame = CGRectMake(0, UIScreen.mainScreen().bounds.height/2 - height/2, width, height)
+		detailImageView.userInteractionEnabled = true
+		self.view.addSubview(detailImageView)
+		
+		self.detailImageView.image = self.smallImage
+        self.getHtml("http://konachan.net\(postUrl)")
+		
+		let tapRecognizer : UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: Selector("tapped:"))
+		self.detailImageView.addGestureRecognizer(tapRecognizer)
+    }
+	
+	func downloaded(sender : NSNotification){
+		if (self.imageViewer.image != nil){
+			self.detailImageView.image = self.imageViewer.image
+			self.finishedDownload = true
+		}
+	}
+	
+	func tapped(sender : UIGestureRecognizer){
+		if (self.urlStr != nil){
+			let imageInfo = JTSImageInfo()
+			if self.finishedDownload{
+				imageInfo.image = self.detailImageView.image
+			}
+			else{
+				imageInfo.imageURL = NSURL(string: self.urlStr!)
+			}
+			imageInfo.referenceRect = self.detailImageView.frame
+			imageInfo.referenceView = self.detailImageView.superview
+			
+			self.imageViewer = JTSImageViewController(imageInfo: imageInfo, mode: JTSImageViewControllerMode.Image, backgroundStyle: [.Blurred, .Scaled])
+			self.imageViewer.interactionsDelegate = self
+			
+			imageViewer.showFromViewController(self, transition: .FromOriginalPosition)
+		}
+	}
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+	
+	func getHtml(url : String){
+		let manager : AFHTTPRequestOperationManager = AFHTTPRequestOperationManager()
+		manager.responseSerializer = AFHTTPResponseSerializer()
+		
+		manager.GET(url, parameters: nil,
+			success: {(operation, responseObject) -> Void in
+				
+				let html : NSString = NSString(data: responseObject as! NSData, encoding: NSASCIIStringEncoding)!
+				self.parse(html as String)
+				
+			}, failure: {(operation, error) -> Void in
+				print ("Error : \(error)")
+		})
+	}
+	
+	func parse(htmlString : String){
+		if let doc = Kanna.HTML(html: htmlString, encoding: NSUTF8StringEncoding) {
+			for div in doc.css("div#right-col"){
+				let img = div.css("img")[1]
+				downloadImg(img["src"]!)
+				return
+			}
+		}
+	}
+	
+	func downloadImg(url : String){
+		self.urlStr = url
+		let imageInfo = JTSImageInfo()
+		imageInfo.imageURL = NSURL(string: url)
+		imageInfo.referenceRect = self.detailImageView.frame
+		imageInfo.referenceView = self.detailImageView.superview
+		
+		self.imageViewer = JTSImageViewController(imageInfo: imageInfo, mode: JTSImageViewControllerMode.Image, backgroundStyle: [.Blurred, .Scaled])
+		self.imageViewer.interactionsDelegate = self
+		
+		imageViewer.showFromViewController(self, transition: .FromOriginalPosition)
+	}
+	
+	func imageViewerDidLongPress(imageViewer: JTSImageViewController!, atRect rect: CGRect) {
+		
+		let image = self.detailImageView.image!
+		
+		let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+		
+		let saveAction = UIAlertAction(title: "Save Image", style: .Default, handler: {(alert : UIAlertAction) -> Void in
+			UIImageWriteToSavedPhotosAlbum(image, self, Selector("imageSaved:didFinishSavingWithError:contextInfo:"), nil)
+		})
+		
+		let copyAction = UIAlertAction(title: "Copy Image", style: .Default, handler: {(alert : UIAlertAction) -> Void in
+			UIPasteboard.generalPasteboard().image = image
+			self.alertWithOkButton("Image Copied", message: "This image has been copied to your clipboard")
+		})
+		
+		let copyLinkAction = UIAlertAction(title: "Copy Image URL", style: .Default, handler: {(alert : UIAlertAction) -> Void in
+			UIPasteboard.generalPasteboard().string = self.urlStr!
+			self.alertWithOkButton("URL Copied", message: "This image URL has been copied to your clipboard")
+		})
+		
+		let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+		
+		sheet.addAction(saveAction)
+		sheet.addAction(copyAction)
+		sheet.addAction(copyLinkAction)
+		sheet.addAction(cancelAction)
+		
+		if let popoverController = sheet.popoverPresentationController {
+			popoverController.sourceView = self.detailImageView
+			popoverController.sourceRect = self.detailImageView.bounds
+		}
+		
+		self.imageViewer.presentViewController(sheet, animated: true, completion: nil)
+	}
+	
+	func imageSaved(image: UIImage, didFinishSavingWithError error: NSErrorPointer, contextInfo: UnsafePointer<()>) {
+		dispatch_async(dispatch_get_main_queue(), {
+			self.alertWithOkButton("Image Saved", message: "This image has been saved to your camera roll")
+		})
+	}
+	
+	func alertWithOkButton(title : String?, message : String?){
+		dispatch_async(dispatch_get_main_queue(), {
+			UIAlertView(title: title, message: message, delegate: nil, cancelButtonTitle: "OK").show()
+		})
+	}
+}
