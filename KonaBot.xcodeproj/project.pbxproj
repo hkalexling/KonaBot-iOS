@@ -17,9 +17,9 @@
 		713B7B041BE653300038A34A /* AFURLRequestSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 713B7AF91BE653300038A34A /* AFURLRequestSerialization.m */; };
 		713B7B051BE653300038A34A /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 713B7AFB1BE653300038A34A /* AFURLResponseSerialization.m */; };
 		713B7B061BE653300038A34A /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 713B7AFD1BE653300038A34A /* AFURLSessionManager.m */; };
+		713B7B081BE681430038A34A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 713B7B071BE681430038A34A /* Assets.xcassets */; };
 		7152C1431BE3452400A44945 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7152C1421BE3452400A44945 /* AppDelegate.swift */; };
 		7152C1481BE3452400A44945 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7152C1461BE3452400A44945 /* Main.storyboard */; };
-		7152C14A1BE3452400A44945 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7152C1491BE3452400A44945 /* Assets.xcassets */; };
 		7152C14D1BE3452400A44945 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7152C14B1BE3452400A44945 /* LaunchScreen.storyboard */; };
 		7152C1D71BE3E41E00A44945 /* Kanna.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7152C1D61BE3E41E00A44945 /* Kanna.framework */; };
 		7152C1DA1BE4F97200A44945 /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7152C1D91BE4F97200A44945 /* CollectionViewController.swift */; };
@@ -68,10 +68,10 @@
 		713B7AFB1BE653300038A34A /* AFURLResponseSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLResponseSerialization.m; sourceTree = "<group>"; };
 		713B7AFC1BE653300038A34A /* AFURLSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLSessionManager.h; sourceTree = "<group>"; };
 		713B7AFD1BE653300038A34A /* AFURLSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLSessionManager.m; sourceTree = "<group>"; };
+		713B7B071BE681430038A34A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7152C13F1BE3452400A44945 /* KonaBot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KonaBot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7152C1421BE3452400A44945 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7152C1471BE3452400A44945 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		7152C1491BE3452400A44945 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7152C14C1BE3452400A44945 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7152C14E1BE3452400A44945 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7152C1971BE34FBF00A44945 /* KonaBot-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "KonaBot-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -154,6 +154,7 @@
 		7152C1411BE3452400A44945 /* KonaBot */ = {
 			isa = PBXGroup;
 			children = (
+				713B7B071BE681430038A34A /* Assets.xcassets */,
 				7152C1421BE3452400A44945 /* AppDelegate.swift */,
 				711098B21BE62D9D00CDACD1 /* SearchViewController.swift */,
 				719589321BE53C110036555E /* DetailViewController.swift */,
@@ -161,7 +162,6 @@
 				7152C1D91BE4F97200A44945 /* CollectionViewController.swift */,
 				7152C1DB1BE4F9AC00A44945 /* ImageCell.swift */,
 				7152C1461BE3452400A44945 /* Main.storyboard */,
-				7152C1491BE3452400A44945 /* Assets.xcassets */,
 				7152C14B1BE3452400A44945 /* LaunchScreen.storyboard */,
 				7152C14E1BE3452400A44945 /* Info.plist */,
 				7152C1971BE34FBF00A44945 /* KonaBot-Bridging-Header.h */,
@@ -249,7 +249,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7152C14D1BE3452400A44945 /* LaunchScreen.storyboard in Resources */,
-				7152C14A1BE3452400A44945 /* Assets.xcassets in Resources */,
+				713B7B081BE681430038A34A /* Assets.xcassets in Resources */,
 				7152C1481BE3452400A44945 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
