@@ -36,6 +36,12 @@ public extension UIImage {
 	}
 }
 
+public extension Int{
+	static func randInRange(range: Range<Int>) -> Int {
+		return  Int(arc4random_uniform(UInt32(range.endIndex - range.startIndex))) + range.startIndex
+	}
+}
+
 public extension CGSize {
 	static func screenSize() -> CGSize {
 		return UIScreen.mainScreen().bounds.size
