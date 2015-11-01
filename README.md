@@ -1,3 +1,3 @@
 # KonaBot-iOS
 
-A WIP unofficial client for Konachan.net
+A WIP unofficial iOS client for [Konachan.net](http://konachan.net)
