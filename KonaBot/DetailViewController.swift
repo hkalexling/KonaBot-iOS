@@ -157,6 +157,10 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 			self.stared()
 		})
 		
+		let unfavoriteAction = UIAlertAction(title: "Unfavorite", style: .Default, handler: {(alert : UIAlertAction) -> Void in
+			self.unstared()
+		})
+		
 		let copyAction = UIAlertAction(title: "Copy Image", style: .Default, handler: {(alert : UIAlertAction) -> Void in
 			UIPasteboard.generalPasteboard().image = image
 			self.alertWithOkButton("Image Copied", message: "This image has been copied to your clipboard")
@@ -174,7 +178,12 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 		let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
 		
 		sheet.addAction(saveAction)
-		sheet.addAction(favoriteAction)
+		if (self.favoriteList.contains(self.postUrl)){
+			sheet.addAction(unfavoriteAction)
+		}
+		else{
+			sheet.addAction(favoriteAction)
+		}
 		sheet.addAction(copyAction)
 		sheet.addAction(copyLinkAction)
 		sheet.addAction(openAction)

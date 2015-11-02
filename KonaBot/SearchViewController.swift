@@ -237,7 +237,11 @@ class SearchViewController: UIViewController, UISearchBarDelegate {
 					if (td.className != nil){
 						if (td.className! == "tag-type-general"){
 							if(td.text != nil){
-								self.topTags.append(td.text!.stringByReplacingOccurrencesOfString("\n", withString: "").stringByReplacingOccurrencesOfString(" ", withString: "").stringByReplacingOccurrencesOfString("?", withString: ""))
+								let tag = td.text!.stringByReplacingOccurrencesOfString("\n", withString: "").stringByReplacingOccurrencesOfString(" ", withString: "").stringByReplacingOccurrencesOfString("?", withString: "")
+								if (tag == "nipples"){continue}
+								else{
+									self.topTags.append(tag)
+								}
 							}
 						}
 					}
