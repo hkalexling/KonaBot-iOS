@@ -78,7 +78,7 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 		if (self.imageViewer.image != nil){
 			self.detailImageView.image = self.imageViewer.image
 			self.finishedDownload = true
-			self.save(NSKeyedArchiver.archivedDataWithRootObject(self.detailImageView.image!), key: self.postUrl)
+			self.saveImageWithKey(self.detailImageView.image!, key: self.postUrl)
 		}
 	}
 	
@@ -89,7 +89,7 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 				imageInfo.image = self.detailImageView.image
 			}
 			else{
-				if let img = self.read(self.postUrl){
+				if let img = self.fetchImageWithKey(self.postUrl){
 					imageInfo.image = img
 				}
 				else{
@@ -141,7 +141,7 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 		imageInfo.referenceRect = self.detailImageView.frame
 		imageInfo.referenceView = self.detailImageView.superview
 		
-		if let img = self.read(self.postUrl){
+		if let img = self.fetchImageWithKey(self.postUrl){
 			imageInfo.image = img
 		}
 		else{
@@ -220,7 +220,8 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 		})
 	}
 	
-	func save(data : NSData, key : String){
+	func saveImageWithKey(image : UIImage, key : String){
+		let data = NSKeyedArchiver.archivedDataWithRootObject(image)
 		let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
 		let managedContext = appDelegate.managedObjectContext
 		let entity = NSEntityDescription.entityForName("Image",
@@ -232,9 +233,15 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 		options.setValue(key, forKey: "key")
 		
 		self.imageCoreData.append(options)
+		do {
+			try managedContext.save()
+		}
+		catch{
+			print (error)
+		}
 	}
 	
-	func read(key : String) -> UIImage?{
+	func fetchImageWithKey(key : String) -> UIImage?{
 		let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
 		let managedContext = appDelegate.managedObjectContext
 		let fetchRequest = NSFetchRequest(entityName: "Image")
