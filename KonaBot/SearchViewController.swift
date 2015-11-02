@@ -9,10 +9,10 @@
 import UIKit
 import Kanna
 
-class SearchViewController: UIViewController, UITextFieldDelegate{
+class SearchViewController: UIViewController, UISearchBarDelegate {
 
-	@IBOutlet weak var searchTextField: UITextField!
 	@IBOutlet weak var noResultLabel: UILabel!
+	var searchBar:UISearchBar = UISearchBar()
 	
 	var loading : RZSquaresLoading!
 	
@@ -30,13 +30,16 @@ class SearchViewController: UIViewController, UITextFieldDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
 		
+		self.searchBar.frame = CGRectMake(0, 0, CGSize.screenSize().width, 20)
+		self.searchBar.placeholder = "Search tag"
+		self.navigationItem.titleView = self.searchBar
+		
 		let loadingSize : CGFloat = 80
 		self.loading = RZSquaresLoading(frame: CGRectMake((CGSize.screenSize().width - loadingSize)/2, (CGSize.screenSize().height - loadingSize)/2, loadingSize, loadingSize))
 		self.loading.color = UIColor.lightGrayColor()
 		self.view.addSubview(self.loading)
-		
-		self.searchTextField.frame = CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, self.searchTextField.bounds.height)
-		self.searchTextField.delegate = self
+
+		self.searchBar.delegate = self
 		
 		let tapRecognizer : UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: Selector("hideKeyboard"))
 		self.view.addGestureRecognizer(tapRecognizer)
@@ -83,18 +86,17 @@ class SearchViewController: UIViewController, UITextFieldDelegate{
     }
 	
 	func hideKeyboard(){
-		self.searchTextField.endEditing(true)
+		self.searchBar.endEditing(true)
 	}
 	
-	func textFieldShouldReturn(textField: UITextField) -> Bool {
+	func searchBarSearchButtonClicked(searchBar: UISearchBar) {
 		self.hideKeyboard()
-		var searchText = self.searchTextField.text!
+		var searchText = self.searchBar.text!
 		searchText = self.prepareSearchKeyword(searchText)
 		if (!searchText.isEmpty){
 			self.keyword = searchText
 			self.handleSearch()
 		}
-		return true
 	}
 	
 	func prepareSearchKeyword(keyword : String) -> String{
@@ -137,8 +139,9 @@ class SearchViewController: UIViewController, UITextFieldDelegate{
 		let count = self.suggestedTag.count
 		let y = CGSize.screenSize().height/2 - CGFloat(count)/2.0 * buttonHeight - CGFloat(count - 1)/2.0 * buttonGap
 		
-		self.youMeantLabel = UILabel(frame: CGRectMake(0, y, CGSize.screenSize().width, buttonHeight))
+		self.youMeantLabel = UILabel(frame: CGRectMake(0, y - 10, CGSize.screenSize().width, buttonHeight))
 		self.youMeantLabel!.text = "Maybe you meant..."
+		self.youMeantLabel!.font = UIFont.systemFontOfSize(20)
 		self.youMeantLabel!.backgroundColor = UIColor.whiteColor()
 		self.youMeantLabel!.textColor = UIColor.blackColor()
 		self.youMeantLabel!.textAlignment = NSTextAlignment.Center
@@ -180,8 +183,9 @@ class SearchViewController: UIViewController, UITextFieldDelegate{
 			self.topTagLabel.hidden = false
 		}
 		else{
-			self.topTagLabel = UILabel(frame: CGRectMake(0, y, CGSize.screenSize().width, buttonHeight))
+			self.topTagLabel = UILabel(frame: CGRectMake(0, y - 10, CGSize.screenSize().width, buttonHeight))
 			self.topTagLabel.text = "Top Tags:"
+			self.topTagLabel.font =  UIFont.systemFontOfSize(20)
 			self.topTagLabel.backgroundColor = UIColor.whiteColor()
 			self.topTagLabel.textColor = UIColor.blackColor()
 			self.topTagLabel.textAlignment = NSTextAlignment.Center
@@ -202,7 +206,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate{
 	func suggestionButtonTapped(sender : UIButton){
 		let suggestion : String = sender.titleLabel!.text!
 		self.keyword = suggestion
-		self.searchTextField.text = suggestion
+		self.searchBar.text = suggestion
 		self.handleSearch()
 	}
 	

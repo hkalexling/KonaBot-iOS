@@ -9,7 +9,7 @@
         <!--Collection View Controller-->
         <scene sceneID="HOK-ex-Y4u">
             <objects>
-                <collectionViewController id="Aaz-Fh-3ff" customClass="CollectionViewController" customModule="KonaBot" customModuleProvider="target" sceneMemberID="viewController">
+                <collectionViewController storyboardIdentifier="collectionVC" id="Aaz-Fh-3ff" customClass="CollectionViewController" customModule="KonaBot" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="6i6-5K-8L3">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -74,17 +74,18 @@
                     <connections>
                         <segue destination="5Tu-Qa-rFc" kind="relationship" relationship="viewControllers" id="wE8-hJ-KQn"/>
                         <segue destination="bZX-o9-3q1" kind="relationship" relationship="viewControllers" id="swO-kq-xtE"/>
+                        <segue destination="8uV-I2-dD5" kind="relationship" relationship="viewControllers" id="A3y-Ks-3KG"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FCV-8k-N9M" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1216" y="403"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Featured-->
         <scene sceneID="bt1-Jj-roU">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="5Tu-Qa-rFc" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" systemItem="featured" id="DoI-zp-Lyz"/>
+                <navigationController title="Featured" automaticallyAdjustsScrollViewInsets="NO" id="5Tu-Qa-rFc" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Featured" image="Home" selectedImage="Home" id="DoI-zp-Lyz"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="E77-JD-xZP">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -147,18 +148,10 @@
                     </view>
                     <navigationItem key="navigationItem" id="gb6-h5-sdU">
                         <nil key="title"/>
-                        <textField key="titleView" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Search" textAlignment="center" minimumFontSize="17" id="5nn-ve-5oW">
-                            <rect key="frame" x="180" y="7" width="240" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <animations/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <textInputTraits key="textInputTraits"/>
-                        </textField>
                     </navigationItem>
                     <connections>
                         <outlet property="noResultLabel" destination="DN9-f4-XTl" id="Z8X-pe-Khg"/>
                         <outlet property="searchDisplayController" destination="TdQ-U2-dDu" id="vhu-ww-d0K"/>
-                        <outlet property="searchTextField" destination="5nn-ve-5oW" id="xF8-e2-Z0p"/>
                         <segue destination="Aaz-Fh-3ff" kind="show" identifier="segueFromSearchVCToCollectionVC" id="7iG-pN-Fav"/>
                     </connections>
                 </viewController>
@@ -174,8 +167,84 @@
             </objects>
             <point key="canvasLocation" x="2553" y="1184"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="DC9-ZL-R1G">
+            <objects>
+                <navigationController id="8uV-I2-dD5" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" systemItem="favorites" id="C2m-MX-3ok"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="eQC-93-Td6">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="eHr-OC-GV6" kind="relationship" relationship="rootViewController" id="vzH-aQ-JY2"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Pj4-0S-7ZL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1890" y="1921"/>
+        </scene>
+        <!--Favorite Collection View Controller-->
+        <scene sceneID="GkA-Sx-1Jz">
+            <objects>
+                <collectionViewController storyboardIdentifier="favoriteCollectionVC" id="eHr-OC-GV6" customClass="FavoriteCollectionViewController" customModule="KonaBot" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="25Y-VX-YCk">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <animations/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="4hr-Aa-gcb">
+                            <size key="itemSize" width="228" height="171"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ImageCell" id="G52-Us-Pn0" customClass="ImageCell" customModule="KonaBot" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="64" width="228" height="171"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="228" height="171"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mCH-PA-fy4">
+                                            <rect key="frame" x="8" y="8" width="212" height="155"/>
+                                            <animations/>
+                                        </imageView>
+                                    </subviews>
+                                    <animations/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstItem="mCH-PA-fy4" firstAttribute="leading" secondItem="G52-Us-Pn0" secondAttribute="leadingMargin" id="4Gv-ej-6Vd"/>
+                                    <constraint firstAttribute="bottomMargin" secondItem="mCH-PA-fy4" secondAttribute="bottom" id="IUM-RC-meT"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="mCH-PA-fy4" secondAttribute="trailing" id="iGU-jP-NZh"/>
+                                    <constraint firstItem="mCH-PA-fy4" firstAttribute="top" secondItem="G52-Us-Pn0" secondAttribute="topMargin" id="jQu-42-qyq"/>
+                                </constraints>
+                                <size key="customSize" width="228" height="171"/>
+                                <connections>
+                                    <outlet property="imageView" destination="mCH-PA-fy4" id="78X-Cc-Gvq"/>
+                                </connections>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="eHr-OC-GV6" id="QNz-C6-bhY"/>
+                            <outlet property="delegate" destination="eHr-OC-GV6" id="14u-8W-4MQ"/>
+                        </connections>
+                    </collectionView>
+                    <navigationItem key="navigationItem" id="StZ-bF-ECZ"/>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DZP-9p-NN5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2553" y="1921"/>
+        </scene>
     </scenes>
+    <resources>
+        <image name="Home" width="30" height="30"/>
+    </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="7iG-pN-Fav"/>
+        <segue reference="gzH-KP-3rh"/>
     </inferredMetricsTieBreakers>
 </document>

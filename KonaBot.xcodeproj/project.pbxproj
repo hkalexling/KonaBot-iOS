@@ -19,6 +19,7 @@
 		713B7B061BE653300038A34A /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 713B7AFD1BE653300038A34A /* AFURLSessionManager.m */; };
 		713B7B081BE681430038A34A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 713B7B071BE681430038A34A /* Assets.xcassets */; };
 		713B7B0C1BE68B230038A34A /* RZSquaresLoading.m in Sources */ = {isa = PBXBuildFile; fileRef = 713B7B0B1BE68B230038A34A /* RZSquaresLoading.m */; };
+		713B7B101BE7814F0038A34A /* FavoriteCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713B7B0F1BE7814F0038A34A /* FavoriteCollectionViewController.swift */; };
 		7152C1431BE3452400A44945 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7152C1421BE3452400A44945 /* AppDelegate.swift */; };
 		7152C1481BE3452400A44945 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7152C1461BE3452400A44945 /* Main.storyboard */; };
 		7152C14D1BE3452400A44945 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7152C14B1BE3452400A44945 /* LaunchScreen.storyboard */; };
@@ -72,6 +73,7 @@
 		713B7B071BE681430038A34A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		713B7B0A1BE68B230038A34A /* RZSquaresLoading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZSquaresLoading.h; sourceTree = "<group>"; };
 		713B7B0B1BE68B230038A34A /* RZSquaresLoading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZSquaresLoading.m; sourceTree = "<group>"; };
+		713B7B0F1BE7814F0038A34A /* FavoriteCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteCollectionViewController.swift; sourceTree = "<group>"; };
 		7152C13F1BE3452400A44945 /* KonaBot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KonaBot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7152C1421BE3452400A44945 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7152C1471BE3452400A44945 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -169,6 +171,7 @@
 			children = (
 				713B7B071BE681430038A34A /* Assets.xcassets */,
 				7152C1421BE3452400A44945 /* AppDelegate.swift */,
+				713B7B0F1BE7814F0038A34A /* FavoriteCollectionViewController.swift */,
 				711098B21BE62D9D00CDACD1 /* SearchViewController.swift */,
 				719589321BE53C110036555E /* DetailViewController.swift */,
 				719589301BE533940036555E /* Extension.swift */,
@@ -299,6 +302,7 @@
 				71FA55781BE55DE800E57198 /* UIImage+JTSImageEffects.m in Sources */,
 				713B7B031BE653300038A34A /* AFURLConnectionOperation.m in Sources */,
 				713B7AFF1BE653300038A34A /* AFHTTPRequestOperationManager.m in Sources */,
+				713B7B101BE7814F0038A34A /* FavoriteCollectionViewController.swift in Sources */,
 				71FA55761BE55DE800E57198 /* JTSSimpleImageDownloader.m in Sources */,
 				713B7B011BE653300038A34A /* AFNetworkReachabilityManager.m in Sources */,
 				719589311BE533940036555E /* Extension.swift in Sources */,

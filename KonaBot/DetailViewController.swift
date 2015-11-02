@@ -21,6 +21,9 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 	var finishedDownload : Bool = false
 	var urlStr : String?
 	
+	var favoriteList : [String]!
+	var imageList : [UIImage]!
+	
     override func viewDidLoad() {
         super.viewDidLoad()
 		
@@ -39,6 +42,38 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 		let tapRecognizer : UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: Selector("tapped:"))
 		self.detailImageView.addGestureRecognizer(tapRecognizer)
     }
+	
+	override func viewWillAppear(animated: Bool) {
+		self.favoriteList = NSKeyedUnarchiver.unarchiveObjectWithData(NSUserDefaults.standardUserDefaults().objectForKey("favoriteList") as! NSData) as! [String]
+		self.imageList = NSKeyedUnarchiver.unarchiveObjectWithData(NSUserDefaults.standardUserDefaults().objectForKey("imageList") as! NSData) as! [UIImage]
+
+		if (self.favoriteList.contains(self.postUrl)){
+			self.stared()
+		}
+		else{
+			self.unstared()
+		}
+	}
+	
+	func stared(){
+		self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "Star"), style: .Done, target: self, action: Selector("unstared"))
+		if (!self.favoriteList.contains(self.postUrl)){
+			self.favoriteList.append(self.postUrl)
+			self.imageList.append(self.detailImageView.image!)
+			NSUserDefaults.standardUserDefaults().setObject(NSKeyedArchiver.archivedDataWithRootObject(self.favoriteList), forKey: "favoriteList")
+			NSUserDefaults.standardUserDefaults().setObject(NSKeyedArchiver.archivedDataWithRootObject(self.imageList), forKey: "imageList")
+		}
+	}
+	
+	func unstared(){
+		self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "Star Outline"), style: .Done, target: self, action: Selector("stared"))
+		if (self.favoriteList.contains(self.postUrl)){
+			self.favoriteList.removeLast()
+			self.imageList.removeLast()
+			NSUserDefaults.standardUserDefaults().setObject(NSKeyedArchiver.archivedDataWithRootObject(self.favoriteList), forKey: "favoriteList")
+			NSUserDefaults.standardUserDefaults().setObject(NSKeyedArchiver.archivedDataWithRootObject(self.imageList), forKey: "imageList")
+		}
+	}
 	
 	func downloaded(sender : NSNotification){
 		if (self.imageViewer.image != nil){
@@ -125,7 +160,11 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 		
 		let copyLinkAction = UIAlertAction(title: "Copy Image URL", style: .Default, handler: {(alert : UIAlertAction) -> Void in
 			UIPasteboard.generalPasteboard().string = self.urlStr!
-			self.alertWithOkButton("URL Copied", message: "This image URL has been copied to your clipboard")
+			self.alertWithOkButton("URL Copied", message: "The image URL has been copied to your clipboard")
+		})
+		
+		let openAction = UIAlertAction(title: "Open Post in Safari", style: UIAlertActionStyle.Default, handler: {(alert : UIAlertAction) -> Void in
+			UIApplication.sharedApplication().openURL(NSURL(string: "http://konachan.net\(self.postUrl)")!)
 		})
 		
 		let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
@@ -133,6 +172,7 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 		sheet.addAction(saveAction)
 		sheet.addAction(copyAction)
 		sheet.addAction(copyLinkAction)
+		sheet.addAction(openAction)
 		sheet.addAction(cancelAction)
 		
 		if let popoverController = sheet.popoverPresentationController {

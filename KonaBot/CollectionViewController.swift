@@ -23,10 +23,6 @@ class CollectionViewController: UICollectionViewController{
 	
 	var currentPage : Int = 1
 	
-	var selectedSmallImage : UIImage!
-	var selectedPostUrl : String!
-	var selectedHeightOverWidth : CGFloat!
-	
 	var numberOfPagesTried : Int = 0
 	var maxNumberOfPagesToTry : Int = 3
 
@@ -38,10 +34,12 @@ class CollectionViewController: UICollectionViewController{
 		loading.color = UIColor.lightGrayColor()
 		self.view.addSubview(loading)
 		
-		if (!self.fromSearch){
-			navigationItem.leftBarButtonItem = UIBarButtonItem(customView: UIView())
+		if (self.keyword == ""){
+			self.title = "Featured"
 		}
-		self.title = self.keyword
+		else{
+			self.title = self.keyword
+		}
 		self.getHtml("http://konachan.net/post?tags=\(self.keyword)")
     }
 
@@ -85,13 +83,10 @@ class CollectionViewController: UICollectionViewController{
     }
 	
 	override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-		self.selectedPostUrl = self.postUrls[indexPath.row]
-		self.selectedHeightOverWidth = self.heightOverWidth[indexPath.row]
-		self.selectedSmallImage = (self.collectionView!.cellForItemAtIndexPath(indexPath) as! ImageCell).imageView!.image
 		let detailVC : DetailViewController = DetailViewController()
-		detailVC.postUrl = self.selectedPostUrl
-		detailVC.heightOverWidth = self.selectedHeightOverWidth
-		detailVC.smallImage = self.selectedSmallImage
+		detailVC.postUrl = self.postUrls[indexPath.row]
+		detailVC.heightOverWidth = self.heightOverWidth[indexPath.row]
+		detailVC.smallImage =  (self.collectionView!.cellForItemAtIndexPath(indexPath) as! ImageCell).imageView!.image
 		detailVC.view.backgroundColor = UIColor.whiteColor()
 		self.navigationController!.pushViewController(detailVC, animated: true)
 	}

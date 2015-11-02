@@ -16,6 +16,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 		// Override point for customization after application launch.
+		
+		if (NSUserDefaults.standardUserDefaults().objectForKey("favoriteList") == nil){
+			let list : [String] = []
+			let listObject = NSKeyedArchiver.archivedDataWithRootObject(list)
+			NSUserDefaults.standardUserDefaults().setObject(listObject, forKey: "favoriteList")
+		}
+		
+		if (NSUserDefaults.standardUserDefaults().objectForKey("imageList") == nil){
+			let list : [UIImage] = []
+			let listObject = NSKeyedArchiver.archivedDataWithRootObject(list)
+			NSUserDefaults.standardUserDefaults().setObject(listObject, forKey: "imageList")
+		}
+		
 		return true
 	}
 
