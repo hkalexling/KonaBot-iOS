@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import CoreData
 
 public extension UIImage {
 	class func imageWithColor(color: UIColor) -> UIImage {
@@ -122,5 +123,77 @@ public extension UIAlertController {
 		}
 		
 		return alert
+	}
+}
+
+public class Yuno{
+	
+	public var imageCoreData = [NSManagedObject]()
+	
+	public func saveImageWithKey(image : UIImage, key : String){
+		let data = NSKeyedArchiver.archivedDataWithRootObject(image)
+		let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+		let managedContext = appDelegate.managedObjectContext
+		let entity = NSEntityDescription.entityForName("Image",
+			inManagedObjectContext: managedContext)
+		let options = NSManagedObject(entity: entity!,
+			insertIntoManagedObjectContext:managedContext)
+		
+		options.setValue(data, forKey: "fullImage")
+		options.setValue(key, forKey: "key")
+		
+		self.imageCoreData.append(options)
+		do {
+			try managedContext.save()
+		}
+		catch{
+			print (error)
+		}
+	}
+	
+	public func fetchImageWithKey(key : String) -> UIImage?{
+		let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+		let managedContext = appDelegate.managedObjectContext
+		let fetchRequest = NSFetchRequest(entityName: "Image")
+		
+		var fetchedResults : [NSManagedObject] = []
+		do {
+			fetchedResults = try managedContext.executeFetchRequest(fetchRequest) as! [NSManagedObject]
+		}
+		catch{}
+		if fetchedResults.count > 0 {
+			let results = fetchedResults
+			for (var i=0; i < results.count; i++)
+			{
+				let single_result = results[i]
+				if single_result.valueForKey("key") as! String == key {
+					return NSKeyedUnarchiver.unarchiveObjectWithData(single_result.valueForKey("fullImage") as! NSData) as? UIImage
+				}
+			}
+		}
+		return nil
+	}
+	
+	public func deleteRecordForKey(key : String) {
+		let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+		let managedContext = appDelegate.managedObjectContext
+		let fetchRequest = NSFetchRequest(entityName: "Image")
+		
+		var fetchedResults : [NSManagedObject] = []
+		do {
+			fetchedResults = try managedContext.executeFetchRequest(fetchRequest) as! [NSManagedObject]
+		}
+		catch{}
+		if fetchedResults.count > 0 {
+			let results = fetchedResults
+			for (var i=0; i < results.count; i++)
+			{
+				let single_result = results[i]
+				if single_result.valueForKey("key") as! String == key {
+					managedContext.deleteObject(single_result)
+					return
+				}
+			}
+		}
 	}
 }

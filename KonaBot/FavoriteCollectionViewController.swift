@@ -10,6 +10,8 @@ import UIKit
 
 class FavoriteCollectionViewController: UICollectionViewController {
 	
+	let yuno = Yuno()
+	
 	var favoritePostList : [String]!
 	
 	var label : UILabel = UILabel()
@@ -56,8 +58,8 @@ class FavoriteCollectionViewController: UICollectionViewController {
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("ImageCell", forIndexPath: indexPath) as! ImageCell
-		
-		if let img : UIImage? = NSKeyedUnarchiver.unarchiveObjectWithData((NSUserDefaults.standardUserDefaults().objectForKey(self.favoritePostList[indexPath.row]) as! NSData)) as! UIImage? {
+
+		if let img = yuno.fetchImageWithKey(self.favoritePostList[indexPath.row] + "hkalexling-favorite"){
 			cell.imageView.image = img
 		}
 		
@@ -69,13 +71,13 @@ class FavoriteCollectionViewController: UICollectionViewController {
 		detailVC.postUrl = self.favoritePostList[indexPath.row]
 		let frame = collectionView.cellForItemAtIndexPath(indexPath)?.frame
 		detailVC.heightOverWidth = frame!.height/frame!.width
-		detailVC.smallImage = NSKeyedUnarchiver.unarchiveObjectWithData((NSUserDefaults.standardUserDefaults().objectForKey(self.favoritePostList[indexPath.row]) as! NSData)) as! UIImage
+		detailVC.smallImage = yuno.fetchImageWithKey(self.favoritePostList[indexPath.row] + "hkalexling-favorite")
 		detailVC.view.backgroundColor = UIColor.whiteColor()
 		self.navigationController!.pushViewController(detailVC, animated: true)
 	}
 	
 	func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-		let size = (NSKeyedUnarchiver.unarchiveObjectWithData((NSUserDefaults.standardUserDefaults().objectForKey(self.favoritePostList[indexPath.row]) as! NSData)) as! UIImage).size
+		let size = (yuno.fetchImageWithKey(self.favoritePostList[indexPath.row] + "hkalexling-favorite"))!.size
 		let width = CGSize.screenSize().width
 		let height = width * (size.height / size.width)
 		return CGSizeMake(width, height)
