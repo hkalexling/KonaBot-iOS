@@ -105,7 +105,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate{
 		while(original.hasSuffix(" ")){
 			original.removeAtIndex(original.endIndex.advancedBy(-1))
 		}
-		original = original.stringByReplacingOccurrencesOfString(" ", withString: "_")
+		original = original.stringByReplacingOccurrencesOfString(" ", withString: "_").stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLHostAllowedCharacterSet())!
 		return original
 	}
 	
@@ -202,6 +202,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate{
 	func suggestionButtonTapped(sender : UIButton){
 		let suggestion : String = sender.titleLabel!.text!
 		self.keyword = suggestion
+		self.searchTextField.text = suggestion
 		self.handleSearch()
 	}
 	

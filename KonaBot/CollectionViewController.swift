@@ -41,6 +41,7 @@ class CollectionViewController: UICollectionViewController{
 		if (!self.fromSearch){
 			navigationItem.leftBarButtonItem = UIBarButtonItem(customView: UIView())
 		}
+		self.title = self.keyword
 		self.getHtml("http://konachan.net/post?tags=\(self.keyword)")
     }
 
