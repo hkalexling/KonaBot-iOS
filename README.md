@@ -4,7 +4,8 @@ A WIP unofficial iOS client for [Konachan.net](http://konachan.net)
 
 # Todo
 
-- [ ] Search history
+- <del> [ ] Search history </del>
+- [ ] Cache
 - [X] Top tags
 - [ ] Improve UI design
 - [X] Favorite list
