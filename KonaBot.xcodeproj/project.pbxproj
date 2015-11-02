@@ -151,12 +151,9 @@
 		7152C1361BE3452400A44945 = {
 			isa = PBXGroup;
 			children = (
-				7152C1D61BE3E41E00A44945 /* Kanna.framework */,
+				7183783E1BE8007A00131A74 /* Wheels */,
 				7152C1411BE3452400A44945 /* KonaBot */,
 				7152C1401BE3452400A44945 /* Products */,
-				713B7B091BE68B230038A34A /* RZSquaresLoading */,
-				713B7AEA1BE653300038A34A /* AFNetworking */,
-				71FA55661BE55DE800E57198 /* JTSImageViewController */,
 			);
 			sourceTree = "<group>";
 		};
@@ -171,21 +168,72 @@
 		7152C1411BE3452400A44945 /* KonaBot */ = {
 			isa = PBXGroup;
 			children = (
+				718378391BE8001000131A74 /* UI */,
+				7183783A1BE8001D00131A74 /* Supporting files */,
+				7183783B1BE8003F00131A74 /* VC */,
+				7183783C1BE8004900131A74 /* Yuno */,
+				7183783D1BE8005600131A74 /* Collection cell */,
+			);
+			path = KonaBot;
+			sourceTree = "<group>";
+		};
+		718378391BE8001000131A74 /* UI */ = {
+			isa = PBXGroup;
+			children = (
 				713B7B071BE681430038A34A /* Assets.xcassets */,
-				718378361BE7EF8000131A74 /* Model.xcdatamodeld */,
-				7152C1421BE3452400A44945 /* AppDelegate.swift */,
-				713B7B0F1BE7814F0038A34A /* FavoriteCollectionViewController.swift */,
-				711098B21BE62D9D00CDACD1 /* SearchViewController.swift */,
-				719589321BE53C110036555E /* DetailViewController.swift */,
-				719589301BE533940036555E /* Extension.swift */,
-				7152C1D91BE4F97200A44945 /* CollectionViewController.swift */,
-				7152C1DB1BE4F9AC00A44945 /* ImageCell.swift */,
 				7152C1461BE3452400A44945 /* Main.storyboard */,
 				7152C14B1BE3452400A44945 /* LaunchScreen.storyboard */,
+			);
+			name = UI;
+			sourceTree = "<group>";
+		};
+		7183783A1BE8001D00131A74 /* Supporting files */ = {
+			isa = PBXGroup;
+			children = (
+				7152C1421BE3452400A44945 /* AppDelegate.swift */,
+				718378361BE7EF8000131A74 /* Model.xcdatamodeld */,
 				7152C14E1BE3452400A44945 /* Info.plist */,
 				7152C1971BE34FBF00A44945 /* KonaBot-Bridging-Header.h */,
 			);
-			path = KonaBot;
+			name = "Supporting files";
+			sourceTree = "<group>";
+		};
+		7183783B1BE8003F00131A74 /* VC */ = {
+			isa = PBXGroup;
+			children = (
+				713B7B0F1BE7814F0038A34A /* FavoriteCollectionViewController.swift */,
+				711098B21BE62D9D00CDACD1 /* SearchViewController.swift */,
+				719589321BE53C110036555E /* DetailViewController.swift */,
+				7152C1D91BE4F97200A44945 /* CollectionViewController.swift */,
+			);
+			name = VC;
+			sourceTree = "<group>";
+		};
+		7183783C1BE8004900131A74 /* Yuno */ = {
+			isa = PBXGroup;
+			children = (
+				719589301BE533940036555E /* Extension.swift */,
+			);
+			name = Yuno;
+			sourceTree = "<group>";
+		};
+		7183783D1BE8005600131A74 /* Collection cell */ = {
+			isa = PBXGroup;
+			children = (
+				7152C1DB1BE4F9AC00A44945 /* ImageCell.swift */,
+			);
+			name = "Collection cell";
+			sourceTree = "<group>";
+		};
+		7183783E1BE8007A00131A74 /* Wheels */ = {
+			isa = PBXGroup;
+			children = (
+				7152C1D61BE3E41E00A44945 /* Kanna.framework */,
+				713B7B091BE68B230038A34A /* RZSquaresLoading */,
+				713B7AEA1BE653300038A34A /* AFNetworking */,
+				71FA55661BE55DE800E57198 /* JTSImageViewController */,
+			);
+			name = Wheels;
 			sourceTree = "<group>";
 		};
 		71FA55661BE55DE800E57198 /* JTSImageViewController */ = {
