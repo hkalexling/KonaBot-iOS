@@ -7,6 +7,6 @@ A WIP unofficial iOS client for [Konachan.net](http://konachan.net)
 - [ ] Search history
 - [X] Top tags
 - [ ] Improve UI design
-- [ ] Favorite list
+- [X] Favorite list
 - [ ] iPad support
 - [ ] Landscape support
