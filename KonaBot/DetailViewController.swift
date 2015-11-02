@@ -29,9 +29,9 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("downloaded:"), name: "finishedDownloading", object: nil)
 		
 		detailImageView = UIImageView()
-		let width = UIScreen.mainScreen().bounds.width
+		let width = UIScreen.mainScreen().bounds.width - 40
 		let height = width * self.heightOverWidth
-		detailImageView.frame = CGRectMake(0, UIScreen.mainScreen().bounds.height/2 - height/2, width, height)
+		detailImageView.frame = CGRectMake((CGSize.screenSize().width - width)/2, UIScreen.mainScreen().bounds.height/2 - height/2, width, height)
 		detailImageView.userInteractionEnabled = true
 		self.view.addSubview(detailImageView)
 		
@@ -75,6 +75,7 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 		if (self.imageViewer.image != nil){
 			self.detailImageView.image = self.imageViewer.image
 			self.finishedDownload = true
+			NSUserDefaults(suiteName: "cache")!.setObject(NSKeyedArchiver.archivedDataWithRootObject(self.detailImageView.image!), forKey: self.postUrl + "hkalexling-full")
 		}
 	}
 	
@@ -85,7 +86,12 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 				imageInfo.image = self.detailImageView.image
 			}
 			else{
-				imageInfo.imageURL = NSURL(string: self.urlStr!)
+				if (NSUserDefaults(suiteName: "cache")!.objectForKey(self.postUrl + "hkalexling-full") != nil){
+					imageInfo.image = NSKeyedUnarchiver.unarchiveObjectWithData(NSUserDefaults(suiteName: "cache")!.objectForKey(self.postUrl + "hkalexling-full") as! NSData) as! UIImage
+				}
+				else{
+					imageInfo.imageURL = NSURL(string: self.urlStr!)
+				}
 			}
 			imageInfo.referenceRect = self.detailImageView.frame
 			imageInfo.referenceView = self.detailImageView.superview
@@ -129,9 +135,15 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 	func downloadImg(url : String){
 		self.urlStr = url
 		let imageInfo = JTSImageInfo()
-		imageInfo.imageURL = NSURL(string: url)
 		imageInfo.referenceRect = self.detailImageView.frame
 		imageInfo.referenceView = self.detailImageView.superview
+		
+		if (NSUserDefaults(suiteName: "cache")!.objectForKey(self.postUrl + "hkalexling-full") != nil){
+			imageInfo.image = NSKeyedUnarchiver.unarchiveObjectWithData(NSUserDefaults(suiteName: "cache")!.objectForKey(self.postUrl + "hkalexling-full") as! NSData) as! UIImage
+		}
+		else{
+			imageInfo.imageURL = NSURL(string: url)
+		}
 		
 		self.imageViewer = JTSImageViewController(imageInfo: imageInfo, mode: JTSImageViewControllerMode.Image, backgroundStyle: [.Blurred, .Scaled])
 		self.imageViewer.interactionsDelegate = self
