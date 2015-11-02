@@ -11,7 +11,6 @@ import UIKit
 class FavoriteCollectionViewController: UICollectionViewController {
 	
 	var favoritePostList : [String]!
-	var imageList : [UIImage]!
 	
 	var label : UILabel = UILabel()
 	
@@ -23,7 +22,6 @@ class FavoriteCollectionViewController: UICollectionViewController {
 	
 	override func viewWillAppear(animated: Bool) {
 		self.favoritePostList = NSKeyedUnarchiver.unarchiveObjectWithData(NSUserDefaults.standardUserDefaults().objectForKey("favoriteList") as! NSData) as! [String]
-		self.imageList = NSKeyedUnarchiver.unarchiveObjectWithData(NSUserDefaults.standardUserDefaults().objectForKey("imageList") as! NSData) as! [UIImage]
 		self.collectionView!.reloadData()
 		
 		if (self.favoritePostList.count == 0){
@@ -59,7 +57,9 @@ class FavoriteCollectionViewController: UICollectionViewController {
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("ImageCell", forIndexPath: indexPath) as! ImageCell
 		
-		cell.imageView.image = self.imageList[indexPath.row]
+		if let img : UIImage? = NSKeyedUnarchiver.unarchiveObjectWithData((NSUserDefaults.standardUserDefaults().objectForKey(self.favoritePostList[indexPath.row]) as! NSData)) as! UIImage? {
+			cell.imageView.image = img
+		}
 		
         return cell
 	}
@@ -69,13 +69,13 @@ class FavoriteCollectionViewController: UICollectionViewController {
 		detailVC.postUrl = self.favoritePostList[indexPath.row]
 		let frame = collectionView.cellForItemAtIndexPath(indexPath)?.frame
 		detailVC.heightOverWidth = frame!.height/frame!.width
-		detailVC.smallImage = self.imageList[indexPath.row]
+		detailVC.smallImage = NSKeyedUnarchiver.unarchiveObjectWithData((NSUserDefaults.standardUserDefaults().objectForKey(self.favoritePostList[indexPath.row]) as! NSData)) as! UIImage
 		detailVC.view.backgroundColor = UIColor.whiteColor()
 		self.navigationController!.pushViewController(detailVC, animated: true)
 	}
 	
 	func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-		let size = self.imageList[indexPath.row].size
+		let size = (NSKeyedUnarchiver.unarchiveObjectWithData((NSUserDefaults.standardUserDefaults().objectForKey(self.favoritePostList[indexPath.row]) as! NSData)) as! UIImage).size
 		let width = CGSize.screenSize().width
 		let height = width * (size.height / size.width)
 		return CGSizeMake(width, height)

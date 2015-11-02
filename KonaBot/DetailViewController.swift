@@ -22,7 +22,6 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 	var urlStr : String?
 	
 	var favoriteList : [String]!
-	var imageList : [UIImage]!
 	
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,7 +44,6 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 	
 	override func viewWillAppear(animated: Bool) {
 		self.favoriteList = NSKeyedUnarchiver.unarchiveObjectWithData(NSUserDefaults.standardUserDefaults().objectForKey("favoriteList") as! NSData) as! [String]
-		self.imageList = NSKeyedUnarchiver.unarchiveObjectWithData(NSUserDefaults.standardUserDefaults().objectForKey("imageList") as! NSData) as! [UIImage]
 
 		if (self.favoriteList.contains(self.postUrl)){
 			self.stared()
@@ -59,9 +57,8 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 		self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "Star"), style: .Done, target: self, action: Selector("unstared"))
 		if (!self.favoriteList.contains(self.postUrl)){
 			self.favoriteList.append(self.postUrl)
-			self.imageList.append(self.detailImageView.image!)
 			NSUserDefaults.standardUserDefaults().setObject(NSKeyedArchiver.archivedDataWithRootObject(self.favoriteList), forKey: "favoriteList")
-			NSUserDefaults.standardUserDefaults().setObject(NSKeyedArchiver.archivedDataWithRootObject(self.imageList), forKey: "imageList")
+			NSUserDefaults.standardUserDefaults().setObject(NSKeyedArchiver.archivedDataWithRootObject(self.detailImageView.image!), forKey: self.postUrl)
 		}
 	}
 	
@@ -69,9 +66,8 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 		self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "Star Outline"), style: .Done, target: self, action: Selector("stared"))
 		if (self.favoriteList.contains(self.postUrl)){
 			self.favoriteList.removeLast()
-			self.imageList.removeLast()
 			NSUserDefaults.standardUserDefaults().setObject(NSKeyedArchiver.archivedDataWithRootObject(self.favoriteList), forKey: "favoriteList")
-			NSUserDefaults.standardUserDefaults().setObject(NSKeyedArchiver.archivedDataWithRootObject(self.imageList), forKey: "imageList")
+			NSUserDefaults.standardUserDefaults().removeObjectForKey(self.postUrl)
 		}
 	}
 	

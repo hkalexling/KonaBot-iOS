@@ -23,12 +23,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			NSUserDefaults.standardUserDefaults().setObject(listObject, forKey: "favoriteList")
 		}
 		
-		if (NSUserDefaults.standardUserDefaults().objectForKey("imageList") == nil){
-			let list : [UIImage] = []
-			let listObject = NSKeyedArchiver.archivedDataWithRootObject(list)
-			NSUserDefaults.standardUserDefaults().setObject(listObject, forKey: "imageList")
-		}
-		
 		return true
 	}
 
