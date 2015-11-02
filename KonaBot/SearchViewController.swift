@@ -56,7 +56,9 @@ class SearchViewController: UIViewController, UISearchBarDelegate {
 		if (youMeantLabel != nil){
 			self.youMeantLabel!.removeFromSuperview()
 		}
-		self.topTagLabel.hidden = true
+		if (self.topTagLabel != nil){
+			self.topTagLabel.hidden = true
+		}
 		
 		self.noResultLabel.alpha = 1.0
 		
