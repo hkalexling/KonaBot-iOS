@@ -8,8 +8,11 @@
 
 import UIKit
 import Kanna
+import CoreData
 
 class DetailViewController: UIViewController, JTSImageViewControllerInteractionsDelegate{
+	
+	var imageCoreData = [NSManagedObject]()
 	
 	var smallImage : UIImage!
 	var detailImageView: UIImageView!
@@ -75,7 +78,7 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 		if (self.imageViewer.image != nil){
 			self.detailImageView.image = self.imageViewer.image
 			self.finishedDownload = true
-			NSUserDefaults(suiteName: "cache")!.setObject(NSKeyedArchiver.archivedDataWithRootObject(self.detailImageView.image!), forKey: self.postUrl + "hkalexling-full")
+			self.save(NSKeyedArchiver.archivedDataWithRootObject(self.detailImageView.image!), key: self.postUrl)
 		}
 	}
 	
@@ -86,8 +89,8 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 				imageInfo.image = self.detailImageView.image
 			}
 			else{
-				if (NSUserDefaults(suiteName: "cache")!.objectForKey(self.postUrl + "hkalexling-full") != nil){
-					imageInfo.image = NSKeyedUnarchiver.unarchiveObjectWithData(NSUserDefaults(suiteName: "cache")!.objectForKey(self.postUrl + "hkalexling-full") as! NSData) as! UIImage
+				if let img = self.read(self.postUrl){
+					imageInfo.image = img
 				}
 				else{
 					imageInfo.imageURL = NSURL(string: self.urlStr!)
@@ -138,8 +141,8 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 		imageInfo.referenceRect = self.detailImageView.frame
 		imageInfo.referenceView = self.detailImageView.superview
 		
-		if (NSUserDefaults(suiteName: "cache")!.objectForKey(self.postUrl + "hkalexling-full") != nil){
-			imageInfo.image = NSKeyedUnarchiver.unarchiveObjectWithData(NSUserDefaults(suiteName: "cache")!.objectForKey(self.postUrl + "hkalexling-full") as! NSData) as! UIImage
+		if let img = self.read(self.postUrl){
+			imageInfo.image = img
 		}
 		else{
 			imageInfo.imageURL = NSURL(string: url)
@@ -215,5 +218,42 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 		dispatch_async(dispatch_get_main_queue(), {
 			UIAlertView(title: title, message: message, delegate: nil, cancelButtonTitle: "OK").show()
 		})
+	}
+	
+	func save(data : NSData, key : String){
+		let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+		let managedContext = appDelegate.managedObjectContext
+		let entity = NSEntityDescription.entityForName("Image",
+			inManagedObjectContext: managedContext)
+		let options = NSManagedObject(entity: entity!,
+			insertIntoManagedObjectContext:managedContext)
+		
+		options.setValue(data, forKey: "fullImage")
+		options.setValue(key, forKey: "key")
+		
+		self.imageCoreData.append(options)
+	}
+	
+	func read(key : String) -> UIImage?{
+		let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+		let managedContext = appDelegate.managedObjectContext
+		let fetchRequest = NSFetchRequest(entityName: "Image")
+		
+		var fetchedResults : [NSManagedObject] = []
+		do {
+			fetchedResults = try managedContext.executeFetchRequest(fetchRequest) as! [NSManagedObject]
+		}
+		catch{}
+		if fetchedResults.count > 0 {
+			let results = fetchedResults
+			for (var i=0; i < results.count; i++)
+			{
+				let single_result = results[i]
+				if single_result.valueForKey("key") as! String == key {
+					return NSKeyedUnarchiver.unarchiveObjectWithData(single_result.valueForKey("fullImage") as! NSData) as? UIImage
+				}
+			}
+		}
+		return nil
 	}
 }

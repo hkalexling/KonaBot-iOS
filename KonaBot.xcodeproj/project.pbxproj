@@ -26,6 +26,7 @@
 		7152C1D71BE3E41E00A44945 /* Kanna.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7152C1D61BE3E41E00A44945 /* Kanna.framework */; };
 		7152C1DA1BE4F97200A44945 /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7152C1D91BE4F97200A44945 /* CollectionViewController.swift */; };
 		7152C1DC1BE4F9AC00A44945 /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7152C1DB1BE4F9AC00A44945 /* ImageCell.swift */; };
+		718378381BE7EF8000131A74 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 718378361BE7EF8000131A74 /* Model.xcdatamodeld */; };
 		719589311BE533940036555E /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719589301BE533940036555E /* Extension.swift */; };
 		719589331BE53C110036555E /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719589321BE53C110036555E /* DetailViewController.swift */; };
 		71FA55731BE55DE800E57198 /* JTSAnimatedGIFUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 71FA55681BE55DE800E57198 /* JTSAnimatedGIFUtility.m */; };
@@ -83,6 +84,7 @@
 		7152C1D61BE3E41E00A44945 /* Kanna.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Kanna.framework; path = Carthage/Build/iOS/Kanna.framework; sourceTree = "<group>"; };
 		7152C1D91BE4F97200A44945 /* CollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
 		7152C1DB1BE4F9AC00A44945 /* ImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
+		718378371BE7EF8000131A74 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		719589301BE533940036555E /* Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		719589321BE53C110036555E /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		71FA55671BE55DE800E57198 /* JTSAnimatedGIFUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTSAnimatedGIFUtility.h; sourceTree = "<group>"; };
@@ -170,6 +172,7 @@
 			isa = PBXGroup;
 			children = (
 				713B7B071BE681430038A34A /* Assets.xcassets */,
+				718378361BE7EF8000131A74 /* Model.xcdatamodeld */,
 				7152C1421BE3452400A44945 /* AppDelegate.swift */,
 				713B7B0F1BE7814F0038A34A /* FavoriteCollectionViewController.swift */,
 				711098B21BE62D9D00CDACD1 /* SearchViewController.swift */,
@@ -306,6 +309,7 @@
 				71FA55761BE55DE800E57198 /* JTSSimpleImageDownloader.m in Sources */,
 				713B7B011BE653300038A34A /* AFNetworkReachabilityManager.m in Sources */,
 				719589311BE533940036555E /* Extension.swift in Sources */,
+				718378381BE7EF8000131A74 /* Model.xcdatamodeld in Sources */,
 				71FA55771BE55DE800E57198 /* UIApplication+JTSImageViewController.m in Sources */,
 				713B7B021BE653300038A34A /* AFSecurityPolicy.m in Sources */,
 				711098B31BE62D9D00CDACD1 /* SearchViewController.swift in Sources */,
@@ -486,6 +490,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		718378361BE7EF8000131A74 /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				718378371BE7EF8000131A74 /* Model.xcdatamodel */,
+			);
+			currentVersion = 718378371BE7EF8000131A74 /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 7152C1371BE3452400A44945 /* Project object */;
 }
