@@ -35,8 +35,6 @@ class SearchViewController: UIViewController, UITextFieldDelegate{
 		self.loading.color = UIColor.lightGrayColor()
 		self.view.addSubview(self.loading)
 		
-		self.getTopTags()
-		
 		self.searchTextField.frame = CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, self.searchTextField.bounds.height)
 		self.searchTextField.delegate = self
 		

@@ -28,7 +28,7 @@ class CollectionViewController: UICollectionViewController{
 	var selectedHeightOverWidth : CGFloat!
 	
 	var numberOfPagesTried : Int = 0
-	var maxNumberOfPagesToTry : Int = 5
+	var maxNumberOfPagesToTry : Int = 3
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,14 +60,16 @@ class CollectionViewController: UICollectionViewController{
     }
 	
 	override func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
-		if (self.imageUrls.count > 3){
-			if (indexPath.row == imageUrls.count - 3){
-				self.loadMore()
+		if (self.numberOfPagesTried < self.maxNumberOfPagesToTry){
+			if (self.imageUrls.count > 3){
+				if (indexPath.row == imageUrls.count - 3){
+					self.loadMore()
+				}
 			}
-		}
-		else{
-			if (indexPath.row == imageUrls.count - 1){
-				self.loadMore()
+			else{
+				if (indexPath.row == imageUrls.count - 1){
+					self.loadMore()
+				}
 			}
 		}
 	}
@@ -127,7 +129,11 @@ class CollectionViewController: UICollectionViewController{
 				
 				let html : NSString = NSString(data: responseObject as! NSData, encoding: NSASCIIStringEncoding)!
 				self.parse(html as String)
-				self.collectionView!.reloadData()
+				var index : [NSIndexPath] = []
+				for (var i = self.collectionView!.numberOfItemsInSection(0); i < self.imageUrls.count; i++){
+					index.append(NSIndexPath(forRow: i, inSection: 0))
+				}
+				self.collectionView!.insertItemsAtIndexPaths(index)
 			}, failure: {(operation, error) -> Void in
 				print ("Error : \(error)")
 		})
@@ -169,7 +175,7 @@ class CollectionViewController: UICollectionViewController{
 							}
 						}
 					}
-					if (self.searchVC != nil){
+					if (self.searchVC != nil && self.postUrls.count == 0){
 						self.searchVC!.noResult = true
 						if (suggestedTag.count > 0){
 							self.searchVC!.suggestedTag = suggestedTag
