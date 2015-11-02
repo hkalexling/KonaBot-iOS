@@ -153,6 +153,10 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 			UIImageWriteToSavedPhotosAlbum(image, self, Selector("imageSaved:didFinishSavingWithError:contextInfo:"), nil)
 		})
 		
+		let favoriteAction = UIAlertAction(title: "Favorite", style: .Default, handler: {(alert : UIAlertAction) -> Void in
+			self.stared()
+		})
+		
 		let copyAction = UIAlertAction(title: "Copy Image", style: .Default, handler: {(alert : UIAlertAction) -> Void in
 			UIPasteboard.generalPasteboard().image = image
 			self.alertWithOkButton("Image Copied", message: "This image has been copied to your clipboard")
@@ -170,6 +174,7 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 		let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
 		
 		sheet.addAction(saveAction)
+		sheet.addAction(favoriteAction)
 		sheet.addAction(copyAction)
 		sheet.addAction(copyLinkAction)
 		sheet.addAction(openAction)

@@ -13,6 +13,8 @@ class FavoriteCollectionViewController: UICollectionViewController {
 	var favoritePostList : [String]!
 	var imageList : [UIImage]!
 	
+	var label : UILabel = UILabel()
+	
     override func viewDidLoad() {
         super.viewDidLoad()
 		
@@ -23,11 +25,28 @@ class FavoriteCollectionViewController: UICollectionViewController {
 		self.favoritePostList = NSKeyedUnarchiver.unarchiveObjectWithData(NSUserDefaults.standardUserDefaults().objectForKey("favoriteList") as! NSData) as! [String]
 		self.imageList = NSKeyedUnarchiver.unarchiveObjectWithData(NSUserDefaults.standardUserDefaults().objectForKey("imageList") as! NSData) as! [UIImage]
 		self.collectionView!.reloadData()
+		
+		if (self.favoritePostList.count == 0){
+			self.showLabel()
+		}
+	}
+	
+	override func viewWillDisappear(animated: Bool) {
+		self.label.removeFromSuperview()
 	}
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
+	
+	func showLabel(){
+		let height : CGFloat = 20
+		self.label.text = "You haven't favorited any image yet"
+		self.label.frame = CGRectMake(0, CGSize.screenSize().height/2 - height/2, CGSize.screenSize().width, height)
+		self.label.backgroundColor = UIColor.whiteColor()
+		self.label.textAlignment = NSTextAlignment.Center
+		self.view.addSubview(self.label)
+	}
 
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return 1
