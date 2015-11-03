@@ -80,7 +80,18 @@ class FavoriteCollectionViewController: UICollectionViewController {
 	
 	func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
 		let size = (yuno.fetchImageWithKey("FavoritedImage", key: self.favoritePostList[indexPath.row]))!.size
-		let width = CGSize.screenSize().width
+		var width : CGFloat
+		if UIDevice.currentDevice().model.hasPrefix("iPad"){
+			width = CGSize.screenSize().height/3 - 10
+		}
+		else{
+			if CGSize.screenSize().width >= 375{
+				width = CGSize.screenSize().width/2 - 5
+			}
+			else{
+				width = CGSize.screenSize().width
+			}
+		}
 		let height = width * (size.height / size.width)
 		return CGSizeMake(width, height)
 	}

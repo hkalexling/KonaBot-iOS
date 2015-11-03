@@ -142,8 +142,19 @@ class CollectionViewController: UICollectionViewController{
 	}
 	
 	func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-		let collectionViewWidth = self.collectionView!.bounds.size.width
-		return CGSize(width: collectionViewWidth, height: collectionViewWidth * self.heightOverWidth[indexPath.row])
+		var width : CGFloat
+		if UIDevice.currentDevice().model.hasPrefix("iPad"){
+			width = CGSize.screenSize().height/3 - 10
+		}
+		else{
+			if CGSize.screenSize().width >= 375{
+				width = CGSize.screenSize().width/2 - 5
+			}
+			else{
+				width = CGSize.screenSize().width
+			}
+		}
+		return CGSize(width: width, height: width * self.heightOverWidth[indexPath.row])
 	}
 	
 	func loadMore(){
