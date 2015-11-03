@@ -12,7 +12,7 @@ class FavoriteCollectionViewController: UICollectionViewController {
 	
 	let yuno = Yuno()
 	
-	var favoritePostList : [String]!
+	var favoritePostList : [String] = []
 	
 	var label : UILabel = UILabel()
 	
@@ -23,12 +23,14 @@ class FavoriteCollectionViewController: UICollectionViewController {
     }
 	
 	override func viewWillAppear(animated: Bool) {
-		self.favoritePostList = NSKeyedUnarchiver.unarchiveObjectWithData(NSUserDefaults.standardUserDefaults().objectForKey("favoriteList") as! NSData) as! [String]
+
+		self.favoritePostList = self.yuno.favoriteList()
 		self.collectionView!.reloadData()
 		
 		if (self.favoritePostList.count == 0){
 			self.showLabel()
 		}
+		
 	}
 	
 	override func viewWillDisappear(animated: Bool) {

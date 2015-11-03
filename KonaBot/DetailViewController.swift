@@ -46,7 +46,7 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
     }
 	
 	override func viewWillAppear(animated: Bool) {
-		self.favoriteList = NSKeyedUnarchiver.unarchiveObjectWithData(NSUserDefaults.standardUserDefaults().objectForKey("favoriteList") as! NSData) as! [String]
+		self.favoriteList = self.yuno.favoriteList()
 
 		if (self.favoriteList.contains(self.postUrl)){
 			self.stared()
@@ -60,7 +60,7 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 		self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "Star"), style: .Done, target: self, action: Selector("unstared"))
 		if (!self.favoriteList.contains(self.postUrl)){
 			self.favoriteList.append(self.postUrl)
-			NSUserDefaults.standardUserDefaults().setObject(NSKeyedArchiver.archivedDataWithRootObject(self.favoriteList), forKey: "favoriteList")
+			self.yuno.saveFavorite(self.postUrl)
 			self.yuno.saveImageWithKey(self.detailImageView.image!, key: self.postUrl + "hkalexling-favorite")
 		}
 	}
@@ -69,7 +69,7 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 		self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "Star Outline"), style: .Done, target: self, action: Selector("stared"))
 		if (self.favoriteList.contains(self.postUrl)){
 			self.favoriteList.removeAtIndex(self.favoriteList.indexOf(self.postUrl)!)
-			NSUserDefaults.standardUserDefaults().setObject(NSKeyedArchiver.archivedDataWithRootObject(self.favoriteList), forKey: "favoriteList")
+			self.yuno.removeFromFavorite(self.postUrl)
 			self.yuno.deleteRecordForKey(self.postUrl + "hkalexling-favorite")
 		}
 	}

@@ -128,12 +128,12 @@ public extension UIAlertController {
 
 public class Yuno{
 	
-	public var imageCoreData = [NSManagedObject]()
+	var imageCoreData = [NSManagedObject]()
+	var favoriteCoreData = [NSManagedObject]()
 	
 	public func saveImageWithKey(image : UIImage, key : String){
 		let data = NSKeyedArchiver.archivedDataWithRootObject(image)
-		let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-		let managedContext = appDelegate.managedObjectContext
+		let managedContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
 		let entity = NSEntityDescription.entityForName("Image",
 			inManagedObjectContext: managedContext)
 		let options = NSManagedObject(entity: entity!,
@@ -152,22 +152,20 @@ public class Yuno{
 	}
 	
 	public func fetchImageWithKey(key : String) -> UIImage?{
-		let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-		let managedContext = appDelegate.managedObjectContext
+		let managedContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
 		let fetchRequest = NSFetchRequest(entityName: "Image")
 		
 		var fetchedResults : [NSManagedObject] = []
 		do {
 			fetchedResults = try managedContext.executeFetchRequest(fetchRequest) as! [NSManagedObject]
 		}
-		catch{}
+		catch{
+			print (error)
+		}
 		if fetchedResults.count > 0 {
-			let results = fetchedResults
-			for (var i=0; i < results.count; i++)
-			{
-				let single_result = results[i]
-				if single_result.valueForKey("key") as! String == key {
-					return NSKeyedUnarchiver.unarchiveObjectWithData(single_result.valueForKey("fullImage") as! NSData) as? UIImage
+			for result in fetchedResults {
+				if result.valueForKey("key") as! String == key {
+					return NSKeyedUnarchiver.unarchiveObjectWithData(result.valueForKey("fullImage") as! NSData) as? UIImage
 				}
 			}
 		}
@@ -175,24 +173,94 @@ public class Yuno{
 	}
 	
 	public func deleteRecordForKey(key : String) {
-		let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-		let managedContext = appDelegate.managedObjectContext
+		let managedContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
 		let fetchRequest = NSFetchRequest(entityName: "Image")
 		
 		var fetchedResults : [NSManagedObject] = []
 		do {
 			fetchedResults = try managedContext.executeFetchRequest(fetchRequest) as! [NSManagedObject]
 		}
-		catch{}
+		catch{
+			print (error)
+		}
 		if fetchedResults.count > 0 {
-			let results = fetchedResults
-			for (var i=0; i < results.count; i++)
-			{
-				let single_result = results[i]
-				if single_result.valueForKey("key") as! String == key {
-					managedContext.deleteObject(single_result)
+			for result in fetchedResults {
+				if result.valueForKey("key") as! String == key {
+					managedContext.deleteObject(result)
 					return
 				}
+			}
+		}
+	}
+	
+	public func saveFavorite(url : String){
+		let managedContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+		let entity = NSEntityDescription.entityForName("Favorite", inManagedObjectContext: managedContext)
+		let object = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: managedContext)
+		
+		object.setValue(url, forKey: "postUrl")
+		
+		self.favoriteCoreData.append(object)
+		do {
+			try managedContext.save()
+		}
+		catch{
+			print (error)
+		}
+	}
+	
+	public func favoriteList() -> [String]{
+		var returnAry : [String] = []
+		
+		let managedContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+		let fetchRequest = NSFetchRequest(entityName: "Favorite")
+		
+		var fetchedResults : [NSManagedObject] = []
+		do {
+			fetchedResults = try managedContext.executeFetchRequest(fetchRequest) as! [NSManagedObject]
+		}
+		catch{
+			print (error)
+		}
+		
+		if fetchedResults.count > 0 {
+			for result in fetchedResults{
+				returnAry.append(result.valueForKey("postUrl") as! String)
+			}
+		}
+		
+		return returnAry
+	}
+	
+	public func removeFromFavorite(url : String){
+
+		let managedContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+		let fetchRequest = NSFetchRequest(entityName: "Favorite")
+		
+		var fetchedResults : [NSManagedObject] = []
+		do {
+			fetchedResults = try managedContext.executeFetchRequest(fetchRequest) as! [NSManagedObject]
+		}
+		catch{
+			print (error)
+		}
+		
+		if fetchedResults.count > 0 {
+			for result in fetchedResults{
+				if result.valueForKey("postUrl") as! String == url{
+					managedContext.deleteObject(result)
+					return
+				}
+			}
+		}
+	}
+	
+	public func backgroundThread(background: (() -> Void)? = nil, completion: (() -> Void)? = nil) {
+		dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+			if(background != nil){ background!(); }
+			
+			dispatch_async(dispatch_get_main_queue()){
+				if(completion != nil){ completion!(); }
 			}
 		}
 	}
