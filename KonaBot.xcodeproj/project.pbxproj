@@ -12,6 +12,7 @@
 		7109E5481BE8FC36003B1A93 /* TextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7109E5471BE8FC36003B1A93 /* TextCell.swift */; };
 		7109E54A1BE8FCBD003B1A93 /* TextSwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7109E5491BE8FCBD003B1A93 /* TextSwitchCell.swift */; };
 		711098B31BE62D9D00CDACD1 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711098B21BE62D9D00CDACD1 /* SearchViewController.swift */; };
+		711E567D1BE934A200A6863D /* about.html in Resources */ = {isa = PBXBuildFile; fileRef = 711E567C1BE934A200A6863D /* about.html */; };
 		713B7AFE1BE653300038A34A /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 713B7AEC1BE653300038A34A /* AFHTTPRequestOperation.m */; };
 		713B7AFF1BE653300038A34A /* AFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 713B7AEE1BE653300038A34A /* AFHTTPRequestOperationManager.m */; };
 		713B7B001BE653300038A34A /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 713B7AF01BE653300038A34A /* AFHTTPSessionManager.m */; };
@@ -60,6 +61,7 @@
 		7109E5471BE8FC36003B1A93 /* TextCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextCell.swift; sourceTree = "<group>"; };
 		7109E5491BE8FCBD003B1A93 /* TextSwitchCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextSwitchCell.swift; sourceTree = "<group>"; };
 		711098B21BE62D9D00CDACD1 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		711E567C1BE934A200A6863D /* about.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = about.html; sourceTree = "<group>"; };
 		713B7AEB1BE653300038A34A /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
 		713B7AEC1BE653300038A34A /* AFHTTPRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPRequestOperation.m; sourceTree = "<group>"; };
 		713B7AED1BE653300038A34A /* AFHTTPRequestOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperationManager.h; sourceTree = "<group>"; };
@@ -223,6 +225,7 @@
 				718378361BE7EF8000131A74 /* Model.xcdatamodeld */,
 				7152C14E1BE3452400A44945 /* Info.plist */,
 				7152C1971BE34FBF00A44945 /* KonaBot-Bridging-Header.h */,
+				711E567C1BE934A200A6863D /* about.html */,
 			);
 			name = "Supporting files";
 			sourceTree = "<group>";
@@ -344,6 +347,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				711E567D1BE934A200A6863D /* about.html in Resources */,
 				7152C14D1BE3452400A44945 /* LaunchScreen.storyboard in Resources */,
 				713B7B081BE681430038A34A /* Assets.xcassets in Resources */,
 				7152C1481BE3452400A44945 /* Main.storyboard in Resources */,

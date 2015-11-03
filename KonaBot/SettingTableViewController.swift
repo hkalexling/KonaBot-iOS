@@ -9,7 +9,8 @@
 import UIKit
 
 class SettingTableViewController: UITableViewController {
-
+	
+	
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -74,4 +75,38 @@ class SettingTableViewController: UITableViewController {
 			return cell
 		}
     }
+	
+	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+		if indexPath.section == 1 {
+			self.loadAboutVC()
+		}
+		if indexPath.section == 2 {
+			let websiteAddress = NSURL(string: "http://hkalexling.com/2015/10/11/ibudgeter-support-page/")
+			UIApplication.sharedApplication().openURL(websiteAddress!)
+		}
+	}
+	
+	func loadAboutVC(){
+		let aboutVC = UIViewController()
+		
+		aboutVC.view.backgroundColor = UIColor.themeColor()
+		
+		let webView = UIWebView(frame: aboutVC.view.frame)
+		webView.opaque = false
+		webView.backgroundColor = UIColor.themeColor()
+		aboutVC.view.addSubview(webView)
+		
+		let htmlFile = NSBundle.mainBundle().pathForResource("about", ofType: "html")!
+		var htmlString : NSString!
+		do {
+			htmlString = try NSString(contentsOfFile: htmlFile, encoding: NSUTF8StringEncoding)
+		}catch{}
+		webView.loadHTMLString(htmlString as String, baseURL: nil)
+		
+		self.navigationController!.pushViewController(aboutVC, animated: true)
+	}
+	
+	@IBAction func switched(sender: UISwitch) {
+		NSUserDefaults.standardUserDefaults().setBool(sender.on, forKey: "optimize")
+	}
 }

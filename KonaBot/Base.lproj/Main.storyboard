@@ -338,6 +338,9 @@
                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gcI-l5-1Xk">
                                             <rect key="frame" x="543" y="6" width="51" height="31"/>
                                             <animations/>
+                                            <connections>
+                                                <action selector="switched:" destination="RLf-Qd-mtR" eventType="valueChanged" id="e4B-C9-lex"/>
+                                            </connections>
                                         </switch>
                                     </subviews>
                                     <animations/>

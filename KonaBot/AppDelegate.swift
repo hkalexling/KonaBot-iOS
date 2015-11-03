@@ -17,8 +17,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 		
-		//delete cache images that haven't been favorited
-		self.yuno.deleteEntity("Cache")
+		if NSUserDefaults.standardUserDefaults().boolForKey("optimize"){
+			self.yuno.deleteEntity("Cache")
+		}
 		
 		UITabBar.appearance().tintColor = UIColor.konaColor()
 		UITabBar.appearance().barTintColor = UIColor.themeColor()
@@ -52,7 +53,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}
 
 	func applicationWillTerminate(application: UIApplication) {
-		self.yuno.deleteEntity("Cache")
+		if NSUserDefaults.standardUserDefaults().boolForKey("optimize"){
+			self.yuno.deleteEntity("Cache")
+		}
 	}
 	
 	// MARK: - Core Data stack
