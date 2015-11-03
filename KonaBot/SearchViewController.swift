@@ -140,7 +140,6 @@ class SearchViewController: UIViewController, UISearchBarDelegate {
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 		if (segue.identifier == "segueFromSearchVCToCollectionVC"){
 			let destVC = segue.destinationViewController as! CollectionViewController
-			destVC.fromSearch = true
 			destVC.keyword = self.keyword
 			destVC.searchVC = self
 		}

@@ -11,13 +11,14 @@ import Kanna
 
 class CollectionViewController: UICollectionViewController{
 	
+	var refreshControl : UIRefreshControl!
+	
 	var r18Label = UILabel()
 	var baseUrl : String!
 	
 	var searchVC : SearchViewController?
 	var loading : RZSquaresLoading!
-	
-	var fromSearch : Bool = false
+
 	var keyword : String = ""
 	
 	var postUrls : [String] = []
@@ -31,6 +32,19 @@ class CollectionViewController: UICollectionViewController{
 
     override func viewDidLoad() {
         super.viewDidLoad()
+		
+		self.refreshControl = UIRefreshControl()
+		self.refreshControl.addTarget(self, action: Selector("refresh"), forControlEvents: .ValueChanged)
+		self.collectionView!.addSubview(self.refreshControl)
+		
+		self.refresh()
+    }
+	
+	func refresh(){
+		self.postUrls = []
+		self.imageUrls = []
+		self.heightOverWidth = []
+		self.collectionView!.reloadData()
 		
 		self.baseUrl = Yuno().baseUrl()
 		if self.baseUrl.containsString(".com"){
@@ -54,7 +68,9 @@ class CollectionViewController: UICollectionViewController{
 			self.title = self.keyword
 		}
 		self.getHtml("\(self.baseUrl)/post?tags=\(self.keyword)")
-    }
+		
+		self.refreshControl.endRefreshing()
+	}
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
