@@ -12,7 +12,7 @@ A WIP unofficial iOS client for [Konachan.net](http://konachan.net)
 - [X] Settings menu
 - [X] Improve UI design
 - [X] Add Favorite list
-- [ ] Optimize UI for iPad
+- [X] Optimize UI for iPad
 - [X] Add 3D Touch quick action
 - [ ] Design app icon
 - [ ] Design launch screen
