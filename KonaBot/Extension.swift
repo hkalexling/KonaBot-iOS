@@ -131,15 +131,15 @@ public class Yuno{
 	var imageCoreData = [NSManagedObject]()
 	var favoriteCoreData = [NSManagedObject]()
 	
-	public func saveImageWithKey(image : UIImage, key : String){
+	public func saveImageWithKey(entity : String, image : UIImage, key : String){
 		let data = NSKeyedArchiver.archivedDataWithRootObject(image)
 		let managedContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
-		let entity = NSEntityDescription.entityForName("Image",
+		let entity = NSEntityDescription.entityForName(entity,
 			inManagedObjectContext: managedContext)
 		let options = NSManagedObject(entity: entity!,
 			insertIntoManagedObjectContext:managedContext)
 		
-		options.setValue(data, forKey: "fullImage")
+		options.setValue(data, forKey: "image")
 		options.setValue(key, forKey: "key")
 		
 		self.imageCoreData.append(options)
@@ -151,9 +151,9 @@ public class Yuno{
 		}
 	}
 	
-	public func fetchImageWithKey(key : String) -> UIImage?{
+	public func fetchImageWithKey(entity : String, key : String) -> UIImage?{
 		let managedContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
-		let fetchRequest = NSFetchRequest(entityName: "Image")
+		let fetchRequest = NSFetchRequest(entityName: entity)
 		fetchRequest.predicate = NSPredicate(format: "key == %@", key)
 		
 		var fetchedResults : [NSManagedObject] = []
@@ -164,14 +164,14 @@ public class Yuno{
 			print (error)
 		}
 		if fetchedResults.count == 1 {
-			return NSKeyedUnarchiver.unarchiveObjectWithData(fetchedResults[0].valueForKey("fullImage") as! NSData) as? UIImage
+			return NSKeyedUnarchiver.unarchiveObjectWithData(fetchedResults[0].valueForKey("image") as! NSData) as? UIImage
 		}
 		return nil
 	}
 	
-	public func deleteRecordForKey(key : String) {
+	public func deleteRecordForKey(entity : String, key : String) {
 		let managedContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
-		let fetchRequest = NSFetchRequest(entityName: "Image")
+		let fetchRequest = NSFetchRequest(entityName: entity)
 		fetchRequest.predicate = NSPredicate(format: "key == %@", key)
 		
 		var fetchedResults : [NSManagedObject] = []
@@ -183,6 +183,25 @@ public class Yuno{
 		}
 		if fetchedResults.count == 1 {
 			managedContext.deleteObject(fetchedResults[0])
+		}
+	}
+	
+	public func saveFavoriteImageIfNecessary(key : String, image : UIImage){
+		let managedContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+		let fetchRequest = NSFetchRequest(entityName: "FavoritedImage")
+		fetchRequest.predicate = NSPredicate(format: "key == %@", key)
+		
+		var fetchedResults : [NSManagedObject] = []
+		do {
+			fetchedResults = try managedContext.executeFetchRequest(fetchRequest) as! [NSManagedObject]
+		}
+		catch{
+			print (error)
+		}
+		
+		if fetchedResults.count > 0 {
+			self.deleteRecordForKey("FavoritedImage", key: key)
+			self.saveImageWithKey("FavoritedImage", image: image, key: key)
 		}
 	}
 	
@@ -241,6 +260,25 @@ public class Yuno{
 		
 		if fetchedResults.count == 1 {
 			managedContext.deleteObject(fetchedResults[0])
+		}
+	}
+	
+	public func deleteEntity(entity : String){
+		let managedContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+		let fetchRequest = NSFetchRequest(entityName: entity)
+		
+		var fetchedResults : [NSManagedObject] = []
+		do {
+			fetchedResults = try managedContext.executeFetchRequest(fetchRequest) as! [NSManagedObject]
+		}
+		catch{
+			print (error)
+		}
+		
+		if fetchedResults.count > 0 {
+			for result in fetchedResults{
+				managedContext.deleteObject(result)
+			}
 		}
 	}
 	

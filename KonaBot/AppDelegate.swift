@@ -13,9 +13,12 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	var window: UIWindow?
+	let yuno = Yuno()
 
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-		// Override point for customization after application launch.
+		
+		//delete cache images that haven't been favorited
+		self.yuno.deleteEntity("Image")
 		
 		return true
 	}
@@ -39,7 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}
 
 	func applicationWillTerminate(application: UIApplication) {
-		self.saveContext()
+		
 	}
 	
 	// MARK: - Core Data stack

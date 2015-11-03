@@ -30,7 +30,10 @@ class FavoriteCollectionViewController: UICollectionViewController {
 		if (self.favoritePostList.count == 0){
 			self.showLabel()
 		}
-		
+	}
+	
+	override func viewDidDisappear(animated: Bool) {
+		self.label.removeFromSuperview()
 	}
 
     override func didReceiveMemoryWarning() {
@@ -57,7 +60,7 @@ class FavoriteCollectionViewController: UICollectionViewController {
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("ImageCell", forIndexPath: indexPath) as! ImageCell
 
-		if let img = yuno.fetchImageWithKey(self.favoritePostList[indexPath.row] + "hkalexling-favorite"){
+		if let img = yuno.fetchImageWithKey("FavoritedImage", key: self.favoritePostList[indexPath.row]){
 			cell.imageView.image = img
 		}
 		
@@ -69,13 +72,13 @@ class FavoriteCollectionViewController: UICollectionViewController {
 		detailVC.postUrl = self.favoritePostList[indexPath.row]
 		let frame = collectionView.cellForItemAtIndexPath(indexPath)?.frame
 		detailVC.heightOverWidth = frame!.height/frame!.width
-		detailVC.smallImage = yuno.fetchImageWithKey(self.favoritePostList[indexPath.row] + "hkalexling-favorite")
+		detailVC.smallImage = yuno.fetchImageWithKey("FavoritedImage", key: self.favoritePostList[indexPath.row])
 		detailVC.view.backgroundColor = UIColor.whiteColor()
 		self.navigationController!.pushViewController(detailVC, animated: true)
 	}
 	
 	func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-		let size = (yuno.fetchImageWithKey(self.favoritePostList[indexPath.row] + "hkalexling-favorite"))!.size
+		let size = (yuno.fetchImageWithKey("FavoritedImage", key: self.favoritePostList[indexPath.row]))!.size
 		let width = CGSize.screenSize().width
 		let height = width * (size.height / size.width)
 		return CGSizeMake(width, height)

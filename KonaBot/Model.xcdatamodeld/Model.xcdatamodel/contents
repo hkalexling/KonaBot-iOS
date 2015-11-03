@@ -3,12 +3,17 @@
     <entity name="Favorite" syncable="YES">
         <attribute name="postUrl" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
     </entity>
+    <entity name="FavoritedImage" syncable="YES">
+        <attribute name="image" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="key" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="Image" syncable="YES">
-        <attribute name="fullImage" optional="YES" attributeType="Binary" indexed="YES" syncable="YES"/>
+        <attribute name="image" optional="YES" attributeType="Binary" indexed="YES" syncable="YES"/>
         <attribute name="key" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Image" positionX="-63" positionY="-18" width="128" height="75"/>
         <element name="Favorite" positionX="-54" positionY="9" width="128" height="60"/>
+        <element name="Image" positionX="-63" positionY="-18" width="128" height="75"/>
+        <element name="FavoritedImage" positionX="-36" positionY="18" width="128" height="75"/>
     </elements>
 </model>

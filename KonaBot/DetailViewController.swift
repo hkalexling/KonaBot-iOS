@@ -61,7 +61,7 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 		if (!self.favoriteList.contains(self.postUrl)){
 			self.favoriteList.append(self.postUrl)
 			self.yuno.saveFavorite(self.postUrl)
-			self.yuno.saveImageWithKey(self.detailImageView.image!, key: self.postUrl + "hkalexling-favorite")
+			self.yuno.saveImageWithKey("FavoritedImage", image: self.detailImageView.image!, key: self.postUrl)
 		}
 	}
 	
@@ -70,7 +70,7 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 		if (self.favoriteList.contains(self.postUrl)){
 			self.favoriteList.removeAtIndex(self.favoriteList.indexOf(self.postUrl)!)
 			self.yuno.removeFromFavorite(self.postUrl)
-			self.yuno.deleteRecordForKey(self.postUrl + "hkalexling-favorite")
+			self.yuno.deleteRecordForKey("FavoritedImage", key: self.postUrl)
 		}
 	}
 	
@@ -78,7 +78,8 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 		if (self.imageViewer.image != nil){
 			self.detailImageView.image = self.imageViewer.image
 			self.finishedDownload = true
-			self.yuno.saveImageWithKey(self.detailImageView.image!, key: self.postUrl)
+			self.yuno.saveImageWithKey("Image", image: self.detailImageView.image!, key: self.postUrl)
+			self.yuno.saveFavoriteImageIfNecessary(self.postUrl, image: self.detailImageView.image!)
 		}
 	}
 	
@@ -89,7 +90,10 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 				imageInfo.image = self.detailImageView.image
 			}
 			else{
-				if let img = self.yuno.fetchImageWithKey(self.postUrl){
+				if let img = self.yuno.fetchImageWithKey("Image", key: self.postUrl){
+					imageInfo.image = img
+				}
+				else if let img = self.yuno.fetchImageWithKey("FavoritedImage", key: self.postUrl){
 					imageInfo.image = img
 				}
 				else{
@@ -141,7 +145,10 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 		imageInfo.referenceRect = self.detailImageView.frame
 		imageInfo.referenceView = self.detailImageView.superview
 		
-		if let img = self.yuno.fetchImageWithKey(self.postUrl){
+		if let img = self.yuno.fetchImageWithKey("Image", key: self.postUrl){
+			imageInfo.image = img
+		}
+		else if let img = self.yuno.fetchImageWithKey("FavoritedImage", key: self.postUrl){
 			imageInfo.image = img
 		}
 		else{
