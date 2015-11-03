@@ -13,7 +13,7 @@ import CoreData
 class DetailViewController: UIViewController, JTSImageViewControllerInteractionsDelegate{
 	
 	let yuno = Yuno()
-	var baseUrl : String!
+	var baseUrl : String = "http://konachan.com"
 	
 	var smallImage : UIImage!
 	var detailImageView: UIImageView!
@@ -29,8 +29,6 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 	
     override func viewDidLoad() {
         super.viewDidLoad()
-		
-		baseUrl = self.yuno.baseUrl()
 		
 		let bgView = UIView(frame: self.view.frame)
 		bgView.backgroundColor = UIColor.themeColor()
@@ -67,7 +65,6 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 		self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "Star"), style: .Done, target: self, action: Selector("unstared"))
 		if (!self.favoriteList.contains(self.postUrl)){
 			self.favoriteList.append(self.postUrl)
-			//self.yuno.saveFavorite(self.postUrl)
 			self.yuno.saveImageWithKey("FavoritedImage", image: self.detailImageView.image!, key: self.postUrl)
 		}
 	}
@@ -76,7 +73,6 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 		self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "Star Outline"), style: .Done, target: self, action: Selector("stared"))
 		if (self.favoriteList.contains(self.postUrl)){
 			self.favoriteList.removeAtIndex(self.favoriteList.indexOf(self.postUrl)!)
-			//self.yuno.removeFromFavorite(self.postUrl)
 			self.yuno.deleteRecordForKey("FavoritedImage", key: self.postUrl)
 		}
 	}

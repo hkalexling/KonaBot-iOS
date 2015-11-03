@@ -11,6 +11,7 @@ import Kanna
 
 class CollectionViewController: UICollectionViewController{
 	
+	var r18Label = UILabel()
 	var baseUrl : String!
 	
 	var searchVC : SearchViewController?
@@ -32,6 +33,14 @@ class CollectionViewController: UICollectionViewController{
         super.viewDidLoad()
 		
 		self.baseUrl = Yuno().baseUrl()
+		if self.baseUrl.containsString(".com"){
+			self.r18Label = UILabel(frame: CGRectMake(0, 0, 80, 20))
+			self.r18Label.backgroundColor = UIColor.themeColor()
+			self.r18Label.textColor = UIColor.konaColor()
+			self.r18Label.text = "R18"
+			self.r18Label.textAlignment = NSTextAlignment.Right
+			self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: self.r18Label)
+		}
 		
 		let loadingSize : CGFloat = 80
 		self.loading = RZSquaresLoading(frame: CGRectMake(CGSize.screenSize().width/2 - loadingSize/2, CGSize.screenSize().height/2 - loadingSize/2, loadingSize, loadingSize))
