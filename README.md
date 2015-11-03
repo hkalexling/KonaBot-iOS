@@ -2,7 +2,7 @@
 
 A WIP unofficial iOS client for [Konachan.net](http://konachan.net)
 
-# Todo
+## Todo
 
 - [X] Implement cache feature for images
 - [X] Show top tags
@@ -16,3 +16,12 @@ A WIP unofficial iOS client for [Konachan.net](http://konachan.net)
 - [ ] Design app icon
 - [ ] Design launch screen
 - [ ] Submit to App Store
+
+## Acknowledgement
+
+This app used the following open source libraries:
+
+-[Kanna](https://github.com/tid-kijyun/Kanna)
+-[RZSquaresLoading](https://github.com/robinzhangx/RZSquaresLoading)
+-[AFNetworking](https://github.com/AFNetworking/AFNetworking)
+-[JTSImageViewController](https://github.com/jaredsinclair/JTSImageViewController)
