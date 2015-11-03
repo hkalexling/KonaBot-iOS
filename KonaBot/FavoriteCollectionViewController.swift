@@ -44,7 +44,8 @@ class FavoriteCollectionViewController: UICollectionViewController {
 		let height : CGFloat = 20
 		self.label.text = "You haven't favorited any image yet"
 		self.label.frame = CGRectMake(0, CGSize.screenSize().height/2 - height/2, CGSize.screenSize().width, height)
-		self.label.backgroundColor = UIColor.whiteColor()
+		self.label.backgroundColor = UIColor.themeColor()
+		self.label.textColor = UIColor.konaColor()
 		self.label.textAlignment = NSTextAlignment.Center
 		self.view.addSubview(self.label)
 	}

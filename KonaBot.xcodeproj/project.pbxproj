@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7109E5401BE8F9D2003B1A93 /* SettingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7109E53F1BE8F9D2003B1A93 /* SettingTableViewController.swift */; };
+		7109E5441BE8FA71003B1A93 /* TextArrowCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7109E5431BE8FA71003B1A93 /* TextArrowCell.swift */; };
+		7109E5481BE8FC36003B1A93 /* TextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7109E5471BE8FC36003B1A93 /* TextCell.swift */; };
+		7109E54A1BE8FCBD003B1A93 /* TextSwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7109E5491BE8FCBD003B1A93 /* TextSwitchCell.swift */; };
 		711098B31BE62D9D00CDACD1 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711098B21BE62D9D00CDACD1 /* SearchViewController.swift */; };
 		713B7AFE1BE653300038A34A /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 713B7AEC1BE653300038A34A /* AFHTTPRequestOperation.m */; };
 		713B7AFF1BE653300038A34A /* AFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 713B7AEE1BE653300038A34A /* AFHTTPRequestOperationManager.m */; };
@@ -51,6 +55,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		7109E53F1BE8F9D2003B1A93 /* SettingTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingTableViewController.swift; path = KonaBot/SettingTableViewController.swift; sourceTree = "<group>"; };
+		7109E5431BE8FA71003B1A93 /* TextArrowCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextArrowCell.swift; sourceTree = "<group>"; };
+		7109E5471BE8FC36003B1A93 /* TextCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextCell.swift; sourceTree = "<group>"; };
+		7109E5491BE8FCBD003B1A93 /* TextSwitchCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextSwitchCell.swift; sourceTree = "<group>"; };
 		711098B21BE62D9D00CDACD1 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		713B7AEB1BE653300038A34A /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
 		713B7AEC1BE653300038A34A /* AFHTTPRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPRequestOperation.m; sourceTree = "<group>"; };
@@ -113,6 +121,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7109E5411BE8F9E2003B1A93 /* TableVC */ = {
+			isa = PBXGroup;
+			children = (
+				7109E53F1BE8F9D2003B1A93 /* SettingTableViewController.swift */,
+			);
+			name = TableVC;
+			path = ..;
+			sourceTree = "<group>";
+		};
+		7109E5421BE8FA40003B1A93 /* TableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				7109E5431BE8FA71003B1A93 /* TextArrowCell.swift */,
+				7109E5471BE8FC36003B1A93 /* TextCell.swift */,
+				7109E5491BE8FCBD003B1A93 /* TextSwitchCell.swift */,
+			);
+			name = TableViewCell;
+			sourceTree = "<group>";
+		};
 		713B7AEA1BE653300038A34A /* AFNetworking */ = {
 			isa = PBXGroup;
 			children = (
@@ -171,7 +198,9 @@
 				718378391BE8001000131A74 /* UI */,
 				7183783A1BE8001D00131A74 /* Supporting files */,
 				7183783B1BE8003F00131A74 /* VC */,
+				7109E5411BE8F9E2003B1A93 /* TableVC */,
 				7183783C1BE8004900131A74 /* Yuno */,
+				7109E5421BE8FA40003B1A93 /* TableViewCell */,
 				7183783D1BE8005600131A74 /* Collection cell */,
 			);
 			path = KonaBot;
@@ -350,11 +379,14 @@
 				71FA55731BE55DE800E57198 /* JTSAnimatedGIFUtility.m in Sources */,
 				7152C1DA1BE4F97200A44945 /* CollectionViewController.swift in Sources */,
 				713B7B061BE653300038A34A /* AFURLSessionManager.m in Sources */,
+				7109E5481BE8FC36003B1A93 /* TextCell.swift in Sources */,
 				71FA55781BE55DE800E57198 /* UIImage+JTSImageEffects.m in Sources */,
 				713B7B031BE653300038A34A /* AFURLConnectionOperation.m in Sources */,
 				713B7AFF1BE653300038A34A /* AFHTTPRequestOperationManager.m in Sources */,
 				713B7B101BE7814F0038A34A /* FavoriteCollectionViewController.swift in Sources */,
+				7109E5441BE8FA71003B1A93 /* TextArrowCell.swift in Sources */,
 				71FA55761BE55DE800E57198 /* JTSSimpleImageDownloader.m in Sources */,
+				7109E5401BE8F9D2003B1A93 /* SettingTableViewController.swift in Sources */,
 				713B7B011BE653300038A34A /* AFNetworkReachabilityManager.m in Sources */,
 				719589311BE533940036555E /* Extension.swift in Sources */,
 				718378381BE7EF8000131A74 /* Model.xcdatamodeld in Sources */,
@@ -365,6 +397,7 @@
 				719589331BE53C110036555E /* DetailViewController.swift in Sources */,
 				713B7B051BE653300038A34A /* AFURLResponseSerialization.m in Sources */,
 				71FA55751BE55DE800E57198 /* JTSImageViewController.m in Sources */,
+				7109E54A1BE8FCBD003B1A93 /* TextSwitchCell.swift in Sources */,
 				7152C1431BE3452400A44945 /* AppDelegate.swift in Sources */,
 				713B7B001BE653300038A34A /* AFHTTPSessionManager.m in Sources */,
 				71FA55741BE55DE800E57198 /* JTSImageInfo.m in Sources */,

@@ -18,7 +18,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 		
 		//delete cache images that haven't been favorited
-		self.yuno.deleteEntity("Image")
+		self.yuno.deleteEntity("Cache")
+		
+		UITabBar.appearance().tintColor = UIColor.konaColor()
+		UITabBar.appearance().barTintColor = UIColor.themeColor()
+		UICollectionView.appearance().backgroundColor = UIColor.themeColor()
+		UINavigationBar.appearance().barTintColor = UIColor.themeColor()
+		UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: UIColor.konaColor()]
+		UINavigationBar.appearance().tintColor = UIColor.konaColor()
+		UITableView.appearance().backgroundColor = UIColor.themeColor()
+		UITableViewCell.appearance().backgroundColor = UIColor(red: 50/255, green: 50/255, blue: 50/255, alpha: 1)
+		application.setStatusBarStyle(.LightContent, animated: false)
 		
 		return true
 	}
@@ -42,7 +52,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}
 
 	func applicationWillTerminate(application: UIApplication) {
-		self.yuno.deleteEntity("Image")
+		self.yuno.deleteEntity("Cache")
 	}
 	
 	// MARK: - Core Data stack

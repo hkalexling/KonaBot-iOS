@@ -14,7 +14,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <animations/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Atz-W7-nuv">
                             <size key="itemSize" width="228" height="171"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -70,6 +69,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <animations/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="tintColor" red="0.13333333333333333" green="0.13333333333333333" blue="0.13333333333333333" alpha="1" colorSpace="calibratedRGB"/>
                     </tabBar>
                     <connections>
                         <segue destination="5Tu-Qa-rFc" kind="relationship" relationship="viewControllers" id="wE8-hJ-KQn"/>
@@ -86,12 +86,17 @@
         <scene sceneID="bt1-Jj-roU">
             <objects>
                 <navigationController title="Featured" automaticallyAdjustsScrollViewInsets="NO" id="5Tu-Qa-rFc" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Featured" image="Home" selectedImage="Home" id="DoI-zp-Lyz"/>
+                    <tabBarItem key="tabBarItem" title="Featured" image="Home" selectedImage="Dark Home" id="DoI-zp-Lyz"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="E77-JD-xZP">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <animations/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="barTintColor" red="0.13333333333333333" green="0.13333333333333333" blue="0.13333333333333333" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -111,6 +116,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <animations/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="barTintColor" red="0.13333333333333333" green="0.13333333333333333" blue="0.13333333333333333" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </textAttributes>
                     </navigationBar>
                     <connections>
                         <segue destination="qX2-8t-910" kind="relationship" relationship="rootViewController" id="iq0-eL-SX1"/>
@@ -136,7 +146,7 @@
                                 <rect key="frame" x="210" y="289" width="180" height="21"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.99215686274509807" green="0.6588235294117647" blue="0.55686274509803924" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -177,6 +187,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <animations/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="barTintColor" red="0.13333333333333333" green="0.13333333333333333" blue="0.13333333333333333" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </textAttributes>
                     </navigationBar>
                     <connections>
                         <segue destination="eHr-OC-GV6" kind="relationship" relationship="rootViewController" id="vzH-aQ-JY2"/>
@@ -241,25 +256,104 @@
             </objects>
             <point key="canvasLocation" x="2553" y="1921"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Setting Table View Controller-->
         <scene sceneID="nNO-tI-kMe">
             <objects>
-                <tableViewController id="RLf-Qd-mtR" sceneMemberID="viewController">
+                <tableViewController id="RLf-Qd-mtR" customClass="SettingTableViewController" customModule="KonaBot" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="Fu6-FS-9RL">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="xhV-l8-jZM">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="textArrowCell" id="xhV-l8-jZM" customClass="TextArrowCell" customModule="KonaBot" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="92" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xhV-l8-jZM" id="7z2-dg-8cf">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="567" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Mw-tV-uwd">
+                                            <rect key="frame" x="8" y="12" width="551" height="20"/>
+                                            <animations/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
                                     <animations/>
+                                    <constraints>
+                                        <constraint firstItem="3Mw-tV-uwd" firstAttribute="leading" secondItem="7z2-dg-8cf" secondAttribute="leadingMargin" id="0ZJ-Lg-vKp"/>
+                                        <constraint firstItem="3Mw-tV-uwd" firstAttribute="centerY" secondItem="7z2-dg-8cf" secondAttribute="centerY" id="Du7-fN-s0h"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="3Mw-tV-uwd" secondAttribute="trailing" id="K5V-6l-3iK"/>
+                                    </constraints>
                                 </tableViewCellContentView>
                                 <animations/>
+                                <connections>
+                                    <outlet property="label" destination="3Mw-tV-uwd" id="mwB-Tz-BsN"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="textCell" id="8Ji-7Y-hPc" customClass="TextCell" customModule="KonaBot" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="136" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8Ji-7Y-hPc" id="LOM-7X-YEX">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LVA-Ah-IWO">
+                                            <rect key="frame" x="8" y="12" width="584" height="20"/>
+                                            <animations/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <animations/>
+                                    <constraints>
+                                        <constraint firstItem="LVA-Ah-IWO" firstAttribute="centerX" secondItem="LOM-7X-YEX" secondAttribute="centerX" id="LiT-Gl-c4I"/>
+                                        <constraint firstItem="LVA-Ah-IWO" firstAttribute="leading" secondItem="LOM-7X-YEX" secondAttribute="leadingMargin" id="WTG-uV-QYj"/>
+                                        <constraint firstItem="LVA-Ah-IWO" firstAttribute="centerY" secondItem="LOM-7X-YEX" secondAttribute="centerY" id="gaE-Ze-gEU"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="LVA-Ah-IWO" secondAttribute="trailing" id="rdf-rW-hxm"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <animations/>
+                                <connections>
+                                    <outlet property="label" destination="LVA-Ah-IWO" id="7Cx-aN-g7J"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="textSwitchCell" id="Mpo-Bp-Wud" customClass="TextSwitchCell" customModule="KonaBot" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="180" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Mpo-Bp-Wud" id="8iE-iK-B0C">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cnZ-ns-f5p">
+                                            <rect key="frame" x="8" y="12" width="535" height="20"/>
+                                            <animations/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gcI-l5-1Xk">
+                                            <rect key="frame" x="543" y="6" width="51" height="31"/>
+                                            <animations/>
+                                        </switch>
+                                    </subviews>
+                                    <animations/>
+                                    <constraints>
+                                        <constraint firstItem="gcI-l5-1Xk" firstAttribute="centerY" secondItem="8iE-iK-B0C" secondAttribute="centerY" id="17B-tm-rf5"/>
+                                        <constraint firstItem="cnZ-ns-f5p" firstAttribute="leading" secondItem="8iE-iK-B0C" secondAttribute="leadingMargin" id="6FJ-xw-EDh"/>
+                                        <constraint firstItem="gcI-l5-1Xk" firstAttribute="trailing" secondItem="8iE-iK-B0C" secondAttribute="trailingMargin" id="8yW-E8-z5N"/>
+                                        <constraint firstItem="gcI-l5-1Xk" firstAttribute="leading" secondItem="cnZ-ns-f5p" secondAttribute="trailing" id="LIK-Kv-bBp"/>
+                                        <constraint firstItem="cnZ-ns-f5p" firstAttribute="centerY" secondItem="8iE-iK-B0C" secondAttribute="centerY" id="Zgs-gB-kHM"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <animations/>
+                                <connections>
+                                    <outlet property="label" destination="cnZ-ns-f5p" id="s9p-fM-D2b"/>
+                                    <outlet property="switch" destination="gcI-l5-1Xk" id="QYY-6k-JXl"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -283,6 +377,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <animations/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="barTintColor" red="0.13333333333333333" green="0.13333333333333333" blue="0.13333333333333333" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -295,9 +394,10 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Dark Home" width="30" height="30"/>
         <image name="Home" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="gzH-KP-3rh"/>
+        <segue reference="7iG-pN-Fav"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -106,6 +106,12 @@ public extension UIColor {
 		let comp = self.components
 		return UIColor(red: comp.red * coeff, green: comp.green * coeff, blue: comp.blue * coeff, alpha: comp.alpha)
 	}
+	class func themeColor() -> UIColor{
+		return UIColor(red: 34/255, green: 34/255, blue: 34/255, alpha: 1)
+	}
+	class func konaColor() -> UIColor{
+		return UIColor(red: 253/255, green: 168/255, blue: 142/255, alpha: 1)
+	}
 }
 
 public extension UIAlertController {
@@ -130,6 +136,18 @@ public class Yuno{
 	
 	var imageCoreData = [NSManagedObject]()
 	var favoriteCoreData = [NSManagedObject]()
+	
+	func baseUrl() -> String{
+
+		let r18 = NSUserDefaults.standardUserDefaults().boolForKey("r18")
+		
+		if r18 {
+			return "http://konachan.com"
+		}
+		else{
+			return "http://konachan.net"
+		}
+	}
 	
 	public func saveImageWithKey(entity : String, image : UIImage, key : String){
 		let data = NSKeyedArchiver.archivedDataWithRootObject(image)

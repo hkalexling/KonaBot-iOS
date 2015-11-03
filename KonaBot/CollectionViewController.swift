@@ -11,6 +11,8 @@ import Kanna
 
 class CollectionViewController: UICollectionViewController{
 	
+	var baseUrl : String!
+	
 	var searchVC : SearchViewController?
 	var loading : RZSquaresLoading!
 	
@@ -29,9 +31,11 @@ class CollectionViewController: UICollectionViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
 		
+		self.baseUrl = Yuno().baseUrl()
+		
 		let loadingSize : CGFloat = 80
 		self.loading = RZSquaresLoading(frame: CGRectMake(CGSize.screenSize().width/2 - loadingSize/2, CGSize.screenSize().height/2 - loadingSize/2, loadingSize, loadingSize))
-		loading.color = UIColor.lightGrayColor()
+		self.loading.color = UIColor.konaColor()
 		self.view.addSubview(loading)
 		
 		if (self.keyword == ""){
@@ -40,7 +44,7 @@ class CollectionViewController: UICollectionViewController{
 		else{
 			self.title = self.keyword
 		}
-		self.getHtml("http://konachan.net/post?tags=\(self.keyword)")
+		self.getHtml("\(self.baseUrl)/post?tags=\(self.keyword)")
     }
 
     override func didReceiveMemoryWarning() {
@@ -76,7 +80,7 @@ class CollectionViewController: UICollectionViewController{
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("ImageCell", forIndexPath: indexPath) as! ImageCell
 		
-		cell.imageView.image = UIImage.imageWithColor(UIColor.lightGrayColor())
+		cell.imageView.image = UIImage.imageWithColor(UIColor.darkGrayColor())
 		downloadImg(self.imageUrls[indexPath.row], view: cell.imageView)
 		
         return cell
@@ -113,7 +117,7 @@ class CollectionViewController: UICollectionViewController{
 	
 	func loadMore(){
 		self.currentPage++
-		self.getHtml("http://konachan.net/post?page=\(self.currentPage)&tags=\(self.keyword)")
+		self.getHtml("\(self.baseUrl)/post?page=\(self.currentPage)&tags=\(self.keyword)")
 	}
 	
 	func getHtml(url : String){

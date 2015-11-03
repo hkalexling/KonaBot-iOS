@@ -13,6 +13,7 @@ import CoreData
 class DetailViewController: UIViewController, JTSImageViewControllerInteractionsDelegate{
 	
 	let yuno = Yuno()
+	var baseUrl : String!
 	
 	var smallImage : UIImage!
 	var detailImageView: UIImageView!
@@ -29,6 +30,12 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
     override func viewDidLoad() {
         super.viewDidLoad()
 		
+		baseUrl = self.yuno.baseUrl()
+		
+		let bgView = UIView(frame: self.view.frame)
+		bgView.backgroundColor = UIColor.themeColor()
+		self.view.addSubview(bgView)
+		
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("downloaded:"), name: "finishedDownloading", object: nil)
 		
 		detailImageView = UIImageView()
@@ -39,7 +46,7 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 		self.view.addSubview(detailImageView)
 		
 		self.detailImageView.image = self.smallImage
-        self.getHtml("http://konachan.net\(postUrl)")
+        self.getHtml("\(self.baseUrl)\(postUrl)")
 		
 		let tapRecognizer : UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: Selector("tapped:"))
 		self.detailImageView.addGestureRecognizer(tapRecognizer)
@@ -78,7 +85,7 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 		if (self.imageViewer.image != nil){
 			self.detailImageView.image = self.imageViewer.image
 			self.finishedDownload = true
-			self.yuno.saveImageWithKey("Image", image: self.detailImageView.image!, key: self.postUrl)
+			self.yuno.saveImageWithKey("Cache", image: self.detailImageView.image!, key: self.postUrl)
 			self.yuno.saveFavoriteImageIfNecessary(self.postUrl, image: self.detailImageView.image!)
 		}
 	}
@@ -90,7 +97,7 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 				imageInfo.image = self.detailImageView.image
 			}
 			else{
-				if let img = self.yuno.fetchImageWithKey("Image", key: self.postUrl){
+				if let img = self.yuno.fetchImageWithKey("Cache", key: self.postUrl){
 					imageInfo.image = img
 				}
 				else if let img = self.yuno.fetchImageWithKey("FavoritedImage", key: self.postUrl){
@@ -150,7 +157,7 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 		imageInfo.referenceRect = self.detailImageView.frame
 		imageInfo.referenceView = self.detailImageView.superview
 		
-		if let img = self.yuno.fetchImageWithKey("Image", key: self.postUrl){
+		if let img = self.yuno.fetchImageWithKey("Cache", key: self.postUrl){
 			imageInfo.image = img
 		}
 		else if let img = self.yuno.fetchImageWithKey("FavoritedImage", key: self.postUrl){
@@ -200,7 +207,7 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 		})
 		
 		let openAction = UIAlertAction(title: "Open Post in Safari", style: UIAlertActionStyle.Default, handler: {(alert : UIAlertAction) -> Void in
-			UIApplication.sharedApplication().openURL(NSURL(string: "http://konachan.net\(self.postUrl)")!)
+			UIApplication.sharedApplication().openURL(NSURL(string: "\(self.baseUrl)\(self.postUrl)")!)
 		})
 		
 		let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)

@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9057" systemVersion="15A282b" minimumToolsVersion="Xcode 7.0">
+    <entity name="Cache" syncable="YES">
+        <attribute name="image" optional="YES" attributeType="Binary" indexed="YES" syncable="YES"/>
+        <attribute name="key" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
+    </entity>
     <entity name="FavoritedImage" syncable="YES">
         <attribute name="image" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="isFullSize" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="key" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
-    <entity name="Image" syncable="YES">
-        <attribute name="image" optional="YES" attributeType="Binary" indexed="YES" syncable="YES"/>
-        <attribute name="key" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
-    </entity>
     <elements>
         <element name="FavoritedImage" positionX="-36" positionY="18" width="128" height="90"/>
-        <element name="Image" positionX="-63" positionY="-18" width="128" height="75"/>
+        <element name="Cache" positionX="-63" positionY="-18" width="128" height="75"/>
     </elements>
 </model>

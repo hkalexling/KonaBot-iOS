@@ -27,8 +27,14 @@ class SearchViewController: UIViewController, UISearchBarDelegate {
 	
 	var keyword : String!
 	
+	var baseUrl : String!
+	
     override func viewDidLoad() {
         super.viewDidLoad()
+		
+		self.baseUrl = Yuno().baseUrl()
+		
+		self.view.backgroundColor = UIColor.themeColor()
 		
 		self.searchBar.frame = CGRectMake(0, 0, CGSize.screenSize().width, 20)
 		self.searchBar.placeholder = "Search tag"
@@ -36,7 +42,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate {
 		
 		let loadingSize : CGFloat = 80
 		self.loading = RZSquaresLoading(frame: CGRectMake((CGSize.screenSize().width - loadingSize)/2, (CGSize.screenSize().height - loadingSize)/2, loadingSize, loadingSize))
-		self.loading.color = UIColor.lightGrayColor()
+		self.loading.color = UIColor.konaColor()
 		self.view.addSubview(self.loading)
 
 		self.searchBar.delegate = self
@@ -96,8 +102,22 @@ class SearchViewController: UIViewController, UISearchBarDelegate {
 		var searchText = self.searchBar.text!
 		searchText = self.prepareSearchKeyword(searchText)
 		if (!searchText.isEmpty){
+			if (searchText == "r18"){
+				self.toggleR18()
+				return
+			}
 			self.keyword = searchText
 			self.handleSearch()
+		}
+	}
+	
+	func toggleR18(){
+		let r18 = NSUserDefaults.standardUserDefaults().boolForKey("r18")
+		if r18 {
+			NSUserDefaults.standardUserDefaults().setBool(false, forKey: "r18")
+		}
+		else{
+			NSUserDefaults.standardUserDefaults().setBool(true, forKey: "r18")
 		}
 	}
 	
@@ -144,17 +164,18 @@ class SearchViewController: UIViewController, UISearchBarDelegate {
 		self.youMeantLabel = UILabel(frame: CGRectMake(0, y - 10, CGSize.screenSize().width, buttonHeight))
 		self.youMeantLabel!.text = "Maybe you meant..."
 		self.youMeantLabel!.font = UIFont.systemFontOfSize(20)
-		self.youMeantLabel!.backgroundColor = UIColor.whiteColor()
-		self.youMeantLabel!.textColor = UIColor.blackColor()
+		self.youMeantLabel!.backgroundColor = UIColor.themeColor()
+		self.youMeantLabel!.textColor = UIColor.whiteColor()
 		self.youMeantLabel!.textAlignment = NSTextAlignment.Center
 		self.view.addSubview(youMeantLabel!)
 		
 		for (var i : Int = 0; i < self.suggestedTag.count; i++){
 			let button = UIButton(type: UIButtonType.System) as UIButton
-			button.backgroundColor = UIColor.whiteColor()
+			button.backgroundColor = UIColor.themeColor()
 			button.setTitle(self.suggestedTag[i], forState: .Normal)
 			button.frame = CGRectMake((CGSize.screenSize().width - buttonWidht)/2, y + (buttonHeight + buttonGap) * CGFloat(i + 1), buttonWidht, buttonHeight)
 			button.addTarget(self, action: Selector("suggestionButtonTapped:"), forControlEvents: .TouchUpInside)
+			button.tintColor = UIColor.konaColor()
 			self.tagButtons.append(button)
 			self.view.addSubview(button)
 		}
@@ -188,18 +209,19 @@ class SearchViewController: UIViewController, UISearchBarDelegate {
 			self.topTagLabel = UILabel(frame: CGRectMake(0, y - 10, CGSize.screenSize().width, buttonHeight))
 			self.topTagLabel.text = "Top Tags:"
 			self.topTagLabel.font =  UIFont.systemFontOfSize(20)
-			self.topTagLabel.backgroundColor = UIColor.whiteColor()
-			self.topTagLabel.textColor = UIColor.blackColor()
+			self.topTagLabel.backgroundColor = UIColor.themeColor()
+			self.topTagLabel.textColor = UIColor.whiteColor()
 			self.topTagLabel.textAlignment = NSTextAlignment.Center
 			self.view.addSubview(topTagLabel)
 		}
 		
 		for (var i : Int = 0; i < randomTags.count; i++){
 			let button = UIButton(type: UIButtonType.System) as UIButton
-			button.backgroundColor = UIColor.whiteColor()
+			button.backgroundColor = UIColor.themeColor()
 			button.setTitle(randomTags[i], forState: .Normal)
 			button.frame = CGRectMake((CGSize.screenSize().width - buttonWidht)/2, y + (buttonHeight + buttonGap) * CGFloat(i + 1), buttonWidht, buttonHeight)
 			button.addTarget(self, action: Selector("suggestionButtonTapped:"), forControlEvents: .TouchUpInside)
+			button.tintColor = UIColor.konaColor()
 			self.tagButtons.append(button)
 			self.view.addSubview(button)
 		}
@@ -213,7 +235,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate {
 	}
 	
 	func getTopTags(){
-		self.getHtml("http://konachan.net/tag?name=&type=0&order=count")
+		self.getHtml("\(self.baseUrl)/tag?name=&type=0&order=count")
 	}
 	
 	func getHtml(url : String){
