@@ -42,7 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}
 
 	func applicationWillTerminate(application: UIApplication) {
-		
+		self.yuno.deleteEntity("Image")
 	}
 	
 	// MARK: - Core Data stack

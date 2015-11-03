@@ -60,7 +60,7 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 		self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "Star"), style: .Done, target: self, action: Selector("unstared"))
 		if (!self.favoriteList.contains(self.postUrl)){
 			self.favoriteList.append(self.postUrl)
-			self.yuno.saveFavorite(self.postUrl)
+			//self.yuno.saveFavorite(self.postUrl)
 			self.yuno.saveImageWithKey("FavoritedImage", image: self.detailImageView.image!, key: self.postUrl)
 		}
 	}
@@ -69,7 +69,7 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 		self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "Star Outline"), style: .Done, target: self, action: Selector("stared"))
 		if (self.favoriteList.contains(self.postUrl)){
 			self.favoriteList.removeAtIndex(self.favoriteList.indexOf(self.postUrl)!)
-			self.yuno.removeFromFavorite(self.postUrl)
+			//self.yuno.removeFromFavorite(self.postUrl)
 			self.yuno.deleteRecordForKey("FavoritedImage", key: self.postUrl)
 		}
 	}
@@ -94,7 +94,12 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 					imageInfo.image = img
 				}
 				else if let img = self.yuno.fetchImageWithKey("FavoritedImage", key: self.postUrl){
-					imageInfo.image = img
+					if self.yuno.checkFullsSizeWithKey(self.postUrl){
+						imageInfo.image = img
+					}
+					else{
+						imageInfo.imageURL = NSURL(string: self.urlStr!)
+					}
 				}
 				else{
 					imageInfo.imageURL = NSURL(string: self.urlStr!)
@@ -149,7 +154,12 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 			imageInfo.image = img
 		}
 		else if let img = self.yuno.fetchImageWithKey("FavoritedImage", key: self.postUrl){
-			imageInfo.image = img
+			if self.yuno.checkFullsSizeWithKey(self.postUrl){
+				imageInfo.image = img
+			}
+			else{
+				imageInfo.imageURL = NSURL(string: self.urlStr!)
+			}
 		}
 		else{
 			imageInfo.imageURL = NSURL(string: url)

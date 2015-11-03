@@ -169,6 +169,26 @@ public class Yuno{
 		return nil
 	}
 	
+	public func checkFullsSizeWithKey(key : String) -> Bool {
+		let managedContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+		let fetchRequest = NSFetchRequest(entityName: "FavoritedImage")
+		fetchRequest.predicate = NSPredicate(format: "key == %@", key)
+		
+		var fetchedResults : [NSManagedObject] = []
+		do {
+			fetchedResults = try managedContext.executeFetchRequest(fetchRequest) as! [NSManagedObject]
+		}
+		catch{
+			print (error)
+		}
+		
+		if fetchedResults.count == 1 {
+			return fetchedResults[0].valueForKey("isFullSize") as! Bool
+		}
+		
+		return false
+	}
+	
 	public func deleteRecordForKey(entity : String, key : String) {
 		let managedContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
 		let fetchRequest = NSFetchRequest(entityName: entity)
@@ -183,6 +203,12 @@ public class Yuno{
 		}
 		if fetchedResults.count == 1 {
 			managedContext.deleteObject(fetchedResults[0])
+			do {
+				try managedContext.save()
+			}
+			catch{
+				print (error)
+			}
 		}
 	}
 	
@@ -201,23 +227,25 @@ public class Yuno{
 		
 		if fetchedResults.count > 0 {
 			self.deleteRecordForKey("FavoritedImage", key: key)
-			self.saveImageWithKey("FavoritedImage", image: image, key: key)
-		}
-	}
-	
-	public func saveFavorite(url : String){
-		let managedContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
-		let entity = NSEntityDescription.entityForName("Favorite", inManagedObjectContext: managedContext)
-		let object = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: managedContext)
-		
-		object.setValue(url, forKey: "postUrl")
-		
-		self.favoriteCoreData.append(object)
-		do {
-			try managedContext.save()
-		}
-		catch{
-			print (error)
+
+			let data = NSKeyedArchiver.archivedDataWithRootObject(image)
+			let managedContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+			let entity = NSEntityDescription.entityForName("FavoritedImage",
+				inManagedObjectContext: managedContext)
+			let options = NSManagedObject(entity: entity!,
+				insertIntoManagedObjectContext:managedContext)
+			
+			options.setValue(data, forKey: "image")
+			options.setValue(key, forKey: "key")
+			options.setValue(true, forKey: "isFullSize")
+			
+			self.imageCoreData.append(options)
+			do {
+				try managedContext.save()
+			}
+			catch{
+				print (error)
+			}
 		}
 	}
 	
@@ -225,7 +253,7 @@ public class Yuno{
 		var returnAry : [String] = []
 		
 		let managedContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
-		let fetchRequest = NSFetchRequest(entityName: "Favorite")
+		let fetchRequest = NSFetchRequest(entityName: "FavoritedImage")
 		
 		var fetchedResults : [NSManagedObject] = []
 		do {
@@ -235,32 +263,11 @@ public class Yuno{
 			print (error)
 		}
 		
-		if fetchedResults.count > 0 {
-			for result in fetchedResults{
-				returnAry.append(result.valueForKey("postUrl") as! String)
-			}
+		for result in fetchedResults{
+			returnAry.append(result.valueForKey("key") as! String)
 		}
 		
 		return returnAry
-	}
-	
-	public func removeFromFavorite(url : String){
-
-		let managedContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
-		let fetchRequest = NSFetchRequest(entityName: "Favorite")
-		fetchRequest.predicate = NSPredicate(format: "postUrl = %@", url)
-		
-		var fetchedResults : [NSManagedObject] = []
-		do {
-			fetchedResults = try managedContext.executeFetchRequest(fetchRequest) as! [NSManagedObject]
-		}
-		catch{
-			print (error)
-		}
-		
-		if fetchedResults.count == 1 {
-			managedContext.deleteObject(fetchedResults[0])
-		}
 	}
 	
 	public func deleteEntity(entity : String){
@@ -279,6 +286,13 @@ public class Yuno{
 			for result in fetchedResults{
 				managedContext.deleteObject(result)
 			}
+		}
+		
+		do {
+			try managedContext.save()
+		}
+		catch{
+			print (error)
 		}
 	}
 	
