@@ -30,6 +30,8 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
     override func viewDidLoad() {
         super.viewDidLoad()
 		
+		self.navigationItem.hidesBackButton = true
+		
 		let bgView = UIView(frame: self.view.frame)
 		bgView.backgroundColor = UIColor.themeColor()
 		self.view.addSubview(bgView)
@@ -174,6 +176,11 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 		self.imageViewer.interactionsDelegate = self
 		
 		imageViewer.showFromViewController(self, transition: .FromOriginalPosition)
+		
+		let dispatchTime: dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW, Int64(0.3 * Double(NSEC_PER_SEC)))
+		dispatch_after(dispatchTime, dispatch_get_main_queue(), {
+			self.navigationItem.hidesBackButton = false
+		})
 	}
 	
 	func imageViewerDidLongPress(imageViewer: JTSImageViewController!, atRect rect: CGRect) {
