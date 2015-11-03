@@ -15,3 +15,4 @@ A WIP unofficial iOS client for [Konachan.net](http://konachan.net)
 - [ ] Optimize UI for iPad
 - [ ] Design app icon
 - [ ] Design launch screen
+- [ ] Submit to App Store
