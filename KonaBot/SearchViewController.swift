@@ -249,6 +249,8 @@ class SearchViewController: UIViewController, UISearchBarDelegate {
 				
 			}, failure: {(operation, error) -> Void in
 				print ("Error : \(error)")
+				let alert = UIAlertController.alertWithOKButton("Network Error", message: error.localizedDescription)
+				self.presentViewController(alert, animated: true, completion: nil)
 		})
 	}
 	

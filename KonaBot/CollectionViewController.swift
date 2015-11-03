@@ -13,7 +13,6 @@ class CollectionViewController: UICollectionViewController{
 	
 	var refreshControl : UIRefreshControl!
 	
-	var r18Label = UILabel()
 	var baseUrl : String!
 	
 	var searchVC : SearchViewController?
@@ -35,6 +34,8 @@ class CollectionViewController: UICollectionViewController{
 		
 		self.refreshControl = UIRefreshControl()
 		self.refreshControl.addTarget(self, action: Selector("refresh"), forControlEvents: .ValueChanged)
+		self.refreshControl.tintColor = UIColor.konaColor()
+		self.refreshControl.alpha = 0.5
 		self.collectionView!.addSubview(self.refreshControl)
 		
 		self.refresh()
@@ -46,14 +47,15 @@ class CollectionViewController: UICollectionViewController{
 		self.heightOverWidth = []
 		self.collectionView!.reloadData()
 		
+		self.navigationItem.rightBarButtonItem = UIBarButtonItem()
 		self.baseUrl = Yuno().baseUrl()
 		if self.baseUrl.containsString(".com"){
-			self.r18Label = UILabel(frame: CGRectMake(0, 0, 80, 20))
-			self.r18Label.backgroundColor = UIColor.themeColor()
-			self.r18Label.textColor = UIColor.konaColor()
-			self.r18Label.text = "R18"
-			self.r18Label.textAlignment = NSTextAlignment.Right
-			self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: self.r18Label)
+			let r18Label = UILabel(frame: CGRectMake(0, 0, 80, 20))
+			r18Label.backgroundColor = UIColor.themeColor()
+			r18Label.textColor = UIColor.konaColor()
+			r18Label.text = "R18"
+			r18Label.textAlignment = NSTextAlignment.Right
+			self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: r18Label)
 		}
 		
 		let loadingSize : CGFloat = 80
@@ -161,6 +163,8 @@ class CollectionViewController: UICollectionViewController{
 				self.collectionView!.insertItemsAtIndexPaths(index)
 			}, failure: {(operation, error) -> Void in
 				print ("Error : \(error)")
+				let alert = UIAlertController.alertWithOKButton("Network Error", message: error.localizedDescription)
+				self.presentViewController(alert, animated: true, completion: nil)
 		})
 	}
 	

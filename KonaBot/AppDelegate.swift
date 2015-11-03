@@ -21,6 +21,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			self.yuno.deleteEntity("Cache")
 		}
 		
+		if NSUserDefaults.standardUserDefaults().objectForKey("optimize") == nil{
+			NSUserDefaults.standardUserDefaults().setBool(true, forKey: "optimize")
+		}
+		
 		UITabBar.appearance().tintColor = UIColor.konaColor()
 		UITabBar.appearance().barTintColor = UIColor.themeColor()
 		UICollectionView.appearance().backgroundColor = UIColor.themeColor()
