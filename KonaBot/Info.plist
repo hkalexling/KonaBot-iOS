@@ -50,5 +50,24 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>UIApplicationShortcutItems</key>
+	<array>
+		<dict>
+			<key>UIApplicationShortcutItemIconType</key>
+			<string>UIApplicationShortcutIconTypeSearch</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>Search Konachan</string>
+			<key>UIApplicationShortcutItemType</key>
+			<string>search</string>
+		</dict>
+		<dict>
+			<key>UIApplicationShortcutItemIconType</key>
+			<string>UIApplicationShortcutIconTypeFavorite</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>My Favorites</string>
+			<key>UIApplicationShortcutItemType</key>
+			<string>favorite</string>
+		</dict>
+	</array>
 </dict>
 </plist>

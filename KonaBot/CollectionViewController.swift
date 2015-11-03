@@ -32,6 +32,10 @@ class CollectionViewController: UICollectionViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
 		
+		if NSUserDefaults.standardUserDefaults().objectForKey("tabToSelect") != nil {
+			self.tabBarController!.selectedIndex = NSUserDefaults.standardUserDefaults().integerForKey("tabToSelect")
+		}
+		
 		self.refreshControl = UIRefreshControl()
 		self.refreshControl.addTarget(self, action: Selector("refresh"), forControlEvents: .ValueChanged)
 		self.refreshControl.tintColor = UIColor.konaColor()
