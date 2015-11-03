@@ -12,5 +12,4 @@ A WIP unofficial iOS client for [Konachan.net](http://konachan.net)
 - [X] Settings menu
 - [X] Improve UI design
 - [X] Favorite list
-- [ ] iPad support
-- [ ] Landscape support
+- [ ] Optimize UI for iPad
