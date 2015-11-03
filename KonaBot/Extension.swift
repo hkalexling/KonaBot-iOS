@@ -154,6 +154,7 @@ public class Yuno{
 	public func fetchImageWithKey(key : String) -> UIImage?{
 		let managedContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
 		let fetchRequest = NSFetchRequest(entityName: "Image")
+		fetchRequest.predicate = NSPredicate(format: "key == %@", key)
 		
 		var fetchedResults : [NSManagedObject] = []
 		do {
@@ -162,12 +163,8 @@ public class Yuno{
 		catch{
 			print (error)
 		}
-		if fetchedResults.count > 0 {
-			for result in fetchedResults {
-				if result.valueForKey("key") as! String == key {
-					return NSKeyedUnarchiver.unarchiveObjectWithData(result.valueForKey("fullImage") as! NSData) as? UIImage
-				}
-			}
+		if fetchedResults.count == 1 {
+			return NSKeyedUnarchiver.unarchiveObjectWithData(fetchedResults[0].valueForKey("fullImage") as! NSData) as? UIImage
 		}
 		return nil
 	}
@@ -175,6 +172,7 @@ public class Yuno{
 	public func deleteRecordForKey(key : String) {
 		let managedContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
 		let fetchRequest = NSFetchRequest(entityName: "Image")
+		fetchRequest.predicate = NSPredicate(format: "key == %@", key)
 		
 		var fetchedResults : [NSManagedObject] = []
 		do {
@@ -183,13 +181,8 @@ public class Yuno{
 		catch{
 			print (error)
 		}
-		if fetchedResults.count > 0 {
-			for result in fetchedResults {
-				if result.valueForKey("key") as! String == key {
-					managedContext.deleteObject(result)
-					return
-				}
-			}
+		if fetchedResults.count == 1 {
+			managedContext.deleteObject(fetchedResults[0])
 		}
 	}
 	
@@ -236,6 +229,7 @@ public class Yuno{
 
 		let managedContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
 		let fetchRequest = NSFetchRequest(entityName: "Favorite")
+		fetchRequest.predicate = NSPredicate(format: "postUrl = %@", url)
 		
 		var fetchedResults : [NSManagedObject] = []
 		do {
@@ -245,13 +239,8 @@ public class Yuno{
 			print (error)
 		}
 		
-		if fetchedResults.count > 0 {
-			for result in fetchedResults{
-				if result.valueForKey("postUrl") as! String == url{
-					managedContext.deleteObject(result)
-					return
-				}
-			}
+		if fetchedResults.count == 1 {
+			managedContext.deleteObject(fetchedResults[0])
 		}
 	}
 	

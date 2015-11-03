@@ -32,10 +32,6 @@ class FavoriteCollectionViewController: UICollectionViewController {
 		}
 		
 	}
-	
-	override func viewWillDisappear(animated: Bool) {
-		self.label.removeFromSuperview()
-	}
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
