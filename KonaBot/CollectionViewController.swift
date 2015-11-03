@@ -33,7 +33,9 @@ class CollectionViewController: UICollectionViewController{
         super.viewDidLoad()
 		
 		if NSUserDefaults.standardUserDefaults().objectForKey("tabToSelect") != nil {
-			self.tabBarController!.selectedIndex = NSUserDefaults.standardUserDefaults().integerForKey("tabToSelect")
+			let tabToSelect = NSUserDefaults.standardUserDefaults().integerForKey("tabToSelect")
+			NSUserDefaults.standardUserDefaults().removeObjectForKey("tabToSelect")
+			self.tabBarController!.selectedIndex = tabToSelect
 		}
 		
 		self.refreshControl = UIRefreshControl()
