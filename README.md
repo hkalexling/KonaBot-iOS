@@ -2,7 +2,13 @@
 
 An unofficial iOS client for [Konachan.net](http://konachan.net)
 
-Some [screenshots](https://github.com/hkalexling/KonaBot-iOS/tree/master/ScreenShots)
+## Screenshots
+
+<img src="./KonaBot/screenshots/4.7%20Device%201.jpg" width="250">
+<img src="./KonaBot/screenshots/4.7%20Device%202.jpg" width="250">
+<img src="./KonaBot/screenshots/4.7%20Device%203.jpg" width="250">
+<img src="./KonaBot/screenshots/4.7%20Device%204.jpg" width="250">
+<img src="./KonaBot/screenshots/4.7%20Device%205.jpg" width="250">
 
 See how it works in action: [YouTube](https://www.youtube.com/watch?v=GHr2EPdIcMo)
 
@@ -21,7 +27,7 @@ See how it works in action: [YouTube](https://www.youtube.com/watch?v=GHr2EPdIcM
 - [X] Allow users to set row numbers of images in collection view
 - [X] Design app icon
 - [X] Design launch screen
-- [ ] Final test and clean up
+- [X] Final test and clean up
 - [ ] Submit to App Store
 
 ## Acknowledgement
@@ -32,3 +38,5 @@ This app used the following open source libraries:
 - [RZSquaresLoading](https://github.com/robinzhangx/RZSquaresLoading)
 - [AFNetworking](https://github.com/AFNetworking/AFNetworking)
 - [JTSImageViewController](https://github.com/jaredsinclair/JTSImageViewController)
+
+The screenshots are generated using [Sketch To App Store](https://github.com/LaunchKit/SketchToAppStore)
