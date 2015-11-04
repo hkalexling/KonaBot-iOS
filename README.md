@@ -4,11 +4,11 @@ An unofficial iOS client for [Konachan.net](http://konachan.net)
 
 ## Screenshots
 
-<img src="./KonaBot/screenshots/4.7%20Device%201.jpg" width="250">
-<img src="./KonaBot/screenshots/4.7%20Device%202.jpg" width="250">
-<img src="./KonaBot/screenshots/4.7%20Device%203.jpg" width="250">
-<img src="./KonaBot/screenshots/4.7%20Device%204.jpg" width="250">
-<img src="./KonaBot/screenshots/4.7%20Device%205.jpg" width="250">
+<img src="./KonaBot/screenshots/4.7%20Device%201.jpg" width="230">
+<img src="./KonaBot/screenshots/4.7%20Device%202.jpg" width="230">
+<img src="./KonaBot/screenshots/4.7%20Device%203.jpg" width="230">
+<img src="./KonaBot/screenshots/4.7%20Device%204.jpg" width="230">
+<img src="./KonaBot/screenshots/4.7%20Device%205.jpg" width="230">
 
 See how it works in action: [YouTube](https://www.youtube.com/watch?v=GHr2EPdIcMo)
 
