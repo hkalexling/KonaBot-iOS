@@ -109,7 +109,6 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
         super.didReceiveMemoryWarning()
     }
 
-
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1

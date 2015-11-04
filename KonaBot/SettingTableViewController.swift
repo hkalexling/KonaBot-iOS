@@ -98,7 +98,7 @@ class SettingTableViewController: UITableViewController {
 			self.loadAboutVC()
 		}
 		if indexPath.section == 2 {
-			let websiteAddress = NSURL(string: "http://hkalexling.com/2015/10/11/ibudgeter-support-page/")
+			let websiteAddress = NSURL(string: "http://hkalexling.com/2015/11/05/konabot-support-page/")
 			UIApplication.sharedApplication().openURL(websiteAddress!)
 		}
 	}

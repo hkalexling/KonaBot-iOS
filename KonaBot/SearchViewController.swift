@@ -10,7 +10,9 @@ import UIKit
 import Kanna
 
 class SearchViewController: UIViewController, UISearchBarDelegate {
-
+	
+	let hiddenTags : [String] = ["nipples", "cleavage", "pussy", "nude" , "ass", "panties", "breasts"]
+	
 	@IBOutlet weak var noResultLabel: UILabel!
 	var searchBar:UISearchBar = UISearchBar()
 	
@@ -264,7 +266,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate {
 						if (td.className! == "tag-type-general"){
 							if(td.text != nil){
 								let tag = td.text!.stringByReplacingOccurrencesOfString("\n", withString: "").stringByReplacingOccurrencesOfString(" ", withString: "").stringByReplacingOccurrencesOfString("?", withString: "")
-								if (tag == "nipples"){continue}
+								if (self.hiddenTags.contains(tag) && !NSUserDefaults.standardUserDefaults().boolForKey("r18")){continue}
 								else{
 									self.topTags.append(tag)
 								}
