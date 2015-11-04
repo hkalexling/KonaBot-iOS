@@ -2,6 +2,10 @@
 
 An unofficial iOS client for [Konachan.net](http://konachan.net)
 
+Some [screenshots](https://github.com/hkalexling/KonaBot-iOS/tree/master/ScreenShots)
+
+See how it works in action: [YouTube](https://www.youtube.com/watch?v=GHr2EPdIcMo)
+
 ## Todo
 
 - [X] Implement cache feature for images
