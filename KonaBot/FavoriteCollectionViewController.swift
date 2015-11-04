@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FavoriteCollectionViewController: UICollectionViewController {
+class FavoriteCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
 	
 	let yuno = Yuno()
 	
@@ -17,6 +17,10 @@ class FavoriteCollectionViewController: UICollectionViewController {
 	var label : UILabel = UILabel()
 	
 	var compact : Bool = true
+	
+	var cellWidth : CGFloat!
+	
+	var columnNum : Int!
 	
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,7 +31,23 @@ class FavoriteCollectionViewController: UICollectionViewController {
 	override func viewWillAppear(animated: Bool) {
 		
 		self.compact = NSUserDefaults.standardUserDefaults().integerForKey("viewMode") == 1
-
+		
+		if UIDevice.currentDevice().model.hasPrefix("iPad"){
+			self.columnNum = 3
+		}
+		else{
+			if CGSize.screenSize().width >= 375 && self.compact {
+				self.columnNum = 2
+			}
+			else{
+				self.columnNum = 1
+			}
+		}
+		self.cellWidth = CGSize.screenSize().width/CGFloat(self.columnNum) - 5
+		
+		let layout : UICollectionViewFlowLayout = self.collectionViewLayout as! UICollectionViewFlowLayout
+		layout.sectionInset = UIEdgeInsetsMake(0, (CGSize.screenSize().width/CGFloat(self.columnNum) - self.cellWidth)/2, 0, (CGSize.screenSize().width/CGFloat(self.columnNum) - self.cellWidth)/2)
+		
 		self.favoritePostList = self.yuno.favoriteList()
 		self.collectionView!.reloadData()
 		
@@ -84,19 +104,7 @@ class FavoriteCollectionViewController: UICollectionViewController {
 	
 	func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
 		let size = (yuno.fetchImageWithKey("FavoritedImage", key: self.favoritePostList[indexPath.row]))!.size
-		var width : CGFloat
-		if UIDevice.currentDevice().model.hasPrefix("iPad"){
-			width = CGSize.screenSize().height/3 - 10
-		}
-		else{
-			if CGSize.screenSize().width >= 375 && compact{
-				width = CGSize.screenSize().width/2 - 5
-			}
-			else{
-				width = CGSize.screenSize().width
-			}
-		}
-		let height = width * (size.height / size.width)
-		return CGSizeMake(width, height)
+		let height = self.cellWidth * (size.height / size.width)
+		return CGSizeMake(self.cellWidth, height)
 	}
 }

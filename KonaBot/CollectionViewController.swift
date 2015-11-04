@@ -9,7 +9,7 @@
 import UIKit
 import Kanna
 
-class CollectionViewController: UICollectionViewController{
+class CollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout{
 	
 	var refreshControl : UIRefreshControl!
 	
@@ -30,6 +30,10 @@ class CollectionViewController: UICollectionViewController{
 	var maxNumberOfPagesToTry : Int = 3
 	
 	var compact : Bool = true
+	
+	var cellWidth : CGFloat!
+	
+	var columnNum : Int!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,6 +56,22 @@ class CollectionViewController: UICollectionViewController{
 	func refresh(){
 		
 		self.compact = NSUserDefaults.standardUserDefaults().integerForKey("viewMode") == 1
+		
+		if UIDevice.currentDevice().model.hasPrefix("iPad"){
+			self.columnNum = 3
+		}
+		else{
+			if CGSize.screenSize().width >= 375 && self.compact {
+				self.columnNum = 2
+			}
+			else{
+				self.columnNum = 1
+			}
+		}
+		self.cellWidth = CGSize.screenSize().width/CGFloat(self.columnNum) - 5
+		
+		let layout : UICollectionViewFlowLayout = self.collectionViewLayout as! UICollectionViewFlowLayout
+		layout.sectionInset = UIEdgeInsetsMake(0, (CGSize.screenSize().width/CGFloat(self.columnNum) - self.cellWidth)/2, 0, (CGSize.screenSize().width/CGFloat(self.columnNum) - self.cellWidth)/2)
 		
 		self.postUrls = []
 		self.imageUrls = []
@@ -149,26 +169,15 @@ class CollectionViewController: UICollectionViewController{
 	}
 	
 	func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-		var width : CGFloat
-		if UIDevice.currentDevice().model.hasPrefix("iPad"){
-			width = CGSize.screenSize().height/3 - 10
-		}
-		else{
-			if CGSize.screenSize().width >= 375 && self.compact {
-				width = CGSize.screenSize().width/2 - 5
-			}
-			else{
-				width = CGSize.screenSize().width
-			}
-		}
-		return CGSize(width: width, height: width * self.heightOverWidth[indexPath.row])
+
+		return CGSize(width: self.cellWidth, height: self.cellWidth * self.heightOverWidth[indexPath.row])
 	}
 	
 	func loadMore(){
 		self.currentPage++
 		self.getHtml("\(self.baseUrl)/post?page=\(self.currentPage)&tags=\(self.keyword)")
 	}
-	
+
 	func getHtml(url : String){
 		let manager : AFHTTPRequestOperationManager = AFHTTPRequestOperationManager()
 		manager.responseSerializer = AFHTTPResponseSerializer()
