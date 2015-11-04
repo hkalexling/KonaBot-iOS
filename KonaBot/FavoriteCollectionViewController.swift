@@ -107,4 +107,8 @@ class FavoriteCollectionViewController: UICollectionViewController, UICollection
 		let height = self.cellWidth * (size.height / size.width)
 		return CGSizeMake(self.cellWidth, height)
 	}
+	
+	override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
+		self.collectionView!.reloadData()
+	}
 }

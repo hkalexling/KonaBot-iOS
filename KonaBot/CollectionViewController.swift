@@ -152,6 +152,10 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 		detailVC.view.backgroundColor = UIColor.whiteColor()
 		self.navigationController!.pushViewController(detailVC, animated: true)
 	}
+	
+	override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
+		self.collectionView!.reloadData()
+	}
 
 	func downloadImg(url : String, view : UIImageView){
 		let requestOperation : AFHTTPRequestOperation = AFHTTPRequestOperation(request: NSURLRequest(URL: NSURL(string: url)!))
