@@ -16,7 +16,7 @@ A WIP unofficial iOS client for [Konachan.net](http://konachan.net)
 - [X] Add 3D Touch quick action
 - [X] Allow users to set row numbers of images in collection view
 - [ ] Design app icon
-- [ ] Design launch screen
+- [X] Design launch screen
 - [ ] Submit to App Store
 
 ## Acknowledgement
