@@ -14,6 +14,7 @@ A WIP unofficial iOS client for [Konachan.net](http://konachan.net)
 - [X] Add Favorite list
 - [X] Optimize UI for iPad
 - [X] Add 3D Touch quick action
+- [ ] Allow users to set row numbers of images in collection view
 - [ ] Design app icon
 - [ ] Design launch screen
 - [ ] Submit to App Store
