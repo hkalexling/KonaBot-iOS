@@ -211,6 +211,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate {
 			self.topTagLabel.backgroundColor = UIColor.themeColor()
 			self.topTagLabel.textColor = UIColor.whiteColor()
 			self.topTagLabel.textAlignment = NSTextAlignment.Center
+			
 			self.view.addSubview(topTagLabel)
 		}
 		

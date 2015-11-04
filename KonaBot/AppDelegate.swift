@@ -25,6 +25,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			NSUserDefaults.standardUserDefaults().setBool(true, forKey: "optimize")
 		}
 		
+		if NSUserDefaults.standardUserDefaults().objectForKey("viewMode") == nil {
+			NSUserDefaults.standardUserDefaults().setInteger(1, forKey: "viewMode")
+		}
+		
 		UITabBar.appearance().tintColor = UIColor.konaColor()
 		UITabBar.appearance().barTintColor = UIColor.themeColor()
 		UICollectionView.appearance().backgroundColor = UIColor.themeColor()

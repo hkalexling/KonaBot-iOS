@@ -33,7 +33,12 @@ class SettingTableViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-		return 1
+		if section == 0 && CGSize.screenSize().width >= 375 && UIDevice.currentDevice().model.hasPrefix("iPhone"){
+			return 2
+		}
+		else{
+			return 1
+		}
     }
 	
 	override func tableView(tableView: UITableView, titleForFooterInSection section: Int) -> String? {
@@ -47,15 +52,25 @@ class SettingTableViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		let section = indexPath.section
-		//let row = indexPath.row
+		let row = indexPath.row
 		
 		if section == 0 {
-			let cell = tableView.dequeueReusableCellWithIdentifier("textSwitchCell") as! TextSwitchCell
-			
-			cell.label.text = "Optimize Storage"
-			cell.label.textColor = UIColor.konaColor()
-			
-			return cell
+			if row == 0 {
+				let cell = tableView.dequeueReusableCellWithIdentifier("textSwitchCell") as! TextSwitchCell
+				
+				cell.label.text = "Optimize Storage"
+				cell.label.textColor = UIColor.konaColor()
+				
+				return cell
+			}
+			else if row == 1 && CGSize.screenSize().width >= 375 && UIDevice.currentDevice().model.hasPrefix("iPhone"){
+				let cell = tableView.dequeueReusableCellWithIdentifier("viewModeCell") as! ViewModeCell
+				
+				cell.label.textColor = UIColor.konaColor()
+				cell.segmentControl.tintColor = UIColor.konaColor()
+				
+				return cell
+			}
 		}
 		else if section == 1 {
 
@@ -74,6 +89,8 @@ class SettingTableViewController: UITableViewController {
 			
 			return cell
 		}
+		
+		return UITableViewCell()
     }
 	
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -108,5 +125,9 @@ class SettingTableViewController: UITableViewController {
 	
 	@IBAction func switched(sender: UISwitch) {
 		NSUserDefaults.standardUserDefaults().setBool(sender.on, forKey: "optimize")
+	}
+	
+	@IBAction func seguementChanged(sender: UISegmentedControl) {
+		NSUserDefaults.standardUserDefaults().setInteger(sender.selectedSegmentIndex, forKey: "viewMode")
 	}
 }

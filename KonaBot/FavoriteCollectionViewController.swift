@@ -16,6 +16,8 @@ class FavoriteCollectionViewController: UICollectionViewController {
 	
 	var label : UILabel = UILabel()
 	
+	var compact : Bool = true
+	
     override func viewDidLoad() {
         super.viewDidLoad()
 		
@@ -23,6 +25,8 @@ class FavoriteCollectionViewController: UICollectionViewController {
     }
 	
 	override func viewWillAppear(animated: Bool) {
+		
+		self.compact = NSUserDefaults.standardUserDefaults().integerForKey("viewMode") == 1
 
 		self.favoritePostList = self.yuno.favoriteList()
 		self.collectionView!.reloadData()
@@ -85,7 +89,7 @@ class FavoriteCollectionViewController: UICollectionViewController {
 			width = CGSize.screenSize().height/3 - 10
 		}
 		else{
-			if CGSize.screenSize().width >= 375{
+			if CGSize.screenSize().width >= 375 && compact{
 				width = CGSize.screenSize().width/2 - 5
 			}
 			else{

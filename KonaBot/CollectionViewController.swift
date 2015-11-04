@@ -28,6 +28,8 @@ class CollectionViewController: UICollectionViewController{
 	
 	var numberOfPagesTried : Int = 0
 	var maxNumberOfPagesToTry : Int = 3
+	
+	var compact : Bool = true
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,6 +50,9 @@ class CollectionViewController: UICollectionViewController{
     }
 	
 	func refresh(){
+		
+		self.compact = NSUserDefaults.standardUserDefaults().integerForKey("viewMode") == 1
+		
 		self.postUrls = []
 		self.imageUrls = []
 		self.heightOverWidth = []
@@ -149,7 +154,7 @@ class CollectionViewController: UICollectionViewController{
 			width = CGSize.screenSize().height/3 - 10
 		}
 		else{
-			if CGSize.screenSize().width >= 375{
+			if CGSize.screenSize().width >= 375 && self.compact {
 				width = CGSize.screenSize().width/2 - 5
 			}
 			else{

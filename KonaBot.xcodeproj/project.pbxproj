@@ -13,6 +13,7 @@
 		7109E54A1BE8FCBD003B1A93 /* TextSwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7109E5491BE8FCBD003B1A93 /* TextSwitchCell.swift */; };
 		711098B31BE62D9D00CDACD1 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711098B21BE62D9D00CDACD1 /* SearchViewController.swift */; };
 		711E567D1BE934A200A6863D /* about.html in Resources */ = {isa = PBXBuildFile; fileRef = 711E567C1BE934A200A6863D /* about.html */; };
+		711E569F1BE9B61A00A6863D /* ViewModeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711E569E1BE9B61A00A6863D /* ViewModeCell.swift */; };
 		713B7AFE1BE653300038A34A /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 713B7AEC1BE653300038A34A /* AFHTTPRequestOperation.m */; };
 		713B7AFF1BE653300038A34A /* AFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 713B7AEE1BE653300038A34A /* AFHTTPRequestOperationManager.m */; };
 		713B7B001BE653300038A34A /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 713B7AF01BE653300038A34A /* AFHTTPSessionManager.m */; };
@@ -62,6 +63,7 @@
 		7109E5491BE8FCBD003B1A93 /* TextSwitchCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextSwitchCell.swift; sourceTree = "<group>"; };
 		711098B21BE62D9D00CDACD1 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		711E567C1BE934A200A6863D /* about.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = about.html; sourceTree = "<group>"; };
+		711E569E1BE9B61A00A6863D /* ViewModeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModeCell.swift; sourceTree = "<group>"; };
 		713B7AEB1BE653300038A34A /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
 		713B7AEC1BE653300038A34A /* AFHTTPRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPRequestOperation.m; sourceTree = "<group>"; };
 		713B7AED1BE653300038A34A /* AFHTTPRequestOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperationManager.h; sourceTree = "<group>"; };
@@ -138,6 +140,7 @@
 				7109E5431BE8FA71003B1A93 /* TextArrowCell.swift */,
 				7109E5471BE8FC36003B1A93 /* TextCell.swift */,
 				7109E5491BE8FCBD003B1A93 /* TextSwitchCell.swift */,
+				711E569E1BE9B61A00A6863D /* ViewModeCell.swift */,
 			);
 			name = TableViewCell;
 			sourceTree = "<group>";
@@ -386,6 +389,7 @@
 				7109E5481BE8FC36003B1A93 /* TextCell.swift in Sources */,
 				71FA55781BE55DE800E57198 /* UIImage+JTSImageEffects.m in Sources */,
 				713B7B031BE653300038A34A /* AFURLConnectionOperation.m in Sources */,
+				711E569F1BE9B61A00A6863D /* ViewModeCell.swift in Sources */,
 				713B7AFF1BE653300038A34A /* AFHTTPRequestOperationManager.m in Sources */,
 				713B7B101BE7814F0038A34A /* FavoriteCollectionViewController.swift in Sources */,
 				7109E5441BE8FA71003B1A93 /* TextArrowCell.swift in Sources */,
