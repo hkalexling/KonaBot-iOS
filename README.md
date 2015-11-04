@@ -17,6 +17,7 @@ A WIP unofficial iOS client for [Konachan.net](http://konachan.net)
 - [X] Allow users to set row numbers of images in collection view
 - [X] Design app icon
 - [X] Design launch screen
+- [ ] Final test and cleaning up
 - [ ] Submit to App Store
 
 ## Acknowledgement
