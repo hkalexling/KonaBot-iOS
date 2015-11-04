@@ -17,6 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 		
+		self.yuno.deleteEntity("Preview")
 		if NSUserDefaults.standardUserDefaults().boolForKey("optimize"){
 			self.yuno.deleteEntity("Cache")
 		}
@@ -82,6 +83,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}
 
 	func applicationWillTerminate(application: UIApplication) {
+		self.yuno.deleteEntity("Preview")
 		if NSUserDefaults.standardUserDefaults().boolForKey("optimize"){
 			self.yuno.deleteEntity("Cache")
 		}

@@ -9,8 +9,13 @@
         <attribute name="isFullSize" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="key" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
+    <entity name="Preview" syncable="YES">
+        <attribute name="image" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="key" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <elements>
-        <element name="FavoritedImage" positionX="-36" positionY="18" width="128" height="90"/>
         <element name="Cache" positionX="-63" positionY="-18" width="128" height="75"/>
+        <element name="FavoritedImage" positionX="-36" positionY="18" width="128" height="90"/>
+        <element name="Preview" positionX="-45" positionY="27" width="128" height="75"/>
     </elements>
 </model>

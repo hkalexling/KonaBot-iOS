@@ -138,8 +138,13 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("ImageCell", forIndexPath: indexPath) as! ImageCell
 		
-		cell.imageView.image = UIImage.imageWithColor(UIColor.darkGrayColor())
-		downloadImg(self.imageUrls[indexPath.row], view: cell.imageView)
+		if let img = Yuno().fetchImageWithKey("Preview", key: self.imageUrls[indexPath.row]){
+			cell.imageView.image = img
+		}
+		else{
+			cell.imageView.image = UIImage.imageWithColor(UIColor.darkGrayColor())
+			downloadImg(self.imageUrls[indexPath.row], view: cell.imageView)
+		}
 		
         return cell
     }
@@ -163,6 +168,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 		requestOperation.setCompletionBlockWithSuccess({(operation: AFHTTPRequestOperation!,
 			responseObject: AnyObject!) in
 				view.image = responseObject as? UIImage
+				Yuno().saveImageWithKey("Preview", image: view.image!, key: url)
 			},
 			failure: { (operation: AFHTTPRequestOperation!,
 				error: NSError!) in
