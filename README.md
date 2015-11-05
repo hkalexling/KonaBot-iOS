@@ -28,7 +28,7 @@ See how it works in action: [YouTube](https://www.youtube.com/watch?v=GHr2EPdIcM
 - [X] Design app icon
 - [X] Design launch screen
 - [X] Final test and clean up
-- [ ] Submit to App Store
+- [X] Submit to App Store
 
 ## Acknowledgement
 
