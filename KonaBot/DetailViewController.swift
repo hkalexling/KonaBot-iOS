@@ -144,8 +144,8 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 	func parse(htmlString : String){
 		if let doc = Kanna.HTML(html: htmlString, encoding: NSUTF8StringEncoding) {
 			for div in doc.css("div#right-col"){
-				let img = div.css("img")[1]
-				downloadImg(img["src"]!)
+				let img = div.at_css("div")?.at_css("img")
+				downloadImg(img!["src"]!)
 				return
 			}
 		}
