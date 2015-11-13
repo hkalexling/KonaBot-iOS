@@ -238,7 +238,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 						if (div.className != nil) {
 							if (div.className! == "status-notice"){
 								for span in div.css("span"){
-									let a = span.css("a")[0]
+									let a = span.at_css("a")!
 									suggestedTag.append(a.text!)
 								}
 							}
