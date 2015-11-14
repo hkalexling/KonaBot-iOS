@@ -8,12 +8,11 @@
 
 import UIKit
 
-class SettingTableViewController: UITableViewController {
-	
+class SettingTableViewController: UITableViewController{
 	
     override func viewDidLoad() {
         super.viewDidLoad()
-
+		
         self.tableView.tableFooterView = UIView()
 		self.tableView.separatorStyle = UITableViewCellSeparatorStyle.None
 		self.title = "More"
@@ -33,7 +32,7 @@ class SettingTableViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-		if section == 0 && CGSize.screenSize().width >= 375 && UIDevice.currentDevice().model.hasPrefix("iPhone"){
+		if (section == 0 && CGSize.screenSize().width >= 375 && UIDevice.currentDevice().model.hasPrefix("iPhone") || section == 1){
 			return 2
 		}
 		else{
@@ -73,21 +72,32 @@ class SettingTableViewController: UITableViewController {
 			}
 		}
 		else if section == 1 {
-
-			let cell = tableView.dequeueReusableCellWithIdentifier("textArrowCell") as! TextArrowCell
-			
-			cell.label.text = "About"
-			cell.label.textColor = UIColor.konaColor()
-			
-			return cell
+			if row == 0{
+				let cell = tableView.dequeueReusableCellWithIdentifier("textArrowCell") as! TextArrowCell
+				
+				cell.label.text = "About"
+				cell.label.textColor = UIColor.konaColor()
+				
+				return cell
+			}
+			else{
+				let cell = tableView.dequeueReusableCellWithIdentifier("textArrowCell") as! TextArrowCell
+				
+				cell.label.text = "Buy Me A Coffee :)"
+				cell.label.textColor = UIColor.konaColor()
+				
+				return cell
+			}
 		}
 		else{
-			let cell = tableView.dequeueReusableCellWithIdentifier("textCell") as! TextCell
-			
-			cell.label.text = "Visit Support Site"
-			cell.label.textColor = UIColor.konaColor()
-			
-			return cell
+			if row == 0 {
+				let cell = tableView.dequeueReusableCellWithIdentifier("textCell") as! TextCell
+				
+				cell.label.text = "Visit Support Site"
+				cell.label.textColor = UIColor.konaColor()
+				
+				return cell
+			}
 		}
 		
 		return UITableViewCell()
@@ -95,7 +105,12 @@ class SettingTableViewController: UITableViewController {
 	
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 		if indexPath.section == 1 {
-			self.loadAboutVC()
+			if indexPath.row == 0{
+				self.loadAboutVC()
+			}
+			else{
+				self.navigationController!.pushViewController(IAPViewController(), animated: true)
+			}
 		}
 		if indexPath.section == 2 {
 			let websiteAddress = NSURL(string: "http://hkalexling.com/2015/11/05/konabot-support-page/")
