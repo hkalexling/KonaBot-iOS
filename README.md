@@ -18,7 +18,12 @@ Version 1.0.1 has been submitted.
 
 See how it works in action: [YouTube](https://www.youtube.com/watch?v=GHr2EPdIcMo)
 
-## Todo
+## v1.1.0 Todo
+
+- [X] Implement donation feature via in app purchases
+- [ ] New place-holder images
+
+## v1.0.0 Todo
 
 - [X] Implement cache feature for images
 - [X] Show top tags
