@@ -2,6 +2,8 @@
 
 An unofficial iOS client for [Konachan.net](http://konachan.net)
 
+<img src="./KonaBot/1024.png" width="150">
+
 ## Current states
 
 ~~I've submitted it and waited for 5 days but I found a bug which can cause the app to crash when downloading images. So I removed the binary and will upload a new one later~~
