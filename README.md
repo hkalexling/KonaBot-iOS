@@ -4,7 +4,7 @@ An unofficial iOS client for [Konachan.net](http://konachan.net)
 
 <img src="./KonaBot/1024.png" width="150">
 
-Version 1.0.1 is on [App Store](https://itunes.apple.com/us/app/konabot/id1055716649?ls=1&mt=8) 
+Version 1.0.1 is currently on [App Store](https://itunes.apple.com/us/app/konabot/id1055716649?ls=1&mt=8) 
 
 [Support Page](http://hkalexling.com/2015/11/05/konabot-support-page/)
 
