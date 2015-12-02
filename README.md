@@ -6,14 +6,7 @@ An unofficial iOS client for [Konachan.net](http://konachan.net)
 
 ## Current states
 
-~~I've submitted it and waited for 5 days but I found a bug which can cause the app to crash when downloading images. So I removed the binary and will upload a new one later~~
-
-~~Version 1.0.1 has been submitted.~~
-
-Nov 24th, 2015: Metadata rejected becaue I set the rating to 12+ instead of 17+. Here's what Apple said:
-> The rating you've selected, 12+, is inconsistent with the content of your app. Since your application includes content and features involving manga women who pose in suggestive positions that can be considered inappropriate for minors, it should be rated appropriately for this subject.
-
-So I just changed the rating to 17+ and submitted it.
+Version 1.0.1 is on [App Store](https://itunes.apple.com/us/app/konabot/id1055716649?ls=1&mt=8) 
 
 ## Screenshots
 
