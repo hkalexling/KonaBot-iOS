@@ -32,6 +32,8 @@
 		7152C1D71BE3E41E00A44945 /* Kanna.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7152C1D61BE3E41E00A44945 /* Kanna.framework */; };
 		7152C1DA1BE4F97200A44945 /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7152C1D91BE4F97200A44945 /* CollectionViewController.swift */; };
 		7152C1DC1BE4F9AC00A44945 /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7152C1DB1BE4F9AC00A44945 /* ImageCell.swift */; };
+		715419E41C19B02A00F7108E /* AWImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715419E31C19B02A00F7108E /* AWImageViewController.swift */; };
+		715419E81C19B05300F7108E /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 715419E71C19B05300F7108E /* UIImage+ImageEffects.m */; };
 		718378381BE7EF8000131A74 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 718378361BE7EF8000131A74 /* Model.xcdatamodeld */; };
 		719589311BE533940036555E /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719589301BE533940036555E /* Extension.swift */; };
 		719589331BE53C110036555E /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719589321BE53C110036555E /* DetailViewController.swift */; };
@@ -98,6 +100,9 @@
 		7152C1D61BE3E41E00A44945 /* Kanna.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Kanna.framework; path = Carthage/Build/iOS/Kanna.framework; sourceTree = "<group>"; };
 		7152C1D91BE4F97200A44945 /* CollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
 		7152C1DB1BE4F9AC00A44945 /* ImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
+		715419E31C19B02A00F7108E /* AWImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AWImageViewController.swift; sourceTree = "<group>"; };
+		715419E61C19B05300F7108E /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
+		715419E71C19B05300F7108E /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
 		718378371BE7EF8000131A74 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		719589301BE533940036555E /* Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		719589321BE53C110036555E /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
@@ -188,7 +193,6 @@
 		7152C1361BE3452400A44945 = {
 			isa = PBXGroup;
 			children = (
-				71B2FC8A1BF7A359000B862D /* StoreKit.framework */,
 				7183783E1BE8007A00131A74 /* Wheels */,
 				7152C1411BE3452400A44945 /* KonaBot */,
 				7152C1401BE3452400A44945 /* Products */,
@@ -212,9 +216,29 @@
 				7109E5411BE8F9E2003B1A93 /* TableVC */,
 				7183783C1BE8004900131A74 /* Yuno */,
 				7109E5421BE8FA40003B1A93 /* TableViewCell */,
+				715419E21C19B02A00F7108E /* AWImageViewController */,
+				715419E51C19B05300F7108E /* UIImage+ImageEffects */,
 				7183783D1BE8005600131A74 /* Collection cell */,
 			);
 			path = KonaBot;
+			sourceTree = "<group>";
+		};
+		715419E21C19B02A00F7108E /* AWImageViewController */ = {
+			isa = PBXGroup;
+			children = (
+				715419E31C19B02A00F7108E /* AWImageViewController.swift */,
+			);
+			name = AWImageViewController;
+			path = ../AWImageViewController;
+			sourceTree = "<group>";
+		};
+		715419E51C19B05300F7108E /* UIImage+ImageEffects */ = {
+			isa = PBXGroup;
+			children = (
+				715419E61C19B05300F7108E /* UIImage+ImageEffects.h */,
+				715419E71C19B05300F7108E /* UIImage+ImageEffects.m */,
+			);
+			path = "UIImage+ImageEffects";
 			sourceTree = "<group>";
 		};
 		718378391BE8001000131A74 /* UI */ = {
@@ -270,6 +294,7 @@
 		7183783E1BE8007A00131A74 /* Wheels */ = {
 			isa = PBXGroup;
 			children = (
+				71B2FC8A1BF7A359000B862D /* StoreKit.framework */,
 				7152C1D61BE3E41E00A44945 /* Kanna.framework */,
 				713B7B091BE68B230038A34A /* RZSquaresLoading */,
 				713B7AEA1BE653300038A34A /* AFNetworking */,
@@ -395,6 +420,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				715419E81C19B05300F7108E /* UIImage+ImageEffects.m in Sources */,
+				715419E41C19B02A00F7108E /* AWImageViewController.swift in Sources */,
 				713B7AFE1BE653300038A34A /* AFHTTPRequestOperation.m in Sources */,
 				71FA55731BE55DE800E57198 /* JTSAnimatedGIFUtility.m in Sources */,
 				7152C1DA1BE4F97200A44945 /* CollectionViewController.swift in Sources */,
