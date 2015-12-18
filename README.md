@@ -21,7 +21,7 @@ See how it works in action: [YouTube](https://www.youtube.com/watch?v=GHr2EPdIcM
 ## v1.1.0 Todo
 
 - [X] Implement donation feature via in app purchases
-- [ ] New place-holder images
+- [X] Traditional Chinese and Simplified Chinese localisation
 
 ## v1.0.0 Todo
 
