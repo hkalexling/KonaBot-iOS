@@ -70,6 +70,9 @@
 		711207C31C24221F00FB99EF /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		711207C51C24302F00FB99EF /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = Base.lproj/about.html; sourceTree = "<group>"; };
 		711207C71C24303100FB99EF /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = "zh-Hans"; path = "zh-Hans.lproj/about.html"; sourceTree = "<group>"; };
+		711207C81C24320300FB99EF /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Main.strings"; sourceTree = "<group>"; };
+		711207C91C24320300FB99EF /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = "zh-Hant"; path = "zh-Hant.lproj/about.html"; sourceTree = "<group>"; };
+		711207CA1C24320300FB99EF /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		711E569E1BE9B61A00A6863D /* ViewModeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModeCell.swift; sourceTree = "<group>"; };
 		71330AF11BEA1A9E0053C2D8 /* Yuno.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Yuno.storyboard; sourceTree = "<group>"; };
 		713B7AEB1BE653300038A34A /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
@@ -354,6 +357,7 @@
 				en,
 				Base,
 				"zh-Hans",
+				"zh-Hant",
 			);
 			mainGroup = 7152C1361BE3452400A44945;
 			productRefGroup = 7152C1401BE3452400A44945 /* Products */;
@@ -444,6 +448,7 @@
 			children = (
 				711207C11C2421ED00FB99EF /* Base */,
 				711207C31C24221F00FB99EF /* zh-Hans */,
+				711207CA1C24320300FB99EF /* zh-Hant */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -453,6 +458,7 @@
 			children = (
 				711207C51C24302F00FB99EF /* Base */,
 				711207C71C24303100FB99EF /* zh-Hans */,
+				711207C91C24320300FB99EF /* zh-Hant */,
 			);
 			name = about.html;
 			sourceTree = "<group>";
@@ -462,6 +468,7 @@
 			children = (
 				7152C1471BE3452400A44945 /* Base */,
 				711207BD1C24166500FB99EF /* zh-Hans */,
+				711207C81C24320300FB99EF /* zh-Hant */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";

@@ -1,0 +1,27 @@
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "3Mw-tV-uwd"; */
+"3Mw-tV-uwd.text" = "Label";
+
+/* Class = "UISegmentedControl"; 5SD-97-huZ.segmentTitles[0] = "Normal"; ObjectID = "5SD-97-huZ"; */
+"5SD-97-huZ.segmentTitles[0]" = "普通";
+
+/* Class = "UISegmentedControl"; 5SD-97-huZ.segmentTitles[1] = "Compact"; ObjectID = "5SD-97-huZ"; */
+"5SD-97-huZ.segmentTitles[1]" = "緊湊";
+
+/* Class = "UINavigationController"; title = "Home"; ObjectID = "5Tu-Qa-rFc"; */
+"5Tu-Qa-rFc.title" = "首頁";
+
+/* Class = "UILabel"; text = "Opps, no result found :("; ObjectID = "DN9-f4-XTl"; */
+"DN9-f4-XTl.text" = "QAQ 人家沒搜索到結果呢";
+
+/* Class = "UITabBarItem"; title = "Home"; ObjectID = "DoI-zp-Lyz"; */
+"DoI-zp-Lyz.title" = "首頁";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "LVA-Ah-IWO"; */
+"LVA-Ah-IWO.text" = "Label";
+
+/* Class = "UILabel"; text = "View Mode"; ObjectID = "OJ0-4f-omn"; */
+"OJ0-4f-omn.text" = "瀏覽模式";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "cnZ-ns-f5p"; */
+"cnZ-ns-f5p.text" = "Label";
