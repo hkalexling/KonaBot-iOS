@@ -25,7 +25,7 @@ class FavoriteCollectionViewController: UICollectionViewController, UICollection
     override func viewDidLoad() {
         super.viewDidLoad()
 		
-		self.title = "Favorite"
+		self.title = "Favorite".localized
     }
 	
 	override func viewWillAppear(animated: Bool) {
@@ -66,7 +66,7 @@ class FavoriteCollectionViewController: UICollectionViewController, UICollection
 	
 	func showLabel(){
 		let height : CGFloat = 20
-		self.label.text = "You haven't favorited any image yet"
+		self.label.text = "You haven't favorited any image yet".localized
 		self.label.frame = CGRectMake(0, CGSize.screenSize().height/2 - height/2, CGSize.screenSize().width, height)
 		self.label.backgroundColor = UIColor.themeColor()
 		self.label.textColor = UIColor.konaColor()

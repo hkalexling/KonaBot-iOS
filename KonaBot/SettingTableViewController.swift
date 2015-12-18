@@ -15,7 +15,7 @@ class SettingTableViewController: UITableViewController{
 		
         self.tableView.tableFooterView = UIView()
 		self.tableView.separatorStyle = UITableViewCellSeparatorStyle.None
-		self.title = "More"
+		self.title = "More".localized
     }
 
     override func didReceiveMemoryWarning() {
@@ -57,7 +57,7 @@ class SettingTableViewController: UITableViewController{
 			if row == 0 {
 				let cell = tableView.dequeueReusableCellWithIdentifier("textSwitchCell") as! TextSwitchCell
 				
-				cell.label.text = "Optimize Storage"
+				cell.label.text = "Optimize Storage".localized
 				cell.label.textColor = UIColor.konaColor()
 				
 				return cell
@@ -75,7 +75,7 @@ class SettingTableViewController: UITableViewController{
 			if row == 0{
 				let cell = tableView.dequeueReusableCellWithIdentifier("textArrowCell") as! TextArrowCell
 				
-				cell.label.text = "About"
+				cell.label.text = "About".localized
 				cell.label.textColor = UIColor.konaColor()
 				
 				return cell
@@ -83,7 +83,7 @@ class SettingTableViewController: UITableViewController{
 			else{
 				let cell = tableView.dequeueReusableCellWithIdentifier("textArrowCell") as! TextArrowCell
 				
-				cell.label.text = "Buy Me A Coffee :)"
+				cell.label.text = "Buy Me A Coffee :)".localized
 				cell.label.textColor = UIColor.konaColor()
 				
 				return cell
@@ -93,7 +93,7 @@ class SettingTableViewController: UITableViewController{
 			if row == 0 {
 				let cell = tableView.dequeueReusableCellWithIdentifier("textCell") as! TextCell
 				
-				cell.label.text = "Visit Support Site"
+				cell.label.text = "Visit Support Site".localized
 				cell.label.textColor = UIColor.konaColor()
 				
 				return cell

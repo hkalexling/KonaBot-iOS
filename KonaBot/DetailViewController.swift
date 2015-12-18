@@ -53,6 +53,7 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
     }
 	
 	override func viewWillAppear(animated: Bool) {
+		
 		self.favoriteList = self.yuno.favoriteList()
 
 		if (self.favoriteList.contains(self.postUrl)){
@@ -136,7 +137,7 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 				
 			}, failure: {(operation, error) -> Void in
 				print ("Error : \(error)")
-				let alert = UIAlertController.alertWithOKButton("Network Error", message: error.localizedDescription)
+				let alert = UIAlertController.alertWithOKButton("Network Error".localized, message: error.localizedDescription)
 				self.presentViewController(alert, animated: true, completion: nil)
 		})
 	}
@@ -189,33 +190,33 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 		
 		let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
 		
-		let saveAction = UIAlertAction(title: "Save Image", style: .Default, handler: {(alert : UIAlertAction) -> Void in
+		let saveAction = UIAlertAction(title: "Save Image".localized, style: .Default, handler: {(alert : UIAlertAction) -> Void in
 			UIImageWriteToSavedPhotosAlbum(image, self, Selector("imageSaved:didFinishSavingWithError:contextInfo:"), nil)
 		})
 		
-		let favoriteAction = UIAlertAction(title: "Favorite", style: .Default, handler: {(alert : UIAlertAction) -> Void in
+		let favoriteAction = UIAlertAction(title: "Favorite".localized, style: .Default, handler: {(alert : UIAlertAction) -> Void in
 			self.stared()
 		})
 		
-		let unfavoriteAction = UIAlertAction(title: "Unfavorite", style: .Default, handler: {(alert : UIAlertAction) -> Void in
+		let unfavoriteAction = UIAlertAction(title: "Unfavorite".localized, style: .Default, handler: {(alert : UIAlertAction) -> Void in
 			self.unstared()
 		})
 		
-		let copyAction = UIAlertAction(title: "Copy Image", style: .Default, handler: {(alert : UIAlertAction) -> Void in
+		let copyAction = UIAlertAction(title: "Copy Image".localized, style: .Default, handler: {(alert : UIAlertAction) -> Void in
 			UIPasteboard.generalPasteboard().image = image
-			self.alertWithOkButton("Image Copied", message: "This image has been copied to your clipboard")
+			self.alertWithOkButton("Image Copied".localized, message: "This image has been copied to your clipboard".localized)
 		})
 		
-		let copyLinkAction = UIAlertAction(title: "Copy Image URL", style: .Default, handler: {(alert : UIAlertAction) -> Void in
+		let copyLinkAction = UIAlertAction(title: "Copy Image URL".localized, style: .Default, handler: {(alert : UIAlertAction) -> Void in
 			UIPasteboard.generalPasteboard().string = self.urlStr!
-			self.alertWithOkButton("URL Copied", message: "The image URL has been copied to your clipboard")
+			self.alertWithOkButton("URL Copied".localized, message: "The image URL has been copied to your clipboard".localized)
 		})
 		
-		let openAction = UIAlertAction(title: "Open Post in Safari", style: UIAlertActionStyle.Default, handler: {(alert : UIAlertAction) -> Void in
+		let openAction = UIAlertAction(title: "Open Post in Safari".localized, style: UIAlertActionStyle.Default, handler: {(alert : UIAlertAction) -> Void in
 			UIApplication.sharedApplication().openURL(NSURL(string: "\(self.baseUrl)\(self.postUrl)")!)
 		})
 		
-		let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+		let cancelAction = UIAlertAction(title: "Cancel".localized, style: .Cancel, handler: nil)
 		
 		sheet.addAction(saveAction)
 		if (self.favoriteList.contains(self.postUrl)){
@@ -239,13 +240,13 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 	
 	func imageSaved(image: UIImage, didFinishSavingWithError error: NSErrorPointer, contextInfo: UnsafePointer<()>) {
 		dispatch_async(dispatch_get_main_queue(), {
-			self.alertWithOkButton("Image Saved", message: "This image has been saved to your camera roll")
+			self.alertWithOkButton("Image Saved".localized, message: "This image has been saved to your camera roll".localized)
 		})
 	}
 	
 	func alertWithOkButton(title : String?, message : String?){
 		dispatch_async(dispatch_get_main_queue(), {
-			UIAlertView(title: title, message: message, delegate: nil, cancelButtonTitle: "OK").show()
+			UIAlertView(title: title, message: message, delegate: nil, cancelButtonTitle: "OK".localized).show()
 		})
 	}
 }

@@ -158,6 +158,6 @@ class IAPViewController: UIViewController, SKProductsRequestDelegate, SKPaymentT
 	func thanks(){
 		self.titleLabel.hidden = true
 		self.button.hidden = true
-		self.contentLabel.text = "Thanks for your donation!\n\nIt's a huge motivation for me to maintain this project and keep it free of charge :)"
+		self.contentLabel.text = "Thanks for your donation!\n\nIt's a huge motivation for me to maintain this project and keep it free of charge :)".localized
 	}
 }

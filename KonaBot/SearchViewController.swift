@@ -39,7 +39,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate {
 		self.view.backgroundColor = UIColor.themeColor()
 		
 		self.searchBar.frame = CGRectMake(0, 0, CGSize.screenSize().width, 20)
-		self.searchBar.placeholder = "Search tag"
+		self.searchBar.placeholder = "Search tag".localized
 		self.navigationItem.titleView = self.searchBar
 		
 		let loadingSize : CGFloat = 80
@@ -163,7 +163,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate {
 		let y = CGSize.screenSize().height/2 - CGFloat(count)/2.0 * buttonHeight - CGFloat(count - 1)/2.0 * buttonGap
 		
 		self.youMeantLabel = UILabel(frame: CGRectMake(0, y - 10, CGSize.screenSize().width, buttonHeight))
-		self.youMeantLabel!.text = "Maybe you meant..."
+		self.youMeantLabel!.text = "Maybe you meant...".localized
 		self.youMeantLabel!.font = UIFont.systemFontOfSize(20)
 		self.youMeantLabel!.backgroundColor = UIColor.themeColor()
 		self.youMeantLabel!.textColor = UIColor.whiteColor()
@@ -208,7 +208,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate {
 		}
 		else{
 			self.topTagLabel = UILabel(frame: CGRectMake(0, y - 10, CGSize.screenSize().width, buttonHeight))
-			self.topTagLabel.text = "Top Tags:"
+			self.topTagLabel.text = "Top Tags:".localized
 			self.topTagLabel.font =  UIFont.systemFontOfSize(20)
 			self.topTagLabel.backgroundColor = UIColor.themeColor()
 			self.topTagLabel.textColor = UIColor.whiteColor()

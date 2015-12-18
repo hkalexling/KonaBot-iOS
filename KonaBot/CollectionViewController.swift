@@ -95,7 +95,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 		self.view.addSubview(loading)
 		
 		if (self.keyword == ""){
-			self.title = "Featured"
+			self.title = "Home".localized
 		}
 		else{
 			self.title = self.keyword
@@ -203,7 +203,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 				self.collectionView!.insertItemsAtIndexPaths(index)
 			}, failure: {(operation, error) -> Void in
 				print ("Error : \(error)")
-				let alert = UIAlertController.alertWithOKButton("Network Error", message: error.localizedDescription)
+				let alert = UIAlertController.alertWithOKButton("Network Error".localized, message: error.localizedDescription)
 				self.presentViewController(alert, animated: true, completion: nil)
 		})
 	}

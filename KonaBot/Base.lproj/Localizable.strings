@@ -1,0 +1,45 @@
+/* 
+  Localizable.strings
+  KonaBot
+
+  Created by Alex Ling on 18/12/2015.
+  Copyright © 2015 Alex Ling. All rights reserved.
+*/
+
+"Home" = "Home";
+"Search tag" = "Search tag";
+"Top Tags:" = "Top Tags:";
+"Maybe you meant..." = "Maybe you meant...";
+"Network Error" = "Network Error";
+
+"Save Image" = "Save Image";
+"Image Saved" = "Image Saved";
+"This image has been saved to your camera roll" = "This image has been saved to your camera roll";
+
+"Favorite" = "Favorite";
+"Unfavorite" = "Unfavorite";
+
+"Copy Image" = "Copy Image";
+"Image Copied" = "Image Copied";
+"This image has been copied to your clipboard" = "This image has been copied to your clipboard";
+
+
+"Copy Image URL" = "Copy Image URL";
+"URL Copied" = "URL Copied";
+"The image URL has been copied to your clipboard" = "The image URL has been copied to your clipboard";
+
+"Open Post in Safari" = "Open Post in Safari";
+"Cancel" = "Cancel";
+"OK" = "OK";
+
+"Favorite" = "Favorite";
+"You haven't favorited any image yet" = "You haven't favorited any image yet";
+
+"More" = "More";
+"Optimize Storage" = "Optimize Storage";
+"About" = "About";
+"Buy Me A Coffee :)" = "Buy Me A Coffee :)";
+"Visit Support Site" = "Visit Support Site";
+
+"Thanks for your donation!\n\nIt's a huge motivation for me to maintain this project and keep it free of charge :)" = "Thanks for your donation!\n\nIt's a huge motivation for me to maintain this project and keep it free of charge :)";
+

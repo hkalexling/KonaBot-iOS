@@ -1,0 +1,43 @@
+/* 
+  Localizable.strings
+  KonaBot
+
+  Created by Alex Ling on 18/12/2015.
+  Copyright © 2015 Alex Ling. All rights reserved.
+*/
+
+"Home" = "首页";
+"Search tag" = "搜索标签";
+"Top Tags:" = "热门标签:";
+"Maybe you meant..." = "主人想搜的是不是...";
+"Network Error" = "网络好像出了点问题呢 _(:з」∠)_";
+
+"Save Image" = "保存图片";
+"Image Saved" = "图片已保存";
+"This image has been saved to your camera roll" = "图片已经保存到主人的相机胶卷啦~";
+
+"Favorite" = "收藏";
+"Unfavorite" = "取消收藏";
+
+"Copy Image" = "复制图片";
+"Image Copied" = "图片已复制";
+"This image has been copied to your clipboard" = "图片已经复制到主人的剪贴板啦~";
+
+"Copy Image URL" = "复制图片链接";
+"URL Copied" = "URL Copied";
+"The image URL has been copied to your clipboard" = "图片链接已经复制到主人的剪贴板啦~";
+
+"Open Post in Safari" = "用 Safari 打开图片页面";
+"Cancel" = "取消";
+"OK" = "好";
+
+"Favorite" = "收藏";
+"You haven't favorited any image yet" = "主人暂时还没有任何收藏哦~";
+
+"More" = "更多";
+"Optimize Storage" = "减少储存占用";
+"About" = "关于";
+"Buy Me A Coffee :)" = "请我喝杯咖啡 ( ´ ▽ ` )ﾉ";
+"Visit Support Site" = "前往支援页面";
+
+"Thanks for your donation!\n\nIt's a huge motivation for me to maintain this project and keep it free of charge :)" = "感谢您的投喂！> < \n\n在下会继续加油让这个 app 变得更赞的！";

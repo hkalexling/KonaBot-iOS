@@ -12,5 +12,4 @@
 #import "JTSImageInfo.h"
 #import "JTSImageViewController.h"
 #import "RZSquaresLoading.h"
-#import "UIImage+ImageEffects.h"
 

@@ -10,6 +10,12 @@ import Foundation
 import UIKit
 import CoreData
 
+public extension String {
+	var localized : String {
+		return NSLocalizedString(self, comment: "")
+	}
+}
+
 public extension UIImage {
 	class func imageWithColor(color: UIColor) -> UIImage {
 		let size = CGSizeMake(10, 10)
