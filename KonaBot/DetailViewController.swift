@@ -98,10 +98,12 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 			else{
 				if let img = self.yuno.fetchImageWithKey("Cache", key: self.postUrl){
 					imageInfo.image = img
+					self.detailImageView.image = img
 				}
 				else if let img = self.yuno.fetchImageWithKey("FavoritedImage", key: self.postUrl){
 					if self.yuno.checkFullsSizeWithKey(self.postUrl){
 						imageInfo.image = img
+						self.detailImageView.image = img
 					}
 					else{
 						imageInfo.imageURL = NSURL(string: self.urlStr!)
@@ -112,7 +114,7 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 				}
 			}
 			imageInfo.referenceRect = self.detailImageView.frame
-			imageInfo.referenceView = self.detailImageView.superview
+			imageInfo.referenceView = self.view
 			
 			self.imageViewer = JTSImageViewController(imageInfo: imageInfo, mode: JTSImageViewControllerMode.Image, backgroundStyle: [.Blurred, .Scaled])
 			self.imageViewer.interactionsDelegate = self
@@ -120,10 +122,6 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 			imageViewer.showFromViewController(self, transition: .FromOriginalPosition)
 		}
 	}
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
 	
 	func getHtml(url : String){
 		let manager : AFHTTPRequestOperationManager = AFHTTPRequestOperationManager()
@@ -156,14 +154,16 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 		self.urlStr = url
 		let imageInfo = JTSImageInfo()
 		imageInfo.referenceRect = self.detailImageView.frame
-		imageInfo.referenceView = self.detailImageView.superview
+		imageInfo.referenceView = self.view
 		
 		if let img = self.yuno.fetchImageWithKey("Cache", key: self.postUrl){
 			imageInfo.image = img
+			self.detailImageView.image = img
 		}
 		else if let img = self.yuno.fetchImageWithKey("FavoritedImage", key: self.postUrl){
 			if self.yuno.checkFullsSizeWithKey(self.postUrl){
 				imageInfo.image = img
+				self.detailImageView.image = img
 			}
 			else{
 				imageInfo.imageURL = NSURL(string: self.urlStr!)

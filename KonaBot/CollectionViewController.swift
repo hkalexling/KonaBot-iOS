@@ -9,7 +9,7 @@
 import UIKit
 import Kanna
 
-class CollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout{
+class CollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
 	
 	var refreshControl : UIRefreshControl!
 	
@@ -37,7 +37,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 
     override func viewDidLoad() {
         super.viewDidLoad()
-		
+				
 		if NSUserDefaults.standardUserDefaults().objectForKey("tabToSelect") != nil {
 			let tabToSelect = NSUserDefaults.standardUserDefaults().integerForKey("tabToSelect")
 			NSUserDefaults.standardUserDefaults().removeObjectForKey("tabToSelect")
@@ -153,7 +153,6 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 		detailVC.postUrl = self.postUrls[indexPath.row]
 		detailVC.heightOverWidth = self.heightOverWidth[indexPath.row]
 		detailVC.smallImage =  (self.collectionView!.cellForItemAtIndexPath(indexPath) as! ImageCell).imageView!.image
-		detailVC.view.backgroundColor = UIColor.whiteColor()
 		self.navigationController!.pushViewController(detailVC, animated: true)
 	}
 	

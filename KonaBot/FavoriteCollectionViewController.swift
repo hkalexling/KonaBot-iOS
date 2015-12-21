@@ -98,7 +98,6 @@ class FavoriteCollectionViewController: UICollectionViewController, UICollection
 		let frame = collectionView.cellForItemAtIndexPath(indexPath)?.frame
 		detailVC.heightOverWidth = frame!.height/frame!.width
 		detailVC.smallImage = yuno.fetchImageWithKey("FavoritedImage", key: self.favoritePostList[indexPath.row])
-		detailVC.view.backgroundColor = UIColor.whiteColor()
 		self.navigationController!.pushViewController(detailVC, animated: true)
 	}
 	
