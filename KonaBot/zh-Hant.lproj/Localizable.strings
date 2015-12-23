@@ -41,3 +41,5 @@
 "Visit Support Site" = "前往支援頁面";
 
 "Thanks for your donation!\n\nIt's a huge motivation for me to maintain this project and keep it free of charge :)" = "感謝您的投喂！> < \n\n在下會加油讓這個 app 變得更讚的！";
+
+"When enabled, image cache will be deleted after the app's termination. Cache of images in your favorite list won't be affected." = "使用該設置後，每次 KonaBot 退出後都會刪除圖片緩存。已保存到收藏的圖片的緩存則不會被刪除。";

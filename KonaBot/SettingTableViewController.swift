@@ -10,8 +10,12 @@ import UIKit
 
 class SettingTableViewController: UITableViewController{
 	
+	var canAdjustViewMode : Bool = false
+	
     override func viewDidLoad() {
         super.viewDidLoad()
+		
+		self.canAdjustViewMode = CGSize.screenSize().width >= 375 && UIDevice.currentDevice().model.hasPrefix("iPhone")
 		
         self.tableView.tableFooterView = UIView()
 		self.tableView.separatorStyle = UITableViewCellSeparatorStyle.None
@@ -27,26 +31,43 @@ class SettingTableViewController: UITableViewController{
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 3
+		return self.canAdjustViewMode ? 4 : 3
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-		if (section == 0 && CGSize.screenSize().width >= 375 && UIDevice.currentDevice().model.hasPrefix("iPhone") || section == 1){
-			return 2
-		}
-		else{
-			return 1
-		}
+		return section == tableView.numberOfSections - 2 ? 2 : 1
     }
+
+	override func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+		if section == 0 {
+			let view = UIView(frame: CGRectMake(0, 0, CGSize.screenSize().width, 100))
+			
+			let label = UILabel(frame: CGRectMake(10, 10, CGSize.screenSize().width - 20, 90))
+			label.textColor = UIColor.konaColor()
+			label.numberOfLines = 0
+			label.lineBreakMode = .ByWordWrapping
+			label.font = UIFont.systemFontOfSize(13)
+			label.text = "When enabled, image cache will be deleted after the app's termination. Cache of images in your favorite list won't be affected.".localized
+			label.sizeToFit()
+			view.addSubview(label)
+			
+			return view
+		}
+		
+		return nil
+	}
 	
-	override func tableView(tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-		if section == self.tableView.numberOfSections - 1 {
-			return ""
+	override func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+		if section == 0 {
+			return 50
 		}
-		else{
-			return " "
-		}
+		
+		return 0
+	}
+	
+	override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+		return UIView()
 	}
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -54,24 +75,24 @@ class SettingTableViewController: UITableViewController{
 		let row = indexPath.row
 		
 		if section == 0 {
-			if row == 0 {
-				let cell = tableView.dequeueReusableCellWithIdentifier("textSwitchCell") as! TextSwitchCell
-				
-				cell.label.text = "Optimize Storage".localized
-				cell.label.textColor = UIColor.konaColor()
-				
-				return cell
-			}
-			else if row == 1 && CGSize.screenSize().width >= 375 && UIDevice.currentDevice().model.hasPrefix("iPhone"){
-				let cell = tableView.dequeueReusableCellWithIdentifier("viewModeCell") as! ViewModeCell
-				
-				cell.label.textColor = UIColor.konaColor()
-				cell.segmentControl.tintColor = UIColor.konaColor()
-				
-				return cell
-			}
+			let cell = tableView.dequeueReusableCellWithIdentifier("textSwitchCell") as! TextSwitchCell
+			
+			cell.label.text = "Optimize Storage".localized
+			cell.label.textColor = UIColor.konaColor()
+			
+			return cell
 		}
-		else if section == 1 {
+		
+		if self.canAdjustViewMode && section == 1 {
+			let cell = tableView.dequeueReusableCellWithIdentifier("viewModeCell") as! ViewModeCell
+			
+			cell.label.textColor = UIColor.konaColor()
+			cell.segmentControl.tintColor = UIColor.konaColor()
+			
+			return cell
+		}
+		
+		if section == tableView.numberOfSections - 2 {
 			if row == 0{
 				let cell = tableView.dequeueReusableCellWithIdentifier("textArrowCell") as! TextArrowCell
 				
@@ -89,22 +110,21 @@ class SettingTableViewController: UITableViewController{
 				return cell
 			}
 		}
-		else{
-			if row == 0 {
-				let cell = tableView.dequeueReusableCellWithIdentifier("textCell") as! TextCell
-				
-				cell.label.text = "Visit Support Site".localized
-				cell.label.textColor = UIColor.konaColor()
-				
-				return cell
-			}
+		
+		if section == tableView.numberOfSections - 1 {
+			let cell = tableView.dequeueReusableCellWithIdentifier("textCell") as! TextCell
+			
+			cell.label.text = "Visit Support Site".localized
+			cell.label.textColor = UIColor.konaColor()
+			
+			return cell
 		}
 		
 		return UITableViewCell()
     }
 	
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		if indexPath.section == 1 {
+		if indexPath.section == tableView.numberOfSections - 2 {
 			if indexPath.row == 0{
 				self.loadAboutVC()
 			}
@@ -112,7 +132,7 @@ class SettingTableViewController: UITableViewController{
 				self.navigationController!.pushViewController(IAPViewController(), animated: true)
 			}
 		}
-		if indexPath.section == 2 {
+		if indexPath.section == tableView.numberOfSections - 1 {
 			let websiteAddress = NSURL(string: "http://hkalexling.com/2015/11/05/konabot-support-page/")
 			UIApplication.sharedApplication().openURL(websiteAddress!)
 		}

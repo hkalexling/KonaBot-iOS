@@ -43,3 +43,5 @@
 
 "Thanks for your donation!\n\nIt's a huge motivation for me to maintain this project and keep it free of charge :)" = "Thanks for your donation!\n\nIt's a huge motivation for me to maintain this project and keep it free of charge :)";
 
+"When enabled, image cache will be deleted after the app's termination. Cache of images in your favorite list won't be affected." = "When enabled, image cache will be deleted after the app's termination. Cache of images in your favorite list won't be affected.";
+
