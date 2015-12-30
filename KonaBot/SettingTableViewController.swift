@@ -49,6 +49,7 @@ class SettingTableViewController: UITableViewController{
 			label.lineBreakMode = .ByWordWrapping
 			label.font = UIFont.systemFontOfSize(13)
 			label.text = "When enabled, image cache will be deleted after the app's termination. Cache of images in your favorite list won't be affected.".localized
+			label.alpha = 0.5
 			label.sizeToFit()
 			view.addSubview(label)
 			

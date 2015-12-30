@@ -16,6 +16,11 @@ class TextSwitchCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
 		
+		self.`switch`.onTintColor = UIColor.konaColor()
+		self.`switch`.thumbTintColor = UIColor.themeColor()
+		self.`switch`.backgroundColor = UIColor.darkGrayColor()
+		self.`switch`.layer.cornerRadius = 16
+		self.`switch`.tintColor = UIColor.konaColor()
 		self.`switch`.setOn(NSUserDefaults.standardUserDefaults().boolForKey("optimize"), animated: false)
     }
 
