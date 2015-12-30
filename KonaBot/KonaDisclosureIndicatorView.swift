@@ -3,6 +3,7 @@
 //  KonaBot
 //
 //  Created by Alex Ling on 30/12/2015.
+//	Modified from http://pastebin.com/xgReAeWc
 //  Copyright © 2015 Alex Ling. All rights reserved.
 //
 
