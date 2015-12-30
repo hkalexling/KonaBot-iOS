@@ -18,7 +18,7 @@ class SettingTableViewController: UITableViewController{
 		self.canAdjustViewMode = CGSize.screenSize().width >= 375 && UIDevice.currentDevice().model.hasPrefix("iPhone")
 		
         self.tableView.tableFooterView = UIView()
-		self.tableView.separatorStyle = UITableViewCellSeparatorStyle.None
+		self.tableView.separatorStyle = .None
 		self.title = "More".localized
     }
 

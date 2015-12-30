@@ -14,7 +14,8 @@ class TextArrowCell: UITableViewCell {
 	
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+		let accessory = KonaDisclosureIndicatorView(color: UIColor.konaColor())
+		self.accessoryView = accessory
     }
 
     override func setSelected(selected: Bool, animated: Bool) {

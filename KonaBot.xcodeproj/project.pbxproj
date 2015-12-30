@@ -14,6 +14,7 @@
 		711098B31BE62D9D00CDACD1 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711098B21BE62D9D00CDACD1 /* SearchViewController.swift */; };
 		711207C01C2421ED00FB99EF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 711207C21C2421ED00FB99EF /* Localizable.strings */; };
 		711207C41C24302F00FB99EF /* about.html in Resources */ = {isa = PBXBuildFile; fileRef = 711207C61C24302F00FB99EF /* about.html */; };
+		7119BC971C343570003BE527 /* KonaDisclosureIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7119BC961C343570003BE527 /* KonaDisclosureIndicatorView.swift */; };
 		711E569F1BE9B61A00A6863D /* ViewModeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711E569E1BE9B61A00A6863D /* ViewModeCell.swift */; };
 		71330AF21BEA1A9E0053C2D8 /* Yuno.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71330AF11BEA1A9E0053C2D8 /* Yuno.storyboard */; };
 		713B7AFE1BE653300038A34A /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 713B7AEC1BE653300038A34A /* AFHTTPRequestOperation.m */; };
@@ -73,6 +74,7 @@
 		711207C81C24320300FB99EF /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Main.strings"; sourceTree = "<group>"; };
 		711207C91C24320300FB99EF /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = "zh-Hant"; path = "zh-Hant.lproj/about.html"; sourceTree = "<group>"; };
 		711207CA1C24320300FB99EF /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		7119BC961C343570003BE527 /* KonaDisclosureIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KonaDisclosureIndicatorView.swift; sourceTree = "<group>"; };
 		711E569E1BE9B61A00A6863D /* ViewModeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModeCell.swift; sourceTree = "<group>"; };
 		71330AF11BEA1A9E0053C2D8 /* Yuno.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Yuno.storyboard; sourceTree = "<group>"; };
 		713B7AEB1BE653300038A34A /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 			isa = PBXGroup;
 			children = (
 				7109E5431BE8FA71003B1A93 /* TextArrowCell.swift */,
+				7119BC961C343570003BE527 /* KonaDisclosureIndicatorView.swift */,
 				7109E5471BE8FC36003B1A93 /* TextCell.swift */,
 				7109E5491BE8FCBD003B1A93 /* TextSwitchCell.swift */,
 				711E569E1BE9B61A00A6863D /* ViewModeCell.swift */,
@@ -432,6 +435,7 @@
 				713B7B051BE653300038A34A /* AFURLResponseSerialization.m in Sources */,
 				71FA55751BE55DE800E57198 /* JTSImageViewController.m in Sources */,
 				7109E54A1BE8FCBD003B1A93 /* TextSwitchCell.swift in Sources */,
+				7119BC971C343570003BE527 /* KonaDisclosureIndicatorView.swift in Sources */,
 				7152C1431BE3452400A44945 /* AppDelegate.swift in Sources */,
 				713B7B001BE653300038A34A /* AFHTTPSessionManager.m in Sources */,
 				71FA55741BE55DE800E57198 /* JTSImageInfo.m in Sources */,
