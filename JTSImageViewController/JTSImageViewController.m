@@ -12,6 +12,8 @@
 #import "UIImage+JTSImageEffects.h"
 #import "UIApplication+JTSImageViewController.h"
 
+#import "ProgressIndicatorView.h"
+
 CG_INLINE CGFLOAT_TYPE JTSImageFloatAbs(CGFLOAT_TYPE aFloat) {
 #if CGFLOAT_IS_DOUBLE
     return fabs(aFloat);
@@ -97,8 +99,10 @@ typedef struct {
 @property (strong, nonatomic) UIImageView *imageView;
 @property (strong, nonatomic) UIScrollView *scrollView;
 @property (strong, nonatomic) UITextView *textView;
-@property (strong, nonatomic) UIProgressView *progressView;
-@property (strong, nonatomic) UIActivityIndicatorView *spinner;
+//@property (strong, nonatomic) UIProgressView *progressView;
+@property (strong, nonatomic) ProgressIndicatorView *progressView;
+//@property (strong, nonatomic) UIActivityIndicatorView *spinner;
+@property (strong, nonatomic) ProgressIndicatorView *spinner;
 
 // Gesture Recognizers
 @property (strong, nonatomic) UITapGestureRecognizer *singleTapperPhoto;
@@ -468,19 +472,18 @@ typedef struct {
     
     self.progressContainer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 128.0f, 128.0f)];
     [self.view addSubview:self.progressContainer];
-    self.progressView = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
-    self.progressView.progress = 0;
-    self.progressView.tintColor = [UIColor whiteColor];
-    self.progressView.trackTintColor = [UIColor darkGrayColor];
-    CGRect progressFrame = self.progressView.frame;
-    progressFrame.size.width = 128.0f;
-    self.progressView.frame = progressFrame;
+	
+	UIColor *themeColor = [UIColor colorWithRed:34.0/255.0 green:34.0/255.0 blue:34.0/255.0 alpha:1];
+	UIColor *konaColor = [UIColor colorWithRed:253.0/255.0 green:168.0/255.0 blue:142.0/255.0 alpha:1];
+	
+	_progressView = [[ProgressIndicatorView alloc] initWithColor:konaColor textColor:konaColor bgColor:themeColor showText:YES width:10 font:[UIFont systemFontOfSize:40] radius:80];
+	[_progressView updateProgress:0];
     self.progressView.center = CGPointMake(64.0f, 64.0f);
     self.progressView.alpha = 0;
     [self.progressContainer addSubview:self.progressView];
-    self.spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+	_spinner = [[ProgressIndicatorView alloc] initWithColor:konaColor textColor:konaColor bgColor:themeColor showText:YES width:10 font:[UIFont systemFontOfSize:40] radius:80];
     self.spinner.center = CGPointMake(64.0f, 64.0f);
-    [self.spinner startAnimating];
+	[_spinner startSpinWithSpeed:0.3];
     [self.progressContainer addSubview:self.spinner];
     self.progressContainer.alpha = 0;
     
@@ -1890,7 +1893,8 @@ typedef struct {
         } completion:nil];
         progress = self.imageDownloadDataTask.countOfBytesReceived / bytesExpected;
     }
-    self.progressView.progress = progress;
+    //self.progressView.progress = progress;
+	[_progressView updateProgress:progress];
 }
 
 #pragma mark - UIResponder
