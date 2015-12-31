@@ -57,10 +57,10 @@
             </objects>
             <point key="canvasLocation" x="2553" y="403"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Main Tab Bar Controller-->
         <scene sceneID="Iob-Rp-JSP">
             <objects>
-                <tabBarController id="HSy-0m-hNG" sceneMemberID="viewController">
+                <tabBarController id="HSy-0m-hNG" customClass="MainTabBarController" customModule="KonaBot" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" id="sFK-F1-rF4">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>

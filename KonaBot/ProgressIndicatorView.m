@@ -19,8 +19,6 @@
 
 @implementation ProgressIndicatorView
 
-UILabel *text;
-
 - (id) init{
 	return [self initWithFrame:CGRectMake(0, 0, _radius * 2.0, _radius * 2.0)];
 }
@@ -58,7 +56,7 @@ UILabel *text;
 	
 	self.image = UIGraphicsGetImageFromCurrentImageContext();
 	UIGraphicsEndImageContext();
-	self.text.text = [NSString stringWithFormat:@"%u%@", (int)(progress * 100), @"%"];
+	_text.text = [NSString stringWithFormat:@"%u%@", (int)(progress * 100), @"%"];
 }
 
 - (void) startSpinWithSpeed: (CGFloat) spinSPeed {
@@ -91,7 +89,7 @@ UILabel *text;
 	
 	self.image = UIGraphicsGetImageFromCurrentImageContext();
 	UIGraphicsEndImageContext();
-	self.text.text = @"";
+	_text.text = @"";
 }
 
 - (CGFloat) progressToRadian: (CGFloat)progress {
