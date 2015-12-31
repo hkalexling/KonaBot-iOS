@@ -165,7 +165,9 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 		requestOperation.responseSerializer = AFImageResponseSerializer()
 		requestOperation.setCompletionBlockWithSuccess({(operation: AFHTTPRequestOperation!,
 			responseObject: AnyObject!) in
+				UIView.transitionWithView(view, duration: 0.5, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: {
 				view.image = responseObject as? UIImage
+				}, completion: nil)
 				Yuno().saveImageWithKey("Preview", image: view.image!, key: url)
 			},
 			failure: { (operation: AFHTTPRequestOperation!,
