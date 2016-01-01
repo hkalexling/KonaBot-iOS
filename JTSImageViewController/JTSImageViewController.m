@@ -167,6 +167,8 @@ typedef struct {
     } else if (self.mode == JTSImageViewControllerMode_AltText) {
         [self showAltTextFromViewController:viewController];
     }
+	
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"unlock" object:NULL];
 }
 
 - (void)dismiss:(BOOL)animated {

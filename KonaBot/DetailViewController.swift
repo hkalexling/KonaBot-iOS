@@ -27,10 +27,18 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 	
 	var favoriteList : [String]!
 	
+	let blockView = UIView()
+	
     override func viewDidLoad() {
         super.viewDidLoad()
 		
 		self.navigationItem.hidesBackButton = true
+		
+		//I don't know why but simply setting tabBar.userInteractionEnabled = false does not work. So I am using this dirty approach.
+		self.blockView.frame = CGRectMake(0, 0, CGSize.screenSize().width, 100)
+		self.tabBarController?.tabBar.addSubview(self.blockView)
+		
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: "unlock:", name: "unlock", object: nil)
 		
 		let bgView = UIView(frame: self.view.frame)
 		bgView.backgroundColor = UIColor.themeColor()
@@ -177,11 +185,6 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 		self.imageViewer.interactionsDelegate = self
 		
 		imageViewer.showFromViewController(self, transition: .FromOriginalPosition)
-		
-		let dispatchTime: dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW, Int64(0.3 * Double(NSEC_PER_SEC)))
-		dispatch_after(dispatchTime, dispatch_get_main_queue(), {
-			self.navigationItem.hidesBackButton = false
-		})
 	}
 	
 	func imageViewerDidLongPress(imageViewer: JTSImageViewController!, atRect rect: CGRect) {
@@ -247,6 +250,14 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 	func alertWithOkButton(title : String?, message : String?){
 		dispatch_async(dispatch_get_main_queue(), {
 			UIAlertView(title: title, message: message, delegate: nil, cancelButtonTitle: "OK".localized).show()
+		})
+	}
+	
+	func unlock (sender : NSNotification) {
+		let dispatchTime: dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW, Int64(0.3 * Double(NSEC_PER_SEC)))
+		dispatch_after(dispatchTime, dispatch_get_main_queue(), {
+			self.navigationItem.hidesBackButton = false
+			self.blockView.removeFromSuperview()
 		})
 	}
 }

@@ -40,7 +40,6 @@
 		71B2FC8D1BF7C9BD000B862D /* IAPViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B2FC8C1BF7C9BD000B862D /* IAPViewController.swift */; };
 		71EBA8B11C350DFD00860933 /* ProgressIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 71EBA8891C34F10900860933 /* ProgressIndicatorView.m */; };
 		71EBA8B21C350E8000860933 /* RZSquaresLoading.m in Sources */ = {isa = PBXBuildFile; fileRef = 713B7B0B1BE68B230038A34A /* RZSquaresLoading.m */; };
-		71EBA8B41C3579CD00860933 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71EBA8B31C3579CD00860933 /* MainTabBarController.swift */; };
 		71FA55731BE55DE800E57198 /* JTSAnimatedGIFUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 71FA55681BE55DE800E57198 /* JTSAnimatedGIFUtility.m */; };
 		71FA55741BE55DE800E57198 /* JTSImageInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 71FA556A1BE55DE800E57198 /* JTSImageInfo.m */; };
 		71FA55751BE55DE800E57198 /* JTSImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71FA556C1BE55DE800E57198 /* JTSImageViewController.m */; };
@@ -117,7 +116,6 @@
 		71B2FC8C1BF7C9BD000B862D /* IAPViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPViewController.swift; sourceTree = "<group>"; };
 		71EBA8881C34F10900860933 /* ProgressIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProgressIndicatorView.h; path = ../KonaBot/ProgressIndicatorView.h; sourceTree = "<group>"; };
 		71EBA8891C34F10900860933 /* ProgressIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProgressIndicatorView.m; path = ../KonaBot/ProgressIndicatorView.m; sourceTree = "<group>"; };
-		71EBA8B31C3579CD00860933 /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		71FA55671BE55DE800E57198 /* JTSAnimatedGIFUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTSAnimatedGIFUtility.h; sourceTree = "<group>"; };
 		71FA55681BE55DE800E57198 /* JTSAnimatedGIFUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTSAnimatedGIFUtility.m; sourceTree = "<group>"; };
 		71FA55691BE55DE800E57198 /* JTSImageInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTSImageInfo.h; sourceTree = "<group>"; };
@@ -263,7 +261,6 @@
 				719589321BE53C110036555E /* DetailViewController.swift */,
 				7152C1D91BE4F97200A44945 /* CollectionViewController.swift */,
 				71B2FC8C1BF7C9BD000B862D /* IAPViewController.swift */,
-				71EBA8B31C3579CD00860933 /* MainTabBarController.swift */,
 			);
 			name = VC;
 			sourceTree = "<group>";
@@ -420,7 +417,6 @@
 			files = (
 				71EBA8B21C350E8000860933 /* RZSquaresLoading.m in Sources */,
 				71EBA8B11C350DFD00860933 /* ProgressIndicatorView.m in Sources */,
-				71EBA8B41C3579CD00860933 /* MainTabBarController.swift in Sources */,
 				713B7AFE1BE653300038A34A /* AFHTTPRequestOperation.m in Sources */,
 				71FA55731BE55DE800E57198 /* JTSAnimatedGIFUtility.m in Sources */,
 				7152C1DA1BE4F97200A44945 /* CollectionViewController.swift in Sources */,
