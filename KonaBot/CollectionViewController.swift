@@ -9,20 +9,19 @@
 import UIKit
 import Kanna
 
-class CollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, KonaAPIDelegate{
+class CollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, KonaAPIDelegate {
 	
 	var refreshControl : UIRefreshControl!
 	
-	var baseUrl : String!
-	
 	var searchVC : SearchViewController?
 	var loading : RZSquaresLoading!
+	
+	var r18 : Bool = false
 
 	var keyword : String = ""
-	
-	var postUrls : [String] = []
-	var imageUrls : [String] = []
-	var heightOverWidth : [CGFloat] = []
+
+	var posts : [Post] = []
+	var postsPerRequest : Int = 30
 	
 	var currentPage : Int = 1
 	
@@ -39,9 +38,6 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 
     override func viewDidLoad() {
         super.viewDidLoad()
-		
-		self.api = KonaAPI(r18: false, delegate: self)
-		self.api.getPost(nil, page: nil, tag: nil)
 		
 		if NSUserDefaults.standardUserDefaults().objectForKey("tabToSelect") != nil {
 			let tabToSelect = NSUserDefaults.standardUserDefaults().integerForKey("tabToSelect")
@@ -60,6 +56,8 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 	
 	func refresh(){
 		
+		self.r18 = Yuno().baseUrl().containsString(".com")
+		
 		self.compact = NSUserDefaults.standardUserDefaults().integerForKey("viewMode") == 1
 		
 		if UIDevice.currentDevice().model.hasPrefix("iPad"){
@@ -77,15 +75,13 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 		
 		let layout : UICollectionViewFlowLayout = self.collectionViewLayout as! UICollectionViewFlowLayout
 		layout.sectionInset = UIEdgeInsetsMake(0, (CGSize.screenSize().width/CGFloat(self.columnNum) - self.cellWidth)/2, 0, (CGSize.screenSize().width/CGFloat(self.columnNum) - self.cellWidth)/2)
-		
-		self.postUrls = []
-		self.imageUrls = []
-		self.heightOverWidth = []
+
+		self.currentPage = 1
+		self.posts = []
 		self.collectionView!.reloadData()
 		
 		self.navigationItem.rightBarButtonItem = UIBarButtonItem()
-		self.baseUrl = Yuno().baseUrl()
-		if self.baseUrl.containsString(".com"){
+		if self.r18 {
 			let r18Label = UILabel(frame: CGRectMake(0, 0, 80, 20))
 			r18Label.backgroundColor = UIColor.themeColor()
 			r18Label.textColor = UIColor.konaColor()
@@ -105,7 +101,10 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 		else{
 			self.title = self.keyword
 		}
-		self.getHtml("\(self.baseUrl)/post?tags=\(self.keyword)")
+		//self.getHtml("\(self.baseUrl)/post?tags=\(self.keyword)")
+		self.api = KonaAPI(r18: self.r18, delegate: self)
+		//self.api.getPost(self.postsPerRequest, page: self.currentPage, tag: self.keyword)
+		self.loadMore()
 		
 		self.refreshControl.endRefreshing()
 	}
@@ -121,33 +120,39 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return imageUrls.count
+        //return imageUrls.count
+		return self.posts.count
     }
 	
 	override func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
+		if indexPath.row == self.posts.count - 5 {
+			self.loadMore()
+		}
+		/*
 		if (self.numberOfPagesTried < self.maxNumberOfPagesToTry){
-			if (self.imageUrls.count > 3){
-				if (indexPath.row == imageUrls.count - 3){
+			if (self.posts.count > 3){
+				if (indexPath.row == posts.count - 3){
 					self.loadMore()
 				}
 			}
 			else{
-				if (indexPath.row == imageUrls.count - 1){
+				if (indexPath.row == posts.count - 1){
 					self.loadMore()
 				}
 			}
 		}
+		*/
 	}
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("ImageCell", forIndexPath: indexPath) as! ImageCell
 		
-		if let img = Yuno().fetchImageWithKey("Preview", key: self.imageUrls[indexPath.row]){
+		if let img = Yuno().fetchImageWithKey("Preview", key: self.posts[indexPath.row].previewUrl) {
 			cell.imageView.image = img
 		}
 		else{
 			cell.imageView.image = UIImage.imageWithColor(UIColor.darkGrayColor())
-			downloadImg(self.imageUrls[indexPath.row], view: cell.imageView)
+			downloadImg(self.posts[indexPath.row].previewUrl, view: cell.imageView)
 		}
 		
         return cell
@@ -155,8 +160,8 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 	
 	override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
 		let detailVC : DetailViewController = DetailViewController()
-		detailVC.postUrl = self.postUrls[indexPath.row]
-		detailVC.heightOverWidth = self.heightOverWidth[indexPath.row]
+		detailVC.postUrl = self.posts[indexPath.row].postUrl
+		detailVC.heightOverWidth = self.posts[indexPath.row].heightOverWidth
 		detailVC.smallImage =  (self.collectionView!.cellForItemAtIndexPath(indexPath) as! ImageCell).imageView!.image
 		self.navigationController!.pushViewController(detailVC, animated: true)
 	}
@@ -185,14 +190,13 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 	
 	func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
 
-		return CGSize(width: self.cellWidth, height: self.cellWidth * self.heightOverWidth[indexPath.row])
+		return CGSize(width: self.cellWidth, height: self.cellWidth * self.posts[indexPath.row].heightOverWidth)
 	}
 	
 	func loadMore(){
-		self.currentPage++
-		self.getHtml("\(self.baseUrl)/post?page=\(self.currentPage)&tags=\(self.keyword)")
+		self.api.getPost(self.postsPerRequest, page: self.currentPage, tag: self.keyword)
 	}
-
+	
 	func getHtml(url : String){
 		let manager : AFHTTPRequestOperationManager = AFHTTPRequestOperationManager()
 		manager.responseSerializer = AFHTTPResponseSerializer()
@@ -202,11 +206,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 				
 				let html : NSString = NSString(data: responseObject as! NSData, encoding: NSASCIIStringEncoding)!
 				self.parse(html as String)
-				var index : [NSIndexPath] = []
-				for (var i = self.collectionView!.numberOfItemsInSection(0); i < self.imageUrls.count; i++){
-					index.append(NSIndexPath(forRow: i, inSection: 0))
-				}
-				self.collectionView!.insertItemsAtIndexPaths(index)
+
 			}, failure: {(operation, error) -> Void in
 				print ("Error : \(error)")
 				let alert = UIAlertController.alertWithOKButton("Network Error".localized, message: error.localizedDescription)
@@ -217,52 +217,45 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 	func parse(htmlString : String){
 		if let doc = Kanna.HTML(html: htmlString, encoding: NSUTF8StringEncoding) {
 			let ulList = doc.css("ul#post-list-posts")
-			for ul in ulList {
-				for a in ul.css("a"){
-					if a.className != nil {
-						if a.className! == "thumb"{
-							self.postUrls.append(a["href"]!)
-						}
-					}
-				}
-				for img in ul.css("img"){
-					self.imageUrls.append(img["src"]!)
-					let height : CGFloat = CGFloat((img["height"]! as NSString).floatValue)
-					let width : CGFloat = CGFloat((img["width"]! as NSString).floatValue)
-					self.heightOverWidth.append(height/width)
-				}
-				self.loading.removeFromSuperview()
-			}
 			if ulList.count == 0 {
-				if (self.numberOfPagesTried < self.maxNumberOfPagesToTry){
-					self.numberOfPagesTried++
-					loadMore()
-				}
-				else{
-					var suggestedTag : [String] = []
-					for div in doc.css("div"){
-						if (div.className != nil) {
-							if (div.className! == "status-notice"){
-								for span in div.css("span"){
-									let a = span.at_css("a")!
-									suggestedTag.append(a.text!)
-								}
+				var suggestedTag : [String] = []
+				for div in doc.css("div"){
+					if (div.className != nil) {
+						if (div.className! == "status-notice"){
+							for span in div.css("span"){
+								let a = span.at_css("a")!
+								suggestedTag.append(a.text!)
 							}
 						}
 					}
-					if (self.searchVC != nil && self.postUrls.count == 0){
-						self.searchVC!.noResult = true
-						if (suggestedTag.count > 0){
-							self.searchVC!.suggestedTag = suggestedTag
-						}
-						self.navigationController!.popViewControllerAnimated(true)
+				}
+				if (self.searchVC != nil && self.posts.count == 0){
+					self.searchVC!.noResult = true
+					if (suggestedTag.count > 0){
+						self.searchVC!.suggestedTag = suggestedTag
 					}
+					self.navigationController!.popViewControllerAnimated(true)
 				}
 			}
 		}
 	}
 	
 	func konaAPIDidGetPosts(ary: [Post]) {
-		print (ary)
+		if ary.count == 0 && self.keyword != "" {
+			self.handleEmtptySearch()
+			return
+		}
+		self.currentPage++
+		self.loading.removeFromSuperview()
+		self.posts += ary
+		var index : [NSIndexPath] = []
+		for (var i = self.collectionView!.numberOfItemsInSection(0); i < self.posts.count; i++){
+			index.append(NSIndexPath(forRow: i, inSection: 0))
+		}
+		self.collectionView!.insertItemsAtIndexPaths(index)
+	}
+	
+	func handleEmtptySearch(){
+		self.getHtml("\(Yuno().baseUrl())/post?tags=\(self.keyword)")
 	}
 }

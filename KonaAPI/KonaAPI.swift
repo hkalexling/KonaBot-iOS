@@ -22,6 +22,8 @@ class KonaAPI: NSObject {
 	private var r18 : Bool = false
 	private var delegate : KonaAPIDelegate?
 	
+	private var finished : Bool = true
+	
 	var postAry : [Post] = []
 	
 	init(r18 : Bool, delegate : KonaAPIDelegate){
@@ -30,6 +32,13 @@ class KonaAPI: NSObject {
 	}
 	
 	func getPost(limit : Int?, page : Int?, tag : String?){
+		
+		/*
+		if !self.finished {
+			return
+		}
+		self.finished = false
+		*/
 		
 		var parameters : [String : String] = [:]
 		if let _limit = limit {
@@ -52,10 +61,12 @@ class KonaAPI: NSObject {
 				let url : String = post["jpeg_url"] as! String
 				let heightOverWidth = (post["height"] as! CGFloat)/(post["width"] as! CGFloat)
 				let postTags : [String] = (post["tags"] as! String).componentsSeparatedByString(" ")
-				let postObj = Post(id : id, previewUrl: previewUrl, url: url, heightOverWidth: heightOverWidth, tags: postTags)
+				let postObj = Post(postUrl : "http://konachan.net/post/show/\(id)", previewUrl: previewUrl, url: url, heightOverWidth: heightOverWidth, tags: postTags)
 				self.postAry.append(postObj)
 			}
 			self.delegate?.konaAPIDidGetPosts(self.postAry)
+			self.postAry = []
+			//self.finished = true
 			}, failure: {(task, error) in
 				print (error.localizedDescription)
 		})

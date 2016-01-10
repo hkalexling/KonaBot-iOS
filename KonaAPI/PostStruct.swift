@@ -9,7 +9,7 @@
 import UIKit
 
 struct Post {
-	let id : Int
+	let postUrl : String
 	let previewUrl : String
 	let url : String
 	let heightOverWidth : CGFloat
