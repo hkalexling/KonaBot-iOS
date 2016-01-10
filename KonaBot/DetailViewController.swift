@@ -25,9 +25,13 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 	var finishedDownload : Bool = false
 	var urlStr : String?
 	
+	var imageUrl : String!
+	
 	var favoriteList : [String]!
 	
 	let blockView = UIView()
+	
+	var shouldDownloadWhenViewAppeared : Bool = true
 	
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,11 +58,17 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 		self.view.addSubview(detailImageView)
 		
 		self.detailImageView.image = self.smallImage
-        self.getHtml("\(self.baseUrl)\(postUrl)")
 		
 		let tapRecognizer : UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: Selector("tapped:"))
 		self.detailImageView.addGestureRecognizer(tapRecognizer)
     }
+	
+	override func viewDidAppear(animated: Bool) {
+		if self.shouldDownloadWhenViewAppeared {
+			self.downloadImg(self.imageUrl)
+		}
+		self.shouldDownloadWhenViewAppeared = false
+	}
 	
 	override func viewWillAppear(animated: Bool) {
 		
@@ -128,33 +138,6 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 			self.imageViewer.interactionsDelegate = self
 			
 			imageViewer.showFromViewController(self, transition: .FromOriginalPosition)
-		}
-	}
-	
-	func getHtml(url : String){
-		let manager : AFHTTPRequestOperationManager = AFHTTPRequestOperationManager()
-		manager.responseSerializer = AFHTTPResponseSerializer()
-		
-		manager.GET(url, parameters: nil,
-			success: {(operation, responseObject) -> Void in
-				
-				let html : NSString = NSString(data: responseObject as! NSData, encoding: NSASCIIStringEncoding)!
-				self.parse(html as String)
-				
-			}, failure: {(operation, error) -> Void in
-				print ("Error : \(error)")
-				let alert = UIAlertController.alertWithOKButton("Network Error".localized, message: error.localizedDescription)
-				self.presentViewController(alert, animated: true, completion: nil)
-		})
-	}
-	
-	func parse(htmlString : String){
-		if let doc = Kanna.HTML(html: htmlString, encoding: NSUTF8StringEncoding) {
-			for div in doc.css("div#right-col"){
-				let img = div.at_css("div")?.at_css("img")
-				downloadImg(img!["src"]!)
-				return
-			}
 		}
 	}
 	

@@ -101,9 +101,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 		else{
 			self.title = self.keyword
 		}
-		//self.getHtml("\(self.baseUrl)/post?tags=\(self.keyword)")
 		self.api = KonaAPI(r18: self.r18, delegate: self)
-		//self.api.getPost(self.postsPerRequest, page: self.currentPage, tag: self.keyword)
 		self.loadMore()
 		
 		self.refreshControl.endRefreshing()
@@ -114,13 +112,10 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
     }
 
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of items
-        //return imageUrls.count
 		return self.posts.count
     }
 	
@@ -128,20 +123,6 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 		if indexPath.row == self.posts.count - 5 {
 			self.loadMore()
 		}
-		/*
-		if (self.numberOfPagesTried < self.maxNumberOfPagesToTry){
-			if (self.posts.count > 3){
-				if (indexPath.row == posts.count - 3){
-					self.loadMore()
-				}
-			}
-			else{
-				if (indexPath.row == posts.count - 1){
-					self.loadMore()
-				}
-			}
-		}
-		*/
 	}
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
@@ -162,7 +143,9 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 		let detailVC : DetailViewController = DetailViewController()
 		detailVC.postUrl = self.posts[indexPath.row].postUrl
 		detailVC.heightOverWidth = self.posts[indexPath.row].heightOverWidth
+		detailVC.imageUrl = self.posts[indexPath.row].url
 		detailVC.smallImage =  (self.collectionView!.cellForItemAtIndexPath(indexPath) as! ImageCell).imageView!.image
+		//self.navigationController!.pushViewController(detailVC, animated: true)
 		self.navigationController!.pushViewController(detailVC, animated: true)
 	}
 	
