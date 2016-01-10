@@ -30,6 +30,7 @@
 		713B7B101BE7814F0038A34A /* FavoriteCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713B7B0F1BE7814F0038A34A /* FavoriteCollectionViewController.swift */; };
 		7152C1431BE3452400A44945 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7152C1421BE3452400A44945 /* AppDelegate.swift */; };
 		7152C1481BE3452400A44945 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7152C1461BE3452400A44945 /* Main.storyboard */; };
+		7152C1D71BE3E41E00A44945 /* Kanna.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7152C1D61BE3E41E00A44945 /* Kanna.framework */; };
 		7152C1DA1BE4F97200A44945 /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7152C1D91BE4F97200A44945 /* CollectionViewController.swift */; };
 		7152C1DC1BE4F9AC00A44945 /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7152C1DB1BE4F9AC00A44945 /* ImageCell.swift */; };
 		7179F9211C428C020037A16D /* KonaAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7179F9201C428C020037A16D /* KonaAPI.swift */; };
@@ -50,7 +51,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		7179F92A1C42EE210037A16D /* Embed Frameworks */ = {
+		7152C1751BE347B300A44945 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
@@ -107,6 +108,7 @@
 		7152C1471BE3452400A44945 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7152C14E1BE3452400A44945 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7152C1971BE34FBF00A44945 /* KonaBot-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "KonaBot-Bridging-Header.h"; sourceTree = "<group>"; };
+		7152C1D61BE3E41E00A44945 /* Kanna.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Kanna.framework; path = Carthage/Build/iOS/Kanna.framework; sourceTree = "<group>"; };
 		7152C1D91BE4F97200A44945 /* CollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
 		7152C1DB1BE4F9AC00A44945 /* ImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
 		7179F9201C428C020037A16D /* KonaAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KonaAPI.swift; sourceTree = "<group>"; };
@@ -137,6 +139,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7152C1D71BE3E41E00A44945 /* Kanna.framework in Frameworks */,
 				71B2FC8B1BF7A359000B862D /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -296,6 +299,7 @@
 			children = (
 				7179F91F1C428C020037A16D /* KonaAPI */,
 				71B2FC8A1BF7A359000B862D /* StoreKit.framework */,
+				7152C1D61BE3E41E00A44945 /* Kanna.framework */,
 				713B7B091BE68B230038A34A /* RZSquaresLoading */,
 				713B7AEA1BE653300038A34A /* AFNetworking */,
 				71FA55661BE55DE800E57198 /* JTSImageViewController */,
@@ -334,8 +338,8 @@
 				7152C13B1BE3452400A44945 /* Sources */,
 				7152C13C1BE3452400A44945 /* Frameworks */,
 				7152C13D1BE3452400A44945 /* Resources */,
+				7152C1751BE347B300A44945 /* Embed Frameworks */,
 				7152C1D81BE3E43B00A44945 /* Run Script */,
-				7179F92A1C42EE210037A16D /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -587,10 +591,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = KonaBot/Info.plist;
@@ -609,10 +614,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = KonaBot/Info.plist;
