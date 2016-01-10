@@ -30,15 +30,14 @@
 		713B7B101BE7814F0038A34A /* FavoriteCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713B7B0F1BE7814F0038A34A /* FavoriteCollectionViewController.swift */; };
 		7152C1431BE3452400A44945 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7152C1421BE3452400A44945 /* AppDelegate.swift */; };
 		7152C1481BE3452400A44945 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7152C1461BE3452400A44945 /* Main.storyboard */; };
-		7152C1D71BE3E41E00A44945 /* Kanna.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7152C1D61BE3E41E00A44945 /* Kanna.framework */; };
 		7152C1DA1BE4F97200A44945 /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7152C1D91BE4F97200A44945 /* CollectionViewController.swift */; };
 		7152C1DC1BE4F9AC00A44945 /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7152C1DB1BE4F9AC00A44945 /* ImageCell.swift */; };
 		7179F9211C428C020037A16D /* KonaAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7179F9201C428C020037A16D /* KonaAPI.swift */; };
 		7179F9231C428D680037A16D /* PostStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7179F9221C428D680037A16D /* PostStruct.swift */; };
+		7179F9331C42F3220037A16D /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71B2FC8A1BF7A359000B862D /* StoreKit.framework */; };
 		718378381BE7EF8000131A74 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 718378361BE7EF8000131A74 /* Model.xcdatamodeld */; };
 		719589311BE533940036555E /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719589301BE533940036555E /* Extension.swift */; };
 		719589331BE53C110036555E /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719589321BE53C110036555E /* DetailViewController.swift */; };
-		71B2FC8B1BF7A359000B862D /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71B2FC8A1BF7A359000B862D /* StoreKit.framework */; };
 		71B2FC8D1BF7C9BD000B862D /* IAPViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B2FC8C1BF7C9BD000B862D /* IAPViewController.swift */; };
 		71EBA8B11C350DFD00860933 /* ProgressIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 71EBA8891C34F10900860933 /* ProgressIndicatorView.m */; };
 		71EBA8B21C350E8000860933 /* RZSquaresLoading.m in Sources */ = {isa = PBXBuildFile; fileRef = 713B7B0B1BE68B230038A34A /* RZSquaresLoading.m */; };
@@ -108,7 +107,6 @@
 		7152C1471BE3452400A44945 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7152C14E1BE3452400A44945 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7152C1971BE34FBF00A44945 /* KonaBot-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "KonaBot-Bridging-Header.h"; sourceTree = "<group>"; };
-		7152C1D61BE3E41E00A44945 /* Kanna.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Kanna.framework; path = Carthage/Build/iOS/Kanna.framework; sourceTree = "<group>"; };
 		7152C1D91BE4F97200A44945 /* CollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
 		7152C1DB1BE4F9AC00A44945 /* ImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
 		7179F9201C428C020037A16D /* KonaAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KonaAPI.swift; sourceTree = "<group>"; };
@@ -139,8 +137,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7152C1D71BE3E41E00A44945 /* Kanna.framework in Frameworks */,
-				71B2FC8B1BF7A359000B862D /* StoreKit.framework in Frameworks */,
+				7179F9331C42F3220037A16D /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -299,7 +296,6 @@
 			children = (
 				7179F91F1C428C020037A16D /* KonaAPI */,
 				71B2FC8A1BF7A359000B862D /* StoreKit.framework */,
-				7152C1D61BE3E41E00A44945 /* Kanna.framework */,
 				713B7B091BE68B230038A34A /* RZSquaresLoading */,
 				713B7AEA1BE653300038A34A /* AFNetworking */,
 				71FA55661BE55DE800E57198 /* JTSImageViewController */,
@@ -591,16 +587,15 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)",
 				);
 				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = KonaBot/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = hkalexling.KonaBot;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -614,16 +609,15 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)",
 				);
 				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = KonaBot/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = hkalexling.KonaBot;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
