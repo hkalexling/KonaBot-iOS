@@ -63,7 +63,7 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 		self.detailImageView.addGestureRecognizer(tapRecognizer)
 		
 		if self.imageUrl == nil {
-			self.getHtml(self.postUrl)
+			self.getHtml(self.postUrl.hasPrefix("http") ? self.postUrl : self.baseUrl + self.postUrl)
 		}
     }
 	
