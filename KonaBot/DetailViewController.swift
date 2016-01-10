@@ -34,7 +34,7 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 		
 		self.navigationItem.hidesBackButton = true
 		
-		//I don't know why but simply setting tabBar.userInteractionEnabled = false does not work. So I am using this dirty approach.
+		//I don't know why but simply setting `tabBar.userInteractionEnabled = false` does not work. So I am using this dirty approach.
 		self.blockView.frame = CGRectMake(0, 0, CGSize.screenSize().width, 100)
 		self.tabBarController?.tabBar.addSubview(self.blockView)
 		

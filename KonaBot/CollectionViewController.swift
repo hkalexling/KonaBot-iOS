@@ -9,7 +9,7 @@
 import UIKit
 import Kanna
 
-class CollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+class CollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, KonaAPIDelegate{
 	
 	var refreshControl : UIRefreshControl!
 	
@@ -34,10 +34,15 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 	var cellWidth : CGFloat!
 	
 	var columnNum : Int!
+	
+	var api : KonaAPI!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-				
+		
+		self.api = KonaAPI(r18: false, delegate: self)
+		self.api.getPost(nil, page: nil, tag: nil)
+		
 		if NSUserDefaults.standardUserDefaults().objectForKey("tabToSelect") != nil {
 			let tabToSelect = NSUserDefaults.standardUserDefaults().integerForKey("tabToSelect")
 			NSUserDefaults.standardUserDefaults().removeObjectForKey("tabToSelect")
@@ -255,5 +260,9 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 				}
 			}
 		}
+	}
+	
+	func konaAPIDidGetPosts(ary: [Post]) {
+		print (ary)
 	}
 }
