@@ -17,20 +17,14 @@
 		7119BC971C343570003BE527 /* KonaDisclosureIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7119BC961C343570003BE527 /* KonaDisclosureIndicatorView.swift */; };
 		711E569F1BE9B61A00A6863D /* ViewModeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711E569E1BE9B61A00A6863D /* ViewModeCell.swift */; };
 		71330AF21BEA1A9E0053C2D8 /* Yuno.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71330AF11BEA1A9E0053C2D8 /* Yuno.storyboard */; };
-		713B7AFE1BE653300038A34A /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 713B7AEC1BE653300038A34A /* AFHTTPRequestOperation.m */; };
-		713B7AFF1BE653300038A34A /* AFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 713B7AEE1BE653300038A34A /* AFHTTPRequestOperationManager.m */; };
-		713B7B001BE653300038A34A /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 713B7AF01BE653300038A34A /* AFHTTPSessionManager.m */; };
-		713B7B011BE653300038A34A /* AFNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 713B7AF31BE653300038A34A /* AFNetworkReachabilityManager.m */; };
-		713B7B021BE653300038A34A /* AFSecurityPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = 713B7AF51BE653300038A34A /* AFSecurityPolicy.m */; };
-		713B7B031BE653300038A34A /* AFURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 713B7AF71BE653300038A34A /* AFURLConnectionOperation.m */; };
-		713B7B041BE653300038A34A /* AFURLRequestSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 713B7AF91BE653300038A34A /* AFURLRequestSerialization.m */; };
-		713B7B051BE653300038A34A /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 713B7AFB1BE653300038A34A /* AFURLResponseSerialization.m */; };
-		713B7B061BE653300038A34A /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 713B7AFD1BE653300038A34A /* AFURLSessionManager.m */; };
 		713B7B081BE681430038A34A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 713B7B071BE681430038A34A /* Assets.xcassets */; };
 		713B7B101BE7814F0038A34A /* FavoriteCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713B7B0F1BE7814F0038A34A /* FavoriteCollectionViewController.swift */; };
+		7140E23F1C42F8CB00E259C4 /* Kanna.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7152C1D61BE3E41E00A44945 /* Kanna.framework */; };
+		7140E2401C42F8CB00E259C4 /* Kanna.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7152C1D61BE3E41E00A44945 /* Kanna.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		7140E2431C42F8F100E259C4 /* AFNetworking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7140E2411C42F8E900E259C4 /* AFNetworking.framework */; };
+		7140E2441C42F8F100E259C4 /* AFNetworking.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7140E2411C42F8E900E259C4 /* AFNetworking.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7152C1431BE3452400A44945 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7152C1421BE3452400A44945 /* AppDelegate.swift */; };
 		7152C1481BE3452400A44945 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7152C1461BE3452400A44945 /* Main.storyboard */; };
-		7152C1D71BE3E41E00A44945 /* Kanna.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7152C1D61BE3E41E00A44945 /* Kanna.framework */; };
 		7152C1DA1BE4F97200A44945 /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7152C1D91BE4F97200A44945 /* CollectionViewController.swift */; };
 		7152C1DC1BE4F9AC00A44945 /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7152C1DB1BE4F9AC00A44945 /* ImageCell.swift */; };
 		7179F9211C428C020037A16D /* KonaAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7179F9201C428C020037A16D /* KonaAPI.swift */; };
@@ -57,6 +51,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				7140E2401C42F8CB00E259C4 /* Kanna.framework in Embed Frameworks */,
+				7140E2441C42F8F100E259C4 /* AFNetworking.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -80,35 +76,17 @@
 		7119BC961C343570003BE527 /* KonaDisclosureIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KonaDisclosureIndicatorView.swift; sourceTree = "<group>"; };
 		711E569E1BE9B61A00A6863D /* ViewModeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModeCell.swift; sourceTree = "<group>"; };
 		71330AF11BEA1A9E0053C2D8 /* Yuno.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Yuno.storyboard; sourceTree = "<group>"; };
-		713B7AEB1BE653300038A34A /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
-		713B7AEC1BE653300038A34A /* AFHTTPRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPRequestOperation.m; sourceTree = "<group>"; };
-		713B7AED1BE653300038A34A /* AFHTTPRequestOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperationManager.h; sourceTree = "<group>"; };
-		713B7AEE1BE653300038A34A /* AFHTTPRequestOperationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPRequestOperationManager.m; sourceTree = "<group>"; };
-		713B7AEF1BE653300038A34A /* AFHTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPSessionManager.h; sourceTree = "<group>"; };
-		713B7AF01BE653300038A34A /* AFHTTPSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPSessionManager.m; sourceTree = "<group>"; };
-		713B7AF11BE653300038A34A /* AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworking.h; sourceTree = "<group>"; };
-		713B7AF21BE653300038A34A /* AFNetworkReachabilityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworkReachabilityManager.h; sourceTree = "<group>"; };
-		713B7AF31BE653300038A34A /* AFNetworkReachabilityManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNetworkReachabilityManager.m; sourceTree = "<group>"; };
-		713B7AF41BE653300038A34A /* AFSecurityPolicy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFSecurityPolicy.h; sourceTree = "<group>"; };
-		713B7AF51BE653300038A34A /* AFSecurityPolicy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFSecurityPolicy.m; sourceTree = "<group>"; };
-		713B7AF61BE653300038A34A /* AFURLConnectionOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLConnectionOperation.h; sourceTree = "<group>"; };
-		713B7AF71BE653300038A34A /* AFURLConnectionOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLConnectionOperation.m; sourceTree = "<group>"; };
-		713B7AF81BE653300038A34A /* AFURLRequestSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLRequestSerialization.h; sourceTree = "<group>"; };
-		713B7AF91BE653300038A34A /* AFURLRequestSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLRequestSerialization.m; sourceTree = "<group>"; };
-		713B7AFA1BE653300038A34A /* AFURLResponseSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLResponseSerialization.h; sourceTree = "<group>"; };
-		713B7AFB1BE653300038A34A /* AFURLResponseSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLResponseSerialization.m; sourceTree = "<group>"; };
-		713B7AFC1BE653300038A34A /* AFURLSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLSessionManager.h; sourceTree = "<group>"; };
-		713B7AFD1BE653300038A34A /* AFURLSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLSessionManager.m; sourceTree = "<group>"; };
 		713B7B071BE681430038A34A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		713B7B0A1BE68B230038A34A /* RZSquaresLoading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZSquaresLoading.h; sourceTree = "<group>"; };
 		713B7B0B1BE68B230038A34A /* RZSquaresLoading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZSquaresLoading.m; sourceTree = "<group>"; };
 		713B7B0F1BE7814F0038A34A /* FavoriteCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteCollectionViewController.swift; sourceTree = "<group>"; };
+		7140E2411C42F8E900E259C4 /* AFNetworking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AFNetworking.framework; sourceTree = "<group>"; };
 		7152C13F1BE3452400A44945 /* KonaBot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KonaBot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7152C1421BE3452400A44945 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7152C1471BE3452400A44945 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7152C14E1BE3452400A44945 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7152C1971BE34FBF00A44945 /* KonaBot-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "KonaBot-Bridging-Header.h"; sourceTree = "<group>"; };
-		7152C1D61BE3E41E00A44945 /* Kanna.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Kanna.framework; path = Carthage/Build/iOS/Kanna.framework; sourceTree = "<group>"; };
+		7152C1D61BE3E41E00A44945 /* Kanna.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Kanna.framework; sourceTree = "<group>"; };
 		7152C1D91BE4F97200A44945 /* CollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
 		7152C1DB1BE4F9AC00A44945 /* ImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
 		7179F9201C428C020037A16D /* KonaAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KonaAPI.swift; sourceTree = "<group>"; };
@@ -139,8 +117,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7152C1D71BE3E41E00A44945 /* Kanna.framework in Frameworks */,
 				71B2FC8B1BF7A359000B862D /* StoreKit.framework in Frameworks */,
+				7140E2431C42F8F100E259C4 /* AFNetworking.framework in Frameworks */,
+				7140E23F1C42F8CB00E259C4 /* Kanna.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -166,32 +145,6 @@
 				711E569E1BE9B61A00A6863D /* ViewModeCell.swift */,
 			);
 			name = TableViewCell;
-			sourceTree = "<group>";
-		};
-		713B7AEA1BE653300038A34A /* AFNetworking */ = {
-			isa = PBXGroup;
-			children = (
-				713B7AEB1BE653300038A34A /* AFHTTPRequestOperation.h */,
-				713B7AEC1BE653300038A34A /* AFHTTPRequestOperation.m */,
-				713B7AED1BE653300038A34A /* AFHTTPRequestOperationManager.h */,
-				713B7AEE1BE653300038A34A /* AFHTTPRequestOperationManager.m */,
-				713B7AEF1BE653300038A34A /* AFHTTPSessionManager.h */,
-				713B7AF01BE653300038A34A /* AFHTTPSessionManager.m */,
-				713B7AF11BE653300038A34A /* AFNetworking.h */,
-				713B7AF21BE653300038A34A /* AFNetworkReachabilityManager.h */,
-				713B7AF31BE653300038A34A /* AFNetworkReachabilityManager.m */,
-				713B7AF41BE653300038A34A /* AFSecurityPolicy.h */,
-				713B7AF51BE653300038A34A /* AFSecurityPolicy.m */,
-				713B7AF61BE653300038A34A /* AFURLConnectionOperation.h */,
-				713B7AF71BE653300038A34A /* AFURLConnectionOperation.m */,
-				713B7AF81BE653300038A34A /* AFURLRequestSerialization.h */,
-				713B7AF91BE653300038A34A /* AFURLRequestSerialization.m */,
-				713B7AFA1BE653300038A34A /* AFURLResponseSerialization.h */,
-				713B7AFB1BE653300038A34A /* AFURLResponseSerialization.m */,
-				713B7AFC1BE653300038A34A /* AFURLSessionManager.h */,
-				713B7AFD1BE653300038A34A /* AFURLSessionManager.m */,
-			);
-			path = AFNetworking;
 			sourceTree = "<group>";
 		};
 		713B7B091BE68B230038A34A /* RZSquaresLoading */ = {
@@ -297,11 +250,11 @@
 		7183783E1BE8007A00131A74 /* Wheels */ = {
 			isa = PBXGroup;
 			children = (
-				7179F91F1C428C020037A16D /* KonaAPI */,
+				7140E2411C42F8E900E259C4 /* AFNetworking.framework */,
 				71B2FC8A1BF7A359000B862D /* StoreKit.framework */,
 				7152C1D61BE3E41E00A44945 /* Kanna.framework */,
+				7179F91F1C428C020037A16D /* KonaAPI */,
 				713B7B091BE68B230038A34A /* RZSquaresLoading */,
-				713B7AEA1BE653300038A34A /* AFNetworking */,
 				71FA55661BE55DE800E57198 /* JTSImageViewController */,
 			);
 			name = Wheels;
@@ -413,14 +366,14 @@
 			files = (
 			);
 			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/iOS/Kanna.framework",
 			);
 			name = "Run Script";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
+			shellScript = "
+";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -431,35 +384,26 @@
 			files = (
 				71EBA8B21C350E8000860933 /* RZSquaresLoading.m in Sources */,
 				71EBA8B11C350DFD00860933 /* ProgressIndicatorView.m in Sources */,
-				713B7AFE1BE653300038A34A /* AFHTTPRequestOperation.m in Sources */,
 				71FA55731BE55DE800E57198 /* JTSAnimatedGIFUtility.m in Sources */,
 				7152C1DA1BE4F97200A44945 /* CollectionViewController.swift in Sources */,
-				713B7B061BE653300038A34A /* AFURLSessionManager.m in Sources */,
 				7109E5481BE8FC36003B1A93 /* TextCell.swift in Sources */,
 				71FA55781BE55DE800E57198 /* UIImage+JTSImageEffects.m in Sources */,
-				713B7B031BE653300038A34A /* AFURLConnectionOperation.m in Sources */,
 				711E569F1BE9B61A00A6863D /* ViewModeCell.swift in Sources */,
-				713B7AFF1BE653300038A34A /* AFHTTPRequestOperationManager.m in Sources */,
 				713B7B101BE7814F0038A34A /* FavoriteCollectionViewController.swift in Sources */,
 				7109E5441BE8FA71003B1A93 /* TextArrowCell.swift in Sources */,
 				71FA55761BE55DE800E57198 /* JTSSimpleImageDownloader.m in Sources */,
 				7109E5401BE8F9D2003B1A93 /* SettingTableViewController.swift in Sources */,
-				713B7B011BE653300038A34A /* AFNetworkReachabilityManager.m in Sources */,
 				719589311BE533940036555E /* Extension.swift in Sources */,
 				718378381BE7EF8000131A74 /* Model.xcdatamodeld in Sources */,
 				71FA55771BE55DE800E57198 /* UIApplication+JTSImageViewController.m in Sources */,
 				71B2FC8D1BF7C9BD000B862D /* IAPViewController.swift in Sources */,
-				713B7B021BE653300038A34A /* AFSecurityPolicy.m in Sources */,
 				711098B31BE62D9D00CDACD1 /* SearchViewController.swift in Sources */,
-				713B7B041BE653300038A34A /* AFURLRequestSerialization.m in Sources */,
 				719589331BE53C110036555E /* DetailViewController.swift in Sources */,
-				713B7B051BE653300038A34A /* AFURLResponseSerialization.m in Sources */,
 				71FA55751BE55DE800E57198 /* JTSImageViewController.m in Sources */,
 				7179F9231C428D680037A16D /* PostStruct.swift in Sources */,
 				7109E54A1BE8FCBD003B1A93 /* TextSwitchCell.swift in Sources */,
 				7119BC971C343570003BE527 /* KonaDisclosureIndicatorView.swift in Sources */,
 				7152C1431BE3452400A44945 /* AppDelegate.swift in Sources */,
-				713B7B001BE653300038A34A /* AFHTTPSessionManager.m in Sources */,
 				71FA55741BE55DE800E57198 /* JTSImageInfo.m in Sources */,
 				7152C1DC1BE4F9AC00A44945 /* ImageCell.swift in Sources */,
 				7179F9211C428C020037A16D /* KonaAPI.swift in Sources */,
@@ -595,7 +539,7 @@
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)",
 				);
 				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = KonaBot/Info.plist;
@@ -618,7 +562,7 @@
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)",
 				);
 				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = KonaBot/Info.plist;

@@ -9,6 +9,7 @@
 import UIKit
 import Kanna
 import CoreData
+import AFNetworking
 
 class DetailViewController: UIViewController, JTSImageViewControllerInteractionsDelegate{
 	
@@ -151,10 +152,10 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 	}
 	
 	func getHtml(url : String){
-		let manager : AFHTTPRequestOperationManager = AFHTTPRequestOperationManager()
+		let manager = AFHTTPSessionManager()
 		manager.responseSerializer = AFHTTPResponseSerializer()
 		
-		manager.GET(url, parameters: nil,
+		manager.GET(url, parameters: nil, progress: nil,
 			success: {(operation, responseObject) -> Void in
 				
 				let html : NSString = NSString(data: responseObject as! NSData, encoding: NSASCIIStringEncoding)!

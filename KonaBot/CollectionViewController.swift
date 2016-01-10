@@ -8,6 +8,7 @@
 
 import UIKit
 import Kanna
+import AFNetworking
 
 class CollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, KonaAPIDelegate {
 	
@@ -154,21 +155,17 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 	}
 
 	func downloadImg(url : String, view : UIImageView){
-		let requestOperation : AFHTTPRequestOperation = AFHTTPRequestOperation(request: NSURLRequest(URL: NSURL(string: url)!))
-		requestOperation.responseSerializer = AFImageResponseSerializer()
-		requestOperation.setCompletionBlockWithSuccess({(operation: AFHTTPRequestOperation!,
-			responseObject: AnyObject!) in
-				UIView.transitionWithView(view, duration: 0.5, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: {
-				view.image = responseObject as? UIImage
+		
+		let manager = AFHTTPSessionManager()
+		manager.responseSerializer = AFImageResponseSerializer()
+		manager.GET(url, parameters: nil, progress: nil, success: {(task, response) in
+			UIView.transitionWithView(view, duration: 0.5, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: {
+				view.image = response as? UIImage
 				}, completion: nil)
-				Yuno().saveImageWithKey("Preview", image: view.image!, key: url)
-			},
-			failure: { (operation: AFHTTPRequestOperation!,
-				error: NSError!) in
-				print ("Error: \(error)")
-			}
-		)
-		requestOperation.start()
+			Yuno().saveImageWithKey("Preview", image: view.image!, key: url)
+			}, failure: {(task, error) in
+				print (error.localizedDescription)
+		})
 	}
 	
 	func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
@@ -181,10 +178,10 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 	}
 	
 	func getHtml(url : String){
-		let manager : AFHTTPRequestOperationManager = AFHTTPRequestOperationManager()
+		let manager = AFHTTPSessionManager()
 		manager.responseSerializer = AFHTTPResponseSerializer()
-		
-		manager.GET(url, parameters: nil,
+	
+		manager.GET(url, parameters: nil, progress: nil,
 			success: {(operation, responseObject) -> Void in
 				
 				let html : NSString = NSString(data: responseObject as! NSData, encoding: NSASCIIStringEncoding)!

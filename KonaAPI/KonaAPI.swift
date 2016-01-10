@@ -11,6 +11,7 @@
 */
 
 import UIKit
+import AFNetworking
 
 protocol KonaAPIDelegate {
 	func konaAPIDidGetPosts(ary : [Post])
@@ -18,7 +19,7 @@ protocol KonaAPIDelegate {
 
 class KonaAPI: NSObject {
 	
-	private let manager = AFHTTPRequestOperationManager()
+	private let manager = AFHTTPSessionManager()
 	private var r18 : Bool = false
 	private var delegate : KonaAPIDelegate?
 	
@@ -50,7 +51,7 @@ class KonaAPI: NSObject {
 		if let _tag = tag {
 			parameters["tags"] = "\(_tag)"
 		}
-		manager.POST("http://konachan.net/post.json", parameters: parameters, success: {(task, response) in
+		manager.POST("http://konachan.net/post.json", parameters: parameters, progress : nil, success: {(task, response) in
 			for post in response as! [NSDictionary] {
 				let rating : String = post["rating"] as! String
 				if !self.r18 && rating != "s" {
