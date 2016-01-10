@@ -22,7 +22,8 @@ See how it works in action: [YouTube](https://www.youtube.com/watch?v=GHr2EPdIcM
 
 - [X] Implement donation feature via in app purchases
 - [X] Traditional Chinese and Simplified Chinese localisation
-- [ ] Use official APIs instead of parsing data from HTML
+- [X] Use official APIs instead of parsing data from HTML
+- [X] Upgrade to AFNetworking 3.0
 - [ ] Add more features, e.g.: log in, vote, view score, view and create comments, etc.
 
 ## v1.0.0 Todo
