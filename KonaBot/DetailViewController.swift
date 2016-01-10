@@ -25,7 +25,7 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 	var finishedDownload : Bool = false
 	var urlStr : String?
 	
-	var imageUrl : String!
+	var imageUrl : String?
 	
 	var favoriteList : [String]!
 	
@@ -61,11 +61,20 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 		
 		let tapRecognizer : UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: Selector("tapped:"))
 		self.detailImageView.addGestureRecognizer(tapRecognizer)
+		
+		if self.imageUrl == nil {
+			self.getHtml(self.postUrl)
+		}
     }
 	
 	override func viewDidAppear(animated: Bool) {
+		
+		if self.imageUrl == nil {
+			return
+		}
+		
 		if self.shouldDownloadWhenViewAppeared {
-			self.downloadImg(self.imageUrl)
+			self.downloadImg(self.imageUrl!)
 		}
 		self.shouldDownloadWhenViewAppeared = false
 	}
@@ -138,6 +147,33 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 			self.imageViewer.interactionsDelegate = self
 			
 			imageViewer.showFromViewController(self, transition: .FromOriginalPosition)
+		}
+	}
+	
+	func getHtml(url : String){
+		let manager : AFHTTPRequestOperationManager = AFHTTPRequestOperationManager()
+		manager.responseSerializer = AFHTTPResponseSerializer()
+		
+		manager.GET(url, parameters: nil,
+			success: {(operation, responseObject) -> Void in
+				
+				let html : NSString = NSString(data: responseObject as! NSData, encoding: NSASCIIStringEncoding)!
+				self.parse(html as String)
+				
+			}, failure: {(operation, error) -> Void in
+				print ("Error : \(error)")
+				let alert = UIAlertController.alertWithOKButton("Network Error".localized, message: error.localizedDescription)
+				self.presentViewController(alert, animated: true, completion: nil)
+		})
+	}
+	
+	func parse(htmlString : String){
+		if let doc = Kanna.HTML(html: htmlString, encoding: NSUTF8StringEncoding) {
+			for div in doc.css("div#right-col"){
+				let img = div.at_css("div")?.at_css("img")
+				downloadImg(img!["src"]!)
+				return
+			}
 		}
 	}
 	
