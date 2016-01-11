@@ -4,7 +4,7 @@ An unofficial iOS client for [Konachan.net](http://konachan.net)
 
 <img src="./KonaBot/1024.png" width="150">
 
-Version 1.0.1 is currently on [App Store](https://itunes.apple.com/us/app/konabot/id1055716649?ls=1&mt=8) 
+Version 1.0.1 is currently on [App Store](https://itunes.apple.com/us/app/konabot/id1055716649?ls=1&mt=8) and version 1.1.0 is wating for review
 
 [Support Page](http://hkalexling.com/2015/11/05/konabot-support-page/)
 
@@ -18,13 +18,17 @@ Version 1.0.1 is currently on [App Store](https://itunes.apple.com/us/app/konabo
 
 See how it works in action: [YouTube](https://www.youtube.com/watch?v=GHr2EPdIcMo)
 
+## v2.0.0 Todo
+
+- [ ] Add more features, e.g.: log in, vote, view score, view and create comments, etc.
+
 ## v1.1.0 Todo
 
 - [X] Implement donation feature via in app purchases
 - [X] Traditional Chinese and Simplified Chinese localisation
 - [X] Use official APIs instead of parsing data from HTML
 - [X] Upgrade to AFNetworking 3.0
-- [ ] Add more features, e.g.: log in, vote, view score, view and create comments, etc.
+- [X] Submit update to App Store
 
 ## v1.0.0 Todo
 
