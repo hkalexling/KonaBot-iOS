@@ -9,11 +9,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>JTSImageViewController.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>Kanna.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -32,27 +27,22 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>3B51B700BAB0A5DDF61AA5EBDF694B54</key>
+		<key>6B0674FC35530A32C5DFE183E599EA9E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7E7E9DC98EFF7C9A1ADCD963FB98EC0A</key>
+		<key>A09F27FB0E19302FD7600AC34FA38E5A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B6CA37CABF9E545BB5EFFE437DCCAC9A</key>
+		<key>A2EF709D6BC68D9871F3BA1E6EBDD9EA</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C5F52B14DE0B4F98CB991246770AEFDF</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>CF98C150A69894A68250D68CFD4F16A9</key>
+		<key>CEBB4DBE7A145EBE951009C2017023AB</key>
 		<dict>
 			<key>primary</key>
 			<true/>
