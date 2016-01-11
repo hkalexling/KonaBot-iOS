@@ -238,46 +238,24 @@ class SearchViewController: UIViewController, UISearchBarDelegate {
 	}
 	
 	func getTopTags(){
-		self.getHtml("\(self.baseUrl)/tag?name=&type=0&order=count")
-	}
-	
-	func getHtml(url : String){
 		let manager = AFHTTPSessionManager()
-		manager.responseSerializer = AFHTTPResponseSerializer()
 		
-		manager.GET(url, parameters: nil, progress: nil,
-			success: {(operation, responseObject) -> Void in
-				
-				let html : NSString = NSString(data: responseObject as! NSData, encoding: NSASCIIStringEncoding)!
-				self.parse(html as String)
-				
-			}, failure: {(operation, error) -> Void in
-				print ("Error : \(error)")
+		let parameters : [String : String] = ["order" : "count", "type" : "0", "limit" : "50"]
+		
+		manager.GET("http://konachan.net/tag.json", parameters: parameters, progress: nil, success: {(task, response) in
+			for tag in response as! [NSDictionary]{
+				let tagStr = tag.objectForKey("name") as! String
+				if self.hiddenTags.contains(tagStr) && !NSUserDefaults.standardUserDefaults().boolForKey("r18") {
+					continue
+				}
+				self.topTags.append(tagStr)
+			}
+			self.loading.removeFromSuperview()
+			self.showTopTags()
+			}, failure: {(task, error) in
+				print (error.localizedDescription)
 				let alert = UIAlertController.alertWithOKButton("Network Error", message: error.localizedDescription)
 				self.presentViewController(alert, animated: true, completion: nil)
 		})
-	}
-	
-	func parse(htmlString : String){
-		if let doc = Kanna.HTML(html: htmlString, encoding: NSUTF8StringEncoding) {
-			let tbody = doc.css("tbody")[3]
-			for tr in tbody.css("tr"){
-				for td in tr.css("td"){
-					if (td.className != nil){
-						if (td.className! == "tag-type-general"){
-							if(td.text != nil){
-								let tag = td.text!.stringByReplacingOccurrencesOfString("\n", withString: "").stringByReplacingOccurrencesOfString(" ", withString: "").stringByReplacingOccurrencesOfString("?", withString: "")
-								if (self.hiddenTags.contains(tag) && !NSUserDefaults.standardUserDefaults().boolForKey("r18")){continue}
-								else{
-									self.topTags.append(tag)
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-		self.loading.removeFromSuperview()
-		self.showTopTags()
 	}
 }

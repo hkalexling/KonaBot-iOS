@@ -34,13 +34,6 @@ class KonaAPI: NSObject {
 	
 	func getPost(limit : Int?, page : Int?, tag : String?){
 		
-		/*
-		if !self.finished {
-			return
-		}
-		self.finished = false
-		*/
-		
 		var parameters : [String : String] = [:]
 		if let _limit = limit {
 			parameters["limit"] = "\(_limit)"
