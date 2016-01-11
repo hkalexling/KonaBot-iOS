@@ -59,10 +59,6 @@ class FavoriteCollectionViewController: UICollectionViewController, UICollection
 	override func viewDidDisappear(animated: Bool) {
 		self.label.removeFromSuperview()
 	}
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
 	
 	func showLabel(){
 		let height : CGFloat = 20

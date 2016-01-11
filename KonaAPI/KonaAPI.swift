@@ -44,18 +44,8 @@ class KonaAPI: NSObject {
 	}
 	
 	func getPosts(limit : Int?, page : Int?, tag : String?){
-		
-		var parameters : [String : String] = [:]
-		if let _limit = limit {
-			parameters["limit"] = "\(_limit)"
-		}
-		if let _page = page {
-			parameters["page"] = "\(_page)"
-		}
-		if let _tag = tag {
-			parameters["tags"] = "\(_tag)"
-		}
-		manager.POST("http://konachan.net/post.json", parameters: parameters, progress : nil, success: {(task, response) in
+		let parameters = self.parameterFactor(["limit" : limit, "page" : page, "tags" : tag])
+		let successBlock = {(task : NSURLSessionDataTask, response : AnyObject?) in
 			for post in response as! [NSDictionary] {
 				let rating : String = post["rating"] as! String
 				if !self.r18 && rating != "s" {
@@ -71,27 +61,15 @@ class KonaAPI: NSObject {
 			}
 			self.postDelegate?.konaAPIDidGetPost(self.postAry)
 			self.postAry = []
-			}, failure: {(task, error) in
-				print (error.localizedDescription)
-		})
+		}
+		self.makeHTTPRequest(true, url: "http://konachan.net/post.json", parameters: parameters, successBlock: successBlock)
 	}
 	
 	//Types:  General: 0, artist: 1, copyright: 3, character: 4
 	//Order: date, count, name
 	func getTags(limit : Int?, type : Int?, order : String?){
-		
-		var parameters : [String : String] = [:]
-		if let _limit = limit {
-			parameters["limit"] = "\(_limit)"
-		}
-		if let _type = type {
-			parameters["type"] = "\(_type)"
-		}
-		if let _order = order {
-			parameters["order"] = _order
-		}
-		
-		manager.GET("http://konachan.net/tag.json", parameters: parameters, progress: nil, success: {(task, response) in
+		let parameters = self.parameterFactor(["limit" : limit, "type" : type, "order" : order])
+		let successBlock = {(task : NSURLSessionDataTask, response : AnyObject?) in
 			for tag in response as! [NSDictionary]{
 				let tagStr = tag.objectForKey("name") as! String
 				if self.hiddenTags.contains(tagStr) && !self.r18 {
@@ -101,8 +79,30 @@ class KonaAPI: NSObject {
 			}
 			self.tagDelegate?.konaAPIDidGetTag(self.tagAry)
 			self.tagAry = []
-			}, failure: {(task, error) in
+		}
+		self.makeHTTPRequest(false, url: "http://konachan.net/tag.json", parameters: parameters, successBlock: successBlock)
+	}
+	
+	func makeHTTPRequest(isPost : Bool, url : String, parameters : AnyObject?, successBlock: ((NSURLSessionDataTask, AnyObject?) -> Void)?){
+		if isPost {
+			self.manager.POST(url, parameters: parameters, progress: nil, success: successBlock, failure: {(task, error) in
 				print (error.localizedDescription)
-		})
+			})
+		}
+		else{
+			self.manager.GET(url, parameters: parameters, progress: nil, success: successBlock, failure: {(task, error) in
+				print (error.localizedDescription)
+			})
+		}
+	}
+	
+	func parameterFactor(rawParameters : [String : AnyObject?]) -> [String : String] {
+		var parameters : [String : String] = [:]
+		for (key, value) in rawParameters {
+			if let unwrapValue = value {
+				parameters[key] = unwrapValue is String ? unwrapValue as! String : "\(unwrapValue)"
+			}
+		}
+		return parameters
 	}
 }

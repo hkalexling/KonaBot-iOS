@@ -16,6 +16,19 @@ public extension String {
 	}
 }
 
+extension CGFloat {
+	static func tabBarHeight() -> CGFloat{
+		return 49
+	}
+	static func navitaionBarHeight() -> CGFloat{
+		return 44
+	}
+	static func statusBarHeight() -> CGFloat {
+		let statusBarSize = UIApplication.sharedApplication().statusBarFrame.size
+		return Swift.min(statusBarSize.width, statusBarSize.height)
+	}
+}
+
 public extension UIImage {
 	class func imageWithColor(color: UIColor) -> UIImage {
 		let size = CGSizeMake(10, 10)

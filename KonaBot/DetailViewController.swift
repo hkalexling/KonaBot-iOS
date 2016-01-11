@@ -34,6 +34,13 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 	
 	var shouldDownloadWhenViewAppeared : Bool = true
 	
+	let moreImageView = UIImageView()
+	let smallerHeight : CGFloat = 100
+	let smallerImageTransparentView = UIView()
+	let animationDuration : NSTimeInterval = 0.3
+	var bigFrame : CGRect = CGRectZero
+	var smallFrame : CGRect = CGRectZero
+	
     override func viewDidLoad() {
         super.viewDidLoad()
 		
@@ -56,6 +63,7 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 		let height = width * self.heightOverWidth
 		detailImageView.frame = CGRectMake((CGSize.screenSize().width - width)/2, UIScreen.mainScreen().bounds.height/2 - height/2, width, height)
 		detailImageView.userInteractionEnabled = true
+		self.bigFrame = detailImageView.frame
 		self.view.addSubview(detailImageView)
 		
 		self.detailImageView.image = self.smallImage
@@ -63,7 +71,21 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 		let tapRecognizer : UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: Selector("tapped:"))
 		self.detailImageView.addGestureRecognizer(tapRecognizer)
 		
+		self.moreImageView.image = UIImage(named: "More")?.coloredImage(UIColor.konaColor())
+		let moreImageViewWidth : CGFloat = 50
+		let moreImageViewHeight : CGFloat = moreImageViewWidth * self.moreImageView.image!.size.height/self.moreImageView.image!.size.width
+		self.moreImageView.frame = CGRectMake((CGSize.screenSize().width - moreImageViewWidth)/2, CGSize.screenSize().height - moreImageViewHeight - CGFloat.tabBarHeight() - 20, moreImageViewWidth, moreImageViewHeight)
+		self.moreImageView.userInteractionEnabled = true
+		self.moreImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "moreButtonTapped"))
+		self.view.addSubview(self.moreImageView)
+		
+		self.smallFrame = CGRectMake(20, 20 + CGFloat.navitaionBarHeight() + CGFloat.statusBarHeight(), self.smallerHeight / self.heightOverWidth,self.smallerHeight)
+		let transparentViewFrame = CGRectMake(0, 0, CGSize.screenSize().width, CGFloat.navitaionBarHeight() + CGFloat.statusBarHeight() + self.smallFrame.height + 40)
+		self.smallerImageTransparentView.frame = transparentViewFrame
+		self.smallerImageTransparentView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "smallerViewTapped"))
+		
 		if self.imageUrl == nil {
+			self.moreImageView.userInteractionEnabled = false
 			self.getHtml(self.postUrl.hasPrefix("http") ? self.postUrl : self.baseUrl + self.postUrl)
 		}
     }
@@ -277,7 +299,28 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 		let dispatchTime: dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW, Int64(0.3 * Double(NSEC_PER_SEC)))
 		dispatch_after(dispatchTime, dispatch_get_main_queue(), {
 			self.navigationItem.hidesBackButton = false
+			self.moreImageView.userInteractionEnabled = true
 			self.blockView.removeFromSuperview()
+		})
+	}
+	
+	func moreButtonTapped(){
+		self.moreImageView.userInteractionEnabled = false
+		UIView.animateWithDuration(self.animationDuration, animations: {
+			self.detailImageView.frame = self.smallFrame
+			self.moreImageView.alpha = 0
+			}, completion: {(finished) in
+				self.view.addSubview(self.smallerImageTransparentView)
+		})
+	}
+	
+	func smallerViewTapped(){
+		UIView.animateWithDuration(self.animationDuration, animations: {
+			self.detailImageView.frame = self.bigFrame
+			self.moreImageView.alpha = 1
+			}, completion: {(finished) in
+				self.smallerImageTransparentView.removeFromSuperview()
+				self.moreImageView.userInteractionEnabled = true
 		})
 	}
 }
