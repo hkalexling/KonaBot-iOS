@@ -10,9 +10,7 @@ import UIKit
 import Kanna
 import AFNetworking
 
-class SearchViewController: UIViewController, UISearchBarDelegate {
-	
-	let hiddenTags : [String] = ["nipples", "cleavage", "pussy", "nude" , "ass", "panties", "breasts"]
+class SearchViewController: UIViewController, UISearchBarDelegate, KonaAPITagDelegate {
 	
 	@IBOutlet weak var noResultLabel: UILabel!
 	var searchBar:UISearchBar = UISearchBar()
@@ -238,24 +236,13 @@ class SearchViewController: UIViewController, UISearchBarDelegate {
 	}
 	
 	func getTopTags(){
-		let manager = AFHTTPSessionManager()
-		
-		let parameters : [String : String] = ["order" : "count", "type" : "0", "limit" : "50"]
-		
-		manager.GET("http://konachan.net/tag.json", parameters: parameters, progress: nil, success: {(task, response) in
-			for tag in response as! [NSDictionary]{
-				let tagStr = tag.objectForKey("name") as! String
-				if self.hiddenTags.contains(tagStr) && !NSUserDefaults.standardUserDefaults().boolForKey("r18") {
-					continue
-				}
-				self.topTags.append(tagStr)
-			}
-			self.loading.removeFromSuperview()
-			self.showTopTags()
-			}, failure: {(task, error) in
-				print (error.localizedDescription)
-				let alert = UIAlertController.alertWithOKButton("Network Error", message: error.localizedDescription)
-				self.presentViewController(alert, animated: true, completion: nil)
-		})
+		let api = KonaAPI(r18: NSUserDefaults.standardUserDefaults().boolForKey("r18"), delegate: self)
+		api.getTags(50, type: 0, order: "count")
+	}
+	
+	func konaAPIDidGetTag(ary: [String]) {
+		self.topTags = ary
+		self.loading.removeFromSuperview()
+		self.showTopTags()
 	}
 }

@@ -10,7 +10,7 @@ import UIKit
 import Kanna
 import AFNetworking
 
-class CollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, KonaAPIDelegate {
+class CollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, KonaAPIPostDelegate {
 	
 	var refreshControl : UIRefreshControl!
 	
@@ -175,7 +175,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 	}
 	
 	func loadMore(){
-		self.api.getPost(self.postsPerRequest, page: self.currentPage, tag: self.keyword)
+		self.api.getPosts(self.postsPerRequest, page: self.currentPage, tag: self.keyword)
 	}
 	
 	func getHtml(url : String){
@@ -221,7 +221,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 		}
 	}
 	
-	func konaAPIDidGetPosts(ary: [Post]) {
+	func konaAPIDidGetPost(ary: [Post]) {
 		if ary.count == 0 && self.keyword != "" {
 			self.handleEmtptySearch()
 			return
