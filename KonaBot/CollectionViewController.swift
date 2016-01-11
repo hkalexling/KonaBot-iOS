@@ -146,7 +146,6 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 		detailVC.heightOverWidth = self.posts[indexPath.row].heightOverWidth
 		detailVC.imageUrl = self.posts[indexPath.row].url
 		detailVC.smallImage =  (self.collectionView!.cellForItemAtIndexPath(indexPath) as! ImageCell).imageView!.image
-		//self.navigationController!.pushViewController(detailVC, animated: true)
 		self.navigationController!.pushViewController(detailVC, animated: true)
 	}
 	
@@ -165,6 +164,8 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 			Yuno().saveImageWithKey("Preview", image: view.image!, key: url)
 			}, failure: {(task, error) in
 				print (error.localizedDescription)
+				let alert = UIAlertController.alertWithOKButton("Network Error".localized, message: error.localizedDescription)
+				self.presentViewController(alert, animated: true, completion: nil)
 		})
 	}
 	

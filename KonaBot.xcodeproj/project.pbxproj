@@ -23,6 +23,7 @@
 		7140E2401C42F8CB00E259C4 /* Kanna.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7152C1D61BE3E41E00A44945 /* Kanna.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7140E2431C42F8F100E259C4 /* AFNetworking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7140E2411C42F8E900E259C4 /* AFNetworking.framework */; };
 		7140E2441C42F8F100E259C4 /* AFNetworking.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7140E2411C42F8E900E259C4 /* AFNetworking.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		7140E2461C434C2B00E259C4 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7140E2451C434C2B00E259C4 /* TabBarController.swift */; };
 		7152C1431BE3452400A44945 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7152C1421BE3452400A44945 /* AppDelegate.swift */; };
 		7152C1481BE3452400A44945 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7152C1461BE3452400A44945 /* Main.storyboard */; };
 		7152C1DA1BE4F97200A44945 /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7152C1D91BE4F97200A44945 /* CollectionViewController.swift */; };
@@ -81,6 +82,7 @@
 		713B7B0B1BE68B230038A34A /* RZSquaresLoading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZSquaresLoading.m; sourceTree = "<group>"; };
 		713B7B0F1BE7814F0038A34A /* FavoriteCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteCollectionViewController.swift; sourceTree = "<group>"; };
 		7140E2411C42F8E900E259C4 /* AFNetworking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AFNetworking.framework; sourceTree = "<group>"; };
+		7140E2451C434C2B00E259C4 /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		7152C13F1BE3452400A44945 /* KonaBot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KonaBot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7152C1421BE3452400A44945 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7152C1471BE3452400A44945 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -227,6 +229,7 @@
 				719589321BE53C110036555E /* DetailViewController.swift */,
 				7152C1D91BE4F97200A44945 /* CollectionViewController.swift */,
 				71B2FC8C1BF7C9BD000B862D /* IAPViewController.swift */,
+				7140E2451C434C2B00E259C4 /* TabBarController.swift */,
 			);
 			name = VC;
 			sourceTree = "<group>";
@@ -383,6 +386,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				71EBA8B21C350E8000860933 /* RZSquaresLoading.m in Sources */,
+				7140E2461C434C2B00E259C4 /* TabBarController.swift in Sources */,
 				71EBA8B11C350DFD00860933 /* ProgressIndicatorView.m in Sources */,
 				71FA55731BE55DE800E57198 /* JTSAnimatedGIFUtility.m in Sources */,
 				7152C1DA1BE4F97200A44945 /* CollectionViewController.swift in Sources */,
