@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "B28389CC86C1E7E1F9D64241"
+               BlueprintIdentifier = "A35EFBCA81C479155B980893"
                BuildableName = "Pods_KonaBot.framework"
                BlueprintName = "Pods-KonaBot"
                ReferencedContainer = "container:Pods.xcodeproj">
