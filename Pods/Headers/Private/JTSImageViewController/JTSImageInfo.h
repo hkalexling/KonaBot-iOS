@@ -1,1 +1,0 @@
-../../../JTSImageViewController/Source/JTSImageInfo.h
