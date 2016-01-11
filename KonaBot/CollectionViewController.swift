@@ -237,7 +237,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 	}
 	
 	func konaAPIGotError(error: NSError) {
-		let alert = UIAlertController.alertWithOKButton("Network Error", message: error.localizedDescription)
+		let alert = UIAlertController.alertWithOKButton("Network Error".localized, message: error.localizedDescription)
 		self.presentViewController(alert, animated: true, completion: nil)
 	}
 	

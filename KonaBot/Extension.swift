@@ -136,7 +136,7 @@ public extension UIColor {
 public extension UIAlertController {
 	class func alertWithOKButton(title : String?, message : String?) -> UIAlertController {
 		let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
-		alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+		alert.addAction(UIAlertAction(title: "OK".localized, style: UIAlertActionStyle.Default, handler: nil))
 		return alert
 	}
 	

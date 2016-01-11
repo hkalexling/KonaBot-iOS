@@ -45,3 +45,5 @@
 
 "When enabled, image cache will be deleted after the app's termination. Cache of images in your favorite list won't be affected." = "When enabled, image cache will be deleted after the app's termination. Cache of images in your favorite list won't be affected.";
 
+"OK" = "OK";
+

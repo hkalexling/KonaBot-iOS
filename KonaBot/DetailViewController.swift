@@ -71,6 +71,7 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 		let tapRecognizer : UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: Selector("tapped:"))
 		self.detailImageView.addGestureRecognizer(tapRecognizer)
 		
+		/*
 		self.moreImageView.image = UIImage(named: "More")?.coloredImage(UIColor.konaColor())
 		let moreImageViewWidth : CGFloat = 50
 		let moreImageViewHeight : CGFloat = moreImageViewWidth * self.moreImageView.image!.size.height/self.moreImageView.image!.size.width
@@ -83,6 +84,7 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 		let transparentViewFrame = CGRectMake(0, 0, CGSize.screenSize().width, CGFloat.navitaionBarHeight() + CGFloat.statusBarHeight() + self.smallFrame.height + 40)
 		self.smallerImageTransparentView.frame = transparentViewFrame
 		self.smallerImageTransparentView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "smallerViewTapped"))
+		*/
 		
 		if self.imageUrl == nil {
 			self.moreImageView.userInteractionEnabled = false
