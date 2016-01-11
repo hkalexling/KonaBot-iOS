@@ -10,7 +10,7 @@ import UIKit
 import Kanna
 import AFNetworking
 
-class SearchViewController: UIViewController, UISearchBarDelegate, KonaAPITagDelegate {
+class SearchViewController: UIViewController, UISearchBarDelegate, KonaAPITagDelegate, KonaAPIErrorDelegate{
 	
 	@IBOutlet weak var noResultLabel: UILabel!
 	var searchBar:UISearchBar = UISearchBar()
@@ -236,7 +236,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, KonaAPITagDel
 	}
 	
 	func getTopTags(){
-		let api = KonaAPI(r18: NSUserDefaults.standardUserDefaults().boolForKey("r18"), delegate: self)
+		let api = KonaAPI(r18: NSUserDefaults.standardUserDefaults().boolForKey("r18"), delegate: self, errorDelegate: self)
 		api.getTags(50, type: 0, order: "count")
 	}
 	
@@ -244,5 +244,10 @@ class SearchViewController: UIViewController, UISearchBarDelegate, KonaAPITagDel
 		self.topTags = ary
 		self.loading.removeFromSuperview()
 		self.showTopTags()
+	}
+	
+	func konaAPIGotError(error: NSError) {
+		let alert = UIAlertController.alertWithOKButton("Network Error", message: error.localizedDescription)
+		self.presentViewController(alert, animated: true, completion: nil)
 	}
 }

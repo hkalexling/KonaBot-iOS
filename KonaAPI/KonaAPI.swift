@@ -21,6 +21,10 @@ protocol KonaAPITagDelegate {
 	func konaAPIDidGetTag(ary : [String])
 }
 
+protocol KonaAPIErrorDelegate {
+	func konaAPIGotError(error : NSError)
+}
+
 class KonaAPI: NSObject {
 	
 	private let manager = AFHTTPSessionManager()
@@ -28,19 +32,22 @@ class KonaAPI: NSObject {
 	
 	private var postDelegate : KonaAPIPostDelegate?
 	private var tagDelegate : KonaAPITagDelegate?
+	private var errorDelegate : KonaAPIErrorDelegate?
 	
 	private var postAry : [Post] = []
 	private var tagAry : [String] = []
 	private let hiddenTags : [String] = ["nipples", "cleavage", "pussy", "nude" , "ass", "panties", "breasts"]
 	
-	init(r18 : Bool, delegate : KonaAPIPostDelegate){
+	init(r18 : Bool, delegate : KonaAPIPostDelegate, errorDelegate : KonaAPIErrorDelegate){
 		self.r18 = r18
 		self.postDelegate = delegate
+		self.errorDelegate = errorDelegate
 	}
 	
-	init(r18 : Bool, delegate : KonaAPITagDelegate){
+	init(r18 : Bool, delegate : KonaAPITagDelegate, errorDelegate : KonaAPIErrorDelegate){
 		self.r18 = r18
 		self.tagDelegate = delegate
+		self.errorDelegate = errorDelegate
 	}
 	
 	func getPosts(limit : Int?, page : Int?, tag : String?){
@@ -84,15 +91,14 @@ class KonaAPI: NSObject {
 	}
 	
 	func makeHTTPRequest(isPost : Bool, url : String, parameters : AnyObject?, successBlock: ((NSURLSessionDataTask, AnyObject?) -> Void)?){
-		if isPost {
-			self.manager.POST(url, parameters: parameters, progress: nil, success: successBlock, failure: {(task, error) in
-				print (error.localizedDescription)
-			})
+		let errorBlock : ((NSURLSessionDataTask?, NSError) -> Void) = {(task : NSURLSessionDataTask?, error : NSError) in
+			self.errorDelegate?.konaAPIGotError(error)
 		}
-		else{
-			self.manager.GET(url, parameters: parameters, progress: nil, success: successBlock, failure: {(task, error) in
-				print (error.localizedDescription)
-			})
+		if isPost {
+			self.manager.POST(url, parameters: parameters, progress: nil, success: successBlock, failure: errorBlock)
+		}
+		else {
+			self.manager.GET(url, parameters: parameters, progress: nil, success: successBlock, failure: errorBlock)
 		}
 	}
 	

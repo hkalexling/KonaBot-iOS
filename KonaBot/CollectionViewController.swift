@@ -10,7 +10,7 @@ import UIKit
 import Kanna
 import AFNetworking
 
-class CollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, KonaAPIPostDelegate {
+class CollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, KonaAPIPostDelegate, KonaAPIErrorDelegate {
 	
 	var refreshControl : UIRefreshControl!
 	
@@ -102,7 +102,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 		else{
 			self.title = self.keyword
 		}
-		self.api = KonaAPI(r18: self.r18, delegate: self)
+		self.api = KonaAPI(r18: self.r18, delegate: self, errorDelegate: self)
 		self.loadMore()
 		
 		self.refreshControl.endRefreshing()
@@ -234,6 +234,11 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 			index.append(NSIndexPath(forRow: i, inSection: 0))
 		}
 		self.collectionView!.insertItemsAtIndexPaths(index)
+	}
+	
+	func konaAPIGotError(error: NSError) {
+		let alert = UIAlertController.alertWithOKButton("Network Error", message: error.localizedDescription)
+		self.presentViewController(alert, animated: true, completion: nil)
 	}
 	
 	func handleEmtptySearch(){
