@@ -247,7 +247,10 @@ class SearchViewController: UIViewController, UISearchBarDelegate, KonaAPITagDel
 	}
 	
 	func konaAPIGotError(error: NSError) {
-		let alert = UIAlertController.alertWithOKButton("Network Error".localized, message: error.localizedDescription)
-		self.presentViewController(alert, animated: true, completion: nil)
+		let alert = AWAlertView.networkAlertFromError(error)
+		self.navigationController?.view.addSubview(alert)
+		alert.showAlert()
+		//let alert = UIAlertController.alertWithOKButton("Network Error".localized, message: error.localizedDescription)
+		//self.presentViewController(alert, animated: true, completion: nil)
 	}
 }

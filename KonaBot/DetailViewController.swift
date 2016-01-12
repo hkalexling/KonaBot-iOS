@@ -187,8 +187,11 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 				
 			}, failure: {(operation, error) -> Void in
 				print ("Error : \(error)")
-				let alert = UIAlertController.alertWithOKButton("Network Error".localized, message: error.localizedDescription)
-				self.presentViewController(alert, animated: true, completion: nil)
+				let alert = AWAlertView.networkAlertFromError(error)
+				self.navigationController?.view.addSubview(alert)
+				alert.showAlert()
+				//let alert = UIAlertController.alertWithOKButton("Network Error".localized, message: error.localizedDescription)
+				//self.presentViewController(alert, animated: true, completion: nil)
 		})
 	}
 	
@@ -251,12 +254,14 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 		
 		let copyAction = UIAlertAction(title: "Copy Image".localized, style: .Default, handler: {(alert : UIAlertAction) -> Void in
 			UIPasteboard.generalPasteboard().image = image
-			self.alertWithOkButton("Image Copied".localized, message: "This image has been copied to your clipboard".localized)
+			self.awAlert("Image Copied".localized, message: "This image has been copied to your clipboard".localized)
+			//self.alertWithOkButton("Image Copied".localized, message: "This image has been copied to your clipboard".localized)
 		})
 		
 		let copyLinkAction = UIAlertAction(title: "Copy Image URL".localized, style: .Default, handler: {(alert : UIAlertAction) -> Void in
 			UIPasteboard.generalPasteboard().string = self.urlStr!
-			self.alertWithOkButton("URL Copied".localized, message: "The image URL has been copied to your clipboard".localized)
+			self.awAlert("URL Copied".localized, message: "The image URL has been copied to your clipboard".localized)
+			//self.alertWithOkButton("URL Copied".localized, message: "The image URL has been copied to your clipboard".localized)
 		})
 		
 		let openAction = UIAlertAction(title: "Open Post in Safari".localized, style: UIAlertActionStyle.Default, handler: {(alert : UIAlertAction) -> Void in
@@ -287,13 +292,16 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 	
 	func imageSaved(image: UIImage, didFinishSavingWithError error: NSErrorPointer, contextInfo: UnsafePointer<()>) {
 		dispatch_async(dispatch_get_main_queue(), {
-			self.alertWithOkButton("Image Saved".localized, message: "This image has been saved to your camera roll".localized)
+			self.awAlert("Image Saved".localized, message: "This image has been saved to your camera roll".localized)
+			//self.alertWithOkButton("Image Saved".localized, message: "This image has been saved to your camera roll".localized)
 		})
 	}
 	
-	func alertWithOkButton(title : String?, message : String?){
+	func awAlert(title : String, message : String) {
 		dispatch_async(dispatch_get_main_queue(), {
-			UIAlertView(title: title, message: message, delegate: nil, cancelButtonTitle: "OK".localized).show()
+			let alert = AWAlertView.alertFromTitleAndMessage(title, message: message)
+			self.imageViewer.view.addSubview(alert)
+			alert.showAlert()
 		})
 	}
 	

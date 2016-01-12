@@ -11,6 +11,7 @@
 		7109E5441BE8FA71003B1A93 /* TextArrowCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7109E5431BE8FA71003B1A93 /* TextArrowCell.swift */; };
 		7109E5481BE8FC36003B1A93 /* TextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7109E5471BE8FC36003B1A93 /* TextCell.swift */; };
 		7109E54A1BE8FCBD003B1A93 /* TextSwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7109E5491BE8FCBD003B1A93 /* TextSwitchCell.swift */; };
+		710FD65E1C4587D100D5FE63 /* AWAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710FD65D1C4587D100D5FE63 /* AWAlertView.swift */; };
 		711098B31BE62D9D00CDACD1 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711098B21BE62D9D00CDACD1 /* SearchViewController.swift */; };
 		711207C01C2421ED00FB99EF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 711207C21C2421ED00FB99EF /* Localizable.strings */; };
 		711207C41C24302F00FB99EF /* about.html in Resources */ = {isa = PBXBuildFile; fileRef = 711207C61C24302F00FB99EF /* about.html */; };
@@ -49,6 +50,7 @@
 		7109E5431BE8FA71003B1A93 /* TextArrowCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextArrowCell.swift; sourceTree = "<group>"; };
 		7109E5471BE8FC36003B1A93 /* TextCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextCell.swift; sourceTree = "<group>"; };
 		7109E5491BE8FCBD003B1A93 /* TextSwitchCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextSwitchCell.swift; sourceTree = "<group>"; };
+		710FD65D1C4587D100D5FE63 /* AWAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AWAlertView.swift; sourceTree = "<group>"; };
 		711098B21BE62D9D00CDACD1 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		711207BD1C24166500FB99EF /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
 		711207C11C2421ED00FB99EF /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -244,6 +246,7 @@
 				7179F91F1C428C020037A16D /* KonaAPI */,
 				713B7B091BE68B230038A34A /* RZSquaresLoading */,
 				71FA55661BE55DE800E57198 /* JTSImageViewController */,
+				710FD65D1C4587D100D5FE63 /* AWAlertView.swift */,
 			);
 			name = Wheels;
 			sourceTree = "<group>";
@@ -437,6 +440,7 @@
 				71EBA8B21C350E8000860933 /* RZSquaresLoading.m in Sources */,
 				7140E2461C434C2B00E259C4 /* TabBarController.swift in Sources */,
 				7140E2481C43B84000E259C4 /* KonaHTMLParser.swift in Sources */,
+				710FD65E1C4587D100D5FE63 /* AWAlertView.swift in Sources */,
 				71EBA8B11C350DFD00860933 /* ProgressIndicatorView.m in Sources */,
 				71FA55731BE55DE800E57198 /* JTSAnimatedGIFUtility.m in Sources */,
 				7152C1DA1BE4F97200A44945 /* CollectionViewController.swift in Sources */,

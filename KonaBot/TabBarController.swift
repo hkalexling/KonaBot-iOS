@@ -32,7 +32,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
 					collectionVC.collectionView?.scrollToItemAtIndexPath(NSIndexPath(forItem: 0, inSection: 0), atScrollPosition: .Top, animated: true)
 				}
 			}
-			if selectedIndex == 3 {
+			if selectedIndex == 2 {
 				let topVC = (viewController as! UINavigationController).topViewController
 				if let collectionVC = topVC as? FavoriteCollectionViewController {
 					collectionVC.collectionView?.scrollToItemAtIndexPath(NSIndexPath(forItem: 0, inSection: 0), atScrollPosition: .Top, animated: true)

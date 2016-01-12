@@ -51,7 +51,7 @@ class KonaAPI: NSObject {
 	}
 	
 	func getPosts(limit : Int?, page : Int?, tag : String?){
-		let parameters = self.parameterFactor(["limit" : limit, "page" : page, "tags" : tag])
+		let parameters = self.parameterFactory(["limit" : limit, "page" : page, "tags" : tag])
 		let successBlock = {(task : NSURLSessionDataTask, response : AnyObject?) in
 			for post in response as! [NSDictionary] {
 				let rating : String = post["rating"] as! String
@@ -75,7 +75,7 @@ class KonaAPI: NSObject {
 	//Types:  General: 0, artist: 1, copyright: 3, character: 4
 	//Order: date, count, name
 	func getTags(limit : Int?, type : Int?, order : String?){
-		let parameters = self.parameterFactor(["limit" : limit, "type" : type, "order" : order])
+		let parameters = self.parameterFactory(["limit" : limit, "type" : type, "order" : order])
 		let successBlock = {(task : NSURLSessionDataTask, response : AnyObject?) in
 			for tag in response as! [NSDictionary]{
 				let tagStr = tag.objectForKey("name") as! String
@@ -102,7 +102,7 @@ class KonaAPI: NSObject {
 		}
 	}
 	
-	func parameterFactor(rawParameters : [String : AnyObject?]) -> [String : String] {
+	func parameterFactory(rawParameters : [String : AnyObject?]) -> [String : String] {
 		var parameters : [String : String] = [:]
 		for (key, value) in rawParameters {
 			if let unwrapValue = value {

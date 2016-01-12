@@ -164,8 +164,11 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 			Yuno().saveImageWithKey("Preview", image: view.image!, key: url)
 			}, failure: {(task, error) in
 				print (error.localizedDescription)
-				let alert = UIAlertController.alertWithOKButton("Network Error".localized, message: error.localizedDescription)
-				self.presentViewController(alert, animated: true, completion: nil)
+				let alert = AWAlertView.networkAlertFromError(error)
+				self.navigationController?.view.addSubview(alert)
+				alert.showAlert()
+				//let alert = UIAlertController.alertWithOKButton("Network Error".localized, message: error.localizedDescription)
+				//self.presentViewController(alert, animated: true, completion: nil)
 		})
 	}
 	
@@ -190,8 +193,11 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 
 			}, failure: {(operation, error) -> Void in
 				print ("Error : \(error)")
-				let alert = UIAlertController.alertWithOKButton("Network Error".localized, message: error.localizedDescription)
-				self.presentViewController(alert, animated: true, completion: nil)
+				let alert = AWAlertView.networkAlertFromError(error)
+				self.navigationController?.view.addSubview(alert)
+				alert.showAlert()
+				//let alert = UIAlertController.alertWithOKButton("Network Error".localized, message: error.localizedDescription)
+				//self.presentViewController(alert, animated: true, completion: nil)
 		})
 	}
 	
@@ -237,8 +243,11 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 	}
 	
 	func konaAPIGotError(error: NSError) {
-		let alert = UIAlertController.alertWithOKButton("Network Error".localized, message: error.localizedDescription)
-		self.presentViewController(alert, animated: true, completion: nil)
+		let alert = AWAlertView.networkAlertFromError(error)
+		self.navigationController?.view.addSubview(alert)
+		alert.showAlert()
+		//let alert = UIAlertController.alertWithOKButton("Network Error".localized, message: error.localizedDescription)
+		//self.presentViewController(alert, animated: true, completion: nil)
 	}
 	
 	func handleEmtptySearch(){

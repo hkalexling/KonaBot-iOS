@@ -16,6 +16,15 @@ public extension String {
 	}
 }
 
+extension AWAlertView {
+	static func networkAlertFromError (error : NSError) -> AWAlertView {
+		return AWAlertView(title: "Network Error".localized, message: error.localizedDescription, height: 100, bgColor: UIColor(red: 239/255, green: 92/255, blue: 72/255, alpha: 1), textColor: UIColor.whiteColor())
+	}
+	static func alertFromTitleAndMessage (title : String, message : String) -> AWAlertView {
+		return AWAlertView(title: title, message: message, height: 100, bgColor: UIColor(red: 48/255, green: 176/255, blue: 114/255, alpha: 1), textColor: UIColor.whiteColor())
+	}
+}
+
 extension CGFloat {
 	static func tabBarHeight() -> CGFloat{
 		return 49
