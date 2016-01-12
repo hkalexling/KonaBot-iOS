@@ -12,6 +12,8 @@
 		7109E5481BE8FC36003B1A93 /* TextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7109E5471BE8FC36003B1A93 /* TextCell.swift */; };
 		7109E54A1BE8FCBD003B1A93 /* TextSwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7109E5491BE8FCBD003B1A93 /* TextSwitchCell.swift */; };
 		710FD65E1C4587D100D5FE63 /* AWAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710FD65D1C4587D100D5FE63 /* AWAlertView.swift */; };
+		710FD6861C45C74E00D5FE63 /* AWActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710FD6841C45C74E00D5FE63 /* AWActionSheet.swift */; };
+		710FD6871C45C74E00D5FE63 /* UIImage+ImageEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710FD6851C45C74E00D5FE63 /* UIImage+ImageEffects.swift */; };
 		711098B31BE62D9D00CDACD1 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711098B21BE62D9D00CDACD1 /* SearchViewController.swift */; };
 		711207C01C2421ED00FB99EF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 711207C21C2421ED00FB99EF /* Localizable.strings */; };
 		711207C41C24302F00FB99EF /* about.html in Resources */ = {isa = PBXBuildFile; fileRef = 711207C61C24302F00FB99EF /* about.html */; };
@@ -51,6 +53,8 @@
 		7109E5471BE8FC36003B1A93 /* TextCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextCell.swift; sourceTree = "<group>"; };
 		7109E5491BE8FCBD003B1A93 /* TextSwitchCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextSwitchCell.swift; sourceTree = "<group>"; };
 		710FD65D1C4587D100D5FE63 /* AWAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AWAlertView.swift; sourceTree = "<group>"; };
+		710FD6841C45C74E00D5FE63 /* AWActionSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AWActionSheet.swift; sourceTree = "<group>"; };
+		710FD6851C45C74E00D5FE63 /* UIImage+ImageEffects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+ImageEffects.swift"; sourceTree = "<group>"; };
 		711098B21BE62D9D00CDACD1 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		711207BD1C24166500FB99EF /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
 		711207C11C2421ED00FB99EF /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -133,6 +137,15 @@
 				711E569E1BE9B61A00A6863D /* ViewModeCell.swift */,
 			);
 			name = TableViewCell;
+			sourceTree = "<group>";
+		};
+		710FD6831C45C74E00D5FE63 /* AWActionSheet */ = {
+			isa = PBXGroup;
+			children = (
+				710FD6841C45C74E00D5FE63 /* AWActionSheet.swift */,
+				710FD6851C45C74E00D5FE63 /* UIImage+ImageEffects.swift */,
+			);
+			path = AWActionSheet;
 			sourceTree = "<group>";
 		};
 		713B7B091BE68B230038A34A /* RZSquaresLoading */ = {
@@ -242,6 +255,7 @@
 		7183783E1BE8007A00131A74 /* Wheels */ = {
 			isa = PBXGroup;
 			children = (
+				710FD6831C45C74E00D5FE63 /* AWActionSheet */,
 				71B2FC8A1BF7A359000B862D /* StoreKit.framework */,
 				7179F91F1C428C020037A16D /* KonaAPI */,
 				713B7B091BE68B230038A34A /* RZSquaresLoading */,
@@ -450,6 +464,8 @@
 				713B7B101BE7814F0038A34A /* FavoriteCollectionViewController.swift in Sources */,
 				7109E5441BE8FA71003B1A93 /* TextArrowCell.swift in Sources */,
 				71FA55761BE55DE800E57198 /* JTSSimpleImageDownloader.m in Sources */,
+				710FD6861C45C74E00D5FE63 /* AWActionSheet.swift in Sources */,
+				710FD6871C45C74E00D5FE63 /* UIImage+ImageEffects.swift in Sources */,
 				7109E5401BE8F9D2003B1A93 /* SettingTableViewController.swift in Sources */,
 				719589311BE533940036555E /* Extension.swift in Sources */,
 				718378381BE7EF8000131A74 /* Model.xcdatamodeld in Sources */,

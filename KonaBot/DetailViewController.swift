@@ -190,8 +190,6 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 				let alert = AWAlertView.networkAlertFromError(error)
 				self.navigationController?.view.addSubview(alert)
 				alert.showAlert()
-				//let alert = UIAlertController.alertWithOKButton("Network Error".localized, message: error.localizedDescription)
-				//self.presentViewController(alert, animated: true, completion: nil)
 		})
 	}
 	
@@ -238,6 +236,7 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 		
 		let image = self.detailImageView.image!
 		
+		/*
 		let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
 		
 		let saveAction = UIAlertAction(title: "Save Image".localized, style: .Default, handler: {(alert : UIAlertAction) -> Void in
@@ -255,13 +254,11 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 		let copyAction = UIAlertAction(title: "Copy Image".localized, style: .Default, handler: {(alert : UIAlertAction) -> Void in
 			UIPasteboard.generalPasteboard().image = image
 			self.awAlert("Image Copied".localized, message: "This image has been copied to your clipboard".localized)
-			//self.alertWithOkButton("Image Copied".localized, message: "This image has been copied to your clipboard".localized)
 		})
 		
 		let copyLinkAction = UIAlertAction(title: "Copy Image URL".localized, style: .Default, handler: {(alert : UIAlertAction) -> Void in
 			UIPasteboard.generalPasteboard().string = self.urlStr!
 			self.awAlert("URL Copied".localized, message: "The image URL has been copied to your clipboard".localized)
-			//self.alertWithOkButton("URL Copied".localized, message: "The image URL has been copied to your clipboard".localized)
 		})
 		
 		let openAction = UIAlertAction(title: "Open Post in Safari".localized, style: UIAlertActionStyle.Default, handler: {(alert : UIAlertAction) -> Void in
@@ -277,6 +274,7 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 		else{
 			sheet.addAction(favoriteAction)
 		}
+		
 		sheet.addAction(copyAction)
 		sheet.addAction(copyLinkAction)
 		sheet.addAction(openAction)
@@ -284,16 +282,58 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 		
 		if let popoverController = sheet.popoverPresentationController {
 			popoverController.sourceView = self.detailImageView
-			popoverController.sourceRect = self.detailImageView.bounds
+			popoverController.sourceRect = self.detailImageView.frame
 		}
 		
 		self.imageViewer.presentViewController(sheet, animated: true, completion: nil)
+		*/
+		
+		let awActionSheet = AWActionSheet(parentView: self.imageViewer.view)
+		
+		let saveAction = AWActionSheetAction(title: "Save Image".localized, handler: {
+			UIImageWriteToSavedPhotosAlbum(image, self, Selector("imageSaved:didFinishSavingWithError:contextInfo:"), nil)
+		})
+		
+		let favoriteAction = AWActionSheetAction(title: "Favorite".localized, handler: {
+			self.stared()
+		})
+		
+		let unfavoriteAction = AWActionSheetAction(title: "Unfavorite".localized, handler: {
+			self.unstared()
+		})
+		
+		let copyAction = AWActionSheetAction(title: "Copy Image".localized, handler: {
+			UIPasteboard.generalPasteboard().image = image
+			self.awAlert("Image Copied".localized, message: "This image has been copied to your clipboard".localized)
+		})
+		
+		let copyLinkAction = AWActionSheetAction(title: "Copy Image URL".localized, handler: {
+			UIPasteboard.generalPasteboard().string = self.urlStr!
+			self.awAlert("URL Copied".localized, message: "The image URL has been copied to your clipboard".localized)
+		})
+		
+		let openAction = AWActionSheetAction(title: "Open Post in Safari".localized, handler: {
+			UIApplication.sharedApplication().openURL(NSURL(string: "\(self.baseUrl)\(self.postUrl)")!)
+		})
+		
+		awActionSheet.addAction(saveAction)
+		awActionSheet.addAction(self.favoriteList.contains(self.postUrl) ?  unfavoriteAction : favoriteAction)
+		awActionSheet.addAction(copyAction)
+		awActionSheet.addAction(copyLinkAction)
+		awActionSheet.addAction(openAction)
+		
+		awActionSheet.animationDuraton = 0.8
+		awActionSheet.buttonColor = UIColor.themeColor()
+		awActionSheet.cancelButtonColor = UIColor.themeColor()
+		awActionSheet.textColor = UIColor.konaColor()
+		
+		self.imageViewer.view.addSubview(awActionSheet)
+		awActionSheet.showActionSheet()
 	}
 	
 	func imageSaved(image: UIImage, didFinishSavingWithError error: NSErrorPointer, contextInfo: UnsafePointer<()>) {
 		dispatch_async(dispatch_get_main_queue(), {
 			self.awAlert("Image Saved".localized, message: "This image has been saved to your camera roll".localized)
-			//self.alertWithOkButton("Image Saved".localized, message: "This image has been saved to your camera roll".localized)
 		})
 	}
 	
