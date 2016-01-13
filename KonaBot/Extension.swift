@@ -23,6 +23,9 @@ extension AWAlertView {
 	static func alertFromTitleAndMessage (title : String, message : String) -> AWAlertView {
 		return AWAlertView(title: title, message: message, height: 100, bgColor: UIColor(red: 48/255, green: 176/255, blue: 114/255, alpha: 1), textColor: UIColor.whiteColor())
 	}
+	static func redAlertFromTitleAndMessage (title : String, message : String) -> AWAlertView {
+		return AWAlertView(title: title, message: message, height: 100, bgColor: UIColor(red: 239/255, green: 92/255, blue: 72/255, alpha: 1), textColor: UIColor.whiteColor())
+	}
 }
 
 extension CGFloat {

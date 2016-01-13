@@ -284,7 +284,7 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 		if UIScreen.mainScreen().bounds.width > 415 {
 			awActionSheet.buttonWidth = 400
 			awActionSheet.buttonHeight = 60
-			awActionSheet.gapBetweetnCancelButtonAndOtherButtons = 25
+			awActionSheet.gapBetweetnCancelButtonAndOtherButtons = 15
 			awActionSheet.buttonFont = UIFont.systemFontOfSize(20)
 			awActionSheet.cancelButtonFont = UIFont.boldSystemFontOfSize(20)
 		}
@@ -296,7 +296,14 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 	
 	func imageSaved(image: UIImage, didFinishSavingWithError error: NSErrorPointer, contextInfo: UnsafePointer<()>) {
 		dispatch_async(dispatch_get_main_queue(), {
-			self.awAlert("Image Saved".localized, message: "This image has been saved to your camera roll".localized)
+			if error == nil {
+				self.awAlert("Image Saved".localized, message: "This image has been saved to your camera roll".localized)
+			}
+			else{
+				let alert = AWAlertView.redAlertFromTitleAndMessage("Failed to Save Image".localized, message: "Please detele some unwanted files and try again".localized)
+				self.imageViewer.view.addSubview(alert)
+				alert.showAlert()
+			}
 		})
 	}
 	

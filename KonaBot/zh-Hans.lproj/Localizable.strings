@@ -45,3 +45,6 @@
 "When enabled, image cache will be deleted after the app's termination. Cache of images in your favorite list won't be affected." = "使用该设置后，每次 KonaBot 退出后都会删除图片缓存。已保存到收藏的图片的缓存则不会被删除。";
 
 "OK" = "好的";
+
+"Failed to Save Image" = "保存图片失败 QuQ";
+"Please detele some unwanted files and try again" = "删掉些不需要的文件再试试吧~";
