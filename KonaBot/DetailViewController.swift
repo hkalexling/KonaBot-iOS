@@ -16,6 +16,8 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 	let yuno = Yuno()
 	var baseUrl : String = "http://konachan.com"
 	
+	var post : Post?
+	
 	var smallImage : UIImage!
 	var detailImageView: UIImageView!
 	var postUrl : String!
@@ -36,6 +38,7 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 	var allowLongPress : Bool = true
 	
 	let moreImageView = UIImageView()
+	let postDetailTableViewContainer = UIView()
 	let smallerHeight : CGFloat = 100
 	let smallerImageTransparentView = UIView()
 	let animationDuration : NSTimeInterval = 0.3
@@ -72,7 +75,6 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 		let tapRecognizer : UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: Selector("tapped:"))
 		self.detailImageView.addGestureRecognizer(tapRecognizer)
 		
-		/*
 		self.moreImageView.image = UIImage(named: "More")?.coloredImage(UIColor.konaColor())
 		let moreImageViewWidth : CGFloat = 50
 		let moreImageViewHeight : CGFloat = moreImageViewWidth * self.moreImageView.image!.size.height/self.moreImageView.image!.size.width
@@ -85,7 +87,8 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 		let transparentViewFrame = CGRectMake(0, 0, CGSize.screenSize().width, CGFloat.navitaionBarHeight() + CGFloat.statusBarHeight() + self.smallFrame.height + 40)
 		self.smallerImageTransparentView.frame = transparentViewFrame
 		self.smallerImageTransparentView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "smallerViewTapped"))
-		*/
+		
+		self.postDetailTableViewContainer.frame = CGRectMake(0, self.smallerImageTransparentView.frame.maxY, CGSize.screenSize().width, CGSize.screenSize().height - self.smallerImageTransparentView.frame.maxY - CGFloat.tabBarHeight())
 		
 		if self.imageUrl == nil {
 			self.moreImageView.userInteractionEnabled = false
@@ -331,10 +334,13 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 			self.moreImageView.alpha = 0
 			}, completion: {(finished) in
 				self.view.addSubview(self.smallerImageTransparentView)
+				self.view.addSubview(self.postDetailTableViewContainer)
+				self.initializePostDetailTableVC()
 		})
 	}
 	
 	func smallerViewTapped(){
+		self.postDetailTableViewContainer.removeFromSuperview()
 		UIView.animateWithDuration(self.animationDuration, animations: {
 			self.detailImageView.frame = self.bigFrame
 			self.moreImageView.alpha = 1
@@ -346,5 +352,12 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 	
 	func awActionSheetDidDismiss() {
 		self.allowLongPress = true
+	}
+	
+	func initializePostDetailTableVC (){
+		let postDetailTableVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("postDetailTableVC") as! PostDetailTableViewController
+		postDetailTableVC.post = self.post
+		self.addChildViewController(postDetailTableVC)
+		self.postDetailTableViewContainer.addSubview(postDetailTableVC.tableView)
 	}
 }

@@ -14,4 +14,8 @@ struct Post {
 	let url : String
 	let heightOverWidth : CGFloat
 	let tags : [String]
+	let score : Int
+	let rating : String
+	let author : String
+	let created_at : Int
 }

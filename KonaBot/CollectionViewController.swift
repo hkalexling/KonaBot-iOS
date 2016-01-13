@@ -148,6 +148,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 		detailVC.heightOverWidth = self.posts[indexPath.row].heightOverWidth
 		detailVC.imageUrl = self.posts[indexPath.row].url
 		detailVC.smallImage =  (self.collectionView!.cellForItemAtIndexPath(indexPath) as! ImageCell).imageView!.image
+		detailVC.post = self.posts[indexPath.row]
 		self.navigationController!.pushViewController(detailVC, animated: true)
 	}
 	

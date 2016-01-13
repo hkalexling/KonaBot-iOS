@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		71018C3E1C46ADE5004F881C /* PostDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71018C3D1C46ADE5004F881C /* PostDetailTableViewController.swift */; };
+		71018C401C46C652004F881C /* PostNameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71018C3F1C46C652004F881C /* PostNameCell.swift */; };
 		7109E5401BE8F9D2003B1A93 /* SettingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7109E53F1BE8F9D2003B1A93 /* SettingTableViewController.swift */; };
 		7109E5441BE8FA71003B1A93 /* TextArrowCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7109E5431BE8FA71003B1A93 /* TextArrowCell.swift */; };
 		7109E5481BE8FC36003B1A93 /* TextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7109E5471BE8FC36003B1A93 /* TextCell.swift */; };
@@ -48,6 +50,8 @@
 
 /* Begin PBXFileReference section */
 		45D08A0DF5AB84ADDE690111 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		71018C3D1C46ADE5004F881C /* PostDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostDetailTableViewController.swift; sourceTree = "<group>"; };
+		71018C3F1C46C652004F881C /* PostNameCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostNameCell.swift; sourceTree = "<group>"; };
 		7109E53F1BE8F9D2003B1A93 /* SettingTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingTableViewController.swift; path = KonaBot/SettingTableViewController.swift; sourceTree = "<group>"; };
 		7109E5431BE8FA71003B1A93 /* TextArrowCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextArrowCell.swift; sourceTree = "<group>"; };
 		7109E5471BE8FC36003B1A93 /* TextCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextCell.swift; sourceTree = "<group>"; };
@@ -122,6 +126,7 @@
 			isa = PBXGroup;
 			children = (
 				7109E53F1BE8F9D2003B1A93 /* SettingTableViewController.swift */,
+				71018C3D1C46ADE5004F881C /* PostDetailTableViewController.swift */,
 			);
 			name = TableVC;
 			path = ..;
@@ -135,6 +140,7 @@
 				7109E5471BE8FC36003B1A93 /* TextCell.swift */,
 				7109E5491BE8FCBD003B1A93 /* TextSwitchCell.swift */,
 				711E569E1BE9B61A00A6863D /* ViewModeCell.swift */,
+				71018C3F1C46C652004F881C /* PostNameCell.swift */,
 			);
 			name = TableViewCell;
 			sourceTree = "<group>";
@@ -479,7 +485,9 @@
 				71FA55771BE55DE800E57198 /* UIApplication+JTSImageViewController.m in Sources */,
 				71B2FC8D1BF7C9BD000B862D /* IAPViewController.swift in Sources */,
 				711098B31BE62D9D00CDACD1 /* SearchViewController.swift in Sources */,
+				71018C401C46C652004F881C /* PostNameCell.swift in Sources */,
 				719589331BE53C110036555E /* DetailViewController.swift in Sources */,
+				71018C3E1C46ADE5004F881C /* PostDetailTableViewController.swift in Sources */,
 				71FA55751BE55DE800E57198 /* JTSImageViewController.m in Sources */,
 				7179F9231C428D680037A16D /* PostStruct.swift in Sources */,
 				7109E54A1BE8FCBD003B1A93 /* TextSwitchCell.swift in Sources */,

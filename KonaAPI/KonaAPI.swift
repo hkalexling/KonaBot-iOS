@@ -63,7 +63,11 @@ class KonaAPI: NSObject {
 				let url : String = post["jpeg_url"] as! String
 				let heightOverWidth = (post["height"] as! CGFloat)/(post["width"] as! CGFloat)
 				let postTags : [String] = (post["tags"] as! String).componentsSeparatedByString(" ")
-				let postObj = Post(postUrl : "http://konachan.net/post/show/\(id)", previewUrl: previewUrl, url: url, heightOverWidth: heightOverWidth, tags: postTags)
+				let score : Int = post["score"] as! Int
+				let author : String = post["author"] as! String
+				let created_at : Int = post["created_at"] as! Int
+
+				let postObj = Post(postUrl : "http://konachan.net/post/show/\(id)", previewUrl: previewUrl, url: url, heightOverWidth: heightOverWidth, tags: postTags, score: score, rating: rating, author: author, created_at: created_at)
 				self.postAry.append(postObj)
 			}
 			self.postDelegate?.konaAPIDidGetPost(self.postAry)
