@@ -13,6 +13,10 @@ struct AWActionSheetAction {
 	let handler : (() -> Void)
 }
 
+protocol AWActionSheetDelegate {
+	func awActionSheetDidDismiss()
+}
+
 extension UIImage {
 	class func imageFromUIView(view : UIView) -> UIImage{
 		UIGraphicsBeginImageContext(view.frame.size)
@@ -41,6 +45,8 @@ class AWActionSheet: UIView {
 	
 	var animationDuraton : NSTimeInterval = 0.5
 	var damping : CGFloat = 0.4
+	
+	var delegate : AWActionSheetDelegate?
 	
 	private var parentView : UIView!
 	
@@ -84,6 +90,7 @@ class AWActionSheet: UIView {
 			self.imageView.alpha = 0
 			}, completion: {(finished) in
 				self.removeFromSuperview()
+				self.delegate?.awActionSheetDidDismiss()
 		})
 	}
 	
@@ -93,7 +100,7 @@ class AWActionSheet: UIView {
 	}
 	
 	func showActionSheet() {
-		
+				
 		self.imageView.frame = self.frame
 		self.imageView.image = UIImage.imageFromUIView(self.parentView).applyLightEffect()
 		self.imageView.userInteractionEnabled = true

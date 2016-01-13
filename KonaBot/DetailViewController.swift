@@ -11,7 +11,7 @@ import Kanna
 import CoreData
 import AFNetworking
 
-class DetailViewController: UIViewController, JTSImageViewControllerInteractionsDelegate{
+class DetailViewController: UIViewController, JTSImageViewControllerInteractionsDelegate, AWActionSheetDelegate {
 	
 	let yuno = Yuno()
 	var baseUrl : String = "http://konachan.com"
@@ -33,6 +33,7 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 	let blockView = UIView()
 	
 	var shouldDownloadWhenViewAppeared : Bool = true
+	var allowLongPress : Bool = true
 	
 	let moreImageView = UIImageView()
 	let smallerHeight : CGFloat = 100
@@ -234,61 +235,12 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 	
 	func imageViewerDidLongPress(imageViewer: JTSImageViewController!, atRect rect: CGRect) {
 		
+		if !self.allowLongPress {return}
+		
 		let image = self.detailImageView.image!
 		
-		/*
-		let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
-		
-		let saveAction = UIAlertAction(title: "Save Image".localized, style: .Default, handler: {(alert : UIAlertAction) -> Void in
-			UIImageWriteToSavedPhotosAlbum(image, self, Selector("imageSaved:didFinishSavingWithError:contextInfo:"), nil)
-		})
-		
-		let favoriteAction = UIAlertAction(title: "Favorite".localized, style: .Default, handler: {(alert : UIAlertAction) -> Void in
-			self.stared()
-		})
-		
-		let unfavoriteAction = UIAlertAction(title: "Unfavorite".localized, style: .Default, handler: {(alert : UIAlertAction) -> Void in
-			self.unstared()
-		})
-		
-		let copyAction = UIAlertAction(title: "Copy Image".localized, style: .Default, handler: {(alert : UIAlertAction) -> Void in
-			UIPasteboard.generalPasteboard().image = image
-			self.awAlert("Image Copied".localized, message: "This image has been copied to your clipboard".localized)
-		})
-		
-		let copyLinkAction = UIAlertAction(title: "Copy Image URL".localized, style: .Default, handler: {(alert : UIAlertAction) -> Void in
-			UIPasteboard.generalPasteboard().string = self.urlStr!
-			self.awAlert("URL Copied".localized, message: "The image URL has been copied to your clipboard".localized)
-		})
-		
-		let openAction = UIAlertAction(title: "Open Post in Safari".localized, style: UIAlertActionStyle.Default, handler: {(alert : UIAlertAction) -> Void in
-			UIApplication.sharedApplication().openURL(NSURL(string: "\(self.baseUrl)\(self.postUrl)")!)
-		})
-		
-		let cancelAction = UIAlertAction(title: "Cancel".localized, style: .Cancel, handler: nil)
-		
-		sheet.addAction(saveAction)
-		if (self.favoriteList.contains(self.postUrl)){
-			sheet.addAction(unfavoriteAction)
-		}
-		else{
-			sheet.addAction(favoriteAction)
-		}
-		
-		sheet.addAction(copyAction)
-		sheet.addAction(copyLinkAction)
-		sheet.addAction(openAction)
-		sheet.addAction(cancelAction)
-		
-		if let popoverController = sheet.popoverPresentationController {
-			popoverController.sourceView = self.detailImageView
-			popoverController.sourceRect = self.detailImageView.frame
-		}
-		
-		self.imageViewer.presentViewController(sheet, animated: true, completion: nil)
-		*/
-		
 		let awActionSheet = AWActionSheet(parentView: self.imageViewer.view)
+		awActionSheet.delegate = self
 		
 		let saveAction = AWActionSheetAction(title: "Save Image".localized, handler: {
 			UIImageWriteToSavedPhotosAlbum(image, self, Selector("imageSaved:didFinishSavingWithError:contextInfo:"), nil)
@@ -328,6 +280,7 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 		awActionSheet.textColor = UIColor.konaColor()
 		
 		self.imageViewer.view.addSubview(awActionSheet)
+		self.allowLongPress = false
 		awActionSheet.showActionSheet()
 	}
 	
@@ -372,5 +325,9 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 				self.smallerImageTransparentView.removeFromSuperview()
 				self.moreImageView.userInteractionEnabled = true
 		})
+	}
+	
+	func awActionSheetDidDismiss() {
+		self.allowLongPress = true
 	}
 }
