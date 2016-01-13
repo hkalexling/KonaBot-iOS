@@ -275,9 +275,19 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 		awActionSheet.addAction(openAction)
 		
 		awActionSheet.animationDuraton = 0.8
-		awActionSheet.buttonColor = UIColor.themeColor()
 		awActionSheet.cancelButtonColor = UIColor.themeColor()
+		let componets = UIColor.themeColor().components
+		awActionSheet.buttonColor = UIColor(red: componets.red, green: componets.green, blue: componets.blue, alpha: 0.8)
 		awActionSheet.textColor = UIColor.konaColor()
+		
+		//iPad
+		if UIScreen.mainScreen().bounds.width > 415 {
+			awActionSheet.buttonWidth = 400
+			awActionSheet.buttonHeight = 60
+			awActionSheet.gapBetweetnCancelButtonAndOtherButtons = 25
+			awActionSheet.buttonFont = UIFont.systemFontOfSize(20)
+			awActionSheet.cancelButtonFont = UIFont.boldSystemFontOfSize(20)
+		}
 		
 		self.imageViewer.view.addSubview(awActionSheet)
 		self.allowLongPress = false

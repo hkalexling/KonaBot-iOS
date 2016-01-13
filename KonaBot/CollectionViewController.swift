@@ -22,6 +22,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 	var keyword : String = ""
 
 	var posts : [Post] = []
+	var postSelectable : [Bool] = []
 	var postsPerRequest : Int = 30
 	
 	var currentPage : Int = 1
@@ -134,13 +135,14 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 		}
 		else{
 			cell.imageView.image = UIImage.imageWithColor(UIColor.darkGrayColor())
-			downloadImg(self.posts[indexPath.row].previewUrl, view: cell.imageView)
+			downloadImg(self.posts[indexPath.row].previewUrl, view: cell.imageView, index: indexPath.row)
 		}
 		
         return cell
     }
 	
 	override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+		if !self.postSelectable[indexPath.row] {return}
 		let detailVC : DetailViewController = DetailViewController()
 		detailVC.postUrl = self.posts[indexPath.row].postUrl
 		detailVC.heightOverWidth = self.posts[indexPath.row].heightOverWidth
@@ -153,22 +155,22 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 		self.collectionView!.reloadData()
 	}
 
-	func downloadImg(url : String, view : UIImageView){
+	func downloadImg(url : String, view : UIImageView, index : Int){
 		
 		let manager = AFHTTPSessionManager()
 		manager.responseSerializer = AFImageResponseSerializer()
 		manager.GET(url, parameters: nil, progress: nil, success: {(task, response) in
 			UIView.transitionWithView(view, duration: 0.5, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: {
 				view.image = response as? UIImage
-				}, completion: nil)
+				}, completion: {(finished) in
+					self.postSelectable[index] = true
+			})
 			Yuno().saveImageWithKey("Preview", image: view.image!, key: url)
 			}, failure: {(task, error) in
 				print (error.localizedDescription)
 				let alert = AWAlertView.networkAlertFromError(error)
 				self.navigationController?.view.addSubview(alert)
 				alert.showAlert()
-				//let alert = UIAlertController.alertWithOKButton("Network Error".localized, message: error.localizedDescription)
-				//self.presentViewController(alert, animated: true, completion: nil)
 		})
 	}
 	
@@ -196,8 +198,6 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 				let alert = AWAlertView.networkAlertFromError(error)
 				self.navigationController?.view.addSubview(alert)
 				alert.showAlert()
-				//let alert = UIAlertController.alertWithOKButton("Network Error".localized, message: error.localizedDescription)
-				//self.presentViewController(alert, animated: true, completion: nil)
 		})
 	}
 	
@@ -235,6 +235,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 		self.currentPage++
 		self.loading.removeFromSuperview()
 		self.posts += ary
+		self.postSelectable += [Bool](count: ary.count, repeatedValue: false)
 		var index : [NSIndexPath] = []
 		for (var i = self.collectionView!.numberOfItemsInSection(0); i < self.posts.count; i++){
 			index.append(NSIndexPath(forRow: i, inSection: 0))
@@ -246,8 +247,6 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 		let alert = AWAlertView.networkAlertFromError(error)
 		self.navigationController?.view.addSubview(alert)
 		alert.showAlert()
-		//let alert = UIAlertController.alertWithOKButton("Network Error".localized, message: error.localizedDescription)
-		//self.presentViewController(alert, animated: true, completion: nil)
 	}
 	
 	func handleEmtptySearch(){

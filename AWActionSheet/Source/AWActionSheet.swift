@@ -123,6 +123,7 @@ class AWActionSheet: UIView {
 		for var i = self.actions.count - 1; i >= 0; i-- {
 			let button = UIButton(type: .System)
 			button.backgroundColor = self.buttonColor
+			
 			button.setTitleColor(self.textColor, forState: .Normal)
 			button.setTitle(self.actions[i].title, forState: .Normal)
 			button.titleLabel?.font = self.buttonFont
