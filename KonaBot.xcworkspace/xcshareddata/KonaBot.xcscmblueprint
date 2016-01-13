@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "5437A8D60C8009CB17D7B411C1F872EB2F9E6760",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "5437A8D60C8009CB17D7B411C1F872EB2F9E6760" : 0,
+    "66BC0B8EF1440E2B1E4F3DFB25AF463E6657C434" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "E7842323-03FD-4D5D-954D-7AC1BFC7975D",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "5437A8D60C8009CB17D7B411C1F872EB2F9E6760" : "KonaBot-iOS\/",
+    "66BC0B8EF1440E2B1E4F3DFB25AF463E6657C434" : "KonaBot-iOS\/AWActionSheet\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "KonaBot",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "KonaBot.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/hkalexling\/KonaBot-iOS.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "5437A8D60C8009CB17D7B411C1F872EB2F9E6760"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/hkalexling\/AWActionSheet.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "66BC0B8EF1440E2B1E4F3DFB25AF463E6657C434"
+    }
+  ]
+}
