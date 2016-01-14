@@ -22,21 +22,14 @@ class PostDetailTableViewController: UITableViewController, TagViewDelegate {
     }
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 3
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
 		if section == 0 {
 			return 4
 		}
 		if section == 1 {
-			/*
-			if let _post = self.post {
-				return _post.tags.count
-			}
-			*/
 			return 1
 		}
 		if section == 2 {
@@ -80,7 +73,7 @@ class PostDetailTableViewController: UITableViewController, TagViewDelegate {
 			if row == 1 {
 				if let _post = self.post {
 					let date = NSDate(timeIntervalSince1970: NSTimeInterval(_post.created_at))
-					cell.label.text = "Created at: " + NSDateFormatter.localizedStringFromDate(date, dateStyle: NSDateFormatterStyle.MediumStyle, timeStyle: .MediumStyle)
+					cell.label.text = "Created at: " + NSDateFormatter.localizedStringFromDate(date, dateStyle: .MediumStyle, timeStyle: .ShortStyle)
 				}
 			}
 			if row == 2 {

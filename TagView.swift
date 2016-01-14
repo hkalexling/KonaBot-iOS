@@ -15,9 +15,9 @@ protocol TagViewDelegate {
 class TagView: UIView {
 
 	private var tagStrs : [String] = []
-	private var textColor : UIColor = UIColor.whiteColor()
-	private var tagColor : UIColor = UIColor.redColor()
-	private var font : UIFont = UIFont.systemFontOfSize(17)
+	private var textColor : UIColor!
+	private var tagColor : UIColor!
+	private var font : UIFont!
 	
 	var delegate : TagViewDelegate?
 	var gap : CGFloat = 10
@@ -101,6 +101,7 @@ class TagView: UIView {
 	}
 	
 	func tapped(sender : UIGestureRecognizer) {
-		self.delegate?.tagViewDidSelecteTag((sender.view! as! UILabel).text)
+		let label = sender.view as! UILabel
+		self.delegate?.tagViewDidSelecteTag(label.text)
 	}
 }

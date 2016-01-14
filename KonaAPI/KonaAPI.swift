@@ -54,10 +54,21 @@ class KonaAPI: NSObject {
 		let parameters = self.parameterFactory(["limit" : limit, "page" : page, "tags" : tag])
 		let successBlock = {(task : NSURLSessionDataTask, response : AnyObject?) in
 			for post in response as! [NSDictionary] {
-				let rating : String = post["rating"] as! String
+				var rating : String = post["rating"] as! String
 				if !self.r18 && rating != "s" {
 					continue
 				}
+				var _rating = ""
+				switch rating{
+					case "s":
+					_rating = "Save"
+					case "q":
+					_rating = "Questionable"
+					case "e":
+					_rating = "Explicit"
+					default: break
+				}
+				rating = _rating
 				let id : Int = post["id"] as! Int
 				let previewUrl : String = post["preview_url"] as! String
 				let url : String = post["jpeg_url"] as! String
@@ -97,6 +108,7 @@ class KonaAPI: NSObject {
 	func makeHTTPRequest(isPost : Bool, url : String, parameters : AnyObject?, successBlock: ((NSURLSessionDataTask, AnyObject?) -> Void)?){
 		let errorBlock : ((NSURLSessionDataTask?, NSError) -> Void) = {(task : NSURLSessionDataTask?, error : NSError) in
 			self.errorDelegate?.konaAPIGotError(error)
+			print (error)
 		}
 		if isPost {
 			self.manager.POST(url, parameters: parameters, progress: nil, success: successBlock, failure: errorBlock)

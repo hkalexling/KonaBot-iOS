@@ -19,3 +19,12 @@ struct Post {
 	let author : String
 	let created_at : Int
 }
+
+struct ParsedPost {
+	let url : String
+	let tags : [String]
+	let time : Int
+	let author : String
+	let score : String
+	let rating : String
+}

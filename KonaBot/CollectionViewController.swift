@@ -10,7 +10,7 @@ import UIKit
 import Kanna
 import AFNetworking
 
-class CollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, KonaAPIPostDelegate, KonaAPIErrorDelegate {
+class CollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, KonaAPIPostDelegate, KonaAPIErrorDelegate, KonaHTMLParserDelegate {
 	
 	var refreshControl : UIRefreshControl!
 	
@@ -40,6 +40,9 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 
     override func viewDidLoad() {
         super.viewDidLoad()
+		
+		let test = KonaHTMLParser(delegate: self)
+		test.getPostInformation("http://konachan.net/post/show/213276/2girls-akaza_akari-aqua_eyes-pink_hair-purple_eyes")
 		
 		if NSUserDefaults.standardUserDefaults().objectForKey("tabToSelect") != nil {
 			let tabToSelect = NSUserDefaults.standardUserDefaults().integerForKey("tabToSelect")
@@ -250,6 +253,12 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 		alert.showAlert()
 	}
 	
+	func konaHTMLParserFinishedParsing(parsedPost: ParsedPost) {
+		print (parsedPost)
+		print (NSDate(timeIntervalSince1970: NSTimeInterval(parsedPost.time)))
+	}
+	
+	//Parse HTML and get suggested tags
 	func handleEmtptySearch(){
 		self.getHtml("\(Yuno().baseUrl())/post?tags=\(self.keyword)")
 	}
