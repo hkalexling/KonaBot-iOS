@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PostDetailTableViewController: UITableViewController {
+class PostDetailTableViewController: UITableViewController, TagViewDelegate {
 	
 	var post : Post?
 	
@@ -31,9 +31,12 @@ class PostDetailTableViewController: UITableViewController {
 			return 4
 		}
 		if section == 1 {
+			/*
 			if let _post = self.post {
 				return _post.tags.count
 			}
+			*/
+			return 1
 		}
 		if section == 2 {
 			return 5
@@ -94,23 +97,31 @@ class PostDetailTableViewController: UITableViewController {
 		if section == 1 {
 			let cell = UITableViewCell()
 			cell.selectionStyle = .None
+			
 			if let _post = self.post {
-				let label = UILabel(frame: CGRectMake(0, 0, 10, 10))
-				label.font = UIFont.systemFontOfSize(17)
-				label.textAlignment = .Center
-				label.text = _post.tags[row]
-				label.sizeToFit()
-				label.backgroundColor = UIColor.konaColor()
-				label.textColor = UIColor.themeColor()
-				label.frame = CGRectMake(0, 0, label.bounds.width + 10, label.bounds.height + 5)
-				label.center = CGPointMake(16 + label.bounds.width/2, cell.bounds.height/2)
-				label.layer.cornerRadius = 5
-				label.clipsToBounds = true
-				cell.addSubview(label)
+				let tagView = TagView(tags: _post.tags, textColor: UIColor.themeColor(), tagColor: UIColor.konaColor(), font: UIFont.systemFontOfSize(17))
+				tagView.delegate = self
+				cell.addSubview(tagView)
 			}
+			
 			return cell
 		}
 		
-		return UITableViewCell()
+		let defaultCell = UITableViewCell()
+		defaultCell.selectionStyle = .None
+		return defaultCell
     }
+	
+	override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+		if indexPath.section == 1 {
+			if let _post = self.post {
+				return TagView(tags: _post.tags, textColor: UIColor.themeColor(), tagColor: UIColor.konaColor(), font: UIFont.systemFontOfSize(17)).bounds.height
+			}
+		}
+		return 44
+	}
+	
+	func tagViewDidSelecteTag(tag: String?) {
+		print (tag!)
+	}
 }

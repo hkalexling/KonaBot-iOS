@@ -30,6 +30,7 @@
 		7152C1481BE3452400A44945 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7152C1461BE3452400A44945 /* Main.storyboard */; };
 		7152C1DA1BE4F97200A44945 /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7152C1D91BE4F97200A44945 /* CollectionViewController.swift */; };
 		7152C1DC1BE4F9AC00A44945 /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7152C1DB1BE4F9AC00A44945 /* ImageCell.swift */; };
+		716CABC31C47A0B500FD6977 /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 716CABC21C47A0B500FD6977 /* TagView.swift */; };
 		7179F9211C428C020037A16D /* KonaAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7179F9201C428C020037A16D /* KonaAPI.swift */; };
 		7179F9231C428D680037A16D /* PostStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7179F9221C428D680037A16D /* PostStruct.swift */; };
 		718378381BE7EF8000131A74 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 718378361BE7EF8000131A74 /* Model.xcdatamodeld */; };
@@ -84,6 +85,7 @@
 		7152C1971BE34FBF00A44945 /* KonaBot-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "KonaBot-Bridging-Header.h"; sourceTree = "<group>"; };
 		7152C1D91BE4F97200A44945 /* CollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
 		7152C1DB1BE4F9AC00A44945 /* ImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
+		716CABC21C47A0B500FD6977 /* TagView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
 		7179F9201C428C020037A16D /* KonaAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KonaAPI.swift; sourceTree = "<group>"; };
 		7179F9221C428D680037A16D /* PostStruct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostStruct.swift; sourceTree = "<group>"; };
 		718378371BE7EF8000131A74 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
@@ -275,6 +277,7 @@
 				713B7B091BE68B230038A34A /* RZSquaresLoading */,
 				71FA55661BE55DE800E57198 /* JTSImageViewController */,
 				710FD65D1C4587D100D5FE63 /* AWAlertView.swift */,
+				716CABC21C47A0B500FD6977 /* TagView.swift */,
 			);
 			name = Wheels;
 			sourceTree = "<group>";
@@ -467,6 +470,7 @@
 			files = (
 				71EBA8B21C350E8000860933 /* RZSquaresLoading.m in Sources */,
 				7140E2461C434C2B00E259C4 /* TabBarController.swift in Sources */,
+				716CABC31C47A0B500FD6977 /* TagView.swift in Sources */,
 				7140E2481C43B84000E259C4 /* KonaHTMLParser.swift in Sources */,
 				710FD65E1C4587D100D5FE63 /* AWAlertView.swift in Sources */,
 				71EBA8B11C350DFD00860933 /* ProgressIndicatorView.m in Sources */,
