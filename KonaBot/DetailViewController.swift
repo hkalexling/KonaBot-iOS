@@ -11,12 +11,13 @@ import Kanna
 import CoreData
 import AFNetworking
 
-class DetailViewController: UIViewController, JTSImageViewControllerInteractionsDelegate, AWActionSheetDelegate {
+class DetailViewController: UIViewController, JTSImageViewControllerInteractionsDelegate, AWActionSheetDelegate, KonaHTMLParserDelegate {
 	
 	let yuno = Yuno()
 	var baseUrl : String = "http://konachan.com"
 	
 	var post : Post?
+	var parsedPost : ParsedPost?
 	
 	var smallImage : UIImage!
 	var detailImageView: UIImageView!
@@ -90,9 +91,11 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 		
 		self.postDetailTableViewContainer.frame = CGRectMake(0, self.smallerImageTransparentView.frame.maxY, CGSize.screenSize().width, CGSize.screenSize().height - self.smallerImageTransparentView.frame.maxY - CGFloat.tabBarHeight())
 		
+		//From FavoriteVC instead of CollectionVC
 		if self.imageUrl == nil {
 			self.moreImageView.userInteractionEnabled = false
-			self.getHtml(self.postUrl.hasPrefix("http") ? self.postUrl : self.baseUrl + self.postUrl)
+			let konaParser = KonaHTMLParser(delegate: self)
+			konaParser.getPostInformation(self.postUrl.hasPrefix("http") ? self.postUrl : self.baseUrl + self.postUrl)
 		}
     }
 	
@@ -176,34 +179,6 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 			self.imageViewer.interactionsDelegate = self
 			
 			imageViewer.showFromViewController(self, transition: .FromOriginalPosition)
-		}
-	}
-	
-	func getHtml(url : String){
-		let manager = AFHTTPSessionManager()
-		manager.responseSerializer = AFHTTPResponseSerializer()
-		
-		manager.GET(url, parameters: nil, progress: nil,
-			success: {(operation, responseObject) -> Void in
-				
-				let html : NSString = NSString(data: responseObject as! NSData, encoding: NSASCIIStringEncoding)!
-				self.parse(html as String)
-				
-			}, failure: {(operation, error) -> Void in
-				print ("Error : \(error)")
-				let alert = AWAlertView.networkAlertFromError(error)
-				self.navigationController?.view.addSubview(alert)
-				alert.showAlert()
-		})
-	}
-	
-	func parse(htmlString : String){
-		if let doc = Kanna.HTML(html: htmlString, encoding: NSUTF8StringEncoding) {
-			for div in doc.css("div#right-col"){
-				let img = div.at_css("div")?.at_css("img")
-				downloadImg(img!["src"]!)
-				return
-			}
 		}
 	}
 	
@@ -357,8 +332,14 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 	func initializePostDetailTableVC (){
 		let postDetailTableVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("postDetailTableVC") as! PostDetailTableViewController
 		postDetailTableVC.post = self.post
+		postDetailTableVC.parsedPost = self.parsedPost
 		postDetailTableVC.parentVC = self
 		self.addChildViewController(postDetailTableVC)
 		self.postDetailTableViewContainer.addSubview(postDetailTableVC.tableView)
+	}
+	
+	func konaHTMLParserFinishedParsing(parsedPost: ParsedPost) {
+		self.parsedPost = parsedPost
+		self.downloadImg(self.parsedPost!.url)
 	}
 }

@@ -11,6 +11,7 @@ import UIKit
 class PostDetailTableViewController: UITableViewController, TagViewDelegate {
 	
 	var post : Post?
+	var parsedPost : ParsedPost?
 	var parentVC : DetailViewController!
 	
     override func viewDidLoad() {
@@ -69,10 +70,17 @@ class PostDetailTableViewController: UITableViewController, TagViewDelegate {
 				if let _post = self.post {
 					cell.label.text = "Author: \(_post.author)"
 				}
+				if let _parsed = self.parsedPost {
+					cell.label.text = "Author: \(_parsed.author)"
+				}
 			}
 			if row == 1 {
 				if let _post = self.post {
 					let date = NSDate(timeIntervalSince1970: NSTimeInterval(_post.created_at))
+					cell.label.text = "Created at: " + NSDateFormatter.localizedStringFromDate(date, dateStyle: .MediumStyle, timeStyle: .ShortStyle)
+				}
+				if let _parsed = self.parsedPost {
+					let date = NSDate(timeIntervalSince1970: NSTimeInterval(_parsed.time))
 					cell.label.text = "Created at: " + NSDateFormatter.localizedStringFromDate(date, dateStyle: .MediumStyle, timeStyle: .ShortStyle)
 				}
 			}
@@ -80,10 +88,16 @@ class PostDetailTableViewController: UITableViewController, TagViewDelegate {
 				if let _post = self.post {
 					cell.label.text = "Score: \(_post.score)"
 				}
+				if let _parsed = self.parsedPost {
+					cell.label.text = "Score: \(_parsed.score)"
+				}
 			}
 			if row == 3 {
 				if let _post = self.post {
 					cell.label.text = "Rating: " + _post.rating
+				}
+				if let _parsed = self.parsedPost {
+					cell.label.text = "Rating: " + _parsed.rating
 				}
 			}
 			return cell
@@ -94,6 +108,11 @@ class PostDetailTableViewController: UITableViewController, TagViewDelegate {
 			
 			if let _post = self.post {
 				let tagView = TagView(tags: _post.tags, textColor: UIColor.themeColor(), tagColor: UIColor.konaColor(), font: UIFont.systemFontOfSize(17))
+				tagView.delegate = self
+				cell.addSubview(tagView)
+			}
+			if let _parsed = self.parsedPost {
+				let tagView = TagView(tags: _parsed.tags, textColor: UIColor.themeColor(), tagColor: UIColor.konaColor(), font: UIFont.systemFontOfSize(17))
 				tagView.delegate = self
 				cell.addSubview(tagView)
 			}
@@ -110,6 +129,9 @@ class PostDetailTableViewController: UITableViewController, TagViewDelegate {
 		if indexPath.section == 1 {
 			if let _post = self.post {
 				return TagView(tags: _post.tags, textColor: UIColor.themeColor(), tagColor: UIColor.konaColor(), font: UIFont.systemFontOfSize(17)).bounds.height
+			}
+			if let _parsed = self.parsedPost {
+				return TagView(tags: _parsed.tags, textColor: UIColor.themeColor(), tagColor: UIColor.konaColor(), font: UIFont.systemFontOfSize(17)).bounds.height
 			}
 		}
 		return 44
