@@ -13,7 +13,7 @@ import AFNetworking
 class SearchViewController: UIViewController, UISearchBarDelegate, KonaAPITagDelegate, KonaAPIErrorDelegate{
 	
 	@IBOutlet weak var noResultLabel: UILabel!
-	var searchBar:UISearchBar = UISearchBar()
+	var searchBar : UISearchBar = UISearchBar()
 	
 	var loading : RZSquaresLoading!
 	

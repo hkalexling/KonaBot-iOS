@@ -11,6 +11,7 @@ import UIKit
 class PostDetailTableViewController: UITableViewController, TagViewDelegate {
 	
 	var post : Post?
+	var parentVC : DetailViewController!
 	
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -122,6 +123,11 @@ class PostDetailTableViewController: UITableViewController, TagViewDelegate {
 	}
 	
 	func tagViewDidSelecteTag(tag: String?) {
-		print (tag!)
+		self.parentVC.tabBarController?.selectedIndex = 1
+		let navigationVC = self.parentVC.tabBarController?.selectedViewController as! UINavigationController
+		navigationVC.popToRootViewControllerAnimated(false)
+		let searchVC = navigationVC.topViewController as! SearchViewController
+		searchVC.searchBar.text = tag
+		searchVC.searchBarSearchButtonClicked(searchVC.searchBar)
 	}
 }

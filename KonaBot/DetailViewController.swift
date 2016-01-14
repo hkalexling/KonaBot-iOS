@@ -357,6 +357,7 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 	func initializePostDetailTableVC (){
 		let postDetailTableVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("postDetailTableVC") as! PostDetailTableViewController
 		postDetailTableVC.post = self.post
+		postDetailTableVC.parentVC = self
 		self.addChildViewController(postDetailTableVC)
 		self.postDetailTableViewContainer.addSubview(postDetailTableVC.tableView)
 	}
