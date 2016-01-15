@@ -85,7 +85,6 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 		self.navigationItem.rightBarButtonItem = UIBarButtonItem()
 		if self.r18 {
 			let r18Label = UILabel(frame: CGRectMake(0, 0, 80, 20))
-			r18Label.backgroundColor = UIColor.themeColor()
 			r18Label.textColor = UIColor.konaColor()
 			r18Label.text = "R18"
 			r18Label.textAlignment = NSTextAlignment.Right

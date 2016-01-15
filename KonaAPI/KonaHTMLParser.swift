@@ -59,14 +59,19 @@ class KonaHTMLParser: NSObject {
 	private func parseHTML (html : String) {
 		let doc = Kanna.HTML(html: html, encoding: NSUTF8StringEncoding)!
 		
-		let imageUrl = (doc.at_css("body")?.at_css("div#content")?.at_css("div#post-view")?.at_css("div#right-col.content")?.at_css("div")?.at_css("img#image.image")!["src"]!)!
-		
+		var imageUrl = ""
 		var tags : [String] = []
 		var time : Int = 0
 		var author : String = ""
 		var rating : String = ""
 		var score : String = ""
 		
+		let divAry = doc.at_css("body")?.at_css("div#content")?.at_css("div#post-view")?.at_css("div#right-col.content")?.css("div")
+		for div in divAry! {
+			if let img = div.at_css("img#image.image") {
+				imageUrl = img["src"]!
+			}
+		}
 		let sideBar = doc.at_css("body")?.at_css("div#content")?.at_css("div#post-view")?.at_css("div.sidebar")
 		let divs = sideBar!.css("div")
 		for div in divs {
@@ -81,6 +86,7 @@ class KonaHTMLParser: NSObject {
 		}
 		let stats = sideBar?.at_css("div#stats.vote-container")!
 		let lis = stats!.at_css("ul")!.css("li")
+		
 		time = lis[1].at_css("a")!["title"]!.konaChanTimeToUnixTime()
 		author = lis[1].css("a")[1].text!
 		rating = lis[4].text!.componentsSeparatedByString(" ")[1]
@@ -121,7 +127,10 @@ class KonaHTMLParser: NSObject {
 
 extension String {
 	func konaChanTimeToUnixTime() -> Int {
-		let ary = self.componentsSeparatedByString(" ")
+		var ary = self.componentsSeparatedByString(" ")
+		ary = ary.filter({element in
+			element != ""
+		})
 		let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 		
 		let year : Int = (ary.last! as NSString).integerValue
