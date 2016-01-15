@@ -14,12 +14,23 @@ class PostDetailTableViewController: UITableViewController, TagViewDelegate {
 	var parsedPost : ParsedPost?
 	var parentVC : DetailViewController!
 	
+	var tagView : TagView?
+	
     override func viewDidLoad() {
         super.viewDidLoad()
 		self.tableView.tableFooterView = UIView()
 		self.tableView.rowHeight = UITableViewAutomaticDimension
 		self.tableView.estimatedRowHeight = 44
 		self.tableView.separatorColor = UIColor.clearColor()
+		
+		if let _post = self.post {
+			self.tagView = TagView(tags: _post.tags, textColor: UIColor.themeColor(), tagColor: UIColor.konaColor(), font: UIFont.systemFontOfSize(17))
+			self.tagView!.delegate = self
+		}
+		if let _parsed = self.parsedPost {
+			self.tagView = TagView(tags: _parsed.tags, textColor: UIColor.themeColor(), tagColor: UIColor.konaColor(), font: UIFont.systemFontOfSize(17))
+			self.tagView!.delegate = self
+		}
     }
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -106,15 +117,8 @@ class PostDetailTableViewController: UITableViewController, TagViewDelegate {
 			let cell = UITableViewCell()
 			cell.selectionStyle = .None
 			
-			if let _post = self.post {
-				let tagView = TagView(tags: _post.tags, textColor: UIColor.themeColor(), tagColor: UIColor.konaColor(), font: UIFont.systemFontOfSize(17))
-				tagView.delegate = self
-				cell.addSubview(tagView)
-			}
-			if let _parsed = self.parsedPost {
-				let tagView = TagView(tags: _parsed.tags, textColor: UIColor.themeColor(), tagColor: UIColor.konaColor(), font: UIFont.systemFontOfSize(17))
-				tagView.delegate = self
-				cell.addSubview(tagView)
+			if self.tagView != nil {
+				cell.addSubview(self.tagView!)
 			}
 			
 			return cell
@@ -127,11 +131,8 @@ class PostDetailTableViewController: UITableViewController, TagViewDelegate {
 	
 	override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
 		if indexPath.section == 1 {
-			if let _post = self.post {
-				return TagView(tags: _post.tags, textColor: UIColor.themeColor(), tagColor: UIColor.konaColor(), font: UIFont.systemFontOfSize(17)).bounds.height
-			}
-			if let _parsed = self.parsedPost {
-				return TagView(tags: _parsed.tags, textColor: UIColor.themeColor(), tagColor: UIColor.konaColor(), font: UIFont.systemFontOfSize(17)).bounds.height
+			if self.tagView != nil {
+				return self.tagView!.bounds.height
 			}
 		}
 		return 44

@@ -66,6 +66,17 @@ public extension UIImage {
 		UIGraphicsEndImageContext()
 		return newImage
 	}
+	func resize(newWidth: CGFloat) -> UIImage {
+		
+		let scale = newWidth / self.size.width
+		let newHeight = self.size.height * scale
+		UIGraphicsBeginImageContext(CGSizeMake(newWidth, newHeight))
+		self.drawInRect(CGRectMake(0, 0, newWidth, newHeight))
+		let image = UIGraphicsGetImageFromCurrentImageContext()
+		UIGraphicsEndImageContext()
+		
+		return image
+	}
 }
 
 public extension Int{

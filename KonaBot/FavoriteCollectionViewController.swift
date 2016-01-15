@@ -22,6 +22,8 @@ class FavoriteCollectionViewController: UICollectionViewController, UICollection
 	
 	var columnNum : Int!
 	
+	let previewQuility : CGFloat = 2
+	
     override func viewDidLoad() {
         super.viewDidLoad()
 		
@@ -80,10 +82,15 @@ class FavoriteCollectionViewController: UICollectionViewController, UICollection
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("ImageCell", forIndexPath: indexPath) as! ImageCell
-
-		if let img = yuno.fetchImageWithKey("FavoritedImage", key: self.favoritePostList[indexPath.row]){
-			cell.imageView.image = img
-		}
+		cell.imageView.image = UIImage.imageWithColor(UIColor.darkGrayColor())
+		dispatch_async(dispatch_get_global_queue(Int(QOS_CLASS_USER_INITIATED.rawValue), 0), {
+			if var img = self.yuno.fetchImageWithKey("FavoritedImage", key: self.favoritePostList[indexPath.row]){
+				img = img.resize(cell.imageView.bounds.width * self.previewQuility)
+				dispatch_async(dispatch_get_main_queue(), {
+					cell.imageView.image = img
+				})
+			}
+		})
 		
         return cell
 	}

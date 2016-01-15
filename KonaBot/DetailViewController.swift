@@ -46,6 +46,8 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 	var bigFrame : CGRect = CGRectZero
 	var smallFrame : CGRect = CGRectZero
 	
+	var originalImage = UIImage()
+	
     override func viewDidLoad() {
         super.viewDidLoad()
 		
@@ -310,6 +312,8 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 			}, completion: {(finished) in
 				self.view.addSubview(self.smallerImageTransparentView)
 				self.view.addSubview(self.postDetailTableViewContainer)
+				self.originalImage = self.detailImageView.image!
+				self.detailImageView.image = self.detailImageView.image!.resize(2 * self.detailImageView.bounds.width)
 				self.initializePostDetailTableVC()
 		})
 	}
@@ -319,6 +323,7 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 		UIView.animateWithDuration(self.animationDuration, animations: {
 			self.detailImageView.frame = self.bigFrame
 			self.moreImageView.alpha = 1
+			self.detailImageView.image = self.originalImage
 			}, completion: {(finished) in
 				self.smallerImageTransparentView.removeFromSuperview()
 				self.moreImageView.userInteractionEnabled = true
