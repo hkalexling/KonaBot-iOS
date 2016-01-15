@@ -11,7 +11,7 @@ import Kanna
 import CoreData
 import AFNetworking
 
-class DetailViewController: UIViewController, JTSImageViewControllerInteractionsDelegate, AWActionSheetDelegate, KonaHTMLParserDelegate {
+class DetailViewController: UIViewController, JTSImageViewControllerInteractionsDelegate, AWActionSheetDelegate, KonaHTMLParserDelegate, KonaAPIErrorDelegate {
 	
 	let yuno = Yuno()
 	var baseUrl : String = "http://konachan.com"
@@ -94,7 +94,7 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 		//From FavoriteVC instead of CollectionVC
 		if self.imageUrl == nil {
 			self.moreImageView.userInteractionEnabled = false
-			let konaParser = KonaHTMLParser(delegate: self)
+			let konaParser = KonaHTMLParser(delegate: self, errorDelegate: self)
 			konaParser.getPostInformation(self.postUrl.hasPrefix("http") ? self.postUrl : self.baseUrl + self.postUrl)
 		}
     }
@@ -341,5 +341,11 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 	func konaHTMLParserFinishedParsing(parsedPost: ParsedPost) {
 		self.parsedPost = parsedPost
 		self.downloadImg(self.parsedPost!.url)
+	}
+	
+	func konaAPIGotError(error: NSError) {
+		let alert = AWAlertView.networkAlertFromError(error)
+		self.navigationController?.view.addSubview(alert)
+		alert.showAlert()
 	}
 }

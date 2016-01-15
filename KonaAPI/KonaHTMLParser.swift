@@ -14,29 +14,44 @@ protocol KonaHTMLParserDelegate {
 	func konaHTMLParserFinishedParsing(parsedPost : ParsedPost)
 }
 
+protocol KonaHTMLParserTagsDelegate {
+	func konaHTMLParserFinishedParsing(tags : [String])
+}
+
 //Some data such as comments of a post can not be accessed using API, so I have to parse the HTML and get the information I need
 class KonaHTMLParser: NSObject {
 	
 	private var delegate : KonaHTMLParserDelegate!
+	private var tagDelegate : KonaHTMLParserTagsDelegate!
+	private var errorDelegate : KonaAPIErrorDelegate!
 	private var parsedPost : ParsedPost!
 	
-	init(delegate : KonaHTMLParserDelegate){
+	init(delegate : KonaHTMLParserDelegate, errorDelegate : KonaAPIErrorDelegate){
 		self.delegate = delegate
+		self.errorDelegate = errorDelegate
+	}
+	
+	init(delegate : KonaHTMLParserTagsDelegate, errorDelegate : KonaAPIErrorDelegate){
+		self.tagDelegate = delegate
+		self.errorDelegate = errorDelegate
 	}
 	
 	func getPostInformation (postUrl : String) {
-		self.getPostHTML(postUrl)
+		let successBlock : ((html : String) -> Void) = {(html) in
+			self.parseHTML(html)
+		}
+		self.getHTML(postUrl, successBlock: successBlock)
 	}
 	
-	private func getPostHTML (url : String) {
-		var html = ""
+	private func getHTML (url : String, successBlock : ((html : String) -> Void)) {
 		let manager = AFHTTPSessionManager()
 		manager.responseSerializer = AFHTTPResponseSerializer()
 		manager.GET(url, parameters: nil, progress: nil,
-			success: {(operation, responseObject) -> Void in
-				html = NSString(data: responseObject as! NSData, encoding: NSASCIIStringEncoding)! as String
-				self.parseHTML(html)
+			success: {(task, response) in
+				let html = NSString(data: response as! NSData, encoding: NSASCIIStringEncoding)! as String
+				successBlock(html: html)
 			}, failure: {(operation, error) -> Void in
+				self.errorDelegate.konaAPIGotError(error)
 				print ("Error : \(error)")
 		})
 	}
@@ -73,6 +88,34 @@ class KonaHTMLParser: NSObject {
 		
 		self.parsedPost = ParsedPost(url: imageUrl, tags: tags, time: time, author: author, score: score, rating: rating)
 		self.delegate.konaHTMLParserFinishedParsing(self.parsedPost)
+	}
+	
+	private func parseSuggestedTagsFromHTML (html : String) -> [String] {
+		var suggestedTag : [String] = []
+		if let doc = Kanna.HTML(html: html, encoding: NSUTF8StringEncoding) {
+			let ulList = doc.css("ul#post-list-posts")
+			if ulList.count == 0 {
+				for div in doc.css("div"){
+					if (div.className != nil) {
+						if (div.className! == "status-notice"){
+							for span in div.css("span"){
+								let a = span.at_css("a")!
+								suggestedTag.append(a.text!)
+							}
+						}
+					}
+				}
+			}
+		}
+		return suggestedTag
+	}
+	
+	func getSuggestedTagsFromEmptyTag (tag : String) {
+		let successBlock = {(html : String) in
+			let tags = self.parseSuggestedTagsFromHTML(html)
+			self.tagDelegate.konaHTMLParserFinishedParsing(tags)
+		}
+		self.getHTML("\(Yuno().baseUrl())/post?tags=\(tag)", successBlock: successBlock)
 	}
 }
 

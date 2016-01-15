@@ -10,7 +10,7 @@ import UIKit
 import Kanna
 import AFNetworking
 
-class CollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, KonaAPIPostDelegate, KonaAPIErrorDelegate{
+class CollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, KonaAPIPostDelegate, KonaAPIErrorDelegate, KonaHTMLParserTagsDelegate {
 	
 	var refreshControl : UIRefreshControl!
 	
@@ -184,50 +184,6 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 		self.api.getPosts(self.postsPerRequest, page: self.currentPage, tag: self.keyword)
 	}
 	
-	func getHtml(url : String){
-		let manager = AFHTTPSessionManager()
-		manager.responseSerializer = AFHTTPResponseSerializer()
-	
-		manager.GET(url, parameters: nil, progress: nil,
-			success: {(operation, responseObject) -> Void in
-				
-				let html : NSString = NSString(data: responseObject as! NSData, encoding: NSASCIIStringEncoding)!
-				self.parse(html as String)
-
-			}, failure: {(operation, error) -> Void in
-				print ("Error : \(error)")
-				let alert = AWAlertView.networkAlertFromError(error)
-				self.navigationController?.view.addSubview(alert)
-				alert.showAlert()
-		})
-	}
-	
-	func parse(htmlString : String){
-		if let doc = Kanna.HTML(html: htmlString, encoding: NSUTF8StringEncoding) {
-			let ulList = doc.css("ul#post-list-posts")
-			if ulList.count == 0 {
-				var suggestedTag : [String] = []
-				for div in doc.css("div"){
-					if (div.className != nil) {
-						if (div.className! == "status-notice"){
-							for span in div.css("span"){
-								let a = span.at_css("a")!
-								suggestedTag.append(a.text!)
-							}
-						}
-					}
-				}
-				if (self.searchVC != nil && self.posts.count == 0){
-					self.searchVC!.noResult = true
-					if (suggestedTag.count > 0){
-						self.searchVC!.suggestedTag = suggestedTag
-					}
-					self.navigationController!.popViewControllerAnimated(true)
-				}
-			}
-		}
-	}
-	
 	func konaAPIDidGetPost(ary: [Post]) {
 		if ary.count == 0 && self.keyword != "" {
 			self.handleEmtptySearch()
@@ -250,8 +206,19 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 		alert.showAlert()
 	}
 	
+	func konaHTMLParserFinishedParsing(tags: [String]) {
+		if (self.searchVC != nil && self.posts.count == 0){
+			self.searchVC!.noResult = true
+			if (tags.count > 0){
+				self.searchVC!.suggestedTag = tags
+			}
+			self.navigationController!.popViewControllerAnimated(true)
+		}
+	}
+	
 	//Parse HTML and get suggested tags
 	func handleEmtptySearch(){
-		self.getHtml("\(Yuno().baseUrl())/post?tags=\(self.keyword)")
+		let konaParser = KonaHTMLParser(delegate: self, errorDelegate: self)
+		konaParser.getSuggestedTagsFromEmptyTag(self.keyword)
 	}
 }
