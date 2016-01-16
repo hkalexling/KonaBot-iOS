@@ -20,7 +20,8 @@ See how it works in action: [YouTube](https://www.youtube.com/watch?v=GHr2EPdIcM
 
 ## v2.0.0 Todo
 
-- [ ] Add more features, e.g.: log in, vote, view score, view and create comments, etc.
+- [X] Allow uses to check post information, e.g. tags, author, created time, rating and score
+- [X] Allow user to share the post they like to social accounts including Twitter, Facebook and Weibo
 
 ## v1.1.0 Todo
 
