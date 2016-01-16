@@ -31,6 +31,7 @@
 		7152C1DA1BE4F97200A44945 /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7152C1D91BE4F97200A44945 /* CollectionViewController.swift */; };
 		7152C1DC1BE4F9AC00A44945 /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7152C1DB1BE4F9AC00A44945 /* ImageCell.swift */; };
 		716CABC31C47A0B500FD6977 /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 716CABC21C47A0B500FD6977 /* TagView.swift */; };
+		7177E9001C4AD09400109502 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7177E8FF1C4AD09400109502 /* Social.framework */; };
 		7179F9211C428C020037A16D /* KonaAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7179F9201C428C020037A16D /* KonaAPI.swift */; };
 		7179F9231C428D680037A16D /* PostStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7179F9221C428D680037A16D /* PostStruct.swift */; };
 		718378381BE7EF8000131A74 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 718378361BE7EF8000131A74 /* Model.xcdatamodeld */; };
@@ -86,6 +87,7 @@
 		7152C1D91BE4F97200A44945 /* CollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
 		7152C1DB1BE4F9AC00A44945 /* ImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
 		716CABC21C47A0B500FD6977 /* TagView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
+		7177E8FF1C4AD09400109502 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		7179F9201C428C020037A16D /* KonaAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KonaAPI.swift; sourceTree = "<group>"; };
 		7179F9221C428D680037A16D /* PostStruct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostStruct.swift; sourceTree = "<group>"; };
 		718378371BE7EF8000131A74 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7177E9001C4AD09400109502 /* Social.framework in Frameworks */,
 				71B2FC8B1BF7A359000B862D /* StoreKit.framework in Frameworks */,
 				9ED8778B9163BFB7FA813BD4 /* Pods.framework in Frameworks */,
 			);
@@ -315,6 +318,7 @@
 		F12FBDFA18695533EA3CEFED /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7177E8FF1C4AD09400109502 /* Social.framework */,
 				D7B31C0517915B780B0EC2D9 /* Pods.framework */,
 			);
 			name = Frameworks;

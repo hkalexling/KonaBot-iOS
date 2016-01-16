@@ -15,10 +15,10 @@ class AWAlertView: UIView {
 	
 	let offset : CGFloat = 30
 	
-	let animationDuration : NSTimeInterval = 0.5
-	let alertShowTime : NSTimeInterval = 2
+	var animationDuration : NSTimeInterval = 0.5
+	var alertShowTime : NSTimeInterval = 2
 	
-	let cornerRadius : CGFloat = 15
+	var cornerRadius : CGFloat = 15
 	
 	var alertHidden : Bool = true
 	

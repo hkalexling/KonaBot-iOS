@@ -48,3 +48,10 @@
 
 "Failed to Save Image" = "保存圖片失敗 QuQ";
 "Please detele some unwanted files and try again" = "刪掉些不需要的文件再試試吧~";
+
+"Share to..." = "分享至...";
+
+"Weibo" = "微博";
+"Check out this post on Konachan! \nvia #KonaBot" = "分享 Konachan 上的圖片~ \nvia #KonaBot";
+"Service Not Avaiable" = "帳號尚未設定";
+"Please set up the social account in Settings or use another service" = "請到系統設置中設定社交帳號，或者選用其它社交服務~";

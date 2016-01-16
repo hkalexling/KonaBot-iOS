@@ -10,6 +10,7 @@ import UIKit
 import Kanna
 import CoreData
 import AFNetworking
+import Social
 
 class DetailViewController: UIViewController, JTSImageViewControllerInteractionsDelegate, AWActionSheetDelegate, KonaHTMLParserDelegate, KonaAPIErrorDelegate {
 	
@@ -258,12 +259,31 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 			UIApplication.sharedApplication().openURL(NSURL(string: "\(self.baseUrl)\(self.postUrl)")!)
 		})
 		
+		let shareAction = AWActionSheetAction(title: "Share to...".localized, handler: {
+			let twitterAction = AWActionSheetAction(title: "Twitter", handler: {self.shareToSocial(SLServiceTypeTwitter)})
+			let facebookAction = AWActionSheetAction(title: "Facebook", handler: {self.shareToSocial(SLServiceTypeFacebook)})
+			let weiboAction = AWActionSheetAction(title: "Weibo".localized, handler: {self.shareToSocial(SLServiceTypeSinaWeibo)})
+			let shareActionSheet = AWActionSheet(parentView: self.imageViewer.view, actions: [twitterAction, facebookAction, weiboAction])
+			self.actionSheetSetStyle(shareActionSheet)
+			self.imageViewer.view.addSubview(shareActionSheet)
+			shareActionSheet.showActionSheet()
+		})
+		
 		awActionSheet.addAction(saveAction)
 		awActionSheet.addAction(self.favoriteList.contains(self.postUrl) ?  unfavoriteAction : favoriteAction)
 		awActionSheet.addAction(copyAction)
 		awActionSheet.addAction(copyLinkAction)
 		awActionSheet.addAction(openAction)
+		awActionSheet.addAction(shareAction)
 		
+		self.actionSheetSetStyle(awActionSheet)
+		
+		self.imageViewer.view.addSubview(awActionSheet)
+		self.allowLongPress = false
+		awActionSheet.showActionSheet()
+	}
+	
+	func actionSheetSetStyle (awActionSheet : AWActionSheet ){
 		awActionSheet.animationDuraton = 0.8
 		awActionSheet.cancelButtonColor = UIColor.themeColor()
 		let componets = UIColor.themeColor().components
@@ -278,10 +298,6 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 			awActionSheet.buttonFont = UIFont.systemFontOfSize(20)
 			awActionSheet.cancelButtonFont = UIFont.boldSystemFontOfSize(20)
 		}
-		
-		self.imageViewer.view.addSubview(awActionSheet)
-		self.allowLongPress = false
-		awActionSheet.showActionSheet()
 	}
 	
 	func imageSaved(image: UIImage, didFinishSavingWithError error: NSErrorPointer, contextInfo: UnsafePointer<()>) {
@@ -362,5 +378,21 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 		let alert = AWAlertView.networkAlertFromError(error)
 		self.navigationController?.view.addSubview(alert)
 		alert.showAlert()
+	}
+	
+	func shareToSocial (serviceType : String) {
+		if SLComposeViewController.isAvailableForServiceType(serviceType) {
+			let controller = SLComposeViewController(forServiceType: serviceType)
+			controller.setInitialText("Check out this post on Konachan! \nvia #KonaBot".localized)
+			controller.addImage(self.imageViewer.image)
+			controller.addURL(NSURL(string: self.postUrl.hasPrefix("http") ? self.postUrl : self.baseUrl + self.postUrl))
+			self.imageViewer.presentViewController(controller, animated: true, completion: nil)
+		}
+		else{
+			let alert = AWAlertView.redAlertFromTitleAndMessage("Service Not Avaiable".localized, message: "Please set up the social account in Settings or use another service".localized)
+			alert.alertShowTime = 4
+			self.imageViewer.view.addSubview(alert)
+			alert.showAlert()
+		}
 	}
 }
