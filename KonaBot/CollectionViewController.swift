@@ -131,6 +131,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 		
 		if let img = Yuno().fetchImageWithKey("Preview", key: self.posts[indexPath.row].previewUrl) {
 			cell.imageView.image = img
+			self.postSelectable[indexPath.row] = true
 		}
 		else{
 			cell.imageView.image = UIImage.imageWithColor(UIColor.darkGrayColor())

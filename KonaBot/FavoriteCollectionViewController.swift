@@ -87,7 +87,9 @@ class FavoriteCollectionViewController: UICollectionViewController, UICollection
 			if var img = self.yuno.fetchImageWithKey("FavoritedImage", key: self.favoritePostList[indexPath.row]){
 				img = img.resize(cell.imageView.bounds.width * self.previewQuility)
 				dispatch_async(dispatch_get_main_queue(), {
-					cell.imageView.image = img
+					UIView.transitionWithView(cell.imageView, duration: 0.5, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: {
+						cell.imageView.image = img
+						}, completion: nil)
 				})
 			}
 		})
