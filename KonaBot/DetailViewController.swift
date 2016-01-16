@@ -38,7 +38,7 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 	
 	let moreImageView = UIImageView()
 	let postDetailTableViewContainer = UIView()
-	let smallerHeight : CGFloat = 100
+	var smallerHeight : CGFloat = 100
 	let smallerImageTransparentView = UIView()
 	let animationDuration : NSTimeInterval = 0.3
 	var bigFrame : CGRect = CGRectZero
@@ -52,6 +52,11 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 	
     override func viewDidLoad() {
         super.viewDidLoad()
+		
+		//iPad
+		if UIScreen.mainScreen().bounds.width > 415 {
+			self.smallerHeight = 200
+		}
 				
 		self.loadingBackgroundView.frame = self.view.frame
 		
