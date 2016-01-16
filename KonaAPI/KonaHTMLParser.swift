@@ -89,7 +89,7 @@ class KonaHTMLParser: NSObject {
 		
 		time = lis[1].at_css("a")!["title"]!.konaChanTimeToUnixTime()
 		author = lis[1].css("a")[1].text!
-		rating = lis[4].text!.componentsSeparatedByString(" ")[1]
+		rating = lis[4].text!.componentsSeparatedByString(" ")[1].localized
 		score = lis[5].at_css("span")!.text!
 		
 		self.parsedPost = ParsedPost(url: imageUrl, tags: tags, time: time, author: author, score: score, rating: rating)

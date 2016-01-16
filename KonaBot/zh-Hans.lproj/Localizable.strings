@@ -52,6 +52,17 @@
 "Share to..." = "分享至...";
 
 "Weibo" = "微博";
-"Check out this post on Konachan! \nvia #KonaBot" = "分享 Konachan 上的图片~ \nvia #KonaBot";
+"Shared via #KonaBot_iOS" = "分享自 #KonaBot_iOS";
 "Service Not Avaiable" = "账号尚未设定";
 "Please set up the social account in Settings or use another service" = "请到系统设置中设定社交账号，或者使用其他的社交服务~";
+
+"Post Information" = "基本信息";
+"Tags" = "标签";
+"Author" = "作者";
+"Created at" = "创建于";
+"Score" = "分数";
+"Rating" = "分级";
+
+"Safe" = "安全";
+"Questionable" = "质疑";
+"Explicit" = "R18";

@@ -53,7 +53,17 @@
 "Share to..." = "Share to...";
 
 "Weibo" = "Weibo";
-"Check out this post on Konachan! \nvia #KonaBot" = "Check out this post on Konachan! \nvia #KonaBot";
+"Shared via #KonaBot_iOS" = "Shared via #KonaBot_iOS";
 "Service Not Avaiable" = "Service Not Avaiable";
 "Please set up the social account in Settings or use another service" = "Please set up the social account in Settings or use another service";
 
+"Post Information" = "Post Information";
+"Tags" = "Tags";
+"Author" = "Author";
+"Created at" = "Created at";
+"Score" = "Score";
+"Rating" = "Rating";
+
+"Safe" = "Safe";
+"Questionable" = "Questionable";
+"Explicit" = "Explicit";

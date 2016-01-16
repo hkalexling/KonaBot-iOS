@@ -56,9 +56,9 @@ class PostDetailTableViewController: UITableViewController, TagViewDelegate {
 		
 		switch section{
 		case 0:
-			headerView.text = "Post Information"
+			headerView.text = "Post Information".localized
 		case 1:
-			headerView.text = "Tags"
+			headerView.text = "Tags".localized
 		default:
 			headerView.text = ""
 		}
@@ -76,36 +76,36 @@ class PostDetailTableViewController: UITableViewController, TagViewDelegate {
 			let cell = tableView.dequeueReusableCellWithIdentifier("postNameCell", forIndexPath: indexPath) as! PostNameCell
 			if row == 0 {
 				if let _post = self.post {
-					cell.label.text = "Author: \(_post.author)"
+					cell.label.text = "Author".localized + ": \(_post.author)"
 				}
 				if let _parsed = self.parsedPost {
-					cell.label.text = "Author: \(_parsed.author)"
+					cell.label.text = "Author".localized + ": \(_parsed.author)"
 				}
 			}
 			if row == 1 {
 				if let _post = self.post {
 					let date = NSDate(timeIntervalSince1970: NSTimeInterval(_post.created_at))
-					cell.label.text = "Created at: " + NSDateFormatter.localizedStringFromDate(date, dateStyle: .MediumStyle, timeStyle: .ShortStyle)
+					cell.label.text = "Created at".localized + ": " + NSDateFormatter.localizedStringFromDate(date, dateStyle: .MediumStyle, timeStyle: .ShortStyle)
 				}
 				if let _parsed = self.parsedPost {
 					let date = NSDate(timeIntervalSince1970: NSTimeInterval(_parsed.time))
-					cell.label.text = "Created at: " + NSDateFormatter.localizedStringFromDate(date, dateStyle: .MediumStyle, timeStyle: .ShortStyle)
+					cell.label.text = "Created at".localized + ": " + NSDateFormatter.localizedStringFromDate(date, dateStyle: .MediumStyle, timeStyle: .ShortStyle)
 				}
 			}
 			if row == 2 {
 				if let _post = self.post {
-					cell.label.text = "Score: \(_post.score)"
+					cell.label.text = "Score".localized + ": \(_post.score)"
 				}
 				if let _parsed = self.parsedPost {
-					cell.label.text = "Score: \(_parsed.score)"
+					cell.label.text = "Score".localized + ": \(_parsed.score)"
 				}
 			}
 			if row == 3 {
 				if let _post = self.post {
-					cell.label.text = "Rating: " + _post.rating
+					cell.label.text = "Rating".localized + ": " + _post.rating
 				}
 				if let _parsed = self.parsedPost {
-					cell.label.text = "Rating: " + _parsed.rating
+					cell.label.text = "Rating".localized + ": " + _parsed.rating
 				}
 			}
 			return cell

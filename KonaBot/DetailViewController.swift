@@ -383,7 +383,7 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 	func shareToSocial (serviceType : String) {
 		if SLComposeViewController.isAvailableForServiceType(serviceType) {
 			let controller = SLComposeViewController(forServiceType: serviceType)
-			controller.setInitialText("Check out this post on Konachan! \nvia #KonaBot".localized)
+			controller.setInitialText("Shared via #KonaBot_iOS".localized)
 			controller.addImage(self.imageViewer.image)
 			controller.addURL(NSURL(string: self.postUrl.hasPrefix("http") ? self.postUrl : self.baseUrl + self.postUrl))
 			self.imageViewer.presentViewController(controller, animated: true, completion: nil)

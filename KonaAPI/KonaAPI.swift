@@ -61,11 +61,11 @@ class KonaAPI: NSObject {
 				var _rating = ""
 				switch rating{
 					case "s":
-					_rating = "Save"
+					_rating = "Safe".localized
 					case "q":
-					_rating = "Questionable"
+					_rating = "Questionable".localized
 					case "e":
-					_rating = "Explicit"
+					_rating = "Explicit".localized
 					default: break
 				}
 				rating = _rating
