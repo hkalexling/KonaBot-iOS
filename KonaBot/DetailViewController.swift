@@ -33,8 +33,6 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 	
 	var favoriteList : [String]!
 	
-	let blockView = UIView()
-	
 	var shouldDownloadWhenViewAppeared : Bool = true
 	var allowLongPress : Bool = true
 	
@@ -48,16 +46,17 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 	
 	var originalImage = UIImage()
 	
+	let loadingBackgroundView = UIImageView()
+	var loadingSize : CGFloat = 80
+	var loadingView : RZSquaresLoading!
+	
     override func viewDidLoad() {
         super.viewDidLoad()
+				
+		self.loadingBackgroundView.frame = self.view.frame
 		
-		self.navigationItem.hidesBackButton = true
-		
-		//I don't know why but simply setting `tabBar.userInteractionEnabled = false` does not work. So I am using this dirty approach.
-		self.blockView.frame = CGRectMake(0, 0, CGSize.screenSize().width, 100)
-		self.tabBarController?.tabBar.addSubview(self.blockView)
-		
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: "unlock:", name: "unlock", object: nil)
+		self.loadingView = RZSquaresLoading(frame: CGRectMake(CGSize.screenSize().width/2 - loadingSize/2, CGSize.screenSize().height/2 - loadingSize/2, loadingSize, loadingSize))
+		self.loadingView.color = UIColor.konaColor()
 		
 		let bgView = UIView(frame: self.view.frame)
 		bgView.backgroundColor = UIColor.themeColor()
@@ -92,24 +91,30 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 		self.smallerImageTransparentView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "smallerViewTapped"))
 		
 		self.postDetailTableViewContainer.frame = CGRectMake(0, self.smallerImageTransparentView.frame.maxY, CGSize.screenSize().width, CGSize.screenSize().height - self.smallerImageTransparentView.frame.maxY - CGFloat.tabBarHeight())
-		
-		//From FavoriteVC instead of CollectionVC
-		if self.imageUrl == nil {
-			self.moreImageView.userInteractionEnabled = false
-			let konaParser = KonaHTMLParser(delegate: self, errorDelegate: self)
-			konaParser.getPostInformation(self.postUrl.hasPrefix("http") ? self.postUrl : self.baseUrl + self.postUrl)
-		}
+		self.postDetailTableViewContainer.clipsToBounds = true
     }
 	
 	override func viewDidAppear(animated: Bool) {
 		
-		if self.imageUrl == nil {
+		if !self.shouldDownloadWhenViewAppeared {
 			return
 		}
 		
-		if self.shouldDownloadWhenViewAppeared {
+		//From FavoriteVC
+		if self.imageUrl == nil {
+			self.loadingBackgroundView.image = UIImage.imageFromUIView(self.tabBarController!.view).applyDarkEffect()
+			self.moreImageView.userInteractionEnabled = false
+			self.tabBarController?.view.addSubview(self.loadingBackgroundView)
+			self.loadingBackgroundView.addSubview(self.loadingView)
+			self.tabBarController!.view.userInteractionEnabled = false
+			let konaParser = KonaHTMLParser(delegate: self, errorDelegate: self)
+			konaParser.getPostInformation(self.postUrl.hasPrefix("http") ? self.postUrl : self.baseUrl + self.postUrl)
+		}
+		//From CollectionVC
+		else if self.shouldDownloadWhenViewAppeared {
 			self.downloadImg(self.imageUrl!)
 		}
+		
 		self.shouldDownloadWhenViewAppeared = false
 	}
 	
@@ -295,15 +300,6 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 		})
 	}
 	
-	func unlock (sender : NSNotification) {
-		let dispatchTime: dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW, Int64(0.3 * Double(NSEC_PER_SEC)))
-		dispatch_after(dispatchTime, dispatch_get_main_queue(), {
-			self.navigationItem.hidesBackButton = false
-			self.moreImageView.userInteractionEnabled = true
-			self.blockView.removeFromSuperview()
-		})
-	}
-	
 	func moreButtonTapped(){
 		self.moreImageView.userInteractionEnabled = false
 		UIView.animateWithDuration(self.animationDuration, animations: {
@@ -340,15 +336,24 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 		postDetailTableVC.parsedPost = self.parsedPost
 		postDetailTableVC.parentVC = self
 		self.addChildViewController(postDetailTableVC)
+		postDetailTableVC.view.frame = self.postDetailTableViewContainer.bounds
 		self.postDetailTableViewContainer.addSubview(postDetailTableVC.tableView)
 	}
 	
+	func unlock() {
+		self.loadingBackgroundView.removeFromSuperview()
+		self.tabBarController!.view.userInteractionEnabled = true
+	}
+	
 	func konaHTMLParserFinishedParsing(parsedPost: ParsedPost) {
+		self.unlock()
 		self.parsedPost = parsedPost
 		self.downloadImg(self.parsedPost!.url)
+		self.moreImageView.userInteractionEnabled = true
 	}
 	
 	func konaAPIGotError(error: NSError) {
+		self.unlock()
 		let alert = AWAlertView.networkAlertFromError(error)
 		self.navigationController?.view.addSubview(alert)
 		alert.showAlert()

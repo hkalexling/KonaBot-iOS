@@ -34,7 +34,7 @@ class PostDetailTableViewController: UITableViewController, TagViewDelegate {
     }
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 3
+        return 2
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -43,9 +43,6 @@ class PostDetailTableViewController: UITableViewController, TagViewDelegate {
 		}
 		if section == 1 {
 			return 1
-		}
-		if section == 2 {
-			return 5
 		}
 		return 0
     }
