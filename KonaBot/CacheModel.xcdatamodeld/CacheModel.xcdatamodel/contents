@@ -4,18 +4,12 @@
         <attribute name="image" optional="YES" attributeType="Binary" indexed="YES" syncable="YES"/>
         <attribute name="key" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
     </entity>
-    <entity name="FavoritedImage" syncable="YES">
-        <attribute name="image" optional="YES" attributeType="Binary" syncable="YES"/>
-        <attribute name="isFullSize" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
-        <attribute name="key" optional="YES" attributeType="String" syncable="YES"/>
-    </entity>
     <entity name="Preview" syncable="YES">
         <attribute name="image" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="key" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="FavoritedImage" positionX="-36" positionY="18" width="128" height="90"/>
-        <element name="Cache" positionX="-18" positionY="45" width="128" height="75"/>
-        <element name="Preview" positionX="0" positionY="63" width="128" height="75"/>
+        <element name="Cache" positionX="-63" positionY="-18" width="128" height="75"/>
+        <element name="Preview" positionX="-54" positionY="9" width="128" height="75"/>
     </elements>
 </model>

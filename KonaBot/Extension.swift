@@ -232,7 +232,7 @@ public class Yuno{
 	
 	public func saveImageWithKey(entity : String, image : UIImage, key : String){
 		let data = NSKeyedArchiver.archivedDataWithRootObject(image)
-		let managedContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+		let managedContext = entity == "FavoritedImage" ? (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext : CacheManager.sharedInstance.managedObjectContext
 		let entity = NSEntityDescription.entityForName(entity,
 			inManagedObjectContext: managedContext)
 		let options = NSManagedObject(entity: entity!,
@@ -251,7 +251,7 @@ public class Yuno{
 	}
 	
 	public func fetchImageWithKey(entity : String, key : String) -> UIImage?{
-		let managedContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+		let managedContext = entity == "FavoritedImage" ? (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext : CacheManager.sharedInstance.managedObjectContext
 		let fetchRequest = NSFetchRequest(entityName: entity)
 		fetchRequest.predicate = NSPredicate(format: "key == %@", key)
 		
@@ -289,7 +289,7 @@ public class Yuno{
 	}
 	
 	public func deleteRecordForKey(entity : String, key : String) {
-		let managedContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+		let managedContext = entity == "FavoritedImage" ? (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext : CacheManager.sharedInstance.managedObjectContext
 		let fetchRequest = NSFetchRequest(entityName: entity)
 		fetchRequest.predicate = NSPredicate(format: "key == %@", key)
 		
@@ -370,7 +370,7 @@ public class Yuno{
 	}
 	
 	public func deleteEntity(entity : String){
-		let managedContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+		let managedContext = entity == "FavoritedImage" ? (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext : CacheManager.sharedInstance.managedObjectContext
 		let fetchRequest = NSFetchRequest(entityName: entity)
 		
 		var fetchedResults : [NSManagedObject] = []

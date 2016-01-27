@@ -27,9 +27,6 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 	
 	var currentPage : Int = 1
 	
-	var numberOfPagesTried : Int = 0
-	var maxNumberOfPagesToTry : Int = 3
-	
 	var compact : Bool = true
 	
 	var cellWidth : CGFloat!
@@ -121,7 +118,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
     }
 	
 	override func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
-		if indexPath.row == self.posts.count - 5 {
+		if indexPath.row == self.posts.count - (self.posts.count >= 4 ? 5 : 1) {
 			self.loadMore()
 		}
 	}

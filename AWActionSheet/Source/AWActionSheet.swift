@@ -111,7 +111,7 @@ class AWActionSheet: UIView {
 		let cancelButton = UIButton(type: .System)
 		cancelButton.backgroundColor = self.cancelButtonColor
 		cancelButton.setTitleColor(self.textColor, forState: .Normal)
-		cancelButton.setTitle("Cancel", forState: .Normal)
+		cancelButton.setTitle("Cancel".localized, forState: .Normal)
 		cancelButton.titleLabel?.font = self.cancelButtonFont
 		cancelButton.addTarget(self, action: "dismiss", forControlEvents: .TouchUpInside)
 		cancelButton.frame = CGRectMake((self.width - self.buttonWidth)/2, self.height - self.buttonHeight - 20, self.buttonWidth, self.buttonHeight)

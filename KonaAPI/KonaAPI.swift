@@ -27,6 +27,8 @@ protocol KonaAPIErrorDelegate {
 
 class KonaAPI: NSObject {
 	
+	private let baseUrl = "http://konachan.com"
+	
 	private let manager = AFHTTPSessionManager()
 	private var r18 : Bool = false
 	
@@ -77,14 +79,14 @@ class KonaAPI: NSObject {
 				let score : Int = post["score"] as! Int
 				let author : String = post["author"] as! String
 				let created_at : Int = post["created_at"] as! Int
-
-				let postObj = Post(postUrl : "http://konachan.com/post/show/\(id)", previewUrl: previewUrl, url: url, heightOverWidth: heightOverWidth, tags: postTags, score: score, rating: rating, author: author, created_at: created_at)
+				
+				let postObj = Post(postUrl : self.baseUrl + "/post/show/\(id)", previewUrl: previewUrl, url: url, heightOverWidth: heightOverWidth, tags: postTags, score: score, rating: rating, author: author, created_at: created_at)
 				self.postAry.append(postObj)
 			}
 			self.postDelegate?.konaAPIDidGetPost(self.postAry)
 			self.postAry = []
 		}
-		self.makeHTTPRequest(true, url: "http://konachan.net/post.json", parameters: parameters, successBlock: successBlock)
+		self.makeHTTPRequest(true, url: self.baseUrl + "/post.json", parameters: parameters, successBlock: successBlock)
 	}
 	
 	//Types:  General: 0, artist: 1, copyright: 3, character: 4
@@ -102,7 +104,7 @@ class KonaAPI: NSObject {
 			self.tagDelegate?.konaAPIDidGetTag(self.tagAry)
 			self.tagAry = []
 		}
-		self.makeHTTPRequest(false, url: "http://konachan.net/tag.json", parameters: parameters, successBlock: successBlock)
+		self.makeHTTPRequest(false, url: self.baseUrl + "/tag.json", parameters: parameters, successBlock: successBlock)
 	}
 	
 	func makeHTTPRequest(isPost : Bool, url : String, parameters : AnyObject?, successBlock: ((NSURLSessionDataTask, AnyObject?) -> Void)?){
