@@ -103,10 +103,12 @@ class SearchViewController: UIViewController, UISearchBarDelegate, KonaAPITagDel
 		var searchText = self.searchBar.text!
 		searchText = self.prepareSearchKeyword(searchText)
 		if (!searchText.isEmpty){
+			/*
 			if (searchText == "r18"){
 				self.toggleR18()
 				return
 			}
+			*/
 			self.keyword = searchText
 			self.handleSearch()
 		}
