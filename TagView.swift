@@ -58,6 +58,9 @@ class TagView: UIView {
 			label.layer.cornerRadius = self.cornerRadius
 			label.clipsToBounds = true
 			label.frame = CGRectMake(0, 0, label.bounds.width + 2 * self.xExtension, label.bounds.height + 2 * self.yExtension)
+			if label.frame.size.width > UIScreen.mainScreen().bounds.width - 2 * self.xEdge {
+				label.frame = CGRectMake(label.frame.origin.x, label.frame.origin.y, UIScreen.mainScreen().bounds.width - 2 * self.xEdge, label.frame.height)
+			}
 			
 			if yCenter == 0 {
 				yCenter = self.yEdge + label.bounds.height/2
