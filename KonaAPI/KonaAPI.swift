@@ -38,7 +38,7 @@ class KonaAPI: NSObject {
 	
 	private var postAry : [Post] = []
 	private var tagAry : [String] = []
-	private let hiddenTags : [String] = ["nipples", "cleavage", "pussy", "nude" , "ass", "panties", "breasts"]
+	static let hiddenTags : [String] = ["nipples", "cleavage", "pussy", "nude" , "ass", "panties", "breasts", "porn"]
 	
 	init(r18 : Bool, delegate : KonaAPIPostDelegate, errorDelegate : KonaAPIErrorDelegate){
 		self.r18 = r18
@@ -96,10 +96,10 @@ class KonaAPI: NSObject {
 		let successBlock = {(task : NSURLSessionDataTask, response : AnyObject?) in
 			for tag in response as! [NSDictionary]{
 				let tagStr = tag.objectForKey("name") as! String
-				if self.hiddenTags.contains(tagStr) && !self.r18 {
-					continue
-				}
 				self.tagAry.append(tagStr)
+			}
+			if !self.r18 {
+				self.tagAry = KonaAPI.r18Filter(self.tagAry)
 			}
 			self.tagDelegate?.konaAPIDidGetTag(self.tagAry)
 			self.tagAry = []
@@ -128,5 +128,18 @@ class KonaAPI: NSObject {
 			}
 		}
 		return parameters
+	}
+	
+	class func r18Filter (tags : [String]) -> [String] {
+		var safeTags : [String] = []
+		tagLoop: for tag in tags {
+			for hidden in KonaAPI.hiddenTags {
+				if tag.rangeOfString(hidden) != nil {
+					continue tagLoop
+				}
+			}
+			safeTags.append(tag)
+		}
+		return safeTags
 	}
 }

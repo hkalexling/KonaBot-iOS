@@ -218,6 +218,10 @@ public class Yuno{
 	var imageCoreData = [NSManagedObject]()
 	var favoriteCoreData = [NSManagedObject]()
 	
+	class func r18() -> Bool {
+		return NSUserDefaults.standardUserDefaults().boolForKey("r18")
+	}
+	
 	func baseUrl() -> String{
 
 		let r18 = NSUserDefaults.standardUserDefaults().boolForKey("r18")

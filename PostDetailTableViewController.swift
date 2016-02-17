@@ -23,14 +23,8 @@ class PostDetailTableViewController: UITableViewController, TagViewDelegate {
 		self.tableView.estimatedRowHeight = 44
 		self.tableView.separatorColor = UIColor.clearColor()
 		
-		if let _post = self.post {
-			self.tagView = TagView(tags: _post.tags, textColor: UIColor.themeColor(), tagColor: UIColor.konaColor(), font: UIFont.systemFontOfSize(17))
-			self.tagView!.delegate = self
-		}
-		if let _parsed = self.parsedPost {
-			self.tagView = TagView(tags: _parsed.tags, textColor: UIColor.themeColor(), tagColor: UIColor.konaColor(), font: UIFont.systemFontOfSize(17))
-			self.tagView!.delegate = self
-		}
+		let tags = self.post != nil ? self.post!.tags : self.parsedPost!.tags
+		self.tagView = TagView(tags: tags, textColor: UIColor.themeColor(), tagColor: UIColor.konaColor(), font: UIFont.systemFontOfSize(17))
     }
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
