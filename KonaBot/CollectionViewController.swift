@@ -34,6 +34,8 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 	var columnNum : Int!
 	
 	var api : KonaAPI!
+	
+	var alert : AWAlertView?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -166,9 +168,15 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 			Yuno().saveImageWithKey("Preview", image: view.image!, key: url)
 			}, failure: {(task, error) in
 				print (error.localizedDescription)
-				let alert = AWAlertView.networkAlertFromError(error)
-				self.navigationController?.view.addSubview(alert)
-				alert.showAlert()
+				
+				if let _alert = self.alert {
+					if !_alert.alertHidden {
+						return
+					}
+				}
+				self.alert = AWAlertView.networkAlertFromError(error)
+				self.navigationController?.view.addSubview(self.alert!)
+				self.alert!.showAlert()
 		})
 	}
 	
@@ -198,9 +206,14 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 	}
 	
 	func konaAPIGotError(error: NSError) {
-		let alert = AWAlertView.networkAlertFromError(error)
-		self.navigationController?.view.addSubview(alert)
-		alert.showAlert()
+		if let _alert = self.alert {
+			if !_alert.alertHidden {
+				return
+			}
+		}
+		self.alert = AWAlertView.networkAlertFromError(error)
+		self.navigationController?.view.addSubview(self.alert!)
+		self.alert!.showAlert()
 	}
 	
 	func konaHTMLParserFinishedParsing(tags: [String]) {

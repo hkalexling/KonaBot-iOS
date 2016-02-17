@@ -58,6 +58,7 @@ class AWAlertView: UIView {
 	}
 	
 	func showAlert(){
+		self.alertHidden = false
 		UIView.animateWithDuration(self.animationDuration, delay: 0, usingSpringWithDamping: 0.4, initialSpringVelocity: 0, options : [], animations: {
 			self.frame = self.alertShownFrame
 			}, completion: {(finished) in
