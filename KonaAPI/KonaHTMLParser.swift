@@ -92,7 +92,7 @@ class KonaHTMLParser: NSObject {
 		rating = lis[4].text!.componentsSeparatedByString(" ")[1].localized
 		score = lis[5].at_css("span")!.text!
 		
-		if !Yuno.r18() {
+		if !Yuno.r18 {
 			tags = KonaAPI.r18Filter(tags)
 		}
 		
@@ -117,7 +117,7 @@ class KonaHTMLParser: NSObject {
 				}
 			}
 		}
-		if !Yuno.r18() {
+		if !Yuno.r18 {
 			suggestedTag = KonaAPI.r18Filter(suggestedTag)
 		}
 		return suggestedTag

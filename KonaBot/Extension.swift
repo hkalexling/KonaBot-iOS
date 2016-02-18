@@ -218,7 +218,7 @@ public class Yuno{
 	var imageCoreData = [NSManagedObject]()
 	var favoriteCoreData = [NSManagedObject]()
 	
-	class func r18() -> Bool {
+	static var r18 : Bool {
 		return NSUserDefaults.standardUserDefaults().boolForKey("r18")
 	}
 	
@@ -384,7 +384,7 @@ public class Yuno{
 		catch{
 			print (error)
 		}
-		
+
 		if fetchedResults.count > 0 {
 			for result in fetchedResults{
 				managedContext.deleteObject(result)

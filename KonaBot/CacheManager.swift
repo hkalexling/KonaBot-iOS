@@ -71,7 +71,4 @@ class CacheManager: NSObject {
 			}
 		}
 	}
-	
-
-	
 }

@@ -98,6 +98,15 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 		
 		self.postDetailTableViewContainer.frame = CGRectMake(0, self.smallerImageTransparentView.frame.maxY, CGSize.screenSize().width, CGSize.screenSize().height - self.smallerImageTransparentView.frame.maxY - CGFloat.tabBarHeight())
 		self.postDetailTableViewContainer.clipsToBounds = true
+		
+		//swipe
+		let swipeRecognizer = UISwipeGestureRecognizer(target: self, action: "moreButtonTapped")
+		swipeRecognizer.direction = .Up
+		self.view.addGestureRecognizer(swipeRecognizer)
+		
+		let downSwipeRecognizer = UISwipeGestureRecognizer(target: self, action: "smallerViewTapped")
+		downSwipeRecognizer.direction = .Down
+		self.smallerImageTransparentView.addGestureRecognizer(downSwipeRecognizer)
     }
 	
 	override func viewDidAppear(animated: Bool) {
