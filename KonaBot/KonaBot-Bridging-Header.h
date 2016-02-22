@@ -9,4 +9,5 @@
 #import "JTSImageInfo.h"
 #import "JTSImageViewController.h"
 #import "RZSquaresLoading.h"
+#import "ProgressIndicatorView.h"
 

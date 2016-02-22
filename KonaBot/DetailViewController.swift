@@ -117,10 +117,30 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 		
 		//From FavoriteVC
 		if self.imageUrl == nil {
-			self.loadingBackgroundView.image = UIImage.imageFromUIView(self.tabBarController!.view).applyDarkEffect()
+			
+			let screenshotImageView = UIImageView(frame: self.loadingBackgroundView.frame)
+			screenshotImageView.image = UIImage.imageFromUIView(self.tabBarController!.view)
+			self.loadingBackgroundView.addSubview(screenshotImageView)
+			
+			self.loadingBackgroundView.image = UIImage.imageWithColor(UIColor.blackColor())
 			self.moreImageView.userInteractionEnabled = false
 			self.tabBarController?.view.addSubview(self.loadingBackgroundView)
-			self.loadingBackgroundView.addSubview(self.loadingView)
+			
+			UIView.animateWithDuration(0.3, delay: 0, options: [UIViewAnimationOptions.CurveEaseInOut], animations: {
+				
+				screenshotImageView.frame = CGRectMake(0, 0, screenshotImageView.bounds.size.width * 0.9, screenshotImageView.bounds.size.height * 0.9)
+				screenshotImageView.center = self.view.center
+				}, completion: { (finished) in
+					let blurView = UIImageView(frame: self.loadingBackgroundView.frame)
+					blurView.image = UIImage.imageFromUIView(self.tabBarController!.view).applyDarkEffect()
+					self.loadingBackgroundView.addSubview(blurView)
+					
+					let indicator = ProgressIndicatorView(color: UIColor.konaColor(), textColor: UIColor.konaColor(), bgColor: UIColor.themeColor(), showText: true, width: 10, font: UIFont.systemFontOfSize(40), radius: 80)
+					indicator.center = self.view.center
+					indicator.startSpinWithSpeed(0.3)
+					self.loadingBackgroundView.addSubview(indicator)
+				})
+			
 			self.tabBarController!.view.userInteractionEnabled = false
 			let konaParser = KonaHTMLParser(delegate: self, errorDelegate: self)
 			konaParser.getPostInformation(self.postUrl.hasPrefix("http") ? self.postUrl : self.baseUrl + self.postUrl)
