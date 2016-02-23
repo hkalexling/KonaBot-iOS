@@ -49,7 +49,6 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 		self.refreshControl = UIRefreshControl()
 		self.refreshControl.addTarget(self, action: Selector("refresh"), forControlEvents: .ValueChanged)
 		self.refreshControl.tintColor = UIColor.konaColor()
-		self.refreshControl.alpha = 0.5
 		self.collectionView!.addSubview(self.refreshControl)
 		
 		self.refresh()

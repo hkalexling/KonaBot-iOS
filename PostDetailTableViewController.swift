@@ -25,6 +25,7 @@ class PostDetailTableViewController: UITableViewController, TagViewDelegate {
 		
 		let tags = self.post != nil ? self.post!.tags : self.parsedPost!.tags
 		self.tagView = TagView(tags: tags, textColor: UIColor.themeColor(), tagColor: UIColor.konaColor(), font: UIFont.systemFontOfSize(17))
+		self.tagView!.delegate = self
     }
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
