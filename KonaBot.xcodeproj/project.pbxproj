@@ -648,8 +648,8 @@
 			baseConfigurationReference = 45D08A0DF5AB84ADDE690111 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Alex Ling (X2TMJLM595)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Alex Ling (X2TMJLM595)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -663,7 +663,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = hkalexling.KonaBot;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "c1c169ca-1729-4647-ae97-fd0d8c9b1536";
+				PROVISIONING_PROFILE = "d8040986-7359-4bcf-8677-b318c4078048";
 				SWIFT_OBJC_BRIDGING_HEADER = "KonaBot/KonaBot-Bridging-Header.h";
 			};
 			name = Debug;
@@ -673,8 +673,8 @@
 			baseConfigurationReference = DED2764263359DECA2BAE97F /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Alex Ling (X2TMJLM595)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Alex Ling (X2TMJLM595)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -688,7 +688,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = hkalexling.KonaBot;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "c1c169ca-1729-4647-ae97-fd0d8c9b1536";
+				PROVISIONING_PROFILE = "d8040986-7359-4bcf-8677-b318c4078048";
 				SWIFT_OBJC_BRIDGING_HEADER = "KonaBot/KonaBot-Bridging-Header.h";
 			};
 			name = Release;
