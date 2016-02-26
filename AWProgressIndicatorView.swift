@@ -42,6 +42,7 @@ class AWProgressIndicatorView: UIImageView {
 		self.text.hidden = !self.showText
 		
 		super.init(frame: CGRectMake(0, 0, self.radius * 2, self.radius * 2))
+		self.addSubview(self.text)
 	}
 	
 	func updateProgress(progress : CGFloat) {
@@ -59,7 +60,7 @@ class AWProgressIndicatorView: UIImageView {
 		
 		self.image = UIGraphicsGetImageFromCurrentImageContext()
 		UIGraphicsEndImageContext()
-		self.text.text = "\(Int(progress))%"
+		self.text.text = "\(Int(progress * 100))%"
 	}
 	
 	func startSpin(speed : CGFloat) {

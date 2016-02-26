@@ -71,8 +71,9 @@ class AWImageViewController: UIViewController, UIScrollViewDelegate, NSURLSessio
 	
 	private var finishedDisplaying : Bool = false
 	
-	private let indicator = UIImageView()
-	private let indicatorText = UILabel()
+	//private let indicator = UIImageView()
+	//private let indicatorText = UILabel()
+	private var awIndicator : AWProgressIndicatorView!
 	
 	private var urlString : String?
 	
@@ -142,6 +143,7 @@ class AWImageViewController: UIViewController, UIScrollViewDelegate, NSURLSessio
 		
 		self.view.addSubview(self.scrollView)
 		
+		/*
 		self.indicator.frame = CGRectMake(UIScreen.mainScreen().bounds.width/2 - self.progressIndicatorRadius, UIScreen.mainScreen().bounds.height/2 - self.progressIndicatorRadius, self.progressIndicatorRadius * 2, self.progressIndicatorRadius * 2)
 		self.indicator.hidden = true
 		self.view.addSubview(self.indicator)
@@ -152,7 +154,13 @@ class AWImageViewController: UIViewController, UIScrollViewDelegate, NSURLSessio
 		self.indicatorText.textColor = self.progressIndicatorTextColor
 		self.indicatorText.font = self.progressIndicatorLabelFont
 		self.indicator.addSubview(self.indicatorText)
+		*/
 		
+		self.awIndicator = AWProgressIndicatorView(color: self.progressIndicatorColor, textColor: self.progressIndicatorTextColor, bgColor: self.progressIndicatorBgColor, showText: self.progressIndicatorShowLabel, width: self.progressIndicatorWidth, radius: self.progressIndicatorRadius, font: self.progressIndicatorLabelFont)
+		self.awIndicator.hidden = true
+		self.awIndicator.center = self.view.center
+		self.view.addSubview(self.awIndicator)
+				
 		if self.originImageView != nil {
 			self.imageView = UIImageView(frame: self.originFrame!)
 			imageView!.image = self.image
@@ -183,11 +191,11 @@ class AWImageViewController: UIViewController, UIScrollViewDelegate, NSURLSessio
 				UIView.animateWithDuration(self.animationDuration!, animations: {
 					self.view.backgroundColor = UIColor.blackColor()
 					}, completion: {(finished : Bool) in
-						self.indicator.hidden = false
+						self.awIndicator.hidden = false
 				})
 			}
 			else{
-				self.indicator.hidden = false
+				self.awIndicator.hidden = false
 			}
 		}
 	}
@@ -254,7 +262,7 @@ class AWImageViewController: UIViewController, UIScrollViewDelegate, NSURLSessio
 	}
 	
 	func dismiss(){
-		self.indicator.hidden = true
+		self.awIndicator.hidden = true
 		UIView.animateWithDuration(self.animationDuration!, animations: {
 			self.view.backgroundColor = UIColor.clearColor()
 			if self.originFrame != nil {
@@ -265,7 +273,9 @@ class AWImageViewController: UIViewController, UIScrollViewDelegate, NSURLSessio
 			}
 			}, completion: {(finished : Bool) in
 				self.view.hidden = true
-				self.bgImageView.removeFromSuperview()
+				for child in self.view.subviews {
+					child.removeFromSuperview()
+				}
 				self.delegate?.awImageViewDidDismiss()
 		})
 	}
@@ -322,7 +332,7 @@ class AWImageViewController: UIViewController, UIScrollViewDelegate, NSURLSessio
 	
 	func URLSession(session: NSURLSession, downloadTask: NSURLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
 		dispatch_async(dispatch_get_main_queue()){
-			self.setProgress(CGFloat(totalBytesWritten)/(CGFloat)(totalBytesExpectedToWrite))
+			self.awIndicator.updateProgress(CGFloat(totalBytesWritten)/(CGFloat)(totalBytesExpectedToWrite))
 		}
 	}
 	
@@ -339,7 +349,7 @@ class AWImageViewController: UIViewController, UIScrollViewDelegate, NSURLSessio
 			self.imageView!.image = downloadedImage
 			self.image = downloadedImage
 			self.scrollView.addSubview(self.imageView!)
-			self.indicator.hidden = true
+			self.awIndicator.hidden = true
 			self.finishedDisplaying = true
 		}
 	}
@@ -350,29 +360,5 @@ class AWImageViewController: UIViewController, UIScrollViewDelegate, NSURLSessio
 			let downloadTask = session.downloadTaskWithURL(nsUrl)
 			downloadTask.resume()
 		}
-	}
-	
-	func setProgress(progress : CGFloat){
-		UIGraphicsBeginImageContextWithOptions(CGSize(width: 2 * self.progressIndicatorRadius + self.progressIndicatorWidth, height: 2 * self.progressIndicatorRadius + self.progressIndicatorWidth), false, 0)
-		
-		let bgPath = UIBezierPath(arcCenter: CGPointMake(self.progressIndicatorRadius + self.progressIndicatorWidth/2, self.progressIndicatorRadius + self.progressIndicatorWidth/2), radius: self.progressIndicatorRadius, startAngle: 0, endAngle: CGFloat(2.0 * M_PI), clockwise: true)
-		bgPath.lineWidth = self.progressIndicatorWidth
-		self.progressIndicatorBgColor.setStroke()
-		bgPath.stroke()
-		
-		let percentagePath = UIBezierPath(arcCenter: CGPointMake(self.progressIndicatorRadius + self.progressIndicatorWidth/2, self.progressIndicatorRadius + self.progressIndicatorWidth/2), radius: self.progressIndicatorRadius, startAngle: CGFloat(-0.5 * M_PI), endAngle: self.progressToRadian(progress), clockwise: true)
-		percentagePath.lineWidth = self.progressIndicatorWidth
-		self.progressIndicatorColor.setStroke()
-		percentagePath.stroke()
-		
-		let img = UIGraphicsGetImageFromCurrentImageContext()
-		UIGraphicsEndImageContext()
-		
-		self.indicator.image = img
-		self.indicatorText.text = "\(Int(progress * 100))%"
-	}
-	
-	func progressToRadian(progress : CGFloat) -> CGFloat {
-		return CGFloat(2.0 * M_PI) * progress - CGFloat(0.5 * M_PI)
 	}
 }
