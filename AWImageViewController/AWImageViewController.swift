@@ -71,8 +71,6 @@ class AWImageViewController: UIViewController, UIScrollViewDelegate, NSURLSessio
 	
 	private var finishedDisplaying : Bool = false
 	
-	//private let indicator = UIImageView()
-	//private let indicatorText = UILabel()
 	private var awIndicator : AWProgressIndicatorView!
 	
 	private var urlString : String?
@@ -142,19 +140,6 @@ class AWImageViewController: UIViewController, UIScrollViewDelegate, NSURLSessio
 		self.scrollView.showsVerticalScrollIndicator = false
 		
 		self.view.addSubview(self.scrollView)
-		
-		/*
-		self.indicator.frame = CGRectMake(UIScreen.mainScreen().bounds.width/2 - self.progressIndicatorRadius, UIScreen.mainScreen().bounds.height/2 - self.progressIndicatorRadius, self.progressIndicatorRadius * 2, self.progressIndicatorRadius * 2)
-		self.indicator.hidden = true
-		self.view.addSubview(self.indicator)
-		
-		self.indicatorText.frame = CGRectMake(0, 0, self.progressIndicatorRadius * 2, self.progressIndicatorRadius * 2)
-		self.indicatorText.textAlignment = NSTextAlignment.Center
-		self.indicatorText.backgroundColor = UIColor.clearColor()
-		self.indicatorText.textColor = self.progressIndicatorTextColor
-		self.indicatorText.font = self.progressIndicatorLabelFont
-		self.indicator.addSubview(self.indicatorText)
-		*/
 		
 		self.awIndicator = AWProgressIndicatorView(color: self.progressIndicatorColor, textColor: self.progressIndicatorTextColor, bgColor: self.progressIndicatorBgColor, showText: self.progressIndicatorShowLabel, width: self.progressIndicatorWidth, radius: self.progressIndicatorRadius, font: self.progressIndicatorLabelFont)
 		self.awIndicator.hidden = true

@@ -16,17 +16,7 @@ struct AWActionSheetAction {
 protocol AWActionSheetDelegate {
 	func awActionSheetDidDismiss()
 }
-/*
-extension UIImage {
-	class func imageFromUIView(view : UIView) -> UIImage{
-		UIGraphicsBeginImageContext(view.frame.size)
-		view.drawViewHierarchyInRect(view.frame, afterScreenUpdates: true)
-		let image = UIGraphicsGetImageFromCurrentImageContext()
-		UIGraphicsEndImageContext()
-		return image
-	}
-}
-*/
+
 class AWActionSheet: UIView {
 	
 	var buttonColor = UIColor.grayColor()
