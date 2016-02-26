@@ -16,7 +16,7 @@ struct AWActionSheetAction {
 protocol AWActionSheetDelegate {
 	func awActionSheetDidDismiss()
 }
-
+/*
 extension UIImage {
 	class func imageFromUIView(view : UIView) -> UIImage{
 		UIGraphicsBeginImageContext(view.frame.size)
@@ -26,7 +26,7 @@ extension UIImage {
 		return image
 	}
 }
-
+*/
 class AWActionSheet: UIView {
 	
 	var buttonColor = UIColor.grayColor()

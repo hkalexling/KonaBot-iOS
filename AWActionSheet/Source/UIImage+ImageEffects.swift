@@ -22,6 +22,10 @@ public extension UIImage {
 		return applyBlurWithRadius(20, tintColor: UIColor(white: 0.11, alpha: 0.73), saturationDeltaFactor: 1.8)
 	}
 	
+	public func applyKonaDarkEffect() -> UIImage? {
+		return applyBlurWithRadius(20, tintColor: UIColor(white: 0.11, alpha: 0.3), saturationDeltaFactor: 1.8)
+	}
+	
 	public func applyTintEffectWithColor(tintColor: UIColor) -> UIImage? {
 		let effectColorAlpha: CGFloat = 0.6
 		var effectColor = tintColor
@@ -96,6 +100,19 @@ public extension UIImage {
 			
 			
 			if hasBlur {
+				// A description of how to compute the box kernel width from the Gaussian
+				// radius (aka standard deviation) appears in the SVG spec:
+				// http://www.w3.org/TR/SVG/filters.html#feGaussianBlurElement
+				//
+				// For larger values of 's' (s >= 2.0), an approximation can be used: Three
+				// successive box-blurs build a piece-wise quadratic convolution kernel, which
+				// approximates the Gaussian kernel to within roughly 3%.
+				//
+				// let d = floor(s * 3*sqrt(2*pi)/4 + 0.5)
+				//
+				// ... if d is odd, use three box-blurs of size 'd', centered on the output pixel.
+				//
+				
 				let inputRadius = blurRadius * screenScale
 				var radius = UInt32(floor(inputRadius * 3.0 * CGFloat(sqrt(2 * M_PI)) / 4 + 0.5))
 				if radius % 2 != 1 {

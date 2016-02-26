@@ -6,8 +6,5 @@
 //  Copyright © 2015 Alex Ling. All rights reserved.
 //
 
-#import "JTSImageInfo.h"
-#import "JTSImageViewController.h"
 #import "RZSquaresLoading.h"
-#import "ProgressIndicatorView.h"
 

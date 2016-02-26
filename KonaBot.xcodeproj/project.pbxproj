@@ -41,14 +41,9 @@
 		71B2FC8D1BF7C9BD000B862D /* IAPViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B2FC8C1BF7C9BD000B862D /* IAPViewController.swift */; };
 		71D17C0F1C58F159001088FA /* CacheModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 71D17C0D1C58F159001088FA /* CacheModel.xcdatamodeld */; };
 		71D17C111C58F259001088FA /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D17C101C58F259001088FA /* CacheManager.swift */; };
-		71EBA8B11C350DFD00860933 /* ProgressIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 71EBA8891C34F10900860933 /* ProgressIndicatorView.m */; };
+		71D658F01C80170E0049EE97 /* AWImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D658EE1C80170E0049EE97 /* AWImageViewController.swift */; };
+		71D658F61C803DCA0049EE97 /* AWProgressIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D658F51C803DCA0049EE97 /* AWProgressIndicatorView.swift */; };
 		71EBA8B21C350E8000860933 /* RZSquaresLoading.m in Sources */ = {isa = PBXBuildFile; fileRef = 713B7B0B1BE68B230038A34A /* RZSquaresLoading.m */; };
-		71FA55731BE55DE800E57198 /* JTSAnimatedGIFUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 71FA55681BE55DE800E57198 /* JTSAnimatedGIFUtility.m */; };
-		71FA55741BE55DE800E57198 /* JTSImageInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 71FA556A1BE55DE800E57198 /* JTSImageInfo.m */; };
-		71FA55751BE55DE800E57198 /* JTSImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71FA556C1BE55DE800E57198 /* JTSImageViewController.m */; };
-		71FA55761BE55DE800E57198 /* JTSSimpleImageDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 71FA556E1BE55DE800E57198 /* JTSSimpleImageDownloader.m */; };
-		71FA55771BE55DE800E57198 /* UIApplication+JTSImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71FA55701BE55DE800E57198 /* UIApplication+JTSImageViewController.m */; };
-		71FA55781BE55DE800E57198 /* UIImage+JTSImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 71FA55721BE55DE800E57198 /* UIImage+JTSImageEffects.m */; };
 		9ED8778B9163BFB7FA813BD4 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7B31C0517915B780B0EC2D9 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
@@ -99,20 +94,8 @@
 		71B2FC8C1BF7C9BD000B862D /* IAPViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPViewController.swift; sourceTree = "<group>"; };
 		71D17C0E1C58F159001088FA /* CacheModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CacheModel.xcdatamodel; sourceTree = "<group>"; };
 		71D17C101C58F259001088FA /* CacheManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
-		71EBA8881C34F10900860933 /* ProgressIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProgressIndicatorView.h; path = ../KonaBot/ProgressIndicatorView.h; sourceTree = "<group>"; };
-		71EBA8891C34F10900860933 /* ProgressIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProgressIndicatorView.m; path = ../KonaBot/ProgressIndicatorView.m; sourceTree = "<group>"; };
-		71FA55671BE55DE800E57198 /* JTSAnimatedGIFUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTSAnimatedGIFUtility.h; sourceTree = "<group>"; };
-		71FA55681BE55DE800E57198 /* JTSAnimatedGIFUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTSAnimatedGIFUtility.m; sourceTree = "<group>"; };
-		71FA55691BE55DE800E57198 /* JTSImageInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTSImageInfo.h; sourceTree = "<group>"; };
-		71FA556A1BE55DE800E57198 /* JTSImageInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTSImageInfo.m; sourceTree = "<group>"; };
-		71FA556B1BE55DE800E57198 /* JTSImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTSImageViewController.h; sourceTree = "<group>"; };
-		71FA556C1BE55DE800E57198 /* JTSImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTSImageViewController.m; sourceTree = "<group>"; };
-		71FA556D1BE55DE800E57198 /* JTSSimpleImageDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTSSimpleImageDownloader.h; sourceTree = "<group>"; };
-		71FA556E1BE55DE800E57198 /* JTSSimpleImageDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTSSimpleImageDownloader.m; sourceTree = "<group>"; };
-		71FA556F1BE55DE800E57198 /* UIApplication+JTSImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIApplication+JTSImageViewController.h"; sourceTree = "<group>"; };
-		71FA55701BE55DE800E57198 /* UIApplication+JTSImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIApplication+JTSImageViewController.m"; sourceTree = "<group>"; };
-		71FA55711BE55DE800E57198 /* UIImage+JTSImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+JTSImageEffects.h"; sourceTree = "<group>"; };
-		71FA55721BE55DE800E57198 /* UIImage+JTSImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+JTSImageEffects.m"; sourceTree = "<group>"; };
+		71D658EE1C80170E0049EE97 /* AWImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AWImageViewController.swift; sourceTree = "<group>"; };
+		71D658F51C803DCA0049EE97 /* AWProgressIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AWProgressIndicatorView.swift; sourceTree = "<group>"; };
 		D7B31C0517915B780B0EC2D9 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DED2764263359DECA2BAE97F /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -280,36 +263,24 @@
 		7183783E1BE8007A00131A74 /* Wheels */ = {
 			isa = PBXGroup;
 			children = (
+				71D658ED1C80170E0049EE97 /* AWImageViewController */,
 				710FD6881C45D76D00D5FE63 /* AWActionSheet */,
 				71B2FC8A1BF7A359000B862D /* StoreKit.framework */,
 				7179F91F1C428C020037A16D /* KonaAPI */,
 				713B7B091BE68B230038A34A /* RZSquaresLoading */,
-				71FA55661BE55DE800E57198 /* JTSImageViewController */,
 				710FD65D1C4587D100D5FE63 /* AWAlertView.swift */,
+				71D658F51C803DCA0049EE97 /* AWProgressIndicatorView.swift */,
 				716CABC21C47A0B500FD6977 /* TagView.swift */,
 			);
 			name = Wheels;
 			sourceTree = "<group>";
 		};
-		71FA55661BE55DE800E57198 /* JTSImageViewController */ = {
+		71D658ED1C80170E0049EE97 /* AWImageViewController */ = {
 			isa = PBXGroup;
 			children = (
-				71EBA8881C34F10900860933 /* ProgressIndicatorView.h */,
-				71EBA8891C34F10900860933 /* ProgressIndicatorView.m */,
-				71FA55671BE55DE800E57198 /* JTSAnimatedGIFUtility.h */,
-				71FA55681BE55DE800E57198 /* JTSAnimatedGIFUtility.m */,
-				71FA55691BE55DE800E57198 /* JTSImageInfo.h */,
-				71FA556A1BE55DE800E57198 /* JTSImageInfo.m */,
-				71FA556B1BE55DE800E57198 /* JTSImageViewController.h */,
-				71FA556C1BE55DE800E57198 /* JTSImageViewController.m */,
-				71FA556D1BE55DE800E57198 /* JTSSimpleImageDownloader.h */,
-				71FA556E1BE55DE800E57198 /* JTSSimpleImageDownloader.m */,
-				71FA556F1BE55DE800E57198 /* UIApplication+JTSImageViewController.h */,
-				71FA55701BE55DE800E57198 /* UIApplication+JTSImageViewController.m */,
-				71FA55711BE55DE800E57198 /* UIImage+JTSImageEffects.h */,
-				71FA55721BE55DE800E57198 /* UIImage+JTSImageEffects.m */,
+				71D658EE1C80170E0049EE97 /* AWImageViewController.swift */,
 			);
-			path = JTSImageViewController;
+			path = AWImageViewController;
 			sourceTree = "<group>";
 		};
 		E66CD9DEA78C6196F9B42F07 /* Pods */ = {
@@ -486,34 +457,29 @@
 				716CABC31C47A0B500FD6977 /* TagView.swift in Sources */,
 				7140E2481C43B84000E259C4 /* KonaHTMLParser.swift in Sources */,
 				710FD65E1C4587D100D5FE63 /* AWAlertView.swift in Sources */,
-				71EBA8B11C350DFD00860933 /* ProgressIndicatorView.m in Sources */,
 				71D17C111C58F259001088FA /* CacheManager.swift in Sources */,
-				71FA55731BE55DE800E57198 /* JTSAnimatedGIFUtility.m in Sources */,
+				71D658F01C80170E0049EE97 /* AWImageViewController.swift in Sources */,
 				7152C1DA1BE4F97200A44945 /* CollectionViewController.swift in Sources */,
+				71D658F61C803DCA0049EE97 /* AWProgressIndicatorView.swift in Sources */,
 				71D17C0F1C58F159001088FA /* CacheModel.xcdatamodeld in Sources */,
 				7109E5481BE8FC36003B1A93 /* TextCell.swift in Sources */,
-				71FA55781BE55DE800E57198 /* UIImage+JTSImageEffects.m in Sources */,
 				711E569F1BE9B61A00A6863D /* ViewModeCell.swift in Sources */,
 				713B7B101BE7814F0038A34A /* FavoriteCollectionViewController.swift in Sources */,
 				7109E5441BE8FA71003B1A93 /* TextArrowCell.swift in Sources */,
-				71FA55761BE55DE800E57198 /* JTSSimpleImageDownloader.m in Sources */,
 				7109E5401BE8F9D2003B1A93 /* SettingTableViewController.swift in Sources */,
 				719589311BE533940036555E /* Extension.swift in Sources */,
 				718378381BE7EF8000131A74 /* Model.xcdatamodeld in Sources */,
 				710FD6931C45D76D00D5FE63 /* AWActionSheet.swift in Sources */,
-				71FA55771BE55DE800E57198 /* UIApplication+JTSImageViewController.m in Sources */,
 				71B2FC8D1BF7C9BD000B862D /* IAPViewController.swift in Sources */,
 				711098B31BE62D9D00CDACD1 /* SearchViewController.swift in Sources */,
 				71018C401C46C652004F881C /* PostNameCell.swift in Sources */,
 				719589331BE53C110036555E /* DetailViewController.swift in Sources */,
 				71018C3E1C46ADE5004F881C /* PostDetailTableViewController.swift in Sources */,
-				71FA55751BE55DE800E57198 /* JTSImageViewController.m in Sources */,
 				7179F9231C428D680037A16D /* PostStruct.swift in Sources */,
 				7109E54A1BE8FCBD003B1A93 /* TextSwitchCell.swift in Sources */,
 				7119BC971C343570003BE527 /* KonaDisclosureIndicatorView.swift in Sources */,
 				7152C1431BE3452400A44945 /* AppDelegate.swift in Sources */,
 				710FD6941C45D76D00D5FE63 /* UIImage+ImageEffects.swift in Sources */,
-				71FA55741BE55DE800E57198 /* JTSImageInfo.m in Sources */,
 				7152C1DC1BE4F9AC00A44945 /* ImageCell.swift in Sources */,
 				7179F9211C428C020037A16D /* KonaAPI.swift in Sources */,
 			);

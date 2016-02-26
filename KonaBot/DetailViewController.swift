@@ -12,7 +12,7 @@ import CoreData
 import AFNetworking
 import Social
 
-class DetailViewController: UIViewController, JTSImageViewControllerInteractionsDelegate, AWActionSheetDelegate, KonaHTMLParserDelegate, KonaAPIErrorDelegate {
+class DetailViewController: UIViewController, AWImageViewControllerDownloadDelegate, AWImageViewControllerLongPressDelegate, AWActionSheetDelegate, KonaHTMLParserDelegate, KonaAPIErrorDelegate {
 	
 	let yuno = Yuno()
 	var baseUrl : String = "http://konachan.com"
@@ -25,7 +25,7 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 	var postUrl : String!
 	var heightOverWidth : CGFloat!
 	
-	var imageViewer = JTSImageViewController()
+	var awImageVC = AWImageViewController()
 	
 	var finishedDownload : Bool = false
 	var urlStr : String?
@@ -132,12 +132,12 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 				screenshotImageView.center = self.view.center
 				}, completion: { (finished) in
 					let blurView = UIImageView(frame: self.loadingBackgroundView.frame)
-					blurView.image = UIImage.imageFromUIView(self.tabBarController!.view).applyDarkEffect()
+					blurView.image = UIImage.imageFromUIView(self.tabBarController!.view).applyKonaDarkEffect()
 					self.loadingBackgroundView.addSubview(blurView)
 					
-					let indicator = ProgressIndicatorView(color: UIColor.konaColor(), textColor: UIColor.konaColor(), bgColor: UIColor.themeColor(), showText: true, width: 10, font: UIFont.systemFontOfSize(40), radius: 80)
+					let indicator = AWProgressIndicatorView(color: UIColor.konaColor(), textColor: UIColor.konaColor(), bgColor: UIColor.themeColor(), showText: true, width: 10, radius: 80, font: UIFont.systemFontOfSize(40))
 					indicator.center = self.view.center
-					indicator.startSpinWithSpeed(0.3)
+					indicator.startSpin(0.3)
 					self.loadingBackgroundView.addSubview(indicator)
 				})
 			
@@ -180,138 +180,77 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 			self.yuno.deleteRecordForKey("FavoritedImage", key: self.postUrl)
 		}
 	}
-	
-	func downloaded(sender : NSNotification){
-		if (self.imageViewer.image != nil){
-			self.detailImageView.image = self.imageViewer.image
-			self.finishedDownload = true
-			self.yuno.saveImageWithKey("Cache", image: self.detailImageView.image!, key: self.postUrl)
-			self.yuno.saveFavoriteImageIfNecessary(self.postUrl, image: self.detailImageView.image!)
-		}
-	}
-	
+
 	func tapped(sender : UIGestureRecognizer){
-		if (self.urlStr != nil){
-			let imageInfo = JTSImageInfo()
-			if self.finishedDownload{
-				imageInfo.image = self.detailImageView.image
+		if self.urlStr != nil {
+			var sourceImage : UIImage?
+			var sourceUrl : String?
+			
+			if self.finishedDownload {
+				sourceImage = self.detailImageView.image
 			}
 			else{
 				if let img = self.yuno.fetchImageWithKey("Cache", key: self.postUrl){
-					imageInfo.image = img
+					sourceImage = img
 					self.detailImageView.image = img
 				}
 				else if let img = self.yuno.fetchImageWithKey("FavoritedImage", key: self.postUrl){
 					if self.yuno.checkFullsSizeWithKey(self.postUrl){
-						imageInfo.image = img
+						sourceImage = img
 						self.detailImageView.image = img
 					}
 					else{
-						imageInfo.imageURL = NSURL(string: self.urlStr!)
+						sourceUrl = self.urlStr!
 					}
 				}
 				else{
-					imageInfo.imageURL = NSURL(string: self.urlStr!)
+					sourceUrl = self.urlStr!
 				}
 			}
-			imageInfo.referenceRect = self.detailImageView.frame
-			imageInfo.referenceView = self.view
 			
-			self.imageViewer = JTSImageViewController(imageInfo: imageInfo, mode: JTSImageViewControllerMode.Image, backgroundStyle: [.Blurred, .Scaled])
-			self.imageViewer.interactionsDelegate = self
+			if sourceImage != nil {sourceUrl = nil}
 			
-			imageViewer.showFromViewController(self, transition: .FromOriginalPosition)
+			self.awImageVC.progressIndicatorColor = UIColor.konaColor()
+			self.awImageVC.progressIndicatorTextColor = UIColor.konaColor()
+			
+			self.awImageVC.setupWithUrl(sourceUrl, originImageView: self.detailImageView, parentView: self.tabBarController!.view, backgroundStyle: .DarkBlur, animationDuration: nil, delegate: nil, longPressDelegate: self, downloadDelegate: self)
+			
+			self.tabBarController!.view.addSubview(self.awImageVC.view)
 		}
 	}
 	
 	func downloadImg(url : String){
 		self.urlStr = url
-		let imageInfo = JTSImageInfo()
-		imageInfo.referenceRect = self.detailImageView.frame
-		imageInfo.referenceView = self.view
+		var sourceImage : UIImage?
+		var sourceUrl : String?
 		
 		if let img = self.yuno.fetchImageWithKey("Cache", key: self.postUrl){
-			imageInfo.image = img
+			sourceImage = img
 			self.detailImageView.image = img
 		}
 		else if let img = self.yuno.fetchImageWithKey("FavoritedImage", key: self.postUrl){
 			if self.yuno.checkFullsSizeWithKey(self.postUrl){
-				imageInfo.image = img
+				sourceImage = img
 				self.detailImageView.image = img
 			}
 			else{
-				imageInfo.imageURL = NSURL(string: self.urlStr!)
+				sourceUrl = self.urlStr!
 			}
 		}
 		else{
-			imageInfo.imageURL = NSURL(string: url)
+			sourceUrl = url
 		}
 		
-		self.imageViewer = JTSImageViewController(imageInfo: imageInfo, mode: JTSImageViewControllerMode.Image, backgroundStyle: [.Blurred, .Scaled])
-		self.imageViewer.interactionsDelegate = self
+		if sourceImage != nil {sourceUrl = nil}
 		
-		imageViewer.showFromViewController(self, transition: .FromOriginalPosition)
+		self.awImageVC.progressIndicatorColor = UIColor.konaColor()
+		self.awImageVC.progressIndicatorTextColor = UIColor.konaColor()
+		
+		self.awImageVC.setupWithUrl(sourceUrl, originImageView: self.detailImageView, parentView: self.tabBarController!.view, backgroundStyle: .DarkBlur, animationDuration: nil, delegate: nil, longPressDelegate: self, downloadDelegate: self)
+		
+		self.tabBarController!.view.addSubview(self.awImageVC.view)
 	}
-	
-	func imageViewerDidLongPress(imageViewer: JTSImageViewController!, atRect rect: CGRect) {
-		
-		if !self.allowLongPress {return}
-		
-		let image = self.detailImageView.image!
-		
-		let awActionSheet = AWActionSheet(parentView: self.imageViewer.view)
-		awActionSheet.delegate = self
-		
-		let saveAction = AWActionSheetAction(title: "Save Image".localized, handler: {
-			UIImageWriteToSavedPhotosAlbum(image, self, Selector("imageSaved:didFinishSavingWithError:contextInfo:"), nil)
-		})
-		
-		let favoriteAction = AWActionSheetAction(title: "Favorite".localized, handler: {
-			self.stared()
-		})
-		
-		let unfavoriteAction = AWActionSheetAction(title: "Unfavorite".localized, handler: {
-			self.unstared()
-		})
-		
-		let copyAction = AWActionSheetAction(title: "Copy Image".localized, handler: {
-			UIPasteboard.generalPasteboard().image = image
-			self.awAlert("Image Copied".localized, message: "This image has been copied to your clipboard".localized)
-		})
-		
-		let copyLinkAction = AWActionSheetAction(title: "Copy Image URL".localized, handler: {
-			UIPasteboard.generalPasteboard().string = self.urlStr!
-			self.awAlert("URL Copied".localized, message: "The image URL has been copied to your clipboard".localized)
-		})
-		
-		let openAction = AWActionSheetAction(title: "Open Post in Safari".localized, handler: {
-			UIApplication.sharedApplication().openURL(NSURL(string: "\(self.baseUrl)\(self.postUrl)")!)
-		})
-		
-		let shareAction = AWActionSheetAction(title: "Share to...".localized, handler: {
-			let twitterAction = AWActionSheetAction(title: "Twitter", handler: {self.shareToSocial(SLServiceTypeTwitter)})
-			let facebookAction = AWActionSheetAction(title: "Facebook", handler: {self.shareToSocial(SLServiceTypeFacebook)})
-			let weiboAction = AWActionSheetAction(title: "Weibo".localized, handler: {self.shareToSocial(SLServiceTypeSinaWeibo)})
-			let shareActionSheet = AWActionSheet(parentView: self.imageViewer.view, actions: [twitterAction, facebookAction, weiboAction])
-			self.actionSheetSetStyle(shareActionSheet)
-			self.imageViewer.view.addSubview(shareActionSheet)
-			shareActionSheet.showActionSheet()
-		})
-		
-		awActionSheet.addAction(saveAction)
-		awActionSheet.addAction(self.favoriteList.contains(self.postUrl) ?  unfavoriteAction : favoriteAction)
-		awActionSheet.addAction(copyAction)
-		awActionSheet.addAction(copyLinkAction)
-		awActionSheet.addAction(openAction)
-		awActionSheet.addAction(shareAction)
-		
-		self.actionSheetSetStyle(awActionSheet)
-		
-		self.imageViewer.view.addSubview(awActionSheet)
-		self.allowLongPress = false
-		awActionSheet.showActionSheet()
-	}
-	
+
 	func actionSheetSetStyle (awActionSheet : AWActionSheet ){
 		awActionSheet.animationDuraton = 0.8
 		awActionSheet.cancelButtonColor = UIColor.themeColor()
@@ -336,7 +275,7 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 			}
 			else{
 				let alert = AWAlertView.redAlertFromTitleAndMessage("Failed to Save Image".localized, message: "Please detele some unwanted files and try again".localized)
-				self.imageViewer.view.addSubview(alert)
+				self.awImageVC.view.addSubview(alert)
 				alert.showAlert()
 			}
 		})
@@ -345,7 +284,7 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 	func awAlert(title : String, message : String) {
 		dispatch_async(dispatch_get_main_queue(), {
 			let alert = AWAlertView.alertFromTitleAndMessage(title, message: message)
-			self.imageViewer.view.addSubview(alert)
+			self.awImageVC.view.addSubview(alert)
 			alert.showAlert()
 		})
 	}
@@ -413,15 +352,80 @@ class DetailViewController: UIViewController, JTSImageViewControllerInteractions
 		if SLComposeViewController.isAvailableForServiceType(serviceType) {
 			let controller = SLComposeViewController(forServiceType: serviceType)
 			controller.setInitialText("Shared via #KonaBot_iOS".localized)
-			controller.addImage(self.imageViewer.image)
+			controller.addImage(self.awImageVC.image)
 			controller.addURL(NSURL(string: self.postUrl.hasPrefix("http") ? self.postUrl : self.baseUrl + self.postUrl))
-			self.imageViewer.presentViewController(controller, animated: true, completion: nil)
+			self.awImageVC.presentViewController(controller, animated: true, completion: nil)
 		}
 		else{
 			let alert = AWAlertView.redAlertFromTitleAndMessage("Service Not Avaiable".localized, message: "Please set up the social account in Settings or use another service".localized)
 			alert.alertShowTime = 4
-			self.imageViewer.view.addSubview(alert)
+			self.awImageVC.view.addSubview(alert)
 			alert.showAlert()
 		}
+	}
+	
+	func awImageViewDidLongPress() {
+		if !self.allowLongPress {return}
+		
+		let image = self.awImageVC.image
+		
+		let awActionSheet = AWActionSheet(parentView: self.awImageVC.view)
+		awActionSheet.delegate = self
+		
+		let saveAction = AWActionSheetAction(title: "Save Image".localized, handler: {
+			UIImageWriteToSavedPhotosAlbum(image, self, Selector("imageSaved:didFinishSavingWithError:contextInfo:"), nil)
+		})
+		
+		let favoriteAction = AWActionSheetAction(title: "Favorite".localized, handler: {
+			self.stared()
+		})
+		
+		let unfavoriteAction = AWActionSheetAction(title: "Unfavorite".localized, handler: {
+			self.unstared()
+		})
+		
+		let copyAction = AWActionSheetAction(title: "Copy Image".localized, handler: {
+			UIPasteboard.generalPasteboard().image = image
+			self.awAlert("Image Copied".localized, message: "This image has been copied to your clipboard".localized)
+		})
+		
+		let copyLinkAction = AWActionSheetAction(title: "Copy Image URL".localized, handler: {
+			UIPasteboard.generalPasteboard().string = self.urlStr!
+			self.awAlert("URL Copied".localized, message: "The image URL has been copied to your clipboard".localized)
+		})
+		
+		let openAction = AWActionSheetAction(title: "Open Post in Safari".localized, handler: {
+			UIApplication.sharedApplication().openURL(NSURL(string: "\(self.baseUrl)\(self.postUrl)")!)
+		})
+		
+		let shareAction = AWActionSheetAction(title: "Share to...".localized, handler: {
+			let twitterAction = AWActionSheetAction(title: "Twitter", handler: {self.shareToSocial(SLServiceTypeTwitter)})
+			let facebookAction = AWActionSheetAction(title: "Facebook", handler: {self.shareToSocial(SLServiceTypeFacebook)})
+			let weiboAction = AWActionSheetAction(title: "Weibo".localized, handler: {self.shareToSocial(SLServiceTypeSinaWeibo)})
+			let shareActionSheet = AWActionSheet(parentView: self.awImageVC.view, actions: [twitterAction, facebookAction, weiboAction])
+			self.actionSheetSetStyle(shareActionSheet)
+			self.awImageVC.view.addSubview(shareActionSheet)
+			shareActionSheet.showActionSheet()
+		})
+		
+		awActionSheet.addAction(saveAction)
+		awActionSheet.addAction(self.favoriteList.contains(self.postUrl) ?  unfavoriteAction : favoriteAction)
+		awActionSheet.addAction(copyAction)
+		awActionSheet.addAction(copyLinkAction)
+		awActionSheet.addAction(openAction)
+		awActionSheet.addAction(shareAction)
+		
+		self.actionSheetSetStyle(awActionSheet)
+		
+		self.awImageVC.view.addSubview(awActionSheet)
+		self.allowLongPress = false
+		awActionSheet.showActionSheet()
+	}
+	
+	func awImageViewDidFinishDownloading(image: UIImage) {
+		self.detailImageView.image = image
+		self.finishedDownload = true
+		self.yuno.saveImageWithKey("Cache", image: image, key: self.postUrl)
+		self.yuno.saveFavoriteImageIfNecessary(self.postUrl, image: image)
 	}
 }
