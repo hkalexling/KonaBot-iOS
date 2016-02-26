@@ -135,7 +135,7 @@ class DetailViewController: UIViewController, AWImageViewControllerDownloadDeleg
 					blurView.image = UIImage.imageFromUIView(self.tabBarController!.view).applyKonaDarkEffect()
 					self.loadingBackgroundView.addSubview(blurView)
 					
-					let indicator = AWProgressIndicatorView(color: UIColor.konaColor(), textColor: UIColor.konaColor(), bgColor: UIColor.themeColor(), showText: true, width: 10, radius: 80, font: UIFont.systemFontOfSize(40))
+					let indicator = AWProgressIndicatorView(color: UIColor.konaColor(), textColor: UIColor.konaColor(), bgColor: UIColor.clearColor(), showText: true, width: 10, radius: 80, font: UIFont.systemFontOfSize(40))
 					indicator.center = self.view.center
 					indicator.startSpin(0.3)
 					self.loadingBackgroundView.addSubview(indicator)
@@ -213,7 +213,7 @@ class DetailViewController: UIViewController, AWImageViewControllerDownloadDeleg
 			self.awImageVC.progressIndicatorColor = UIColor.konaColor()
 			self.awImageVC.progressIndicatorTextColor = UIColor.konaColor()
 			
-			self.awImageVC.setupWithUrl(sourceUrl, originImageView: self.detailImageView, parentView: self.tabBarController!.view, backgroundStyle: .DarkBlur, animationDuration: nil, delegate: nil, longPressDelegate: self, downloadDelegate: self)
+			self.awImageVC.setup(sourceUrl, originImageView: self.detailImageView, parentView: self.tabBarController!.view, backgroundStyle: .DarkBlur, animationDuration: nil, delegate: nil, longPressDelegate: self, downloadDelegate: self)
 			
 			self.tabBarController!.view.addSubview(self.awImageVC.view)
 		}
@@ -246,7 +246,7 @@ class DetailViewController: UIViewController, AWImageViewControllerDownloadDeleg
 		self.awImageVC.progressIndicatorColor = UIColor.konaColor()
 		self.awImageVC.progressIndicatorTextColor = UIColor.konaColor()
 		
-		self.awImageVC.setupWithUrl(sourceUrl, originImageView: self.detailImageView, parentView: self.tabBarController!.view, backgroundStyle: .DarkBlur, animationDuration: nil, delegate: nil, longPressDelegate: self, downloadDelegate: self)
+		self.awImageVC.setup(sourceUrl, originImageView: self.detailImageView, parentView: self.tabBarController!.view, backgroundStyle: .DarkBlur, animationDuration: nil, delegate: nil, longPressDelegate: self, downloadDelegate: self)
 		
 		self.tabBarController!.view.addSubview(self.awImageVC.view)
 	}

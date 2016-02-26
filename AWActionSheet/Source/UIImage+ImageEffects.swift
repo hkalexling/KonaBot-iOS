@@ -23,7 +23,7 @@ public extension UIImage {
 	}
 	
 	public func applyKonaDarkEffect() -> UIImage? {
-		return applyBlurWithRadius(20, tintColor: UIColor(white: 0.11, alpha: 0.3), saturationDeltaFactor: 1.8)
+		return applyBlurWithRadius(10, tintColor: UIColor(white: 0.11, alpha: 0.1), saturationDeltaFactor: 1.5)
 	}
 	
 	public func applyTintEffectWithColor(tintColor: UIColor) -> UIImage? {

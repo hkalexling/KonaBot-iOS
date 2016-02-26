@@ -84,7 +84,7 @@ class AWImageViewController: UIViewController, UIScrollViewDelegate, NSURLSessio
 	var progressIndicatorLabelFont : UIFont = UIFont.systemFontOfSize(40)
 	var progressIndicatorRadius : CGFloat = 80
 	
-	func setupWithUrl(urlString : String?, originImageView : UIImageView, parentView : UIView, backgroundStyle : AWImageViewBackgroundStyle?, animationDuration : NSTimeInterval?, delegate : AWImageViewControllerDelegate?, longPressDelegate : AWImageViewControllerLongPressDelegate?, downloadDelegate : AWImageViewControllerDownloadDelegate?){
+	func setup(urlString : String?, originImageView : UIImageView, parentView : UIView, backgroundStyle : AWImageViewBackgroundStyle?, animationDuration : NSTimeInterval?, delegate : AWImageViewControllerDelegate?, longPressDelegate : AWImageViewControllerLongPressDelegate?, downloadDelegate : AWImageViewControllerDownloadDelegate?){
 		
 		self.urlString = urlString
 		self.originImageView = originImageView
@@ -265,6 +265,7 @@ class AWImageViewController: UIViewController, UIScrollViewDelegate, NSURLSessio
 			}
 			}, completion: {(finished : Bool) in
 				self.view.hidden = true
+				self.bgImageView.removeFromSuperview()
 				self.delegate?.awImageViewDidDismiss()
 		})
 	}
@@ -289,7 +290,7 @@ class AWImageViewController: UIViewController, UIScrollViewDelegate, NSURLSessio
 			awImageViewDidLongPress()
 		}
 		else{
-			longPressDelegate?.awImageViewDidLongPress()
+			self.longPressDelegate?.awImageViewDidLongPress()
 		}
 	}
 	
