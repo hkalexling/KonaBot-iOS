@@ -35,6 +35,7 @@
 		7179F9211C428C020037A16D /* KonaAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7179F9201C428C020037A16D /* KonaAPI.swift */; };
 		7179F9231C428D680037A16D /* PostStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7179F9221C428D680037A16D /* PostStruct.swift */; };
 		718378381BE7EF8000131A74 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 718378361BE7EF8000131A74 /* Model.xcdatamodeld */; };
+		718F07BB1C835F6700380BCC /* SteamLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 718F07BA1C835F6600380BCC /* SteamLoadingView.swift */; };
 		719589311BE533940036555E /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719589301BE533940036555E /* Extension.swift */; };
 		719589331BE53C110036555E /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719589321BE53C110036555E /* DetailViewController.swift */; };
 		71B2FC8B1BF7A359000B862D /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71B2FC8A1BF7A359000B862D /* StoreKit.framework */; };
@@ -43,7 +44,6 @@
 		71D17C111C58F259001088FA /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D17C101C58F259001088FA /* CacheManager.swift */; };
 		71D658F01C80170E0049EE97 /* AWImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D658EE1C80170E0049EE97 /* AWImageViewController.swift */; };
 		71D658F61C803DCA0049EE97 /* AWProgressIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D658F51C803DCA0049EE97 /* AWProgressIndicatorView.swift */; };
-		71EBA8B21C350E8000860933 /* RZSquaresLoading.m in Sources */ = {isa = PBXBuildFile; fileRef = 713B7B0B1BE68B230038A34A /* RZSquaresLoading.m */; };
 		9ED8778B9163BFB7FA813BD4 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7B31C0517915B780B0EC2D9 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
@@ -71,8 +71,6 @@
 		711E569E1BE9B61A00A6863D /* ViewModeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModeCell.swift; sourceTree = "<group>"; };
 		71330AF11BEA1A9E0053C2D8 /* Yuno.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Yuno.storyboard; sourceTree = "<group>"; };
 		713B7B071BE681430038A34A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		713B7B0A1BE68B230038A34A /* RZSquaresLoading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZSquaresLoading.h; sourceTree = "<group>"; };
-		713B7B0B1BE68B230038A34A /* RZSquaresLoading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZSquaresLoading.m; sourceTree = "<group>"; };
 		713B7B0F1BE7814F0038A34A /* FavoriteCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteCollectionViewController.swift; sourceTree = "<group>"; };
 		7140E2451C434C2B00E259C4 /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		7140E2471C43B84000E259C4 /* KonaHTMLParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KonaHTMLParser.swift; sourceTree = "<group>"; };
@@ -80,7 +78,6 @@
 		7152C1421BE3452400A44945 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7152C1471BE3452400A44945 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7152C14E1BE3452400A44945 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7152C1971BE34FBF00A44945 /* KonaBot-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "KonaBot-Bridging-Header.h"; sourceTree = "<group>"; };
 		7152C1D91BE4F97200A44945 /* CollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
 		7152C1DB1BE4F9AC00A44945 /* ImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
 		716CABC21C47A0B500FD6977 /* TagView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
@@ -88,6 +85,7 @@
 		7179F9201C428C020037A16D /* KonaAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KonaAPI.swift; sourceTree = "<group>"; };
 		7179F9221C428D680037A16D /* PostStruct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostStruct.swift; sourceTree = "<group>"; };
 		718378371BE7EF8000131A74 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		718F07BA1C835F6600380BCC /* SteamLoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SteamLoadingView.swift; sourceTree = "<group>"; };
 		719589301BE533940036555E /* Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		719589321BE53C110036555E /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		71B2FC8A1BF7A359000B862D /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
@@ -154,15 +152,6 @@
 			path = Source;
 			sourceTree = "<group>";
 		};
-		713B7B091BE68B230038A34A /* RZSquaresLoading */ = {
-			isa = PBXGroup;
-			children = (
-				713B7B0A1BE68B230038A34A /* RZSquaresLoading.h */,
-				713B7B0B1BE68B230038A34A /* RZSquaresLoading.m */,
-			);
-			path = RZSquaresLoading;
-			sourceTree = "<group>";
-		};
 		7152C1361BE3452400A44945 = {
 			isa = PBXGroup;
 			children = (
@@ -224,7 +213,6 @@
 				71D17C0D1C58F159001088FA /* CacheModel.xcdatamodeld */,
 				71D17C101C58F259001088FA /* CacheManager.swift */,
 				7152C14E1BE3452400A44945 /* Info.plist */,
-				7152C1971BE34FBF00A44945 /* KonaBot-Bridging-Header.h */,
 				711207C61C24302F00FB99EF /* about.html */,
 				711207C21C2421ED00FB99EF /* Localizable.strings */,
 			);
@@ -267,10 +255,10 @@
 				710FD6881C45D76D00D5FE63 /* AWActionSheet */,
 				71B2FC8A1BF7A359000B862D /* StoreKit.framework */,
 				7179F91F1C428C020037A16D /* KonaAPI */,
-				713B7B091BE68B230038A34A /* RZSquaresLoading */,
 				710FD65D1C4587D100D5FE63 /* AWAlertView.swift */,
 				71D658F51C803DCA0049EE97 /* AWProgressIndicatorView.swift */,
 				716CABC21C47A0B500FD6977 /* TagView.swift */,
+				718F07BA1C835F6600380BCC /* SteamLoadingView.swift */,
 			);
 			name = Wheels;
 			sourceTree = "<group>";
@@ -452,11 +440,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				71EBA8B21C350E8000860933 /* RZSquaresLoading.m in Sources */,
 				7140E2461C434C2B00E259C4 /* TabBarController.swift in Sources */,
 				716CABC31C47A0B500FD6977 /* TagView.swift in Sources */,
 				7140E2481C43B84000E259C4 /* KonaHTMLParser.swift in Sources */,
 				710FD65E1C4587D100D5FE63 /* AWAlertView.swift in Sources */,
+				718F07BB1C835F6700380BCC /* SteamLoadingView.swift in Sources */,
 				71D17C111C58F259001088FA /* CacheManager.swift in Sources */,
 				71D658F01C80170E0049EE97 /* AWImageViewController.swift in Sources */,
 				7152C1DA1BE4F97200A44945 /* CollectionViewController.swift in Sources */,
@@ -630,7 +618,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = hkalexling.KonaBot;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "d8040986-7359-4bcf-8677-b318c4078048";
-				SWIFT_OBJC_BRIDGING_HEADER = "KonaBot/KonaBot-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 			};
 			name = Debug;
 		};
@@ -655,7 +643,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = hkalexling.KonaBot;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "d8040986-7359-4bcf-8677-b318c4078048";
-				SWIFT_OBJC_BRIDGING_HEADER = "KonaBot/KonaBot-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 			};
 			name = Release;
 		};

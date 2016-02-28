@@ -49,7 +49,6 @@ class DetailViewController: UIViewController, AWImageViewControllerDownloadDeleg
 	
 	let loadingBackgroundView = UIImageView()
 	var loadingSize : CGFloat = 80
-	var loadingView : RZSquaresLoading!
 	
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,9 +59,6 @@ class DetailViewController: UIViewController, AWImageViewControllerDownloadDeleg
 		}
 				
 		self.loadingBackgroundView.frame = self.view.frame
-		
-		self.loadingView = RZSquaresLoading(frame: CGRectMake(CGSize.screenSize().width/2 - loadingSize/2, CGSize.screenSize().height/2 - loadingSize/2, loadingSize, loadingSize))
-		self.loadingView.color = UIColor.konaColor()
 		
 		let bgView = UIView(frame: self.view.frame)
 		bgView.backgroundColor = UIColor.themeColor()

@@ -11,7 +11,7 @@ import StoreKit
 
 class IAPViewController: UIViewController, SKProductsRequestDelegate, SKPaymentTransactionObserver {
 	
-	var loading : RZSquaresLoading!
+	var loading : SteamLoadingView!
 	
 	let contentLabel = UILabel()
 	let button = UIButton()
@@ -23,9 +23,7 @@ class IAPViewController: UIViewController, SKProductsRequestDelegate, SKPaymentT
     override func viewDidLoad() {
         super.viewDidLoad()
 		
-		let loadingSize : CGFloat = 80
-		self.loading = RZSquaresLoading(frame: CGRectMake((CGSize.screenSize().width - loadingSize)/2, (CGSize.screenSize().height - loadingSize)/2, loadingSize, loadingSize))
-		self.loading.color = UIColor.konaColor()
+		self.loading = SteamLoadingView(barNumber: nil, color: UIColor.konaColor(), minHeight: 10, maxHeight: 80, width: 20, spacing: 10, animationDuration: nil, deltaDuration: nil, delay: nil, options: nil)
 		self.view.addSubview(self.loading)
 		
         self.requestProductData()

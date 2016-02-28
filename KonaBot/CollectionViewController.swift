@@ -15,7 +15,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 	var refreshControl : UIRefreshControl!
 	
 	var searchVC : SearchViewController?
-	var loading : RZSquaresLoading!
+	var loading : SteamLoadingView!
 	
 	var r18 : Bool = false
 
@@ -88,11 +88,8 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 			r18Label.textAlignment = NSTextAlignment.Right
 			self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: r18Label)
 		}
-		
-		let loadingSize : CGFloat = 80
-		self.loading = RZSquaresLoading(frame: CGRectMake(CGSize.screenSize().width/2 - loadingSize/2, CGSize.screenSize().height/2 - loadingSize/2, loadingSize, loadingSize))
-		self.loading.color = UIColor.konaColor()
-		self.view.addSubview(loading)
+		self.loading = SteamLoadingView(barNumber: nil, color: UIColor.konaColor(), minHeight: 10, maxHeight: 80, width: 20, spacing: 10, animationDuration: nil, deltaDuration: nil, delay: nil, options: nil)
+		self.view.addSubview(self.loading)
 		
 		if (self.keyword == ""){
 			self.title = "Home".localized

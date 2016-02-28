@@ -15,7 +15,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, KonaAPITagDel
 	@IBOutlet weak var noResultLabel: UILabel!
 	var searchBar : UISearchBar = UISearchBar()
 	
-	var loading : RZSquaresLoading!
+	var loading : SteamLoadingView!
 	
 	var suggestedTag : [String] = []
 	var noResult : Bool = false
@@ -41,9 +41,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, KonaAPITagDel
 		self.searchBar.placeholder = "Search tag".localized
 		self.navigationItem.titleView = self.searchBar
 		
-		let loadingSize : CGFloat = 80
-		self.loading = RZSquaresLoading(frame: CGRectMake((CGSize.screenSize().width - loadingSize)/2, (CGSize.screenSize().height - loadingSize)/2, loadingSize, loadingSize))
-		self.loading.color = UIColor.konaColor()
+		self.loading = SteamLoadingView(barNumber: nil, color: UIColor.konaColor(), minHeight: 10, maxHeight: 80, width: 20, spacing: 10, animationDuration: nil, deltaDuration: nil, delay: nil, options: nil)
 		self.view.addSubview(self.loading)
 
 		self.searchBar.delegate = self
