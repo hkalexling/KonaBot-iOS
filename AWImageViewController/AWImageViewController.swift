@@ -74,6 +74,7 @@ class AWImageViewController: UIViewController, UIScrollViewDelegate, NSURLSessio
 	private var awIndicator : AWProgressIndicatorView!
 	
 	private var urlString : String?
+	private var downloadTask : NSURLSessionDownloadTask?
 	
 	var progressIndicatorColor : UIColor = UIColor.whiteColor()
 	var progressIndicatorTextColor : UIColor = UIColor.whiteColor()
@@ -247,6 +248,7 @@ class AWImageViewController: UIViewController, UIScrollViewDelegate, NSURLSessio
 	}
 	
 	func dismiss(){
+		self.downloadTask?.cancel()
 		self.awIndicator.hidden = true
 		UIView.animateWithDuration(self.animationDuration!, animations: {
 			self.view.backgroundColor = UIColor.clearColor()
@@ -342,8 +344,8 @@ class AWImageViewController: UIViewController, UIScrollViewDelegate, NSURLSessio
 	func imageFromUrl(url : String) {
 		if let nsUrl = NSURL(string: url){
 			let session = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration(), delegate: self, delegateQueue: nil)
-			let downloadTask = session.downloadTaskWithURL(nsUrl)
-			downloadTask.resume()
+			self.downloadTask = session.downloadTaskWithURL(nsUrl)
+			self.downloadTask?.resume()
 		}
 	}
 }
