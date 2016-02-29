@@ -61,8 +61,8 @@ class AWProgressIndicatorView: UIImageView {
 		let image = UIGraphicsGetImageFromCurrentImageContext()
 		UIGraphicsEndImageContext()
 		
-		UIView.transitionWithView(self, duration: 0.2, options: [.TransitionCrossDissolve], animations: {self.image = image}, completion: nil)
-		UIView.transitionWithView(self.text, duration: 0.2, options: [.TransitionCrossDissolve], animations: {self.text.text = "\(Int(progress * 100))%"}, completion: nil)
+		UIView.transitionWithView(self, duration: 0.1, options: [.TransitionCrossDissolve], animations: {self.image = image}, completion: nil)
+		UIView.transitionWithView(self.text, duration: 0.1, options: [.TransitionCrossDissolve], animations: {self.text.text = "\(Int(progress * 100))%"}, completion: nil)
 	}
 	
 	func startSpin(speed : CGFloat) {

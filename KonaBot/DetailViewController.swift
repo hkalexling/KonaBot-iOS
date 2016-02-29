@@ -391,7 +391,7 @@ class DetailViewController: UIViewController, AWImageViewControllerDownloadDeleg
 		})
 		
 		let openAction = AWActionSheetAction(title: "Open Post in Safari".localized, handler: {
-			UIApplication.sharedApplication().openURL(NSURL(string: "\(self.baseUrl)\(self.postUrl)")!)
+			UIApplication.sharedApplication().openURL(NSURL(string: self.postUrl.hasPrefix("http") ? self.postUrl : self.baseUrl + self.postUrl)!)
 		})
 		
 		let shareAction = AWActionSheetAction(title: "Share to...".localized, handler: {
