@@ -254,6 +254,7 @@ class AWImageViewController: UIViewController, UIScrollViewDelegate, NSURLSessio
 			self.view.backgroundColor = UIColor.clearColor()
 			if self.originFrame != nil {
 				self.imageView!.frame = self.originFrame!
+				self.updateContentInset()
 			}
 			else if self.imageView != nil {
 				self.imageView!.hidden = true

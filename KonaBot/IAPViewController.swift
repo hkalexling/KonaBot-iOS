@@ -24,6 +24,7 @@ class IAPViewController: UIViewController, SKProductsRequestDelegate, SKPaymentT
         super.viewDidLoad()
 		
 		self.loading = SteamLoadingView(barNumber: nil, color: UIColor.konaColor(), minHeight: 10, maxHeight: 80, width: 20, spacing: 10, animationDuration: nil, deltaDuration: nil, delay: nil, options: nil)
+		self.loading.alpha = 0.8
 		self.view.addSubview(self.loading)
 		
         self.requestProductData()
