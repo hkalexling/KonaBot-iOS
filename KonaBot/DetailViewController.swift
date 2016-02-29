@@ -209,7 +209,7 @@ class DetailViewController: UIViewController, AWImageViewControllerDownloadDeleg
 			self.awImageVC.progressIndicatorColor = UIColor.konaColor()
 			self.awImageVC.progressIndicatorTextColor = UIColor.konaColor()
 			
-			self.awImageVC.setup(sourceUrl, originImageView: self.detailImageView, parentView: self.tabBarController!.view, backgroundStyle: .DarkBlur, animationDuration: nil, delegate: nil, longPressDelegate: self, downloadDelegate: self)
+			self.awImageVC.setup(sourceUrl, originImageView: self.detailImageView, parentView: self.tabBarController!.view, backgroundStyle: .DarkBlur, animationDuration: nil, dismissButtonColor: UIColor.konaColor(), dismissButtonWidth: 25, delegate: nil, longPressDelegate: self, downloadDelegate: self)
 			
 			self.tabBarController!.view.addSubview(self.awImageVC.view)
 		}
@@ -242,7 +242,7 @@ class DetailViewController: UIViewController, AWImageViewControllerDownloadDeleg
 		self.awImageVC.progressIndicatorColor = UIColor.konaColor()
 		self.awImageVC.progressIndicatorTextColor = UIColor.konaColor()
 		
-		self.awImageVC.setup(sourceUrl, originImageView: self.detailImageView, parentView: self.tabBarController!.view, backgroundStyle: .DarkBlur, animationDuration: nil, delegate: nil, longPressDelegate: self, downloadDelegate: self)
+		self.awImageVC.setup(sourceUrl, originImageView: self.detailImageView, parentView: self.tabBarController!.view, backgroundStyle: .DarkBlur, animationDuration: nil, dismissButtonColor: UIColor.konaColor(), dismissButtonWidth: 25, delegate: nil, longPressDelegate: self, downloadDelegate: self)
 		
 		self.tabBarController!.view.addSubview(self.awImageVC.view)
 	}

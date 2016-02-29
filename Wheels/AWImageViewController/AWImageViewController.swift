@@ -76,6 +76,10 @@ class AWImageViewController: UIViewController, UIScrollViewDelegate, NSURLSessio
 	private var urlString : String?
 	private var downloadTask : NSURLSessionDownloadTask?
 	
+	private var dismissButton : UIImageView!
+	private var dismissButtonColor : UIColor!
+	private var dismissButtonWidth : CGFloat!
+	
 	var progressIndicatorColor : UIColor = UIColor.whiteColor()
 	var progressIndicatorTextColor : UIColor = UIColor.whiteColor()
 	var progressIndicatorBgColor : UIColor = UIColor.clearColor()
@@ -84,13 +88,15 @@ class AWImageViewController: UIViewController, UIScrollViewDelegate, NSURLSessio
 	var progressIndicatorLabelFont : UIFont = UIFont.systemFontOfSize(40)
 	var progressIndicatorRadius : CGFloat = 80
 	
-	func setup(urlString : String?, originImageView : UIImageView, parentView : UIView, backgroundStyle : AWImageViewBackgroundStyle?, animationDuration : NSTimeInterval?, delegate : AWImageViewControllerDelegate?, longPressDelegate : AWImageViewControllerLongPressDelegate?, downloadDelegate : AWImageViewControllerDownloadDelegate?){
+	func setup(urlString : String?, originImageView : UIImageView, parentView : UIView, backgroundStyle : AWImageViewBackgroundStyle?, animationDuration : NSTimeInterval?, dismissButtonColor : UIColor, dismissButtonWidth : CGFloat, delegate : AWImageViewControllerDelegate?, longPressDelegate : AWImageViewControllerLongPressDelegate?, downloadDelegate : AWImageViewControllerDownloadDelegate?){
 		
 		self.urlString = urlString
 		self.originImageView = originImageView
 		self.parentView = parentView
 		self.backgroundStyle = backgroundStyle
 		self.animationDuration = animationDuration
+		self.dismissButtonColor = dismissButtonColor
+		self.dismissButtonWidth = dismissButtonWidth
 		self.delegate = delegate
 		self.longPressDelegate = longPressDelegate
 		self.downloadDelegate = downloadDelegate
@@ -154,6 +160,17 @@ class AWImageViewController: UIViewController, UIScrollViewDelegate, NSURLSessio
 		}
 		
 		self.view.backgroundColor = UIColor.clearColor()
+		
+		self.dismissButton = UIImageView(frame: CGRectMake(20, 40, self.dismissButtonWidth, self.dismissButtonWidth))
+		self.dismissButton.image = UIImage(named: "Dismiss")!.coloredImage(self.dismissButtonColor)
+		self.dismissButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "dismiss"))
+		self.view.addSubview(self.dismissButton)
+		
+		let rotateAnimation = CABasicAnimation(keyPath: "transform.rotation")
+		rotateAnimation.duration = self.animationDuration!
+		rotateAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
+		rotateAnimation.toValue = NSNumber(double: M_PI)
+		self.dismissButton.layer.addAnimation(rotateAnimation, forKey: nil)
 		
 		let singleTapRecognizer = UITapGestureRecognizer(target: self, action: Selector("singleTapped"))
 		let doubleTapRecognizer = UITapGestureRecognizer(target: self, action: Selector("doubleTapped"))
@@ -250,6 +267,13 @@ class AWImageViewController: UIViewController, UIScrollViewDelegate, NSURLSessio
 	func dismiss(){
 		self.downloadTask?.cancel()
 		self.awIndicator.hidden = true
+		
+		let rotateAnimation = CABasicAnimation(keyPath: "transform.rotation")
+		rotateAnimation.duration = self.animationDuration!
+		rotateAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
+		rotateAnimation.toValue = NSNumber(double: -M_PI)
+		self.dismissButton.layer.addAnimation(rotateAnimation, forKey: nil)
+		
 		UIView.animateWithDuration(self.animationDuration!, animations: {
 			self.view.backgroundColor = UIColor.clearColor()
 			if self.originFrame != nil {
