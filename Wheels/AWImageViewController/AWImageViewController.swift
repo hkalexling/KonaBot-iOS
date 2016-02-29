@@ -166,11 +166,7 @@ class AWImageViewController: UIViewController, UIScrollViewDelegate, NSURLSessio
 		self.dismissButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "dismiss"))
 		self.view.addSubview(self.dismissButton)
 		
-		let rotateAnimation = CABasicAnimation(keyPath: "transform.rotation")
-		rotateAnimation.duration = self.animationDuration!
-		rotateAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
-		rotateAnimation.toValue = NSNumber(double: M_PI)
-		self.dismissButton.layer.addAnimation(rotateAnimation, forKey: nil)
+		self.rotateDismissBtn(1)
 		
 		let singleTapRecognizer = UITapGestureRecognizer(target: self, action: Selector("singleTapped"))
 		let doubleTapRecognizer = UITapGestureRecognizer(target: self, action: Selector("doubleTapped"))
@@ -268,17 +264,19 @@ class AWImageViewController: UIViewController, UIScrollViewDelegate, NSURLSessio
 		self.downloadTask?.cancel()
 		self.awIndicator.hidden = true
 		
-		let rotateAnimation = CABasicAnimation(keyPath: "transform.rotation")
-		rotateAnimation.duration = self.animationDuration!
-		rotateAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
-		rotateAnimation.toValue = NSNumber(double: -M_PI)
-		self.dismissButton.layer.addAnimation(rotateAnimation, forKey: nil)
+		self.rotateDismissBtn(-1)
 		
 		UIView.animateWithDuration(self.animationDuration!, animations: {
 			self.view.backgroundColor = UIColor.clearColor()
 			if self.originFrame != nil {
-				self.imageView!.frame = self.originFrame!
-				self.updateContentInset()
+				if self.frameClose(self.imageView!.frame, frame1: self.originFrame!) {
+					//Dismiss during download
+					self.imageView!.alpha += 0.1 //Do some unnoticable stuff to waiting for the animaton duration 
+				}
+				else{
+					self.imageView!.frame = self.originFrame!
+					self.updateContentInset()
+				}
 			}
 			else if self.imageView != nil {
 				self.imageView!.hidden = true
@@ -372,5 +370,17 @@ class AWImageViewController: UIViewController, UIScrollViewDelegate, NSURLSessio
 			self.downloadTask = session.downloadTaskWithURL(nsUrl)
 			self.downloadTask?.resume()
 		}
+	}
+	
+	func rotateDismissBtn(numberOfPi : CGFloat) {
+		let rotateAnimation = CABasicAnimation(keyPath: "transform.rotation")
+		rotateAnimation.duration = self.animationDuration!
+		rotateAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+		rotateAnimation.toValue = NSNumber(double: Double(numberOfPi) * M_PI)
+		self.dismissButton.layer.addAnimation(rotateAnimation, forKey: nil)
+	}
+	
+	func frameClose (frame0 : CGRect, frame1 : CGRect) -> Bool {
+		return abs(frame0.origin.x - frame1.origin.x) < 1 && abs(frame0.origin.y - frame1.origin.y) < 1 && abs(frame0.width - frame1.width) < 1 && abs(frame0.height - frame1.height) < 1
 	}
 }
