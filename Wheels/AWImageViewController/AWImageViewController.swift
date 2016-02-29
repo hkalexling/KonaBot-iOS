@@ -80,11 +80,6 @@ class AWImageViewController: UIViewController, NSURLSessionDownloadDelegate {
 	private var dismissButtonColor : UIColor!
 	private var dismissButtonWidth : CGFloat!
 	
-	private var lastDeltaY : CGFloat = 0
-	private var totalDeltaY : CGFloat = 0
-	private var thresholdDeltaY : CGFloat = UIScreen.mainScreen().bounds.height/3
-	private var initialTransform : CGAffineTransform?
-	
 	var progressIndicatorColor : UIColor = UIColor.whiteColor()
 	var progressIndicatorTextColor : UIColor = UIColor.whiteColor()
 	var progressIndicatorBgColor : UIColor = UIColor.clearColor()
@@ -176,15 +171,13 @@ class AWImageViewController: UIViewController, NSURLSessionDownloadDelegate {
 		
 		let singleTapRecognizer = UITapGestureRecognizer(target: self, action: Selector("singleTapped"))
 		let doubleTapRecognizer = UITapGestureRecognizer(target: self, action: Selector("doubleTapped:"))
-		let panRecognizer = UIPanGestureRecognizer(target: self, action: "panned:")
 		doubleTapRecognizer.numberOfTapsRequired = 2
 		singleTapRecognizer.requireGestureRecognizerToFail(doubleTapRecognizer)
 		
 		self.imageView!.userInteractionEnabled = true
 		self.imageView!.addGestureRecognizer(singleTapRecognizer)
 		self.imageView!.addGestureRecognizer(doubleTapRecognizer)
-		self.imageView!.addGestureRecognizer(panRecognizer)
-		
+
 		let pinchRecognizer = UIPinchGestureRecognizer(target: self, action: Selector("pinched:"))
 		self.view.addGestureRecognizer(pinchRecognizer)
 		
@@ -233,45 +226,6 @@ class AWImageViewController: UIViewController, NSURLSessionDownloadDelegate {
 			self.toggleFullSize()
 		}
 	}
-	
-	func panned(sender : UIPanGestureRecognizer) {
-		if abs(self.imageView!.bounds.width - UIScreen.mainScreen().bounds.width) > 1 {
-			return
-		}
-		if sender.state == .Began {
-			self.initialTransform = self.dismissButton.transform
-		}
-		if sender.state == .Changed {
-			self.totalDeltaY = abs(sender.translationInView(self.view).y)
-			self.view.alpha =  1 - self.totalDeltaY / self.thresholdDeltaY
-			self.dismissButton.transform = CGAffineTransformMakeRotation(self.totalDeltaY / self.thresholdDeltaY * CGFloat(M_PI))
-			
-			var frame = sender.view!.frame
-			frame.origin.y += sender.translationInView(self.view).y - self.lastDeltaY
-			sender.view!.frame = frame
-			
-			self.lastDeltaY = sender.translationInView(self.view).y
-		}
-		if sender.state == .Ended || sender.state == .Cancelled {
-			
-			if self.totalDeltaY < self.thresholdDeltaY {
-				UIView.animateWithDuration(self.animationDuration!, animations: {
-					sender.view!.center = self.view.center
-					self.view.alpha = 1
-					if let transform = self.initialTransform {
-						self.dismissButton.transform = transform
-					}
-				})
-			}
-			else{
-				self.dismiss()
-			}
-			
-			self.initialTransform = nil
-			self.lastDeltaY = 0
-			self.totalDeltaY = 0
-		}
-	}
     
 	func initialAnimation(){
 		UIView.animateWithDuration(self.animationDuration!, animations: {
@@ -311,16 +265,7 @@ class AWImageViewController: UIViewController, NSURLSessionDownloadDelegate {
 	func dismiss(){
 		self.downloadTask?.cancel()
 		self.awIndicator.hidden = true
-		
-		if self.initialTransform != nil {
-			self.view.alpha = 1
-			self.view.hidden = true
-			for child in self.view.subviews {
-				child.removeFromSuperview()
-			}
-			self.delegate?.awImageViewDidDismiss()
-			return
-		}
+
 		self.rotateDismissBtn(-1)
 		
 		UIView.animateWithDuration(self.animationDuration!, animations: {
