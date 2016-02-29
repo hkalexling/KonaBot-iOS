@@ -50,7 +50,7 @@ extension UIImage {
 	}
 }
 
-class AWImageViewController: UIViewController, UIScrollViewDelegate, NSURLSessionDownloadDelegate {
+class AWImageViewController: UIViewController, NSURLSessionDownloadDelegate {
 	
 	private var delegate : AWImageViewControllerDelegate?
 	private var longPressDelegate : AWImageViewControllerLongPressDelegate?
@@ -79,6 +79,11 @@ class AWImageViewController: UIViewController, UIScrollViewDelegate, NSURLSessio
 	private var dismissButton : UIImageView!
 	private var dismissButtonColor : UIColor!
 	private var dismissButtonWidth : CGFloat!
+	
+	private var lastDeltaY : CGFloat = 0
+	private var totalDeltaY : CGFloat = 0
+	private var thresholdDeltaY : CGFloat = UIScreen.mainScreen().bounds.height/3
+	private var initialTransform : CGAffineTransform?
 	
 	var progressIndicatorColor : UIColor = UIColor.whiteColor()
 	var progressIndicatorTextColor : UIColor = UIColor.whiteColor()
@@ -164,17 +169,21 @@ class AWImageViewController: UIViewController, UIScrollViewDelegate, NSURLSessio
 		self.dismissButton = UIImageView(frame: CGRectMake(20, 40, self.dismissButtonWidth, self.dismissButtonWidth))
 		self.dismissButton.image = UIImage(named: "Dismiss")!.coloredImage(self.dismissButtonColor)
 		self.dismissButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "dismiss"))
+		self.dismissButton.userInteractionEnabled = true
 		self.view.addSubview(self.dismissButton)
 		
 		self.rotateDismissBtn(1)
 		
 		let singleTapRecognizer = UITapGestureRecognizer(target: self, action: Selector("singleTapped"))
-		let doubleTapRecognizer = UITapGestureRecognizer(target: self, action: Selector("doubleTapped"))
+		let doubleTapRecognizer = UITapGestureRecognizer(target: self, action: Selector("doubleTapped:"))
+		let panRecognizer = UIPanGestureRecognizer(target: self, action: "panned:")
 		doubleTapRecognizer.numberOfTapsRequired = 2
 		singleTapRecognizer.requireGestureRecognizerToFail(doubleTapRecognizer)
 		
-		self.view.addGestureRecognizer(singleTapRecognizer)
-		self.view.addGestureRecognizer(doubleTapRecognizer)
+		self.imageView!.userInteractionEnabled = true
+		self.imageView!.addGestureRecognizer(singleTapRecognizer)
+		self.imageView!.addGestureRecognizer(doubleTapRecognizer)
+		self.imageView!.addGestureRecognizer(panRecognizer)
 		
 		let pinchRecognizer = UIPinchGestureRecognizer(target: self, action: Selector("pinched:"))
 		self.view.addGestureRecognizer(pinchRecognizer)
@@ -219,9 +228,48 @@ class AWImageViewController: UIViewController, UIScrollViewDelegate, NSURLSessio
 		self.dismiss()
 	}
 	
-	func doubleTapped(){
+	func doubleTapped(sender : UITapGestureRecognizer){
 		if self.finishedDisplaying {
 			self.toggleFullSize()
+		}
+	}
+	
+	func panned(sender : UIPanGestureRecognizer) {
+		if abs(self.imageView!.bounds.width - UIScreen.mainScreen().bounds.width) > 1 {
+			return
+		}
+		if sender.state == .Began {
+			self.initialTransform = self.dismissButton.transform
+		}
+		if sender.state == .Changed {
+			self.totalDeltaY = abs(sender.translationInView(self.view).y)
+			self.view.alpha =  1 - self.totalDeltaY / self.thresholdDeltaY
+			self.dismissButton.transform = CGAffineTransformMakeRotation(self.totalDeltaY / self.thresholdDeltaY * CGFloat(M_PI))
+			
+			var frame = sender.view!.frame
+			frame.origin.y += sender.translationInView(self.view).y - self.lastDeltaY
+			sender.view!.frame = frame
+			
+			self.lastDeltaY = sender.translationInView(self.view).y
+		}
+		if sender.state == .Ended || sender.state == .Cancelled {
+			
+			if self.totalDeltaY < self.thresholdDeltaY {
+				UIView.animateWithDuration(self.animationDuration!, animations: {
+					sender.view!.center = self.view.center
+					self.view.alpha = 1
+					if let transform = self.initialTransform {
+						self.dismissButton.transform = transform
+					}
+				})
+			}
+			else{
+				self.dismiss()
+			}
+			
+			self.initialTransform = nil
+			self.lastDeltaY = 0
+			self.totalDeltaY = 0
 		}
 	}
     
@@ -240,7 +288,7 @@ class AWImageViewController: UIViewController, UIScrollViewDelegate, NSURLSessio
 	}
 	
 	func toggleFullSize(){
-		if self.imageView!.bounds.width == UIScreen.mainScreen().bounds.width {
+		if abs(self.imageView!.bounds.width - UIScreen.mainScreen().bounds.width) < 1 {
 			
 			let width : CGFloat = self.image.size.width
 			let height : CGFloat = self.image.size.height
@@ -264,14 +312,27 @@ class AWImageViewController: UIViewController, UIScrollViewDelegate, NSURLSessio
 		self.downloadTask?.cancel()
 		self.awIndicator.hidden = true
 		
+		if self.initialTransform != nil {
+			self.view.alpha = 1
+			self.view.hidden = true
+			for child in self.view.subviews {
+				child.removeFromSuperview()
+			}
+			self.delegate?.awImageViewDidDismiss()
+			return
+		}
 		self.rotateDismissBtn(-1)
+		
+		UIView.animateWithDuration(self.animationDuration!, animations: {
+			self.view.alpha = 1
+		})
 		
 		UIView.animateWithDuration(self.animationDuration!, animations: {
 			self.view.backgroundColor = UIColor.clearColor()
 			if self.originFrame != nil {
 				if self.frameClose(self.imageView!.frame, frame1: self.originFrame!) {
 					//Dismiss during download
-					self.imageView!.alpha += 0.1 //Do some unnoticable stuff to waiting for the animaton duration 
+					self.imageView!.alpha += 0.1 //Do some unnoticable stuff to waiting for the animaton duration
 				}
 				else{
 					self.imageView!.frame = self.originFrame!
