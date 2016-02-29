@@ -122,20 +122,14 @@ class DetailViewController: UIViewController, AWImageViewControllerDownloadDeleg
 			self.moreImageView.userInteractionEnabled = false
 			self.tabBarController?.view.addSubview(self.loadingBackgroundView)
 			
-			UIView.animateWithDuration(0.3, delay: 0, options: [UIViewAnimationOptions.CurveEaseInOut], animations: {
-				
-				screenshotImageView.frame = CGRectMake(0, 0, screenshotImageView.bounds.size.width * 0.9, screenshotImageView.bounds.size.height * 0.9)
-				screenshotImageView.center = self.view.center
-				}, completion: { (finished) in
-					let blurView = UIImageView(frame: self.loadingBackgroundView.frame)
-					blurView.image = UIImage.imageFromUIView(self.tabBarController!.view).applyKonaDarkEffect()
-					self.loadingBackgroundView.addSubview(blurView)
-					
-					let indicator = AWProgressIndicatorView(color: UIColor.konaColor(), textColor: UIColor.konaColor(), bgColor: UIColor.clearColor(), showText: true, width: 10, radius: 80, font: UIFont.systemFontOfSize(40))
-					indicator.center = self.view.center
-					indicator.startSpin(0.3)
-					self.loadingBackgroundView.addSubview(indicator)
-				})
+			let blurView = UIImageView(frame: self.loadingBackgroundView.frame)
+			blurView.image = UIImage.imageFromUIView(self.tabBarController!.view).applyKonaDarkEffect()
+			self.loadingBackgroundView.addSubview(blurView)
+			
+			let indicator = AWProgressIndicatorView(color: UIColor.konaColor(), textColor: UIColor.konaColor(), bgColor: UIColor.clearColor(), showText: true, width: 10, radius: 80, font: UIFont.systemFontOfSize(40))
+			indicator.center = self.view.center
+			indicator.startSpin(0.3)
+			self.loadingBackgroundView.addSubview(indicator)
 			
 			self.tabBarController!.view.userInteractionEnabled = false
 			let konaParser = KonaHTMLParser(delegate: self, errorDelegate: self)
