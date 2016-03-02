@@ -154,6 +154,12 @@ public extension UIColor {
 	class func konaColor() -> UIColor{
 		return UIColor(red: 253/255, green: 168/255, blue: 142/255, alpha: 1)
 	}
+	class func lighterThemeColor() -> UIColor {
+		return UIColor(red: 50/255, green: 50/255, blue: 50/255, alpha: 1)
+	}
+	class func searchVCLabelColor() -> UIColor {
+		return UIColor.whiteColor()
+	}
 }
 
 public extension UIAlertController {

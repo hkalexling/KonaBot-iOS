@@ -37,7 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: UIColor.konaColor()]
 		UINavigationBar.appearance().tintColor = UIColor.konaColor()
 		UITableView.appearance().backgroundColor = UIColor.themeColor()
-		UITableViewCell.appearance().backgroundColor = UIColor(red: 50/255, green: 50/255, blue: 50/255, alpha: 1)
+		UITableViewCell.appearance().backgroundColor = UIColor.lighterThemeColor()
 		application.setStatusBarStyle(.LightContent, animated: false)
 		
 		return true

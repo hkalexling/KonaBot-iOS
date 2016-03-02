@@ -67,7 +67,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, KonaAPITagDel
 		}
 		
 		self.noResultLabel.alpha = 1.0
-		
+		self.noResultLabel.textColor = UIColor.konaColor()
 		self.noResultLabel.hidden = !noResult
 	}
 	
@@ -160,7 +160,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, KonaAPITagDel
 		self.youMeantLabel!.text = "Maybe you meant...".localized
 		self.youMeantLabel!.font = UIFont.systemFontOfSize(20)
 		self.youMeantLabel!.backgroundColor = UIColor.themeColor()
-		self.youMeantLabel!.textColor = UIColor.whiteColor()
+		self.youMeantLabel!.textColor = UIColor.searchVCLabelColor()
 		self.youMeantLabel!.textAlignment = NSTextAlignment.Center
 		self.view.addSubview(youMeantLabel!)
 		
@@ -205,7 +205,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, KonaAPITagDel
 			self.topTagLabel.text = "Top Tags:".localized
 			self.topTagLabel.font =  UIFont.systemFontOfSize(20)
 			self.topTagLabel.backgroundColor = UIColor.themeColor()
-			self.topTagLabel.textColor = UIColor.whiteColor()
+			self.topTagLabel.textColor = UIColor.searchVCLabelColor()
 			self.topTagLabel.textAlignment = NSTextAlignment.Center
 			
 			self.view.addSubview(topTagLabel)

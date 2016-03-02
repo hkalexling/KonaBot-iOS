@@ -19,7 +19,7 @@ protocol AWImageViewControllerLongPressDelegate {
 }
 
 protocol AWImageViewControllerDownloadDelegate {
-	func awImageViewDidFinishDownloading(image : UIImage)
+	func awImageViewDidFinishDownloading(image : UIImage?, error : NSError?)
 }
 
 enum AWImageViewBackgroundStyle {
@@ -356,7 +356,7 @@ class AWImageViewController: UIViewController, NSURLSessionDownloadDelegate {
 		let downloadedImage = UIImage(data: NSData(contentsOfURL: location)!)!
 		dispatch_async(dispatch_get_main_queue()){
 			
-			self.downloadDelegate?.awImageViewDidFinishDownloading(downloadedImage)
+			self.downloadDelegate?.awImageViewDidFinishDownloading(downloadedImage, error: nil)
 			
 			let imgWidth = downloadedImage.size.width
 			let imgHeight = downloadedImage.size.height
@@ -368,6 +368,10 @@ class AWImageViewController: UIViewController, NSURLSessionDownloadDelegate {
 			self.awIndicator.hidden = true
 			self.finishedDisplaying = true
 		}
+	}
+	
+	func URLSession(session: NSURLSession, task: NSURLSessionTask, didCompleteWithError error: NSError?) {
+		self.downloadDelegate?.awImageViewDidFinishDownloading(nil, error: error)
 	}
 	
 	func imageFromUrl(url : String) {

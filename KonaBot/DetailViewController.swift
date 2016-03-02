@@ -47,8 +47,10 @@ class DetailViewController: UIViewController, AWImageViewControllerDownloadDeleg
 	
 	var originalImage = UIImage()
 	
-	let loadingBackgroundView = UIImageView()
+	let loadingBackgroundView = UIView()
 	var loadingSize : CGFloat = 80
+	
+	var alert : AWAlertView?
 	
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -118,7 +120,6 @@ class DetailViewController: UIViewController, AWImageViewControllerDownloadDeleg
 			screenshotImageView.image = UIImage.imageFromUIView(self.tabBarController!.view)
 			self.loadingBackgroundView.addSubview(screenshotImageView)
 			
-			self.loadingBackgroundView.image = UIImage.imageWithColor(UIColor.blackColor())
 			self.moreImageView.userInteractionEnabled = false
 			self.tabBarController?.view.addSubview(self.loadingBackgroundView)
 			
@@ -412,10 +413,22 @@ class DetailViewController: UIViewController, AWImageViewControllerDownloadDeleg
 		awActionSheet.showActionSheet()
 	}
 	
-	func awImageViewDidFinishDownloading(image: UIImage) {
-		self.detailImageView.image = image
-		self.finishedDownload = true
-		self.yuno.saveImageWithKey("Cache", image: image, key: self.postUrl)
-		self.yuno.saveFavoriteImageIfNecessary(self.postUrl, image: image)
+	func awImageViewDidFinishDownloading(image: UIImage?, error: NSError?) {
+		if image != nil && error == nil {
+			self.detailImageView.image = image!
+			self.finishedDownload = true
+			self.yuno.saveImageWithKey("Cache", image: image!, key: self.postUrl)
+			self.yuno.saveFavoriteImageIfNecessary(self.postUrl, image: image!)
+		}
+		else{
+			if let _alert = self.alert {
+				if !_alert.alertHidden {
+					return
+				}
+			}
+			self.alert = AWAlertView.networkAlertFromError(error!)
+			self.navigationController?.view.addSubview(self.alert!)
+			self.alert!.showAlert()
+		}
 	}
 }
