@@ -414,13 +414,13 @@ class DetailViewController: UIViewController, AWImageViewControllerDownloadDeleg
 	}
 	
 	func awImageViewDidFinishDownloading(image: UIImage?, error: NSError?) {
-		if image != nil && error == nil {
+		if image != nil {
 			self.detailImageView.image = image!
 			self.finishedDownload = true
 			self.yuno.saveImageWithKey("Cache", image: image!, key: self.postUrl)
 			self.yuno.saveFavoriteImageIfNecessary(self.postUrl, image: image!)
 		}
-		else{
+		if error != nil {
 			if let _alert = self.alert {
 				if !_alert.alertHidden {
 					return

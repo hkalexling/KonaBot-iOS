@@ -80,6 +80,11 @@ class AWImageViewController: UIViewController, NSURLSessionDownloadDelegate {
 	private var dismissButtonColor : UIColor!
 	private var dismissButtonWidth : CGFloat!
 	
+	private var panRecognizer : UIPanGestureRecognizer!
+	private var lastTranslation : CGFloat = 0
+	private var thresholdVelocity : CGFloat = 2500
+	private var maxVelocity : CGFloat = 0
+	
 	var progressIndicatorColor : UIColor = UIColor.whiteColor()
 	var progressIndicatorTextColor : UIColor = UIColor.whiteColor()
 	var progressIndicatorBgColor : UIColor = UIColor.clearColor()
@@ -174,9 +179,12 @@ class AWImageViewController: UIViewController, NSURLSessionDownloadDelegate {
 		doubleTapRecognizer.numberOfTapsRequired = 2
 		singleTapRecognizer.requireGestureRecognizerToFail(doubleTapRecognizer)
 		
+		self.panRecognizer = UIPanGestureRecognizer(target: self, action: "panned:")
+		
 		self.imageView!.userInteractionEnabled = true
 		self.imageView!.addGestureRecognizer(singleTapRecognizer)
 		self.imageView!.addGestureRecognizer(doubleTapRecognizer)
+		self.imageView!.addGestureRecognizer(self.panRecognizer)
 
 		let pinchRecognizer = UIPinchGestureRecognizer(target: self, action: Selector("pinched:"))
 		self.view.addGestureRecognizer(pinchRecognizer)
@@ -226,6 +234,39 @@ class AWImageViewController: UIViewController, NSURLSessionDownloadDelegate {
 			self.toggleFullSize()
 		}
 	}
+	
+	func panned(sender : UIPanGestureRecognizer){
+		if sender.state == .Began {
+		}
+		if sender.state == .Changed {
+			var frame = sender.view!.frame
+			frame.origin.y += sender.translationInView(self.view).y - self.lastTranslation
+			sender.view!.frame = frame
+			self.lastTranslation = sender.translationInView(self.view).y
+			
+			if abs(sender.velocityInView(self.view).y) > self.maxVelocity {
+				self.maxVelocity = abs(sender.velocityInView(self.view).y)
+			}
+		}
+		if sender.state == .Ended || sender.state == .Cancelled {
+			if self.maxVelocity > self.thresholdVelocity {
+				self.panResetParameters()
+				self.panDismiss(sender.velocityInView(self.view).y)
+			}
+			else{
+				UIView.animateWithDuration(self.animationDuration!, animations: {
+					sender.view!.center = self.view.center
+					}, completion: {(finished) in
+						self.panResetParameters()
+				})
+			}
+		}
+	}
+	
+	func panResetParameters() {
+		self.lastTranslation = 0
+		self.maxVelocity = 0
+	}
     
 	func initialAnimation(){
 		UIView.animateWithDuration(self.animationDuration!, animations: {
@@ -244,6 +285,8 @@ class AWImageViewController: UIViewController, NSURLSessionDownloadDelegate {
 	func toggleFullSize(){
 		if abs(self.imageView!.bounds.width - UIScreen.mainScreen().bounds.width) < 1 {
 			
+			self.panRecognizer.enabled = false
+			
 			let width : CGFloat = self.image.size.width
 			let height : CGFloat = self.image.size.height
 			UIView.animateWithDuration(self.animationDuration!, animations: {
@@ -258,8 +301,32 @@ class AWImageViewController: UIViewController, NSURLSessionDownloadDelegate {
 				let height : CGFloat = width * self.image.size.height/self.image.size.width
 				self.imageView!.frame = CGRectMake(0, UIScreen.mainScreen().bounds.height/2 - height/2, width, height)
 				self.updateContentInset()
+				}, completion: {(finished) in
+					self.panRecognizer.enabled = true
 			})
 		}
+	}
+	
+	func panDismiss(velocity : CGFloat) {
+		self.downloadTask?.cancel()
+		self.awIndicator.hidden = true
+		
+		let deltaY = velocity * CGFloat(self.animationDuration!)
+		let destination = CGPointMake(self.imageView!.center.x, self.imageView!.center.y + deltaY)
+		
+		self.rotateDismissBtn(-1)
+		
+		UIView.animateWithDuration(self.animationDuration!, animations: {
+			self.imageView!.center = destination
+			self.bgImageView.alpha = 0
+			self.dismissButton.alpha = 0
+			}, completion: {(finished) in
+				self.view.hidden = true
+				for child in self.view.subviews {
+					child.removeFromSuperview()
+				}
+				self.delegate?.awImageViewDidDismiss()
+		})
 	}
 	
 	func dismiss(){
@@ -269,15 +336,11 @@ class AWImageViewController: UIViewController, NSURLSessionDownloadDelegate {
 		self.rotateDismissBtn(-1)
 		
 		UIView.animateWithDuration(self.animationDuration!, animations: {
-			self.view.alpha = 1
-		})
-		
-		UIView.animateWithDuration(self.animationDuration!, animations: {
 			self.view.backgroundColor = UIColor.clearColor()
 			if self.originFrame != nil {
 				if self.frameClose(self.imageView!.frame, frame1: self.originFrame!) {
 					//Dismiss during download
-					self.imageView!.alpha += 0.1 //Do some unnoticable stuff to waiting for the animaton duration
+					self.imageView!.alpha += 0.1 //Do some unnoticable stuff to wait until the animaton duration end
 				}
 				else{
 					self.imageView!.frame = self.originFrame!
