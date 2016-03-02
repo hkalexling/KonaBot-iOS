@@ -16,7 +16,7 @@ Version 1.1.0 is currently on [App Store](https://itunes.apple.com/us/app/konabo
 <img src="./KonaBot/screenshots/4.7%20Device%204.jpg" width="230">
 <img src="./KonaBot/screenshots/4.7%20Device%205.jpg" width="230">
 
-See how it works in action: [YouTube](https://www.youtube.com/watch?v=GHr2EPdIcMo)
+See how it works in action: [YouTube](https://www.youtube.com/watch?v=B0FLAfxtvyA)
 
 ## Acknowledgement
 
