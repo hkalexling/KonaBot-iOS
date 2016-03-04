@@ -53,8 +53,7 @@ class KonaAPI: NSObject {
 	}
 	
 	func getPosts(limit : Int?, page : Int?, tag : String?){
-		let encodedTag = tag?.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLHostAllowedCharacterSet())
-		let parameters = self.parameterFactory(["limit" : limit, "page" : page, "tags" : encodedTag])
+		let parameters = self.parameterFactory(["limit" : limit, "page" : page, "tags" : tag])
 		let successBlock = {(task : NSURLSessionDataTask, response : AnyObject?) in
 			for post in response as! [NSDictionary] {
 				var rating : String = post["rating"] as! String

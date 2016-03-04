@@ -38,6 +38,8 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 	var alert : AWAlertView?
 	
 	var isFromDetailTableVC = false
+	
+	var feedbackVC : FeedbackViewController!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -140,6 +142,10 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
     }
 	
 	override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+		self.feedbackVC = FeedbackViewController(backgroundView: self.tabBarController!.view, baseColor: UIColor.themeColor(), secondaryColor: UIColor.konaColor(), dismissButtonColor: UIColor.konaColor())
+		self.tabBarController!.addChildViewController(self.feedbackVC)
+		self.tabBarController!.view.addSubview(self.feedbackVC.view)
+		/*
 		if !self.postSelectable[indexPath.row] {return}
 		let detailVC : DetailViewController = DetailViewController()
 		detailVC.postUrl = self.posts[indexPath.row].postUrl
@@ -148,6 +154,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 		detailVC.smallImage =  (self.collectionView!.cellForItemAtIndexPath(indexPath) as! ImageCell).imageView!.image
 		detailVC.post = self.posts[indexPath.row]
 		self.navigationController!.pushViewController(detailVC, animated: true)
+		*/
 	}
 	
 	override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {

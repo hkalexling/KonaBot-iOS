@@ -39,6 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		UITableView.appearance().backgroundColor = UIColor.themeColor()
 		UITableViewCell.appearance().backgroundColor = UIColor.lighterThemeColor()
 		application.setStatusBarStyle(UIStatusBarStyle.styleAccordingToTheme(), animated: false)
+		UICollectionView.appearance().indicatorStyle = UIScrollViewIndicatorStyle.styleAccordingToTheme()
 		
 		return true
 	}

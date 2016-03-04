@@ -41,6 +41,18 @@ extension CGFloat {
 	}
 }
 
+extension UIButton {
+	func block_setAction(block: BlockButtonActionBlock) {
+		objc_setAssociatedObject(self, &ActionBlockKey, ActionBlockWrapper(block: block), objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+		addTarget(self, action: "block_handleAction:", forControlEvents: .TouchUpInside)
+	}
+	
+	func block_handleAction(sender: UIButton) {
+		let wrapper = objc_getAssociatedObject(self, &ActionBlockKey) as! ActionBlockWrapper
+		wrapper.block()
+	}
+}
+
 public extension UIImage {
 	class func imageWithColor(color: UIColor) -> UIImage {
 		let size = CGSizeMake(10, 10)
@@ -151,24 +163,44 @@ public extension UIColor {
 	
 	
 	class func themeColor() -> UIColor{
-		//return UIColor(red: 34/255, green: 34/255, blue: 34/255, alpha: 1)
-		return UIColor(hexString: "#EEEEEE")
+		switch Yuno.theme{
+		case .KonaChan:
+			return UIColor(red: 34/255, green: 34/255, blue: 34/255, alpha: 1)
+		case .LightBlue:
+			return UIColor(hexString: "#EEEEEE")
+		}
 	}
 	class func konaColor() -> UIColor{
-		//return UIColor(red: 253/255, green: 168/255, blue: 142/255, alpha: 1)
-		return UIColor(hexString: "#2196F3")
+		switch Yuno.theme{
+		case .KonaChan:
+			return UIColor(red: 253/255, green: 168/255, blue: 142/255, alpha: 1)
+		case .LightBlue:
+			return UIColor(hexString: "#2196F3")
+		}
 	}
 	class func lighterThemeColor() -> UIColor {
-		//return UIColor(red: 50/255, green: 50/255, blue: 50/255, alpha: 1)
-		return UIColor.whiteColor()
+		switch Yuno.theme{
+		case .KonaChan:
+			return UIColor(red: 50/255, green: 50/255, blue: 50/255, alpha: 1)
+		case .LightBlue:
+			return UIColor.whiteColor()
+		}
 	}
 	class func searchVCLabelColor() -> UIColor {
-		//return UIColor.whiteColor()
-		return UIColor.grayColor()
+		switch Yuno.theme{
+		case .KonaChan:
+			return UIColor.whiteColor()
+		case .LightBlue:
+			return UIColor.grayColor()
+		}
 	}
 	class func placeHolderImageColor() -> UIColor {
-		//return UIColor.darkGrayColor()
-		return UIColor.lightGrayColor()
+		switch Yuno.theme{
+		case .KonaChan:
+			return UIColor.darkGrayColor()
+		case .LightBlue:
+			return UIColor.lightGrayColor()
+		}
 	}
 	
 	convenience init(hexString: String) {
@@ -192,7 +224,23 @@ public extension UIColor {
 
 extension UIStatusBarStyle {
 	static func styleAccordingToTheme() -> UIStatusBarStyle {
-		return UIStatusBarStyle.Default
+		switch Yuno.theme{
+		case .KonaChan:
+			return .LightContent
+		case .LightBlue:
+			return .Default
+		}
+	}
+}
+
+extension UIScrollViewIndicatorStyle {
+	static func styleAccordingToTheme() -> UIScrollViewIndicatorStyle {
+		switch Yuno.theme{
+		case .KonaChan:
+			return .White
+		case .LightBlue:
+			return .Black
+		}
 	}
 }
 
@@ -253,10 +301,17 @@ public extension UIDevice {
 	}
 }
 
+public enum Theme {
+	case KonaChan
+	case LightBlue
+}
+
 public class Yuno{
 	
 	var imageCoreData = [NSManagedObject]()
 	var favoriteCoreData = [NSManagedObject]()
+	
+	static let theme = Theme.LightBlue
 	
 	static var r18 : Bool {
 		return NSUserDefaults.standardUserDefaults().boolForKey("r18")
