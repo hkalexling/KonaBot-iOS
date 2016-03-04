@@ -127,7 +127,10 @@ class SettingTableViewController: UITableViewController{
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 		if indexPath.section == tableView.numberOfSections - 2 {
 			if indexPath.row == 0{
-				self.loadAboutVC()
+				let feedbackVC = FeedbackViewController(parentVC: self, backgroundView: self.tabBarController!.view, baseColor: UIColor.themeColor(), secondaryColor: UIColor.konaColor(), dismissButtonColor: UIColor.konaColor())
+				self.tabBarController!.addChildViewController(feedbackVC)
+				self.tabBarController!.view.addSubview(feedbackVC.view)
+				//self.loadAboutVC()
 			}
 			else{
 				self.navigationController!.pushViewController(IAPViewController(), animated: true)

@@ -7,8 +7,11 @@
 //
 
 import UIKit
+import MessageUI
 
-class FeedbackViewController: UIViewController {
+class FeedbackViewController: UIViewController, MFMailComposeViewControllerDelegate {
+	
+	var parentVC : UIViewController!
 	
 	var backgroundBlurImageView : UIImageView!
 	var dismissButton : UIImageView!
@@ -18,15 +21,19 @@ class FeedbackViewController: UIViewController {
 	
 	var dialogView : UIView!
 	var dialogWidth : CGFloat = 300
-	var dialogHeight : CGFloat = 100
+	var dialogHeight : CGFloat = 120
 	var animationDuration : NSTimeInterval = 0.3
 	
 	var baseColor : UIColor!
 	var secondaryColor : UIColor!
 	var dismissButtonColor : UIColor!
 	
-	init(backgroundView : UIView, baseColor : UIColor, secondaryColor : UIColor, dismissButtonColor : UIColor) {
+	var alert : AWAlertView!
+	
+	init(parentVC : UIViewController, backgroundView : UIView, baseColor : UIColor, secondaryColor : UIColor, dismissButtonColor : UIColor) {
 		super.init(nibName: nil, bundle: nil)
+		
+		self.parentVC = parentVC
 		
 		self.baseColor = baseColor
 		self.secondaryColor = secondaryColor
@@ -49,7 +56,21 @@ class FeedbackViewController: UIViewController {
 		self.dismissButton.alpha = 0
 		self.view.addSubview(self.dismissButton)
 		
-		self.showFeedbackAlert("Enjoying KonaBot?", badChoiceTitle: "Not really", goodChoiceTitle: "Yes!", badChoiceHandler: {print ("yes")}, goodChoiceHandler: {print ("no")})
+		self.showFeedbackAlert("Enjoying KonaBot?", badChoiceTitle: "Not really", goodChoiceTitle: "Yes!", badChoiceHandler: {
+			self.updateDialogContent("Would you mind giving me some feedback?", goodTitle: "Sure", badTitle: "No, thanks", goodHandler: {
+				self.sendEmail()
+				self.dismiss()
+				}, badHandler: {
+					self.dismiss()
+			})
+			}, goodChoiceHandler: {
+				self.updateDialogContent("Then could you help me by rating KonaBot in App Store?", goodTitle: "Sure", badTitle: "No, Thanks", goodHandler: {
+					UIApplication.sharedApplication().openURL(NSURL(string: "https://itunes.apple.com/us/app/konabot/id1055716649")!)
+					self.dismiss()
+					}, badHandler: {
+						self.dismiss()
+				})
+		})
 	}
 	required init?(coder aDecoder: NSCoder) {
 	    super.init(coder: aDecoder)
@@ -57,8 +78,6 @@ class FeedbackViewController: UIViewController {
 	
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
 	
 	func dismiss(){
@@ -77,6 +96,8 @@ class FeedbackViewController: UIViewController {
 		
 		titleLabel = UILabel(frame: CGRectMake(20, 10, self.dialogWidth - 40, 30))
 		titleLabel.textAlignment = NSTextAlignment.Center
+		titleLabel.lineBreakMode = .ByWordWrapping
+		titleLabel.numberOfLines = 0
 		titleLabel.textColor = secondaryColor
 		titleLabel.text = title
 		self.dialogView.addSubview(titleLabel)
@@ -134,5 +155,55 @@ class FeedbackViewController: UIViewController {
 		rotateAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
 		rotateAnimation.toValue = NSNumber(double: Double(numberOfPi) * M_PI)
 		self.dismissButton.layer.addAnimation(rotateAnimation, forKey: nil)
+	}
+	
+	func updateDialogContent(title : String, goodTitle : String, badTitle : String, goodHandler : BlockButtonActionBlock, badHandler : BlockButtonActionBlock) {
+		self.titleLabel.text = title
+		self.titleLabel.sizeToFit()
+		self.yesButton.setTitle(goodTitle, forState: .Normal)
+		self.noButton.setTitle(badTitle, forState: .Normal)
+		self.yesButton.block_setAction(goodHandler)
+		self.noButton.block_setAction(badHandler)
+	}
+	
+	func sendEmail() {
+		let mailComposeViewController = configuredMailComposeViewController()
+		if MFMailComposeViewController.canSendMail() {
+			self.presentViewController(mailComposeViewController, animated: true, completion: nil)
+		} else {
+			self.showSendMailErrorAlert()
+		}
+	}
+	
+	func configuredMailComposeViewController() -> MFMailComposeViewController {
+		let mailComposerVC = MFMailComposeViewController()
+		mailComposerVC.mailComposeDelegate = self // Extremely important to set the --mailComposeDelegate-- property, NOT the --delegate-- property
+		
+		mailComposerVC.setToRecipients(["email@hkalexling.com"])
+		mailComposerVC.setSubject("KonaBot iOS App Feedback")
+		
+		return mailComposerVC
+	}
+	
+	func showSendMailErrorAlert() {
+		self.alert = AWAlertView.redAlertFromTitleAndMessage("Could Not Send Email", message: "Your device could not send email. Please check e-mail configuration and try again.")
+		self.parentVC.navigationController?.view.addSubview(self.alert)
+		self.alert.showAlert()
+	}
+	
+	// MARK: MFMailComposeViewControllerDelegate
+	
+	func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
+		controller.dismissViewControllerAnimated(true, completion: nil)
+		if error != nil {
+			self.alert = AWAlertView.redAlertFromTitleAndMessage("Error", message: error!.localizedDescription)
+			self.parentVC.navigationController?.view.addSubview(self.alert)
+			self.alert.showAlert()
+		}
+		else{
+			self.alert = AWAlertView.alertFromTitleAndMessage("Thanks", message: "Thanks for your feedback!")
+			self.parentVC.navigationController?.view.addSubview(self.alert)
+			self.alert.showAlert()
+		}
 	}
 }
