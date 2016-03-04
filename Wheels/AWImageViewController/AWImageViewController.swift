@@ -64,7 +64,7 @@ class AWImageViewController: UIViewController, NSURLSessionDownloadDelegate {
 	
 	private var originImageView : UIImageView!
 	var image : UIImage!
-	private var originFrame : CGRect?
+	private var originFrame : CGRect!
 	
 	private var scrollView : UIScrollView!
 	private var imageView : UIImageView?
@@ -336,18 +336,13 @@ class AWImageViewController: UIViewController, NSURLSessionDownloadDelegate {
 		
 		UIView.animateWithDuration(self.animationDuration!, animations: {
 			self.view.backgroundColor = UIColor.clearColor()
-			if self.originFrame != nil {
-				if self.frameClose(self.imageView!.frame, frame1: self.originFrame!) {
-					//Dismiss during download
-					self.imageView!.alpha += 0.1 //Do some unnoticable stuff to wait until the animaton duration end
-				}
-				else{
-					self.imageView!.frame = self.originFrame!
-					self.updateContentInset()
-				}
+			if self.imageView == nil {
+				//Dismiss during download
+				self.view.alpha += 0.1
 			}
-			else if self.imageView != nil {
-				self.imageView!.hidden = true
+			else{
+				self.imageView!.frame = self.originFrame
+				self.updateContentInset()
 			}
 			}, completion: {(finished : Bool) in
 				self.view.hidden = true
