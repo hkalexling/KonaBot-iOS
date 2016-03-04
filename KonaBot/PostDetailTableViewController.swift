@@ -131,17 +131,10 @@ class PostDetailTableViewController: UITableViewController, TagViewDelegate {
 	}
 	
 	func tagViewDidSelecteTag(tag: String?) {
-		let searchVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("searchVC") as! SearchViewController
-		self.parentVC.navigationController!.pushViewController(searchVC, animated: true)
-		searchVC.searchBar.text = tag
-		searchVC.searchBarSearchButtonClicked(searchVC.searchBar)
-		/*
-		self.parentVC.tabBarController?.selectedIndex = 1
-		let navigationVC = self.parentVC.tabBarController?.selectedViewController as! UINavigationController
-		navigationVC.popToRootViewControllerAnimated(false)
-		let searchVC = navigationVC.topViewController as! SearchViewController
-		searchVC.searchBar.text = tag
-		searchVC.searchBarSearchButtonClicked(searchVC.searchBar)
-		*/
+		let collectionVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("collectionVC") as! CollectionViewController
+		collectionVC.keyword = tag!
+		collectionVC.isFromDetailTableVC = true
+		collectionVC.searchVC = SearchViewController()
+		self.parentVC.navigationController!.pushViewController(collectionVC, animated: true)
 	}
 }

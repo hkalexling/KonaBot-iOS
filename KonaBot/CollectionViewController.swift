@@ -36,6 +36,8 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 	var api : KonaAPI!
 	
 	var alert : AWAlertView?
+	
+	var isFromDetailTableVC = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -130,7 +132,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 			self.postSelectable[indexPath.row] = true
 		}
 		else{
-			cell.imageView.image = UIImage.imageWithColor(UIColor.darkGrayColor())
+			cell.imageView.image = UIImage.imageWithColor(UIColor.placeHolderImageColor())
 			downloadImg(self.posts[indexPath.row].previewUrl, view: cell.imageView, index: indexPath.row)
 		}
 		
@@ -215,6 +217,13 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 	
 	func konaHTMLParserFinishedParsing(tags: [String]) {
 		if (self.searchVC != nil && self.posts.count == 0){
+			if self.isFromDetailTableVC {
+				self.alert = AWAlertView.redAlertFromTitleAndMessage("No Result Found".localized, message: "Post with this tag does not exist. Please try another tag".localized)
+				self.navigationController!.view.addSubview(self.alert!)
+				self.alert!.showAlert()
+				self.navigationController!.popViewControllerAnimated(true)
+				return
+			}
 			self.searchVC!.noResult = true
 			if (tags.count > 0){
 				self.searchVC!.suggestedTag = tags
@@ -226,6 +235,6 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 	//Parse HTML and get suggested tags
 	func handleEmtptySearch(){
 		let konaParser = KonaHTMLParser(delegate: self, errorDelegate: self)
-		konaParser.getSuggestedTagsFromEmptyTag(self.keyword)
+		konaParser.getSuggestedTagsFromEmptyTag(self.keyword.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLHostAllowedCharacterSet())!)
 	}
 }

@@ -66,3 +66,7 @@
 "Safe" = "安全";
 "Questionable" = "质疑";
 "Explicit" = "R18";
+
+"No Result Found" = "无搜索结果";
+"Post with this tag does not exist. Please try another tag" = "主人搜索的标签不存在，换个标签试试吧~";
+

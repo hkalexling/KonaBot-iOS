@@ -125,7 +125,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, KonaAPITagDel
 		while(original.hasSuffix(" ")){
 			original.removeAtIndex(original.endIndex.advancedBy(-1))
 		}
-		original = original.stringByReplacingOccurrencesOfString(" ", withString: "_").stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLHostAllowedCharacterSet())!
+		original = original.stringByReplacingOccurrencesOfString(" ", withString: "_")
 		return original
 	}
 	

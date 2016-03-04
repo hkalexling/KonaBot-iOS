@@ -148,17 +148,51 @@ public extension UIColor {
 		let comp = self.components
 		return UIColor(red: comp.red * coeff, green: comp.green * coeff, blue: comp.blue * coeff, alpha: comp.alpha)
 	}
+	
+	
 	class func themeColor() -> UIColor{
-		return UIColor(red: 34/255, green: 34/255, blue: 34/255, alpha: 1)
+		//return UIColor(red: 34/255, green: 34/255, blue: 34/255, alpha: 1)
+		return UIColor(hexString: "#EEEEEE")
 	}
 	class func konaColor() -> UIColor{
-		return UIColor(red: 253/255, green: 168/255, blue: 142/255, alpha: 1)
+		//return UIColor(red: 253/255, green: 168/255, blue: 142/255, alpha: 1)
+		return UIColor(hexString: "#2196F3")
 	}
 	class func lighterThemeColor() -> UIColor {
-		return UIColor(red: 50/255, green: 50/255, blue: 50/255, alpha: 1)
+		//return UIColor(red: 50/255, green: 50/255, blue: 50/255, alpha: 1)
+		return UIColor.whiteColor()
 	}
 	class func searchVCLabelColor() -> UIColor {
-		return UIColor.whiteColor()
+		//return UIColor.whiteColor()
+		return UIColor.grayColor()
+	}
+	class func placeHolderImageColor() -> UIColor {
+		//return UIColor.darkGrayColor()
+		return UIColor.lightGrayColor()
+	}
+	
+	convenience init(hexString: String) {
+		let hex = hexString.stringByTrimmingCharactersInSet(NSCharacterSet.alphanumericCharacterSet().invertedSet)
+		var int = UInt32()
+		NSScanner(string: hex).scanHexInt(&int)
+		let a, r, g, b: UInt32
+		switch hex.characters.count {
+		case 3: // RGB (12-bit)
+			(a, r, g, b) = (255, (int >> 8) * 17, (int >> 4 & 0xF) * 17, (int & 0xF) * 17)
+		case 6: // RGB (24-bit)
+			(a, r, g, b) = (255, int >> 16, int >> 8 & 0xFF, int & 0xFF)
+		case 8: // ARGB (32-bit)
+			(a, r, g, b) = (int >> 24, int >> 16 & 0xFF, int >> 8 & 0xFF, int & 0xFF)
+		default:
+			(a, r, g, b) = (1, 1, 1, 0)
+		}
+		self.init(red: CGFloat(r) / 255, green: CGFloat(g) / 255, blue: CGFloat(b) / 255, alpha: CGFloat(a) / 255)
+	}
+}
+
+extension UIStatusBarStyle {
+	static func styleAccordingToTheme() -> UIStatusBarStyle {
+		return UIStatusBarStyle.Default
 	}
 }
 

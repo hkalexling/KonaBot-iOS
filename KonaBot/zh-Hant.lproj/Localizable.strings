@@ -66,3 +66,6 @@
 "Safe" = "安全";
 "Questionable" = "質疑";
 "Explicit" = "R18";
+
+"No Result Found" = "無搜索結果";
+"Post with this tag does not exist. Please try another tag" = "主人搜索的標籤不存在，換個標籤試試吧~";

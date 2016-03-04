@@ -82,7 +82,7 @@ class FavoriteCollectionViewController: UICollectionViewController, UICollection
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("ImageCell", forIndexPath: indexPath) as! ImageCell
-		cell.imageView.image = UIImage.imageWithColor(UIColor.darkGrayColor())
+		cell.imageView.image = UIImage.imageWithColor(UIColor.placeHolderImageColor())
 		dispatch_async(dispatch_get_global_queue(Int(QOS_CLASS_USER_INITIATED.rawValue), 0), {
 			if var img = self.yuno.fetchImageWithKey("FavoritedImage", key: self.favoritePostList[indexPath.row]){
 				img = img.resize(cell.imageView.bounds.width * self.previewQuility)

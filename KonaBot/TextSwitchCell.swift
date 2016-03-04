@@ -18,7 +18,7 @@ class TextSwitchCell: UITableViewCell {
 		
 		self.`switch`.onTintColor = UIColor.konaColor()
 		self.`switch`.thumbTintColor = UIColor.themeColor()
-		self.`switch`.backgroundColor = UIColor.darkGrayColor()
+		self.`switch`.backgroundColor = UIColor.placeHolderImageColor()
 		self.`switch`.layer.cornerRadius = 16
 		self.`switch`.tintColor = UIColor.konaColor()
 		self.`switch`.setOn(NSUserDefaults.standardUserDefaults().boolForKey("optimize"), animated: false)

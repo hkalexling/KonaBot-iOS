@@ -31,14 +31,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		}
 		
 		UITabBar.appearance().tintColor = UIColor.konaColor()
-		UITabBar.appearance().barTintColor = UIColor.themeColor()
+		UITabBar.appearance().barTintColor = UIColor.lighterThemeColor()
 		UICollectionView.appearance().backgroundColor = UIColor.themeColor()
-		UINavigationBar.appearance().barTintColor = UIColor.themeColor()
+		UINavigationBar.appearance().barTintColor = UIColor.lighterThemeColor()
 		UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: UIColor.konaColor()]
 		UINavigationBar.appearance().tintColor = UIColor.konaColor()
 		UITableView.appearance().backgroundColor = UIColor.themeColor()
 		UITableViewCell.appearance().backgroundColor = UIColor.lighterThemeColor()
-		application.setStatusBarStyle(.LightContent, animated: false)
+		application.setStatusBarStyle(UIStatusBarStyle.styleAccordingToTheme(), animated: false)
 		
 		return true
 	}
