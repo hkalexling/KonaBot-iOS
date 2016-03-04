@@ -14,6 +14,7 @@ class AWAlertView: UIView {
 	let height = UIScreen.mainScreen().bounds.height
 	
 	let offset : CGFloat = 30
+	let labelOffset : CGFloat = 20
 	
 	var animationDuration : NSTimeInterval = 0.5
 	var alertShowTime : NSTimeInterval = 2
@@ -37,14 +38,14 @@ class AWAlertView: UIView {
 		self.backgroundColor = bgColor
 		self.layer.cornerRadius = self.cornerRadius
 		
-		let titleLabel = UILabel(frame: CGRectMake(0, self.offset, self.frame.width, self.frame.height/2))
+		let titleLabel = UILabel(frame: CGRectMake(self.labelOffset, self.offset, self.alertHiddenFrame.width - 2 * self.labelOffset, self.frame.height/2))
 		titleLabel.text = title
 		titleLabel.font = UIFont.boldSystemFontOfSize(18)
 		titleLabel.textColor = textColor
 		titleLabel.textAlignment = .Center
 		self.addSubview(titleLabel)
 		
-		let messageLabel = UILabel(frame: CGRectMake(0, self.frame.height/2, self.frame.width, self.frame.height/2))
+		let messageLabel = UILabel(frame: CGRectMake(self.labelOffset, self.frame.height/2, self.alertHiddenFrame.width - 2 * self.labelOffset, self.frame.height/2))
 		messageLabel.text = message
 		messageLabel.numberOfLines = 0
 		messageLabel.lineBreakMode = .ByWordWrapping
