@@ -157,12 +157,6 @@ class AWImageViewController: UIViewController, NSURLSessionDownloadDelegate {
 		self.awIndicator.hidden = true
 		self.awIndicator.center = self.view.center
 		self.view.addSubview(self.awIndicator)
-				
-		if self.originImageView != nil {
-			self.imageView = UIImageView(frame: self.originFrame!)
-			imageView!.image = self.image
-			self.scrollView.addSubview(self.imageView!)
-		}
 		
 		self.view.backgroundColor = UIColor.clearColor()
 		
@@ -181,10 +175,15 @@ class AWImageViewController: UIViewController, NSURLSessionDownloadDelegate {
 		
 		self.panRecognizer = UIPanGestureRecognizer(target: self, action: "panned:")
 		
-		self.imageView!.userInteractionEnabled = true
-		self.imageView!.addGestureRecognizer(singleTapRecognizer)
-		self.imageView!.addGestureRecognizer(doubleTapRecognizer)
-		self.imageView!.addGestureRecognizer(self.panRecognizer)
+		if self.urlString == nil {
+			self.imageView = UIImageView(frame: self.originFrame!)
+			imageView!.image = self.image
+			self.scrollView.addSubview(self.imageView!)
+			self.imageView!.userInteractionEnabled = true
+			self.imageView!.addGestureRecognizer(singleTapRecognizer)
+			self.imageView!.addGestureRecognizer(doubleTapRecognizer)
+			self.imageView!.addGestureRecognizer(self.panRecognizer)
+		}
 
 		let pinchRecognizer = UIPinchGestureRecognizer(target: self, action: Selector("pinched:"))
 		self.view.addGestureRecognizer(pinchRecognizer)
@@ -427,7 +426,18 @@ class AWImageViewController: UIViewController, NSURLSessionDownloadDelegate {
 			self.imageView = UIImageView(frame: CGRectMake(0, UIScreen.mainScreen().bounds.height/2 - finalHeight/2, UIScreen.mainScreen().bounds.width, finalHeight))
 			self.imageView!.image = downloadedImage
 			self.image = downloadedImage
+			
+			let singleTapRecognizer = UITapGestureRecognizer(target: self, action: Selector("singleTapped"))
+			let doubleTapRecognizer = UITapGestureRecognizer(target: self, action: Selector("doubleTapped:"))
+			doubleTapRecognizer.numberOfTapsRequired = 2
+			singleTapRecognizer.requireGestureRecognizerToFail(doubleTapRecognizer)
+			
 			self.scrollView.addSubview(self.imageView!)
+			self.imageView!.userInteractionEnabled = true
+			self.imageView!.addGestureRecognizer(singleTapRecognizer)
+			self.imageView!.addGestureRecognizer(doubleTapRecognizer)
+			self.imageView!.addGestureRecognizer(self.panRecognizer)
+			
 			self.awIndicator.hidden = true
 			self.finishedDisplaying = true
 		}
