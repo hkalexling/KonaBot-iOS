@@ -48,6 +48,8 @@ class FeedbackViewController: UIViewController, MFMailComposeViewControllerDeleg
 		self.dialogView.center = self.view.center
 		self.dialogView.backgroundColor = baseColor
 		self.dialogView.layer.cornerRadius = 10
+		self.dialogView.layer.borderWidth = 1
+		self.dialogView.layer.borderColor = secondaryColor.CGColor
 		self.view.addSubview(self.dialogView)
 		
 		self.dismissButton = UIImageView(frame: CGRectMake(20, 40, 25, 25))
