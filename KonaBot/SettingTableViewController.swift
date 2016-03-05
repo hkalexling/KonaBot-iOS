@@ -115,7 +115,7 @@ class SettingTableViewController: UITableViewController{
 		if section == tableView.numberOfSections - 1 {
 			let cell = tableView.dequeueReusableCellWithIdentifier("textCell") as! TextCell
 			
-			cell.label.text = "Visit Support Site".localized
+			cell.label.text = "Feedback".localized
 			cell.label.textColor = UIColor.konaColor()
 			
 			return cell
@@ -134,8 +134,10 @@ class SettingTableViewController: UITableViewController{
 			}
 		}
 		if indexPath.section == tableView.numberOfSections - 1 {
-			let websiteAddress = NSURL(string: "http://hkalexling.com/2015/11/05/konabot-support-page/")
-			UIApplication.sharedApplication().openURL(websiteAddress!)
+			NSUserDefaults.standardUserDefaults().setBool(true, forKey: "feedbackFinished")
+			let feedbackVC = FeedbackViewController(parentVC: self, backgroundView: self.tabBarController!.view, baseColor: UIColor.themeColor(), secondaryColor: UIColor.konaColor(), dismissButtonColor: UIColor.konaColor())
+			self.tabBarController!.addChildViewController(feedbackVC)
+			self.tabBarController!.view.addSubview(feedbackVC.view)
 		}
 	}
 	
