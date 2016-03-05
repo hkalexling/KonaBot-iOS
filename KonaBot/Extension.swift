@@ -42,7 +42,7 @@ extension CGFloat {
 }
 
 extension UIButton {
-	func block_setAction(block: BlockButtonActionBlock) {
+	func block_setAction(block: ButtonActionBlock) {
 		objc_setAssociatedObject(self, &ActionBlockKey, ActionBlockWrapper(block: block), objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
 		addTarget(self, action: "block_handleAction:", forControlEvents: .TouchUpInside)
 	}
@@ -168,6 +168,10 @@ public extension UIColor {
 			return UIColor(red: 34/255, green: 34/255, blue: 34/255, alpha: 1)
 		case .LightBlue:
 			return UIColor(hexString: "#EEEEEE")
+		case .Orange:
+			return UIColor(hexString: "#EEEEEE")
+		case .Dark:
+			return UIColor(hexString: "#262626")
 		}
 	}
 	class func konaColor() -> UIColor{
@@ -176,6 +180,10 @@ public extension UIColor {
 			return UIColor(red: 253/255, green: 168/255, blue: 142/255, alpha: 1)
 		case .LightBlue:
 			return UIColor(hexString: "#2196F3")
+		case .Orange:
+			return UIColor(hexString: "#FF8F00")
+		case .Dark:
+			return UIColor(hexString: "#84FFFF")
 		}
 	}
 	class func lighterThemeColor() -> UIColor {
@@ -184,6 +192,10 @@ public extension UIColor {
 			return UIColor(red: 50/255, green: 50/255, blue: 50/255, alpha: 1)
 		case .LightBlue:
 			return UIColor.whiteColor()
+		case .Orange:
+			return UIColor.whiteColor()
+		case .Dark:
+			return UIColor(hexString: "#333333")
 		}
 	}
 	class func searchVCLabelColor() -> UIColor {
@@ -192,6 +204,10 @@ public extension UIColor {
 			return UIColor.whiteColor()
 		case .LightBlue:
 			return UIColor.grayColor()
+		case .Orange:
+			return UIColor.grayColor()
+		case .Dark:
+			return UIColor.whiteColor()
 		}
 	}
 	class func placeHolderImageColor() -> UIColor {
@@ -200,6 +216,10 @@ public extension UIColor {
 			return UIColor.darkGrayColor()
 		case .LightBlue:
 			return UIColor.lightGrayColor()
+		case .Orange:
+			return UIColor.lightGrayColor()
+		case .Dark:
+			return UIColor.darkGrayColor()
 		}
 	}
 	
@@ -229,6 +249,10 @@ extension UIStatusBarStyle {
 			return .LightContent
 		case .LightBlue:
 			return .Default
+		case .Orange:
+			return .Default
+		case .Dark:
+			return .LightContent
 		}
 	}
 }
@@ -240,6 +264,10 @@ extension UIScrollViewIndicatorStyle {
 			return .White
 		case .LightBlue:
 			return .Black
+		case .Orange:
+			return .Black
+		case .Dark:
+			return .White
 		}
 	}
 }
@@ -304,6 +332,8 @@ public extension UIDevice {
 public enum Theme {
 	case KonaChan
 	case LightBlue
+	case Orange
+	case Dark
 }
 
 public class Yuno{
@@ -311,8 +341,7 @@ public class Yuno{
 	var imageCoreData = [NSManagedObject]()
 	var favoriteCoreData = [NSManagedObject]()
 	
-	static let theme = Theme.LightBlue
-	
+	static let theme = Theme.Dark
 	static let viewCountBeforeFeedback = 10
 	
 	static var r18 : Bool {

@@ -11,12 +11,11 @@ import UIKit
 
 var ActionBlockKey: UInt8 = 0
 
-// a type for our action block closure
-typealias BlockButtonActionBlock = () -> Void
+typealias ButtonActionBlock = () -> Void
 
 class ActionBlockWrapper : NSObject {
-	var block : BlockButtonActionBlock
-	init(block: BlockButtonActionBlock) {
+	var block : ButtonActionBlock
+	init(block: ButtonActionBlock) {
 		self.block = block
 	}
 }

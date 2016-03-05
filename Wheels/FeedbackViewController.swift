@@ -159,7 +159,7 @@ class FeedbackViewController: UIViewController, MFMailComposeViewControllerDeleg
 		self.dismissButton.layer.addAnimation(rotateAnimation, forKey: nil)
 	}
 	
-	func updateDialogContent(title : String, goodTitle : String, badTitle : String, goodHandler : BlockButtonActionBlock, badHandler : BlockButtonActionBlock) {
+	func updateDialogContent(title : String, goodTitle : String, badTitle : String, goodHandler : ButtonActionBlock, badHandler : ButtonActionBlock) {
 		self.titleLabel.text = title
 		let width = self.titleLabel.bounds.width
 		self.titleLabel.sizeToFit()

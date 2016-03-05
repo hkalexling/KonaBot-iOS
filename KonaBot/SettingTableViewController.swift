@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SettingTableViewController: UITableViewController{
+class SettingTableViewController: UITableViewController, UIWebViewDelegate {
 	
 	var canAdjustViewMode : Bool = false
 	
@@ -149,6 +149,7 @@ class SettingTableViewController: UITableViewController{
 		let webView = UIWebView(frame: aboutVC.view.frame)
 		webView.opaque = false
 		webView.backgroundColor = UIColor.themeColor()
+		webView.delegate = self
 		aboutVC.view.addSubview(webView)
 		
 		let htmlFile = NSBundle.mainBundle().pathForResource("about", ofType: "html")!
@@ -159,6 +160,14 @@ class SettingTableViewController: UITableViewController{
 		webView.loadHTMLString(htmlString as String, baseURL: nil)
 		
 		self.navigationController!.pushViewController(aboutVC, animated: true)
+	}
+	
+	func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
+		if navigationType == UIWebViewNavigationType.LinkClicked {
+			UIApplication.sharedApplication().openURL(request.URL!)
+			return false
+		}
+		return true
 	}
 	
 	@IBAction func switched(sender: UISwitch) {

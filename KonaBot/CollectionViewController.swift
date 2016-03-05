@@ -185,6 +185,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 	}
 	
 	func loadMore(){
+		self.api.getPosts(self.postsPerRequest, page: self.currentPage, tag: self.keyword)
 		if !NSUserDefaults.standardUserDefaults().boolForKey("feedbackFinished") {
 			if NSUserDefaults.standardUserDefaults().integerForKey("viewCount") > Yuno.viewCountBeforeFeedback {
 				NSUserDefaults.standardUserDefaults().setBool(true, forKey: "feedbackFinished")
@@ -193,7 +194,6 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 				self.tabBarController!.view.addSubview(feedbackVC.view)
 			}
 		}
-		self.api.getPosts(self.postsPerRequest, page: self.currentPage, tag: self.keyword)
 	}
 	
 	func konaAPIDidGetPost(ary: [Post]) {
