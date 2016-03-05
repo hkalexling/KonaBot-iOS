@@ -56,16 +56,16 @@ class FeedbackViewController: UIViewController, MFMailComposeViewControllerDeleg
 		self.dismissButton.alpha = 0
 		self.view.addSubview(self.dismissButton)
 		
-		self.showFeedbackAlert("Enjoying KonaBot?", badChoiceTitle: "Not really", goodChoiceTitle: "Yes!", badChoiceHandler: {
-			self.updateDialogContent("Would you mind giving me some feedback?", goodTitle: "Sure", badTitle: "No, thanks", goodHandler: {
+		self.showFeedbackAlert("Enjoying KonaBot?".localized, badChoiceTitle: "Not really".localized, goodChoiceTitle: "Yes!".localized, badChoiceHandler: {
+			self.updateDialogContent("Would you mind giving me some feedback?".localized, goodTitle: "Sure".localized, badTitle: "No, thanks".localized, goodHandler: {
 				self.sendEmail()
 				self.dismiss()
 				}, badHandler: {
 					self.dismiss()
 			})
 			}, goodChoiceHandler: {
-				self.updateDialogContent("Then could you help me by rating KonaBot in App Store?", goodTitle: "Sure", badTitle: "No, Thanks", goodHandler: {
-					UIApplication.sharedApplication().openURL(NSURL(string: "https://itunes.apple.com/us/app/konabot/id1055716649")!)
+				self.updateDialogContent("Then could you help me by rating KonaBot in App Store?".localized, goodTitle: "Sure".localized, badTitle: "No, thanks".localized, goodHandler: {
+				UIApplication.sharedApplication().openURL(NSURL(string: "https://itunes.apple.com/us/app/konabot/id1055716649")!)
 					self.dismiss()
 					}, badHandler: {
 						self.dismiss()
@@ -159,7 +159,12 @@ class FeedbackViewController: UIViewController, MFMailComposeViewControllerDeleg
 	
 	func updateDialogContent(title : String, goodTitle : String, badTitle : String, goodHandler : BlockButtonActionBlock, badHandler : BlockButtonActionBlock) {
 		self.titleLabel.text = title
+		let width = self.titleLabel.bounds.width
 		self.titleLabel.sizeToFit()
+		var frame = self.titleLabel.frame
+		frame.size.width = width
+		frame.size.height += 8
+		self.titleLabel.frame = frame
 		self.yesButton.setTitle(goodTitle, forState: .Normal)
 		self.noButton.setTitle(badTitle, forState: .Normal)
 		self.yesButton.block_setAction(goodHandler)
@@ -186,7 +191,7 @@ class FeedbackViewController: UIViewController, MFMailComposeViewControllerDeleg
 	}
 	
 	func showSendMailErrorAlert() {
-		self.alert = AWAlertView.redAlertFromTitleAndMessage("Could Not Send Email", message: "Your device could not send email. Please check e-mail configuration and try again.")
+		self.alert = AWAlertView.redAlertFromTitleAndMessage("Could Not Send Email".localized, message: "Your device could not send email. Please check e-mail configuration and try again.".localized)
 		self.parentVC.navigationController?.view.addSubview(self.alert)
 		self.alert.showAlert()
 	}
@@ -196,12 +201,12 @@ class FeedbackViewController: UIViewController, MFMailComposeViewControllerDeleg
 	func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
 		controller.dismissViewControllerAnimated(true, completion: nil)
 		if error != nil {
-			self.alert = AWAlertView.redAlertFromTitleAndMessage("Error", message: error!.localizedDescription)
+			self.alert = AWAlertView.redAlertFromTitleAndMessage("Error".localized, message: error!.localizedDescription)
 			self.parentVC.navigationController?.view.addSubview(self.alert)
 			self.alert.showAlert()
 		}
-		else{
-			self.alert = AWAlertView.alertFromTitleAndMessage("Thanks", message: "Thanks for your feedback!")
+		else if result == MFMailComposeResultSent {
+			self.alert = AWAlertView.alertFromTitleAndMessage("Thanks".localized, message: "Thanks for your feedback!".localized)
 			self.parentVC.navigationController?.view.addSubview(self.alert)
 			self.alert.showAlert()
 		}

@@ -70,3 +70,15 @@
 "No Result Found" = "无搜索结果";
 "Post with this tag does not exist. Please try another tag" = "主人搜索的标签不存在，换个标签试试吧~";
 
+"Enjoying KonaBot?" = "喜欢 KonaBot 吗？";
+"Not really" = "并不...";
+"Yes!" = "喜欢！";
+"Would you mind giving me some feedback?" = "能不能给我一些反馈呢？";
+"Then could you help me by rating KonaBot in App Store?" = "那可以麻烦你到 App Store 为 KonaBot 评分吗？";
+"Sure" = "当然";
+"No, thanks" = "不，谢谢";
+"Could Not Send Email" = "无法发送邮件";
+"Your device could not send email. Please check e-mail configuration and try again." = "该设备无法发送邮件。请检查邮件设置后重试";
+"Error" = "发生错误";
+"Thanks" = "谢谢";
+"Thanks for your feedback!" = "感谢你的反馈！";

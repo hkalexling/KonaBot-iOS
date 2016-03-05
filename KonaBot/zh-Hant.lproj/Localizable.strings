@@ -69,3 +69,16 @@
 
 "No Result Found" = "無搜索結果";
 "Post with this tag does not exist. Please try another tag" = "主人搜索的標籤不存在，換個標籤試試吧~";
+
+"Enjoying KonaBot?" = "喜歡 KonaBot 嗎";
+"Not really" = "並不...";
+"Yes!" = "喜歡！";
+"Would you mind giving me some feedback?" = "能不能給我一些反饋呢？";
+"Then could you help me by rating KonaBot in App Store?" = "那可以麻煩你到 App Store 為 KonaBot 評分嗎？";
+"Sure" = "當然";
+"No, thanks" = "不，謝謝";
+"Could Not Send Email" = "無法發送郵件";
+"Your device could not send email. Please check e-mail configuration and try again." = "該設備無法發送郵件。請檢查郵件設置後重試";
+"Error" = "發送錯誤";
+"Thanks" = "謝謝";
+"Thanks for your feedback!" = "感謝你的反饋！";
