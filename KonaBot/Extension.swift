@@ -313,6 +313,8 @@ public class Yuno{
 	
 	static let theme = Theme.LightBlue
 	
+	static let viewCountBeforeFeedback = 10
+	
 	static var r18 : Bool {
 		return NSUserDefaults.standardUserDefaults().boolForKey("r18")
 	}

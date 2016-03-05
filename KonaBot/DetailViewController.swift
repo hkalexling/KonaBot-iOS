@@ -55,6 +55,13 @@ class DetailViewController: UIViewController, AWImageViewControllerDownloadDeleg
     override func viewDidLoad() {
         super.viewDidLoad()
 		
+		//Feedback counting thing
+		if !NSUserDefaults.standardUserDefaults().boolForKey("feedbackFinished") {
+			var viewCount = NSUserDefaults.standardUserDefaults().integerForKey("viewCount")
+			viewCount += 1
+			NSUserDefaults.standardUserDefaults().setInteger(viewCount, forKey: "viewCount")
+		}
+		
 		//iPad
 		if UIScreen.mainScreen().bounds.width > 415 {
 			self.smallerHeight = 200
