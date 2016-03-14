@@ -341,7 +341,7 @@ public class Yuno{
 	var imageCoreData = [NSManagedObject]()
 	var favoriteCoreData = [NSManagedObject]()
 	
-	static let theme = Theme.Dark
+	static let theme = Theme.KonaChan
 	static let viewCountBeforeFeedback = 10
 	
 	static var r18 : Bool {
@@ -363,9 +363,9 @@ public class Yuno{
 	public func saveImageWithKey(entity : String, image : UIImage, key : String){
 		let data = NSKeyedArchiver.archivedDataWithRootObject(image)
 		let managedContext = entity == "FavoritedImage" ? (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext : CacheManager.sharedInstance.managedObjectContext
-		let entity = NSEntityDescription.entityForName(entity,
+		let entityDescription = NSEntityDescription.entityForName(entity,
 			inManagedObjectContext: managedContext)
-		let options = NSManagedObject(entity: entity!,
+		let options = NSManagedObject(entity: entityDescription!,
 			insertIntoManagedObjectContext:managedContext)
 		
 		options.setValue(data, forKey: "image")
@@ -377,6 +377,11 @@ public class Yuno{
 		}
 		catch{
 			print (error)
+		}
+		
+		//CK
+		if entity == "FavoritedImage" {
+			CKManager.addFavoritedWithUrl(key)
 		}
 	}
 	
