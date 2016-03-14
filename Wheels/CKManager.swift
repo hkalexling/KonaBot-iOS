@@ -41,6 +41,9 @@ class CKManager: NSObject {
 						if error != nil {
 							print (error!)
 						}
+						else{
+							print ("deleted")
+						}
 					})
 				}
 			}
@@ -70,9 +73,11 @@ class CKManager: NSObject {
 				print (error!)
 			}
 			if records != nil {
-				print ("found \(records!.count) new favorited images")
-				for record in records! {
-					print (record.valueForKey("postID"))
+				let ids : [String] = records!.map({$0.valueForKey("postID")}).filter({$0 != nil}).map({($0! as! String)})
+				let distinctIDs : [String] = Array(Set(ids))
+				print ("found \(distinctIDs.count) new favorited images")
+				for id in distinctIDs {
+					print (id)
 				}
 			}
 		})

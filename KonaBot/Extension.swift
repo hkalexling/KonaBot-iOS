@@ -444,6 +444,11 @@ public class Yuno{
 				print (error)
 			}
 		}
+		
+		//CK
+		if entity == "FavoritedImage" {
+			CKManager.removeFavoritedWithUrl(key)
+		}
 	}
 	
 	public func saveFavoriteImageIfNecessary(key : String, image : UIImage){
