@@ -12,6 +12,10 @@ import CloudKit
 class CKManager: NSObject {
 	
 	class func addFavorited(postID : String) {
+		if !CKManager.icloudAvaiable() {
+			print ("iCloud Not Avaiable")
+			return
+		}
 		let record = CKRecord(recordType: "FavoritedImage")
 		record.setValue(postID, forKey: "postID")
 		print ("uploading")
@@ -31,6 +35,10 @@ class CKManager: NSObject {
 	}
 	
 	class func removeFavorited(postID : String) {
+		if !CKManager.icloudAvaiable() {
+			print ("iCloud Not Avaiable")
+			return
+		}
 		let predicate = NSPredicate(format: "postID == %@", postID)
 		let query = CKQuery(recordType: "FavoritedImage", predicate: predicate)
 		CKContainer.defaultContainer().privateCloudDatabase.performQuery(query, inZoneWithID: nil, completionHandler: {(records, error) in
@@ -63,6 +71,10 @@ class CKManager: NSObject {
 	}
 	
 	class func checkNewFavorited() {
+		if !CKManager.icloudAvaiable() {
+			print ("iCloud Not Avaiable")
+			return
+		}
 		let favoriteList = Yuno().favoriteList()
 		let postIDList = favoriteList.map({$0.componentsSeparatedByString("/").last}).filter({$0 != nil}).map({$0!})
 		let predicate = NSPredicate(format: "NOT (postID IN %@)", postIDList)
@@ -81,5 +93,9 @@ class CKManager: NSObject {
 				}
 			}
 		})
+	}
+	
+	class func icloudAvaiable() -> Bool {
+		return NSFileManager.defaultManager().ubiquityIdentityToken != nil
 	}
 }
