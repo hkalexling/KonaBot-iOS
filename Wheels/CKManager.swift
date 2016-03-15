@@ -9,9 +9,14 @@
 import UIKit
 import CloudKit
 
+protocol CKManagerNewFavDelegate {
+	func CKManagerDidFoundNewFavPost(ids : [String])
+}
+
 class CKManager: NSObject {
 	
 	var icloudAvaiable = false
+	var favDelegate : CKManagerNewFavDelegate?
 	
 	override init(){
 		super.init()
@@ -48,7 +53,7 @@ class CKManager: NSObject {
 			if records.count == 1 {
 				let id = records[0].recordID
 				CKContainer.defaultContainer().privateCloudDatabase.deleteRecordWithID(id, completionHandler: self.CKHandler({(_) in
-					print ("deleted")
+					self.CKprint ("deleted")
 				}))
 			}
 		}))
@@ -65,8 +70,18 @@ class CKManager: NSObject {
 			self.CKprint ("iCloud Not Avaiable")
 			return
 		}
-		let favoriteList = Yuno().favoriteList()
-		let postIDList = favoriteList.map({$0.componentsSeparatedByString("/").last}).filter({$0 != nil}).map({$0!})
+		var favoriteList = Yuno().favoriteList()
+		if favoriteList.count == 0 {
+			//passing empty `postIDList` into the query will cause internal server error
+			favoriteList.append("")
+		}
+		let favListWithoutLastSlash : [String] = favoriteList.map({fav in
+			if fav.hasSuffix("/") {
+				return String(fav.characters.dropLast())
+			}
+			return fav
+		})
+		let postIDList = favListWithoutLastSlash.map({$0.componentsSeparatedByString("/").last}).filter({$0 != nil}).map({$0!})
 		let predicate = NSPredicate(format: "NOT (postID IN %@)", postIDList)
 		let query = CKQuery(recordType: "FavoritedImage", predicate: predicate)
 		self.CKprint ("checking favorited images from other devices")
@@ -77,11 +92,13 @@ class CKManager: NSObject {
 			for id in distinctIDs {
 				self.CKprint (id)
 			}
+			self.favDelegate?.CKManagerDidFoundNewFavPost(distinctIDs)
 		}))
 	}
 	
 	private func urlToID(urlString : String) -> String? {
-		if let id = urlString.componentsSeparatedByString("/").last {
+		let urlStrWithoutLastSlash = urlString.hasSuffix("/") ? String(urlString.characters.dropLast()) : urlString
+		if let id = urlStrWithoutLastSlash.componentsSeparatedByString("/").last {
 			return id
 		}
 		self.CKprint ("invalid url provided")

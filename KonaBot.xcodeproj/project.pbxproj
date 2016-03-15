@@ -17,6 +17,7 @@
 		711207C01C2421ED00FB99EF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 711207C21C2421ED00FB99EF /* Localizable.strings */; };
 		711207C41C24302F00FB99EF /* about.html in Resources */ = {isa = PBXBuildFile; fileRef = 711207C61C24302F00FB99EF /* about.html */; };
 		7119BC971C343570003BE527 /* KonaDisclosureIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7119BC961C343570003BE527 /* KonaDisclosureIndicatorView.swift */; };
+		711D66401C9840CE00688192 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 711D663F1C9840CE00688192 /* CloudKit.framework */; };
 		711E569F1BE9B61A00A6863D /* ViewModeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711E569E1BE9B61A00A6863D /* ViewModeCell.swift */; };
 		71330AF21BEA1A9E0053C2D8 /* Yuno.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71330AF11BEA1A9E0053C2D8 /* Yuno.storyboard */; };
 		713B7B081BE681430038A34A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 713B7B071BE681430038A34A /* Assets.xcassets */; };
@@ -46,7 +47,6 @@
 		71C8A2B91C8A214500F4F938 /* UIButton+Closure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71C8A2B81C8A214500F4F938 /* UIButton+Closure.swift */; };
 		71D17C0F1C58F159001088FA /* CacheModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 71D17C0D1C58F159001088FA /* CacheModel.xcdatamodeld */; };
 		71D17C111C58F259001088FA /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D17C101C58F259001088FA /* CacheManager.swift */; };
-		71F478961C9693310072D3C3 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71F478951C9693310072D3C3 /* CloudKit.framework */; };
 		71F478981C9698320072D3C3 /* CKManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F478971C9698320072D3C3 /* CKManager.swift */; };
 		9ED8778B9163BFB7FA813BD4 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7B31C0517915B780B0EC2D9 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
@@ -69,6 +69,7 @@
 		711207C91C24320300FB99EF /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = "zh-Hant"; path = "zh-Hant.lproj/about.html"; sourceTree = "<group>"; };
 		711207CA1C24320300FB99EF /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		7119BC961C343570003BE527 /* KonaDisclosureIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KonaDisclosureIndicatorView.swift; sourceTree = "<group>"; };
+		711D663F1C9840CE00688192 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		711E569E1BE9B61A00A6863D /* ViewModeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModeCell.swift; sourceTree = "<group>"; };
 		71330AF11BEA1A9E0053C2D8 /* Yuno.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Yuno.storyboard; sourceTree = "<group>"; };
 		713B7B071BE681430038A34A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -101,7 +102,6 @@
 		71D17C0E1C58F159001088FA /* CacheModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CacheModel.xcdatamodel; sourceTree = "<group>"; };
 		71D17C101C58F259001088FA /* CacheManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
 		71F478941C9693190072D3C3 /* KonaBot.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = KonaBot.entitlements; sourceTree = "<group>"; };
-		71F478951C9693310072D3C3 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		71F478971C9698320072D3C3 /* CKManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CKManager.swift; path = Wheels/CKManager.swift; sourceTree = "<group>"; };
 		D7B31C0517915B780B0EC2D9 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DED2764263359DECA2BAE97F /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -113,7 +113,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7177E9001C4AD09400109502 /* Social.framework in Frameworks */,
-				71F478961C9693310072D3C3 /* CloudKit.framework in Frameworks */,
+				711D66401C9840CE00688192 /* CloudKit.framework in Frameworks */,
 				71B2FC8B1BF7A359000B862D /* StoreKit.framework in Frameworks */,
 				9ED8778B9163BFB7FA813BD4 /* Pods.framework in Frameworks */,
 			);
@@ -300,7 +300,7 @@
 		F12FBDFA18695533EA3CEFED /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				71F478951C9693310072D3C3 /* CloudKit.framework */,
+				711D663F1C9840CE00688192 /* CloudKit.framework */,
 				7177E8FF1C4AD09400109502 /* Social.framework */,
 				D7B31C0517915B780B0EC2D9 /* Pods.framework */,
 			);

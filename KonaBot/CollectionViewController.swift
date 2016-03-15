@@ -164,7 +164,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 				}, completion: {(finished) in
 					self.postSelectable[index] = true
 			})
-			Yuno().saveImageWithKey("Preview", image: view.image!, key: url)
+			Yuno().saveImageWithKey("Preview", image: view.image!, key: url, skipUpload: false)
 			}, failure: {(task, error) in
 				print (error.localizedDescription)
 				
@@ -205,6 +205,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 			//when all posts in first fetch are R18
 			self.currentPage++
 			self.loadMore()
+			return
 		}
 		self.currentPage++
 		self.loading.removeFromSuperview()

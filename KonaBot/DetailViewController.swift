@@ -167,7 +167,7 @@ class DetailViewController: UIViewController, AWImageViewControllerDownloadDeleg
 		self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "Star"), style: .Done, target: self, action: Selector("unstared"))
 		if (!self.favoriteList.contains(self.postUrl)){
 			self.favoriteList.append(self.postUrl)
-			self.yuno.saveImageWithKey("FavoritedImage", image: self.detailImageView.image!, key: self.postUrl)
+			self.yuno.saveImageWithKey("FavoritedImage", image: self.detailImageView.image!, key: self.postUrl, skipUpload: false)
 		}
 	}
 	
@@ -175,7 +175,7 @@ class DetailViewController: UIViewController, AWImageViewControllerDownloadDeleg
 		self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "Star Outline"), style: .Done, target: self, action: Selector("stared"))
 		if (self.favoriteList.contains(self.postUrl)){
 			self.favoriteList.removeAtIndex(self.favoriteList.indexOf(self.postUrl)!)
-			self.yuno.deleteRecordForKey("FavoritedImage", key: self.postUrl)
+			self.yuno.deleteRecordForKey("FavoritedImage", key: self.postUrl, skipUpload: false)
 		}
 	}
 
@@ -247,23 +247,6 @@ class DetailViewController: UIViewController, AWImageViewControllerDownloadDeleg
 		self.awImageVC.setup(sourceUrl, originImageView: self.detailImageView, parentView: self.tabBarController!.view, backgroundStyle: .DarkBlur, animationDuration: nil, dismissButtonColor: UIColor.konaColor(), dismissButtonWidth: 25, delegate: nil, longPressDelegate: self, downloadDelegate: self)
 		
 		self.tabBarController!.view.addSubview(self.awImageVC.view)
-	}
-
-	func actionSheetSetStyle (awActionSheet : AWActionSheet ){
-		awActionSheet.animationDuraton = 0.8
-		awActionSheet.cancelButtonColor = UIColor.themeColor()
-		let componets = UIColor.themeColor().components
-		awActionSheet.buttonColor = UIColor(red: componets.red, green: componets.green, blue: componets.blue, alpha: 0.8)
-		awActionSheet.textColor = UIColor.konaColor()
-		
-		//iPad
-		if UIScreen.mainScreen().bounds.width > 415 {
-			awActionSheet.buttonWidth = 400
-			awActionSheet.buttonHeight = 60
-			awActionSheet.gapBetweetnCancelButtonAndOtherButtons = 15
-			awActionSheet.buttonFont = UIFont.systemFontOfSize(20)
-			awActionSheet.cancelButtonFont = UIFont.boldSystemFontOfSize(20)
-		}
 	}
 	
 	func imageSaved(image: UIImage, didFinishSavingWithError error: NSErrorPointer, contextInfo: UnsafePointer<()>) {
@@ -401,7 +384,7 @@ class DetailViewController: UIViewController, AWImageViewControllerDownloadDeleg
 			let facebookAction = AWActionSheetAction(title: "Facebook", handler: {self.shareToSocial(SLServiceTypeFacebook)})
 			let weiboAction = AWActionSheetAction(title: "Weibo".localized, handler: {self.shareToSocial(SLServiceTypeSinaWeibo)})
 			let shareActionSheet = AWActionSheet(parentView: self.awImageVC.view, actions: [twitterAction, facebookAction, weiboAction])
-			self.actionSheetSetStyle(shareActionSheet)
+			Yuno().actionSheetSetStyle(shareActionSheet)
 			self.awImageVC.view.addSubview(shareActionSheet)
 			shareActionSheet.showActionSheet()
 		})
@@ -413,7 +396,7 @@ class DetailViewController: UIViewController, AWImageViewControllerDownloadDeleg
 		awActionSheet.addAction(openAction)
 		awActionSheet.addAction(shareAction)
 		
-		self.actionSheetSetStyle(awActionSheet)
+		Yuno().actionSheetSetStyle(awActionSheet)
 		
 		self.awImageVC.view.addSubview(awActionSheet)
 		self.allowLongPress = false
@@ -424,7 +407,7 @@ class DetailViewController: UIViewController, AWImageViewControllerDownloadDeleg
 		if image != nil {
 			self.detailImageView.image = image!
 			self.finishedDownload = true
-			self.yuno.saveImageWithKey("Cache", image: image!, key: self.postUrl)
+			self.yuno.saveImageWithKey("Cache", image: image!, key: self.postUrl, skipUpload: false)
 			self.yuno.saveFavoriteImageIfNecessary(self.postUrl, image: image!)
 		}
 		if error != nil {

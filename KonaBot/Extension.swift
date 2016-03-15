@@ -360,7 +360,7 @@ public class Yuno{
 		}
 	}
 	
-	public func saveImageWithKey(entity : String, image : UIImage, key : String){
+	public func saveImageWithKey(entity : String, image : UIImage, key : String, skipUpload : Bool){
 		let data = NSKeyedArchiver.archivedDataWithRootObject(image)
 		let managedContext = entity == "FavoritedImage" ? (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext : CacheManager.sharedInstance.managedObjectContext
 		let entityDescription = NSEntityDescription.entityForName(entity,
@@ -380,7 +380,7 @@ public class Yuno{
 		}
 		
 		//CK
-		if entity == "FavoritedImage" {
+		if entity == "FavoritedImage" && !skipUpload {
 			CKManager().addFavoritedWithUrl(key)
 		}
 	}
@@ -423,7 +423,7 @@ public class Yuno{
 		return false
 	}
 	
-	public func deleteRecordForKey(entity : String, key : String) {
+	public func deleteRecordForKey(entity : String, key : String, skipUpload : Bool) {
 		let managedContext = entity == "FavoritedImage" ? (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext : CacheManager.sharedInstance.managedObjectContext
 		let fetchRequest = NSFetchRequest(entityName: entity)
 		fetchRequest.predicate = NSPredicate(format: "key == %@", key)
@@ -446,7 +446,7 @@ public class Yuno{
 		}
 		
 		//CK
-		if entity == "FavoritedImage" {
+		if entity == "FavoritedImage" && !skipUpload {
 			CKManager().removeFavoritedWithUrl(key)
 		}
 	}
@@ -465,7 +465,7 @@ public class Yuno{
 		}
 		
 		if fetchedResults.count > 0 {
-			self.deleteRecordForKey("FavoritedImage", key: key)
+			self.deleteRecordForKey("FavoritedImage", key: key, skipUpload: true)
 
 			let data = NSKeyedArchiver.archivedDataWithRootObject(image)
 			let managedContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
@@ -542,6 +542,23 @@ public class Yuno{
 			dispatch_async(dispatch_get_main_queue()){
 				if(completion != nil){ completion!(); }
 			}
+		}
+	}
+	
+	func actionSheetSetStyle (awActionSheet : AWActionSheet){
+		awActionSheet.animationDuraton = 0.8
+		awActionSheet.cancelButtonColor = UIColor.themeColor()
+		let componets = UIColor.themeColor().components
+		awActionSheet.buttonColor = UIColor(red: componets.red, green: componets.green, blue: componets.blue, alpha: 0.8)
+		awActionSheet.textColor = UIColor.konaColor()
+		
+		//iPad
+		if UIScreen.mainScreen().bounds.width > 415 {
+			awActionSheet.buttonWidth = 400
+			awActionSheet.buttonHeight = 60
+			awActionSheet.gapBetweetnCancelButtonAndOtherButtons = 15
+			awActionSheet.buttonFont = UIFont.systemFontOfSize(20)
+			awActionSheet.cancelButtonFont = UIFont.boldSystemFontOfSize(20)
 		}
 	}
 }

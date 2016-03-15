@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FavoriteCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+class FavoriteCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, CKManagerNewFavDelegate, KonaHTMLParserDelegate, KonaAPIErrorDelegate, NSURLSessionDownloadDelegate {
 	
 	let yuno = Yuno()
 	
@@ -24,14 +24,24 @@ class FavoriteCollectionViewController: UICollectionViewController, UICollection
 	
 	let previewQuility : CGFloat = 2
 	
+	let ckManager = CKManager()
+	
+	var newFavUrls : [String] = []
+	var newFavPostUrls : [String] = []
+	var newFavNum = 0
+	var downloadTask : NSURLSessionDownloadTask?
+	var favUrlIndex = 0
+	
     override func viewDidLoad() {
         super.viewDidLoad()
 		
 		self.title = "Favorite".localized
+		self.ckManager.favDelegate = self
     }
 	
 	override func viewWillAppear(animated: Bool) {
 		
+		self.ckManager.checkNewFavorited()
 		self.compact = NSUserDefaults.standardUserDefaults().integerForKey("viewMode") == 1
 		
 		if UIDevice.currentDevice().model.hasPrefix("iPad"){
@@ -114,5 +124,82 @@ class FavoriteCollectionViewController: UICollectionViewController, UICollection
 	
 	override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
 		self.collectionView!.reloadData()
+	}
+	
+	func CKManagerDidFoundNewFavPost(ids: [String]) {
+		if ids.count == 0 {
+			return
+		}
+		let alert = UIAlertController(title: "New Favorited Posts found", message: "\(ids.count) new favorited posts are found on iCloud. Do you want to download them to this device?", preferredStyle: UIAlertControllerStyle.Alert)
+		alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: {(action) in
+			let konaParser = KonaHTMLParser(delegate: self, errorDelegate: self)
+			self.newFavNum = ids.count
+			self.newFavUrls = []
+			for id in ids {
+				let postUrl = "http://konachan.com/post/show/\(id)/"
+				self.newFavPostUrls.append(postUrl)
+				konaParser.getPostInformation(postUrl)
+			}
+		}))
+		alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.Default, handler: {(action) in
+			print ("no")
+		}))
+		dispatch_async(dispatch_get_main_queue(), {
+			self.presentViewController(alert, animated: true, completion: nil)
+		})
+	}
+	
+	func konaAPIGotError(error: NSError) {
+		print ("kona api error: \(error)")
+	}
+	
+	func konaHTMLParserFinishedParsing(parsedPost: ParsedPost) {
+		print (parsedPost.url)
+		self.newFavUrls.append(parsedPost.url)
+		if self.newFavUrls.count == self.newFavNum {
+			print ("parse finished")
+			self.downloadNewFav()
+		}
+	}
+	
+	func downloadNewFav() {
+		print ("downloading \(self.favUrlIndex + 1)/\(self.newFavNum)")
+		self.imageFromUrl(self.newFavUrls[self.favUrlIndex])
+	}
+	
+	func URLSession(session: NSURLSession, downloadTask: NSURLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
+		dispatch_async(dispatch_get_main_queue()){
+			print (Float(totalBytesWritten) / Float(totalBytesExpectedToWrite))
+		}
+	}
+	
+	func URLSession(session: NSURLSession, downloadTask: NSURLSessionDownloadTask, didFinishDownloadingToURL location: NSURL) {
+		let downloadedImage = UIImage(data: NSData(contentsOfURL: location)!)!
+		dispatch_async(dispatch_get_main_queue()){
+			
+			Yuno().saveImageWithKey("FavoritedImage", image: downloadedImage, key: self.newFavPostUrls[self.favUrlIndex], skipUpload: true)
+			
+			self.favUrlIndex += 1
+			if self.favUrlIndex < self.newFavNum {
+				self.downloadNewFav()
+			}
+			else{
+				self.favoritePostList += self.newFavPostUrls
+				let indexPaths = Array(0 ..< self.newFavNum)
+					.map({$0 + self.collectionView!.numberOfItemsInSection(0)})
+					.map({NSIndexPath(forRow: $0, inSection: 0)})
+				self.collectionView!.insertItemsAtIndexPaths(indexPaths)
+				print ("finished")
+				self.label.removeFromSuperview()
+			}
+		}
+	}
+	
+	func imageFromUrl(url : String) {
+		if let nsUrl = NSURL(string: url){
+			let session = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration(), delegate: self, delegateQueue: nil)
+			self.downloadTask = session.downloadTaskWithURL(nsUrl)
+			self.downloadTask?.resume()
+		}
 	}
 }
