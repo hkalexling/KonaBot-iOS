@@ -381,7 +381,7 @@ public class Yuno{
 		
 		//CK
 		if entity == "FavoritedImage" {
-			CKManager.addFavoritedWithUrl(key)
+			CKManager().addFavoritedWithUrl(key)
 		}
 	}
 	
@@ -447,7 +447,7 @@ public class Yuno{
 		
 		//CK
 		if entity == "FavoritedImage" {
-			CKManager.removeFavoritedWithUrl(key)
+			CKManager().removeFavoritedWithUrl(key)
 		}
 	}
 	

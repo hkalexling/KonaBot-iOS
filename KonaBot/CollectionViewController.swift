@@ -42,7 +42,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
     override func viewDidLoad() {
         super.viewDidLoad()
 		
-		CKManager.checkNewFavorited()
+		CKManager().checkNewFavorited()
 		
 		if NSUserDefaults.standardUserDefaults().objectForKey("tabToSelect") != nil {
 			let tabToSelect = NSUserDefaults.standardUserDefaults().integerForKey("tabToSelect")
