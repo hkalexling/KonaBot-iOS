@@ -42,8 +42,6 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
     override func viewDidLoad() {
         super.viewDidLoad()
 		
-		CKManager().checkNewFavorited()
-		
 		if NSUserDefaults.standardUserDefaults().objectForKey("tabToSelect") != nil {
 			let tabToSelect = NSUserDefaults.standardUserDefaults().integerForKey("tabToSelect")
 			NSUserDefaults.standardUserDefaults().removeObjectForKey("tabToSelect")
@@ -202,6 +200,11 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 		if ary.count == 0 && self.keyword != "" {
 			self.handleEmtptySearch()
 			return
+		}
+		if ary.count == 0 && self.keyword == "" {
+			//when all posts in first fetch are R18
+			self.currentPage++
+			self.loadMore()
 		}
 		self.currentPage++
 		self.loading.removeFromSuperview()
