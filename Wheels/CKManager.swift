@@ -26,8 +26,8 @@ class CKManager: NSObject {
 		let record = CKRecord(recordType: "FavoritedImage")
 		record.setValue(postID, forKey: "postID")
 		self.CKprint ("uploading")
-		CKContainer.defaultContainer().privateCloudDatabase.saveRecord(record, completionHandler: self.CKHandler({(record_) in
-			self.CKprint(record_ as! CKRecord)
+		CKContainer.defaultContainer().privateCloudDatabase.saveRecord(record, completionHandler: self.CKHandler({(record) in
+			self.CKprint(record)
 		}))
 	}
 	
@@ -44,8 +44,7 @@ class CKManager: NSObject {
 		}
 		let predicate = NSPredicate(format: "postID == %@", postID)
 		let query = CKQuery(recordType: "FavoritedImage", predicate: predicate)
-		CKContainer.defaultContainer().privateCloudDatabase.performQuery(query, inZoneWithID: nil, completionHandler: self.CKHandler({(records_) in
-			let records = records_ as! [CKRecord]
+		CKContainer.defaultContainer().privateCloudDatabase.performQuery(query, inZoneWithID: nil, completionHandler: self.CKHandler({(records) in
 			if records.count == 1 {
 				let id = records[0].recordID
 				CKContainer.defaultContainer().privateCloudDatabase.deleteRecordWithID(id, completionHandler: self.CKHandler({(_) in
@@ -71,8 +70,7 @@ class CKManager: NSObject {
 		let predicate = NSPredicate(format: "NOT (postID IN %@)", postIDList)
 		let query = CKQuery(recordType: "FavoritedImage", predicate: predicate)
 		self.CKprint ("checking favorited images from other devices")
-		CKContainer.defaultContainer().privateCloudDatabase.performQuery(query, inZoneWithID: nil, completionHandler: self.CKHandler({(records_) in
-			let records = records_ as! [CKRecord]
+		CKContainer.defaultContainer().privateCloudDatabase.performQuery(query, inZoneWithID: nil, completionHandler: self.CKHandler({(records) in
 			let ids : [String] = records.map({$0.valueForKey("postID")}).filter({$0 != nil}).map({($0! as! String)})
 			let distinctIDs : [String] = Array(Set(ids))
 			self.CKprint ("found \(distinctIDs.count) new favorited images")
@@ -94,7 +92,7 @@ class CKManager: NSObject {
 		print ("CKManager: \(arg)")
 	}
 	
-	private func CKHandler(recordOrIDHandler: ((recordOrID : Any) -> Void)?) -> (Any?, NSError?) -> Void {
+	private func CKHandler<A>(recordOrIDHandler: ((recordOrID : A) -> Void)?) -> (A?, NSError?) -> Void {
 		return {(result, error) in
 			if error != nil {
 				self.CKprint(error!)
