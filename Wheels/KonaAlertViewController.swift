@@ -9,31 +9,25 @@
 import UIKit
 
 class KonaAlertViewController: UIViewController {
-
-	var parentVC : UIViewController!
 	
-	var backgroundBlurImageView : UIImageView!
-	var dismissButton : UIImageView!
-	var yesButton : UIButton!
-	var noButton : UIButton!
-	var titleLabel : UILabel!
-	var messageLabel : UILabel?
+	private var backgroundBlurImageView : UIImageView!
+	private var dismissButton : UIImageView!
+	private var yesButton : UIButton!
+	private var noButton : UIButton!
+	private var titleLabel : UILabel!
+	private var messageLabel : UILabel?
 	
-	var dialogView : UIView!
-	var dialogWidth : CGFloat = 300
-	var dialogHeight : CGFloat?
-	var animationDuration : NSTimeInterval = 0.3
+	private var dialogView : UIView!
+	private var dialogWidth : CGFloat = 300
+	private var dialogHeight : CGFloat?
+	private var animationDuration : NSTimeInterval = 0.3
 	
-	var baseColor : UIColor!
-	var secondaryColor : UIColor!
-	var dismissButtonColor : UIColor!
+	private var baseColor : UIColor!
+	private var secondaryColor : UIColor!
+	private var dismissButtonColor : UIColor!
 	
-	var alert : AWAlertView!
-	
-	init(parentVC : UIViewController, backgroundView : UIView, baseColor : UIColor, secondaryColor : UIColor, dismissButtonColor : UIColor) {
+	init(backgroundView : UIView, baseColor : UIColor, secondaryColor : UIColor, dismissButtonColor : UIColor) {
 		super.init(nibName: nil, bundle: nil)
-		
-		self.parentVC = parentVC
 		
 		self.baseColor = baseColor
 		self.secondaryColor = secondaryColor
@@ -77,7 +71,7 @@ class KonaAlertViewController: UIViewController {
 		})
 	}
 	
-	func showFeedbackAlert(title : String, message : String?, badChoiceTitle : String, goodChoiceTitle : String, badChoiceHandler : (() -> Void), goodChoiceHandler : (() -> Void)) {
+	func showAlert(title : String, message : String?, badChoiceTitle : String, goodChoiceTitle : String, badChoiceHandler : (() -> Void), goodChoiceHandler : (() -> Void)) {
 		
 		self.titleLabel = UILabel(frame: CGRectMake(20, 10, self.dialogWidth - 40, 30))
 		self.titleLabel.textAlignment = NSTextAlignment.Center
