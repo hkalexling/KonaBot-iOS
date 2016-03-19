@@ -158,12 +158,12 @@ class KonaAlertViewController: UIViewController {
 		self.dialogView.frame = dialogViewFrameTemp
 		
 		self.titleLabel.text = title
-		self.titleLabel.KonaSizeToFit()
+		self.titleLabel.sizeToFitKeepingWidth()
 		
 		if let message_ = message {
 			self.messageLabel!.frame = CGRectMake(20, self.titleLabel.frame.maxY + 10, self.dialogWidth - 40, 30)
 			self.messageLabel!.text = message_
-			self.messageLabel!.KonaSizeToFit()
+			self.messageLabel!.sizeToFitKeepingWidth()
 		}
 		
 		var maxY = self.messageLabel == nil ? self.titleLabel.frame.maxY : self.messageLabel!.frame.maxY
@@ -196,13 +196,10 @@ class KonaAlertViewController: UIViewController {
 }
 
 extension UILabel {
-	func KonaSizeToFit() {
-		if let text_ = self.text {
-			let rect = (text_ as NSString).boundingRectWithSize(CGSizeMake(self.bounds.width, CGFloat.max), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: [NSFontAttributeName : self.font], context: nil)
-			var tempFrame = self.frame
-			tempFrame.size.height = rect.size.height
-			self.frame = tempFrame
-		}
+	func sizeToFitKeepingWidth() {
+		let originalWidth = self.frame.size.width
+		self.sizeToFit()
+		self.frame.size.width = originalWidth
 	}
 }
 

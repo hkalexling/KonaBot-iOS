@@ -25,7 +25,7 @@ class FeedbackManager: NSObject, MFMailComposeViewControllerDelegate {
 		backgroundVC.addChildViewController(konaAlertVC)
 		backgroundVC.view.addSubview(konaAlertVC.view)
 		self.konaAlertVC.showFeedbackAlert("Enjoying KonaBot?".localized, message: "", badChoiceTitle: "Not really".localized, goodChoiceTitle: "Yes!".localized, badChoiceHandler: {
-			self.konaAlertVC.updateDialogContent("Would you mind giving me some feedback?".localized, message: nil, goodTitle: "Sure".localized, badTitle: "No, thanks".localized, goodHandler: {
+			self.konaAlertVC.updateDialogContent("Would you mind giving me some feedback?".localized, message: "", goodTitle: "Sure".localized, badTitle: "No, thanks".localized, goodHandler: {
 				self.sendEmail()
 				self.konaAlertVC.dismiss()
 				}, badHandler: {
