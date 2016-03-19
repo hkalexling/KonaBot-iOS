@@ -88,7 +88,7 @@ class KonaHTMLParser: NSObject {
 		let lis = stats!.at_css("ul")!.css("li")
 		
 		time = lis[1].at_css("a")!["title"]!.konaChanTimeToUnixTime()
-		author = lis[1].css("a")[1].text!
+		author = lis[1].css("a").count > 1 ? lis[1].css("a")[1].text! : "Unknown"
 		rating = lis[4].text!.componentsSeparatedByString(" ")[1].localized
 		score = lis[5].at_css("span")!.text!
 		
