@@ -19,7 +19,7 @@ class AWProgressIndicatorView: UIImageView {
 	var showText : Bool!
 	
 	var text : UILabel!
-	var spinTimer : NSTimer!
+	var spinTimer : NSTimer?
 	var angle : CGFloat!
 	var spinSpeed : CGFloat!
 	
@@ -72,7 +72,7 @@ class AWProgressIndicatorView: UIImageView {
 	}
 	
 	func stopSpin() {
-		self.spinTimer.invalidate()
+		self.spinTimer?.invalidate()
 		self.spinTimer = nil
 	}
 	
