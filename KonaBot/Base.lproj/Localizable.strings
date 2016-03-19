@@ -68,4 +68,5 @@
 "Questionable" = "Questionable";
 "Explicit" = "Explicit";
 
-
+"new-fav-post-alert-before-count" = "";
+"new-fav-post-alert-after-count" = "new favorited posts are found on iCloud. Do you want to download them to this device?";

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FavoriteCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, CKManagerNewFavDelegate, KonaHTMLParserDelegate, KonaAPIErrorDelegate, NSURLSessionDownloadDelegate {
+class FavoriteCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, CKManagerNewFavDelegate, KonaHTMLParserDelegate, KonaAPIErrorDelegate, NSURLSessionDownloadDelegate, CloudFavPostDownloadVCDelegate {
 	
 	let yuno = Yuno()
 	
@@ -31,6 +31,9 @@ class FavoriteCollectionViewController: UICollectionViewController, UICollection
 	var newFavNum = 0
 	var downloadTask : NSURLSessionDownloadTask?
 	var favUrlIndex = 0
+	
+	var favDownloadVC : CloudFavPostsDownloadViewController!
+	var downloadDismissed = false
 	
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -130,22 +133,32 @@ class FavoriteCollectionViewController: UICollectionViewController, UICollection
 		if ids.count == 0 {
 			return
 		}
-		let alert = UIAlertController(title: "New Favorited Posts found", message: "\(ids.count) new favorited posts are found on iCloud. Do you want to download them to this device?", preferredStyle: UIAlertControllerStyle.Alert)
-		alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: {(action) in
-			let konaParser = KonaHTMLParser(delegate: self, errorDelegate: self)
-			self.newFavNum = ids.count
-			self.newFavUrls = []
-			for id in ids {
-				let postUrl = "http://konachan.com/post/show/\(id)/"
-				self.newFavPostUrls.append(postUrl)
-				konaParser.getPostInformation(postUrl)
-			}
-		}))
-		alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.Default, handler: {(action) in
-			print ("no")
-		}))
 		dispatch_async(dispatch_get_main_queue(), {
-			self.presentViewController(alert, animated: true, completion: nil)
+			let konaAlertVC = KonaAlertViewController(backgroundView: self.tabBarController!.view, baseColor: UIColor.themeColor(), secondaryColor: UIColor.konaColor(), dismissButtonColor: UIColor.konaColor())
+			self.tabBarController!.addChildViewController(konaAlertVC)
+			self.tabBarController!.view.addSubview(konaAlertVC.view)
+			konaAlertVC.showAlert("New Favorited Posts found".localized, message: "new-fav-post-alert-before-count".localized + " \(ids.count) " + "new-fav-post-alert-after-count".localized, badChoiceTitle: "No, thanks".localized, goodChoiceTitle: "Yes".localized, badChoiceHandler: {
+				konaAlertVC.dismiss()
+				}, goodChoiceHandler: {
+					konaAlertVC.removeFromParentViewController()
+					konaAlertVC.view.removeFromSuperview()
+					
+					self.downloadDismissed = false
+					
+					self.favDownloadVC = CloudFavPostsDownloadViewController(backgroundVC: self.tabBarController!, color: UIColor.konaColor(), delegate: self)
+					self.favDownloadVC.show()
+					self.favDownloadVC.startSpin()
+					self.favDownloadVC.setMessage("Getting Post IDs")
+					
+					let konaParser = KonaHTMLParser(delegate: self, errorDelegate: self)
+					self.newFavNum = ids.count
+					self.newFavUrls = []
+					for id in ids {
+						let postUrl = "http://konachan.com/post/show/\(id)/"
+						self.newFavPostUrls.append(postUrl)
+						konaParser.getPostInformation(postUrl)
+					}
+			})
 		})
 	}
 	
@@ -154,26 +167,33 @@ class FavoriteCollectionViewController: UICollectionViewController, UICollection
 	}
 	
 	func konaHTMLParserFinishedParsing(parsedPost: ParsedPost) {
-		print (parsedPost.url)
+		self.favDownloadVC.setMessage("Parsing Data From KonaChan")
 		self.newFavUrls.append(parsedPost.url)
 		if self.newFavUrls.count == self.newFavNum {
-			print ("parse finished")
+			self.favDownloadVC.setMessage("Finished Parsing")
 			self.downloadNewFav()
 		}
 	}
 	
 	func downloadNewFav() {
-		print ("downloading \(self.favUrlIndex + 1)/\(self.newFavNum)")
+		self.favDownloadVC.setMessage("Downloading Image \(self.favUrlIndex + 1)/\(self.newFavNum)")
 		self.imageFromUrl(self.newFavUrls[self.favUrlIndex])
 	}
 	
 	func URLSession(session: NSURLSession, downloadTask: NSURLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
 		dispatch_async(dispatch_get_main_queue()){
 			print (Float(totalBytesWritten) / Float(totalBytesExpectedToWrite))
+			self.favDownloadVC.stopSpin()
+			self.favDownloadVC.setProgress(CGFloat(totalBytesWritten)/(CGFloat)(totalBytesExpectedToWrite))
 		}
 	}
 	
 	func URLSession(session: NSURLSession, downloadTask: NSURLSessionDownloadTask, didFinishDownloadingToURL location: NSURL) {
+		
+		if self.downloadDismissed {
+			return
+		}
+		
 		let downloadedImage = UIImage(data: NSData(contentsOfURL: location)!)!
 		dispatch_async(dispatch_get_main_queue()){
 			
@@ -189,7 +209,8 @@ class FavoriteCollectionViewController: UICollectionViewController, UICollection
 					.map({$0 + self.collectionView!.numberOfItemsInSection(0)})
 					.map({NSIndexPath(forRow: $0, inSection: 0)})
 				self.collectionView!.insertItemsAtIndexPaths(indexPaths)
-				print ("finished")
+				self.favDownloadVC.setMessage("Finished")
+				self.favDownloadVC.dismiss()
 				self.label.removeFromSuperview()
 			}
 		}
@@ -201,5 +222,14 @@ class FavoriteCollectionViewController: UICollectionViewController, UICollection
 			self.downloadTask = session.downloadTaskWithURL(nsUrl)
 			self.downloadTask?.resume()
 		}
+	}
+	
+	func CloudFavPostDownloadViewControllerWillDismiss() {
+		self.downloadTask?.cancel()
+		self.newFavUrls = []
+		self.newFavPostUrls = []
+		self.newFavNum = 0
+		self.favUrlIndex = 0
+		self.downloadDismissed = true
 	}
 }

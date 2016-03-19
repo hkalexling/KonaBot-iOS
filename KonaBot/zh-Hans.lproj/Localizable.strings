@@ -84,3 +84,8 @@
 "Thanks for your feedback!" = "感谢你的反馈！";
 
 "Feedback" = "反馈";
+
+"new-fav-post-alert-before-count" = "主人的 iCloud 上有";
+"new-fav-post-alert-after-count" = "张来自您其它设备的 KonaBot 的图片收藏。是否下载到该设备上呢？";
+"New Favorited Posts found" = "发现新的图片收藏";
+"Yes" = "是的";

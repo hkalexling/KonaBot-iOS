@@ -39,6 +39,7 @@
 		718F07C31C8409F000380BCC /* PostDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 718F07C21C8409F000380BCC /* PostDetailTableViewController.swift */; };
 		719589311BE533940036555E /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719589301BE533940036555E /* Extension.swift */; };
 		719589331BE53C110036555E /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719589321BE53C110036555E /* DetailViewController.swift */; };
+		71A7BCCD1C9DC2B800C5ACFB /* CloudFavPostsDownloadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71A7BCCC1C9DC2B800C5ACFB /* CloudFavPostsDownloadViewController.swift */; };
 		71B2FC8B1BF7A359000B862D /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71B2FC8A1BF7A359000B862D /* StoreKit.framework */; };
 		71B2FC8D1BF7C9BD000B862D /* IAPViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B2FC8C1BF7C9BD000B862D /* IAPViewController.swift */; };
 		71C8A28A1C84334400F4F938 /* AWActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71C8A2881C84334400F4F938 /* AWActionSheet.swift */; };
@@ -94,6 +95,7 @@
 		718F07C21C8409F000380BCC /* PostDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostDetailTableViewController.swift; path = KonaBot/PostDetailTableViewController.swift; sourceTree = "<group>"; };
 		719589301BE533940036555E /* Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		719589321BE53C110036555E /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		71A7BCCC1C9DC2B800C5ACFB /* CloudFavPostsDownloadViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CloudFavPostsDownloadViewController.swift; path = Wheels/CloudFavPostsDownloadViewController.swift; sourceTree = "<group>"; };
 		71B2FC8A1BF7A359000B862D /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		71B2FC8C1BF7C9BD000B862D /* IAPViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPViewController.swift; sourceTree = "<group>"; };
 		71C8A2881C84334400F4F938 /* AWActionSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AWActionSheet.swift; sourceTree = "<group>"; };
@@ -170,6 +172,7 @@
 			isa = PBXGroup;
 			children = (
 				71F478941C9693190072D3C3 /* KonaBot.entitlements */,
+				7183783A1BE8001D00131A74 /* Supporting files */,
 				718378391BE8001000131A74 /* UI */,
 				7183783B1BE8003F00131A74 /* VC */,
 				7109E5411BE8F9E2003B1A93 /* TableVC */,
@@ -213,7 +216,6 @@
 				711207C21C2421ED00FB99EF /* Localizable.strings */,
 			);
 			name = "Supporting files";
-			path = KonaBot;
 			sourceTree = "<group>";
 		};
 		7183783B1BE8003F00131A74 /* VC */ = {
@@ -256,11 +258,11 @@
 				718F07BC1C8409CD00380BCC /* AWProgressIndicatorView.swift */,
 				718F07BD1C8409CD00380BCC /* SteamLoadingView.swift */,
 				718F07BE1C8409CD00380BCC /* TagView.swift */,
-				7183783A1BE8001D00131A74 /* Supporting files */,
 				71C8A2B61C89F6E500F4F938 /* FeedbackViewController.swift */,
 				71C8A2B81C8A214500F4F938 /* UIButton+Closure.swift */,
 				71F478971C9698320072D3C3 /* CKManager.swift */,
 				711D66641C9C7C4100688192 /* KonaAlertViewController.swift */,
+				71A7BCCC1C9DC2B800C5ACFB /* CloudFavPostsDownloadViewController.swift */,
 			);
 			name = Wheels;
 			sourceTree = "<group>";
@@ -481,6 +483,7 @@
 				7109E5441BE8FA71003B1A93 /* TextArrowCell.swift in Sources */,
 				7109E5401BE8F9D2003B1A93 /* SettingTableViewController.swift in Sources */,
 				71C8A28F1C84335D00F4F938 /* AWImageViewController.swift in Sources */,
+				71A7BCCD1C9DC2B800C5ACFB /* CloudFavPostsDownloadViewController.swift in Sources */,
 				71C8A28A1C84334400F4F938 /* AWActionSheet.swift in Sources */,
 				719589311BE533940036555E /* Extension.swift in Sources */,
 				718F07BF1C8409CD00380BCC /* AWProgressIndicatorView.swift in Sources */,

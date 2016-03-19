@@ -20,11 +20,11 @@ class FeedbackManager: NSObject, MFMailComposeViewControllerDelegate {
 	init(parentVC : UIViewController, backgroundVC : UIViewController, baseColor : UIColor, secondaryColor : UIColor, dismissButtonColor : UIColor) {
 		super.init()
 		
-		self.konaAlertVC = KonaAlertViewController(parentVC: parentVC, backgroundView: backgroundVC.view, baseColor: baseColor, secondaryColor: secondaryColor, dismissButtonColor: dismissButtonColor)
+		self.konaAlertVC = KonaAlertViewController(backgroundView: backgroundVC.view, baseColor: baseColor, secondaryColor: secondaryColor, dismissButtonColor: dismissButtonColor)
 		self.parentVC = parentVC
 		backgroundVC.addChildViewController(konaAlertVC)
 		backgroundVC.view.addSubview(konaAlertVC.view)
-		self.konaAlertVC.showFeedbackAlert("Enjoying KonaBot?".localized, message: "", badChoiceTitle: "Not really".localized, goodChoiceTitle: "Yes!".localized, badChoiceHandler: {
+		self.konaAlertVC.showAlert("Enjoying KonaBot?".localized, message: "", badChoiceTitle: "Not really".localized, goodChoiceTitle: "Yes!".localized, badChoiceHandler: {
 			self.konaAlertVC.updateDialogContent("Would you mind giving me some feedback?".localized, message: "", goodTitle: "Sure".localized, badTitle: "No, thanks".localized, goodHandler: {
 				self.sendEmail()
 				self.konaAlertVC.dismiss()
