@@ -189,9 +189,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 		if !NSUserDefaults.standardUserDefaults().boolForKey("feedbackFinished") {
 			if NSUserDefaults.standardUserDefaults().integerForKey("viewCount") > Yuno.viewCountBeforeFeedback {
 				NSUserDefaults.standardUserDefaults().setBool(true, forKey: "feedbackFinished")
-				let feedbackVC = FeedbackViewController(parentVC: self, backgroundView: self.tabBarController!.view, baseColor: UIColor.themeColor(), secondaryColor: UIColor.konaColor(), dismissButtonColor: UIColor.konaColor())
-				self.tabBarController!.addChildViewController(feedbackVC)
-				self.tabBarController!.view.addSubview(feedbackVC.view)
+				_ = FeedbackManager(parentVC: self, backgroundVC: self.tabBarController!, baseColor: UIColor.themeColor(), secondaryColor: UIColor.konaColor(), dismissButtonColor: UIColor.konaColor())
 			}
 		}
 	}

@@ -18,6 +18,7 @@
 		711207C41C24302F00FB99EF /* about.html in Resources */ = {isa = PBXBuildFile; fileRef = 711207C61C24302F00FB99EF /* about.html */; };
 		7119BC971C343570003BE527 /* KonaDisclosureIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7119BC961C343570003BE527 /* KonaDisclosureIndicatorView.swift */; };
 		711D66401C9840CE00688192 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 711D663F1C9840CE00688192 /* CloudKit.framework */; };
+		711D66651C9C7C4100688192 /* KonaAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711D66641C9C7C4100688192 /* KonaAlertViewController.swift */; };
 		711E569F1BE9B61A00A6863D /* ViewModeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711E569E1BE9B61A00A6863D /* ViewModeCell.swift */; };
 		71330AF21BEA1A9E0053C2D8 /* Yuno.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71330AF11BEA1A9E0053C2D8 /* Yuno.storyboard */; };
 		713B7B081BE681430038A34A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 713B7B071BE681430038A34A /* Assets.xcassets */; };
@@ -70,6 +71,7 @@
 		711207CA1C24320300FB99EF /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		7119BC961C343570003BE527 /* KonaDisclosureIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KonaDisclosureIndicatorView.swift; sourceTree = "<group>"; };
 		711D663F1C9840CE00688192 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		711D66641C9C7C4100688192 /* KonaAlertViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KonaAlertViewController.swift; path = Wheels/KonaAlertViewController.swift; sourceTree = "<group>"; };
 		711E569E1BE9B61A00A6863D /* ViewModeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModeCell.swift; sourceTree = "<group>"; };
 		71330AF11BEA1A9E0053C2D8 /* Yuno.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Yuno.storyboard; sourceTree = "<group>"; };
 		713B7B071BE681430038A34A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -169,7 +171,6 @@
 			children = (
 				71F478941C9693190072D3C3 /* KonaBot.entitlements */,
 				718378391BE8001000131A74 /* UI */,
-				7183783A1BE8001D00131A74 /* Supporting files */,
 				7183783B1BE8003F00131A74 /* VC */,
 				7109E5411BE8F9E2003B1A93 /* TableVC */,
 				7183783C1BE8004900131A74 /* Yuno */,
@@ -212,6 +213,7 @@
 				711207C21C2421ED00FB99EF /* Localizable.strings */,
 			);
 			name = "Supporting files";
+			path = KonaBot;
 			sourceTree = "<group>";
 		};
 		7183783B1BE8003F00131A74 /* VC */ = {
@@ -254,9 +256,11 @@
 				718F07BC1C8409CD00380BCC /* AWProgressIndicatorView.swift */,
 				718F07BD1C8409CD00380BCC /* SteamLoadingView.swift */,
 				718F07BE1C8409CD00380BCC /* TagView.swift */,
+				7183783A1BE8001D00131A74 /* Supporting files */,
 				71C8A2B61C89F6E500F4F938 /* FeedbackViewController.swift */,
 				71C8A2B81C8A214500F4F938 /* UIButton+Closure.swift */,
 				71F478971C9698320072D3C3 /* CKManager.swift */,
+				711D66641C9C7C4100688192 /* KonaAlertViewController.swift */,
 			);
 			name = Wheels;
 			sourceTree = "<group>";
@@ -465,6 +469,7 @@
 				71C8A28B1C84334400F4F938 /* UIImage+ImageEffects.swift in Sources */,
 				7140E2481C43B84000E259C4 /* KonaHTMLParser.swift in Sources */,
 				718F07C01C8409CD00380BCC /* SteamLoadingView.swift in Sources */,
+				711D66651C9C7C4100688192 /* KonaAlertViewController.swift in Sources */,
 				710FD65E1C4587D100D5FE63 /* AWAlertView.swift in Sources */,
 				71D17C111C58F259001088FA /* CacheManager.swift in Sources */,
 				7152C1DA1BE4F97200A44945 /* CollectionViewController.swift in Sources */,
