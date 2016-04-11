@@ -110,7 +110,7 @@ class KonaAPI: NSObject {
 	func makeHTTPRequest(isPost : Bool, url : String, parameters : AnyObject?, successBlock: ((NSURLSessionDataTask, AnyObject?) -> Void)?){
 		let errorBlock : ((NSURLSessionDataTask?, NSError) -> Void) = {(task : NSURLSessionDataTask?, error : NSError) in
 			self.errorDelegate?.konaAPIGotError(error)
-			print (error)
+			print (error, terminator: "")
 		}
 		if isPost {
 			self.manager.POST(url, parameters: parameters, progress: nil, success: successBlock, failure: errorBlock)

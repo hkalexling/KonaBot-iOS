@@ -34,7 +34,7 @@ class CloudFavPostsDownloadViewController: UIViewController {
 		
 		self.dismissButton = UIImageView(frame: CGRectMake(20, 40, 25, 25))
 		self.dismissButton.image = UIImage(named: "Dismiss")!.coloredImage(color)
-		self.dismissButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "dismiss"))
+		self.dismissButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(CloudFavPostsDownloadViewController.dismiss)))
 		self.dismissButton.alpha = 0
 		self.view.addSubview(self.dismissButton)
 		
@@ -55,8 +55,9 @@ class CloudFavPostsDownloadViewController: UIViewController {
 		backgroundVC.addChildViewController(self)
 		backgroundVC.view.addSubview(self.view)
 	}
+	
 	required init?(coder aDecoder: NSCoder) {
-	    super.init(coder: aDecoder)
+		super.init(coder: aDecoder)
 	}
 	
     override func viewDidLoad() {

@@ -24,8 +24,9 @@ class AWProgressIndicatorView: UIImageView {
 	var spinSpeed : CGFloat!
 	
 	required init?(coder aDecoder: NSCoder) {
-	    super.init(coder: aDecoder)
+		super.init(coder: aDecoder)
 	}
+	
 	init(color : UIColor, textColor : UIColor, bgColor : UIColor, showText : Bool, width : CGFloat, radius : CGFloat, font : UIFont){
 		self.color = color
 		self.textColor = textColor
@@ -68,7 +69,7 @@ class AWProgressIndicatorView: UIImageView {
 	func startSpin(speed : CGFloat) {
 		self.angle = 0
 		self.spinSpeed = speed
-		self.spinTimer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: "updateSpin", userInfo: nil, repeats: true)
+		self.spinTimer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(AWProgressIndicatorView.updateSpin), userInfo: nil, repeats: true)
 	}
 	
 	func stopSpin() {

@@ -44,7 +44,7 @@ extension CGFloat {
 extension UIButton {
 	func block_setAction(block: ButtonActionBlock) {
 		objc_setAssociatedObject(self, &ActionBlockKey, ActionBlockWrapper(block: block), objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-		addTarget(self, action: "block_handleAction:", forControlEvents: .TouchUpInside)
+		addTarget(self, action: #selector(self.block_handleAction(_:)), forControlEvents: .TouchUpInside)
 	}
 	
 	func block_handleAction(sender: UIButton) {

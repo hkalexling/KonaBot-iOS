@@ -53,15 +53,15 @@ public extension UIImage {
 	public func applyBlurWithRadius(blurRadius: CGFloat, tintColor: UIColor?, saturationDeltaFactor: CGFloat, maskImage: UIImage? = nil) -> UIImage? {
 		// Check pre-conditions.
 		if (size.width < 1 || size.height < 1) {
-			print("*** error: invalid size: \(size.width) x \(size.height). Both dimensions must be >= 1: \(self)")
+			print("*** error: invalid size: \(size.width) x \(size.height). Both dimensions must be >= 1: \(self)", terminator: "")
 			return nil
 		}
 		if self.CGImage == nil {
-			print("*** error: image must be backed by a CGImage: \(self)")
+			print("*** error: image must be backed by a CGImage: \(self)", terminator: "")
 			return nil
 		}
 		if maskImage != nil && maskImage!.CGImage == nil {
-			print("*** error: maskImage must be backed by a CGImage: \(maskImage)")
+			print("*** error: maskImage must be backed by a CGImage: \(maskImage)", terminator: "")
 			return nil
 		}
 		
@@ -141,7 +141,7 @@ public extension UIImage {
 				let matrixSize = floatingPointSaturationMatrix.count
 				var saturationMatrix = [Int16](count: matrixSize, repeatedValue: 0)
 				
-				for var i: Int = 0; i < matrixSize; ++i {
+				for i in 0 ..< matrixSize {
 					saturationMatrix[i] = Int16(round(floatingPointSaturationMatrix[i] * divisor))
 				}
 				

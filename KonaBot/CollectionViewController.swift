@@ -49,7 +49,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 		}
 		
 		self.refreshControl = UIRefreshControl()
-		self.refreshControl.addTarget(self, action: Selector("refresh"), forControlEvents: .ValueChanged)
+		self.refreshControl.addTarget(self, action: #selector(self.refresh), forControlEvents: .ValueChanged)
 		self.refreshControl.tintColor = UIColor.konaColor()
 		self.collectionView!.addSubview(self.refreshControl)
 		
@@ -201,16 +201,16 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 		}
 		if ary.count == 0 && self.keyword == "" {
 			//when all posts in first fetch are R18
-			self.currentPage++
+			self.currentPage += 1
 			self.loadMore()
 			return
 		}
-		self.currentPage++
+		self.currentPage += 1
 		self.loading.removeFromSuperview()
 		self.posts += ary
 		self.postSelectable += [Bool](count: ary.count, repeatedValue: false)
 		var index : [NSIndexPath] = []
-		for (var i = self.collectionView!.numberOfItemsInSection(0); i < self.posts.count; i++){
+		for i in self.collectionView!.numberOfItemsInSection(0) ..< self.posts.count {
 			index.append(NSIndexPath(forRow: i, inSection: 0))
 		}
 		self.collectionView!.insertItemsAtIndexPaths(index)

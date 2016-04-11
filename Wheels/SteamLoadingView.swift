@@ -77,6 +77,7 @@ class SteamLoadingView: UIView {
 			animateBar(self.bars[i], delay: NSTimeInterval(i) * self.delay)
 		}
 	}
+	
 	required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 	}

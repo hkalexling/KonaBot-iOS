@@ -48,7 +48,7 @@ class KonaAlertViewController: UIViewController {
 		
 		self.dismissButton = UIImageView(frame: CGRectMake(20, 40, 25, 25))
 		self.dismissButton.image = UIImage(named: "Dismiss")!.coloredImage(dismissButtonColor)
-		self.dismissButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "dismiss"))
+		self.dismissButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.dismiss)))
 		self.dismissButton.alpha = 0
 		self.view.addSubview(self.dismissButton)
 	}

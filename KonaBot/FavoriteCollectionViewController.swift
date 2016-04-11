@@ -163,7 +163,7 @@ class FavoriteCollectionViewController: UICollectionViewController, UICollection
 	}
 	
 	func konaAPIGotError(error: NSError) {
-		print ("kona api error: \(error)")
+		print ("kona api error: \(error)", terminator: "")
 	}
 	
 	func konaHTMLParserFinishedParsing(parsedPost: ParsedPost) {
@@ -182,7 +182,7 @@ class FavoriteCollectionViewController: UICollectionViewController, UICollection
 	
 	func URLSession(session: NSURLSession, downloadTask: NSURLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
 		dispatch_async(dispatch_get_main_queue()){
-			print (Float(totalBytesWritten) / Float(totalBytesExpectedToWrite))
+			print (Float(totalBytesWritten) / Float(totalBytesExpectedToWrite), terminator: "")
 			self.favDownloadVC.stopSpin()
 			self.favDownloadVC.setProgress(CGFloat(totalBytesWritten)/(CGFloat)(totalBytesExpectedToWrite))
 		}

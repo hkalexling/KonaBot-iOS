@@ -20,7 +20,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
 
 	func tabBarController(tabBarController: UITabBarController, shouldSelectViewController viewController: UIViewController) -> Bool {
 		
-		self.tapCounter++
+		self.tapCounter += 1
 		let hasTappedTwice = self.previousVC == viewController
 		self.previousVC = viewController
 		

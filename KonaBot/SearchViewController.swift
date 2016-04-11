@@ -47,7 +47,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, KonaAPITagDel
 
 		self.searchBar.delegate = self
 		
-		let tapRecognizer : UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: Selector("hideKeyboard"))
+		let tapRecognizer : UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(SearchViewController.hideKeyboard))
 		self.view.addGestureRecognizer(tapRecognizer)
     }
 	
@@ -164,12 +164,12 @@ class SearchViewController: UIViewController, UISearchBarDelegate, KonaAPITagDel
 		self.youMeantLabel!.textAlignment = NSTextAlignment.Center
 		self.view.addSubview(youMeantLabel!)
 		
-		for (var i : Int = 0; i < self.suggestedTag.count; i++){
+		for i in 0  ..< self.suggestedTag.count {
 			let button = UIButton(type: UIButtonType.System) as UIButton
 			button.backgroundColor = UIColor.themeColor()
 			button.setTitle(self.suggestedTag[i], forState: .Normal)
 			button.frame = CGRectMake((CGSize.screenSize().width - buttonWidht)/2, y + (buttonHeight + buttonGap) * CGFloat(i + 1), buttonWidht, buttonHeight)
-			button.addTarget(self, action: Selector("suggestionButtonTapped:"), forControlEvents: .TouchUpInside)
+			button.addTarget(self, action: #selector(SearchViewController.suggestionButtonTapped(_:)), forControlEvents: .TouchUpInside)
 			button.tintColor = UIColor.konaColor()
 			self.tagButtons.append(button)
 			self.view.addSubview(button)
@@ -211,12 +211,12 @@ class SearchViewController: UIViewController, UISearchBarDelegate, KonaAPITagDel
 			self.view.addSubview(topTagLabel)
 		}
 		
-		for (var i : Int = 0; i < randomTags.count; i++){
+		for i in 0 ..< randomTags.count {
 			let button = UIButton(type: UIButtonType.System) as UIButton
 			button.backgroundColor = UIColor.themeColor()
 			button.setTitle(randomTags[i], forState: .Normal)
 			button.frame = CGRectMake((CGSize.screenSize().width - buttonWidht)/2, y + (buttonHeight + buttonGap) * CGFloat(i + 1), buttonWidht, buttonHeight)
-			button.addTarget(self, action: Selector("suggestionButtonTapped:"), forControlEvents: .TouchUpInside)
+			button.addTarget(self, action: #selector(SearchViewController.suggestionButtonTapped(_:)), forControlEvents: .TouchUpInside)
 			button.tintColor = UIColor.konaColor()
 			self.tagButtons.append(button)
 			self.view.addSubview(button)

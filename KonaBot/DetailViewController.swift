@@ -73,8 +73,6 @@ class DetailViewController: UIViewController, AWImageViewControllerDownloadDeleg
 		bgView.backgroundColor = UIColor.themeColor()
 		self.view.addSubview(bgView)
 		
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("downloaded:"), name: "finishedDownloading", object: nil)
-		
 		detailImageView = UIImageView()
 		let width = UIScreen.mainScreen().bounds.width - 40
 		let height = width * self.heightOverWidth
@@ -85,7 +83,7 @@ class DetailViewController: UIViewController, AWImageViewControllerDownloadDeleg
 		
 		self.detailImageView.image = self.smallImage
 		
-		let tapRecognizer : UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: Selector("tapped:"))
+		let tapRecognizer : UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.tapped(_:)))
 		self.detailImageView.addGestureRecognizer(tapRecognizer)
 		
 		self.moreImageView.image = UIImage(named: "More")?.coloredImage(UIColor.konaColor())
@@ -93,23 +91,23 @@ class DetailViewController: UIViewController, AWImageViewControllerDownloadDeleg
 		let moreImageViewHeight : CGFloat = moreImageViewWidth * self.moreImageView.image!.size.height/self.moreImageView.image!.size.width
 		self.moreImageView.frame = CGRectMake((CGSize.screenSize().width - moreImageViewWidth)/2, CGSize.screenSize().height - moreImageViewHeight - CGFloat.tabBarHeight() - 20, moreImageViewWidth, moreImageViewHeight)
 		self.moreImageView.userInteractionEnabled = true
-		self.moreImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "moreButtonTapped"))
+		self.moreImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.moreButtonTapped)))
 		self.view.addSubview(self.moreImageView)
 		
 		self.smallFrame = CGRectMake(20, 20 + CGFloat.navitaionBarHeight() + CGFloat.statusBarHeight(), self.smallerHeight / self.heightOverWidth,self.smallerHeight)
 		let transparentViewFrame = CGRectMake(0, 0, CGSize.screenSize().width, CGFloat.navitaionBarHeight() + CGFloat.statusBarHeight() + self.smallFrame.height + 40)
 		self.smallerImageTransparentView.frame = transparentViewFrame
-		self.smallerImageTransparentView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "smallerViewTapped"))
+		self.smallerImageTransparentView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.smallerViewTapped)))
 		
 		self.postDetailTableViewContainer.frame = CGRectMake(0, self.smallerImageTransparentView.frame.maxY, CGSize.screenSize().width, CGSize.screenSize().height - self.smallerImageTransparentView.frame.maxY - CGFloat.tabBarHeight())
 		self.postDetailTableViewContainer.clipsToBounds = true
 		
 		//swipe
-		let swipeRecognizer = UISwipeGestureRecognizer(target: self, action: "moreButtonTapped")
+		let swipeRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(self.moreButtonTapped))
 		swipeRecognizer.direction = .Up
 		self.view.addGestureRecognizer(swipeRecognizer)
 		
-		let downSwipeRecognizer = UISwipeGestureRecognizer(target: self, action: "smallerViewTapped")
+		let downSwipeRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(self.smallerViewTapped))
 		downSwipeRecognizer.direction = .Down
 		self.smallerImageTransparentView.addGestureRecognizer(downSwipeRecognizer)
     }
@@ -164,7 +162,7 @@ class DetailViewController: UIViewController, AWImageViewControllerDownloadDeleg
 	}
 	
 	func stared(){
-		self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "Star"), style: .Done, target: self, action: Selector("unstared"))
+		self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "Star"), style: .Done, target: self, action: #selector(self.unstared))
 		if (!self.favoriteList.contains(self.postUrl)){
 			self.favoriteList.append(self.postUrl)
 			self.yuno.saveImageWithKey("FavoritedImage", image: self.detailImageView.image!, key: self.postUrl, skipUpload: false)
@@ -172,7 +170,7 @@ class DetailViewController: UIViewController, AWImageViewControllerDownloadDeleg
 	}
 	
 	func unstared(){
-		self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "Star Outline"), style: .Done, target: self, action: Selector("stared"))
+		self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "Star Outline"), style: .Done, target: self, action: #selector(self.stared))
 		if (self.favoriteList.contains(self.postUrl)){
 			self.favoriteList.removeAtIndex(self.favoriteList.indexOf(self.postUrl)!)
 			self.yuno.deleteRecordForKey("FavoritedImage", key: self.postUrl, skipUpload: false)
@@ -354,7 +352,7 @@ class DetailViewController: UIViewController, AWImageViewControllerDownloadDeleg
 		awActionSheet.delegate = self
 		
 		let saveAction = AWActionSheetAction(title: "Save Image".localized, handler: {
-			UIImageWriteToSavedPhotosAlbum(image, self, Selector("imageSaved:didFinishSavingWithError:contextInfo:"), nil)
+			UIImageWriteToSavedPhotosAlbum(image, self, #selector(self.imageSaved(_:didFinishSavingWithError:contextInfo:)), nil)
 		})
 		
 		let favoriteAction = AWActionSheetAction(title: "Favorite".localized, handler: {

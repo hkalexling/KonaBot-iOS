@@ -64,7 +64,7 @@ class AWActionSheet: UIView {
 	}
 
 	required init?(coder aDecoder: NSCoder) {
-	    super.init(coder: aDecoder)
+		super.init(coder: aDecoder)
 	}
 	
 	func addAction (action : AWActionSheetAction) {
@@ -95,7 +95,7 @@ class AWActionSheet: UIView {
 		self.imageView.image = UIImage.imageFromUIView(self.parentView).applyLightEffect()
 		self.imageView.userInteractionEnabled = true
 		self.imageView.alpha = 0
-		self.imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "dismiss"))
+		self.imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(AWActionSheet.dismiss)))
 		self.addSubview(self.imageView)
 		
 		let cancelButton = UIButton(type: .System)
@@ -103,21 +103,22 @@ class AWActionSheet: UIView {
 		cancelButton.setTitleColor(self.textColor, forState: .Normal)
 		cancelButton.setTitle("Cancel".localized, forState: .Normal)
 		cancelButton.titleLabel?.font = self.cancelButtonFont
-		cancelButton.addTarget(self, action: "dismiss", forControlEvents: .TouchUpInside)
+		cancelButton.addTarget(self, action: #selector(AWActionSheet.dismiss), forControlEvents: .TouchUpInside)
 		cancelButton.frame = CGRectMake((self.width - self.buttonWidth)/2, self.height - self.buttonHeight - 20, self.buttonWidth, self.buttonHeight)
 		cancelButton.layer.cornerRadius = self.buttonCornerRadius
 		self.buttons.append(cancelButton)
 		self.addSubview(cancelButton)
 		
 		var y : CGFloat = cancelButton.frame.minY - self.gapBetweetnCancelButtonAndOtherButtons - self.buttonHeight
-		for var i = self.actions.count - 1; i >= 0; i-- {
+		for var i in 1 ... self.actions.count {
+			i = self.actions.count - i
 			let button = UIButton(type: .System)
 			button.backgroundColor = self.buttonColor
 			
 			button.setTitleColor(self.textColor, forState: .Normal)
 			button.setTitle(self.actions[i].title, forState: .Normal)
 			button.titleLabel?.font = self.buttonFont
-			button.addTarget(self, action: "buttonTapped:", forControlEvents: .TouchUpInside)
+			button.addTarget(self, action: #selector(self.buttonTapped(_:)), forControlEvents: .TouchUpInside)
 			button.tag = i
 			button.frame = CGRectMake((self.width - self.buttonWidth)/2, y, self.buttonWidth, self.buttonHeight)
 			y -= self.buttonHeight + self.gapBetweetButtons

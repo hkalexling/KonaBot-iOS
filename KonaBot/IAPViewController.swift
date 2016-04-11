@@ -69,7 +69,7 @@ class IAPViewController: UIViewController, SKProductsRequestDelegate, SKPaymentT
 		self.button.layer.borderColor = UIColor.konaColor().CGColor
 		self.button.layer.borderWidth = 1.5
 		self.button.setTitleColor(UIColor.konaColor(), forState: .Normal)
-		self.button.addTarget(self, action: Selector("buyProduct"), forControlEvents: .TouchDown)
+		self.button.addTarget(self, action: #selector(IAPViewController.buyProduct), forControlEvents: .TouchDown)
 		self.button.hidden = true
 		self.view.addSubview(self.button)
 	}
@@ -108,12 +108,12 @@ class IAPViewController: UIViewController, SKProductsRequestDelegate, SKPaymentT
 			self.titleLabel.text = self.product!.localizedTitle
 			self.getPrice()
 		} else {
-			print("No products found")
+			print("No products found", terminator: "")
 		}
 		
 		for product in products
 		{
-			print("Product not found: \(product)")
+			print("Product not found: \(product)", terminator: "")
 		}
 	}
 	
@@ -140,13 +140,13 @@ class IAPViewController: UIViewController, SKProductsRequestDelegate, SKPaymentT
 			switch transaction.transactionState {
 				
 			case SKPaymentTransactionState.Purchased:
-				print("Transaction Approved")
-				print("Product Identifier: \(transaction.payment.productIdentifier)")
+				print("Transaction Approved", terminator: "")
+				print("Product Identifier: \(transaction.payment.productIdentifier)", terminator: "")
 				self.thanks()
 				SKPaymentQueue.defaultQueue().finishTransaction(transaction)
 				
 			case SKPaymentTransactionState.Failed:
-				print("Transaction Failed")
+				print("Transaction Failed", terminator: "")
 				SKPaymentQueue.defaultQueue().finishTransaction(transaction)
 			default:
 				break

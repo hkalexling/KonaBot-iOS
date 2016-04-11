@@ -54,6 +54,7 @@ class AWAlertView: UIView {
 		messageLabel.textAlignment = .Center
 		self.addSubview(messageLabel)
 	}
+	
 	required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 	}

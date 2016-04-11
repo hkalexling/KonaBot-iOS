@@ -39,8 +39,9 @@ class TagView: UIView {
 		
 		self.setup()
 	}
+	
 	required init?(coder aDecoder: NSCoder) {
-	    super.init(coder: aDecoder)
+		super.init(coder: aDecoder)
 	}
 	
 	private func setup(){
@@ -81,7 +82,7 @@ class TagView: UIView {
 			currentXMax = label.frame.maxX
 			
 			label.userInteractionEnabled = true
-			label.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "tapped:"))
+			label.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.tapped(_:))))
 			
 			self.addSubview(label)
 		}

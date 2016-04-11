@@ -162,18 +162,18 @@ class AWImageViewController: UIViewController, NSURLSessionDownloadDelegate {
 		
 		self.dismissButton = UIImageView(frame: CGRectMake(20, 40, self.dismissButtonWidth, self.dismissButtonWidth))
 		self.dismissButton.image = UIImage(named: "Dismiss")!.coloredImage(self.dismissButtonColor)
-		self.dismissButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "dismiss"))
+		self.dismissButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(AWImageViewController.dismiss)))
 		self.dismissButton.userInteractionEnabled = true
 		self.view.addSubview(self.dismissButton)
 		
 		self.rotateDismissBtn(1)
 		
-		let singleTapRecognizer = UITapGestureRecognizer(target: self, action: Selector("singleTapped"))
-		let doubleTapRecognizer = UITapGestureRecognizer(target: self, action: Selector("doubleTapped:"))
+		let singleTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(AWImageViewController.singleTapped))
+		let doubleTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(AWImageViewController.doubleTapped(_:)))
 		doubleTapRecognizer.numberOfTapsRequired = 2
 		singleTapRecognizer.requireGestureRecognizerToFail(doubleTapRecognizer)
 		
-		self.panRecognizer = UIPanGestureRecognizer(target: self, action: "panned:")
+		self.panRecognizer = UIPanGestureRecognizer(target: self, action: #selector(AWImageViewController.panned(_:)))
 		
 		if self.urlString == nil {
 			self.imageView = UIImageView(frame: self.originFrame!)
@@ -185,10 +185,10 @@ class AWImageViewController: UIViewController, NSURLSessionDownloadDelegate {
 			self.imageView!.addGestureRecognizer(self.panRecognizer)
 		}
 
-		let pinchRecognizer = UIPinchGestureRecognizer(target: self, action: Selector("pinched:"))
+		let pinchRecognizer = UIPinchGestureRecognizer(target: self, action: #selector(AWImageViewController.pinched(_:)))
 		self.view.addGestureRecognizer(pinchRecognizer)
 		
-		let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: Selector("longPressed"))
+		let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(AWImageViewController.longPressed))
 		self.view.addGestureRecognizer(longPressRecognizer)
 		
 		if self.urlString == nil {
@@ -422,8 +422,8 @@ class AWImageViewController: UIViewController, NSURLSessionDownloadDelegate {
 			self.imageView!.image = downloadedImage
 			self.image = downloadedImage
 			
-			let singleTapRecognizer = UITapGestureRecognizer(target: self, action: Selector("singleTapped"))
-			let doubleTapRecognizer = UITapGestureRecognizer(target: self, action: Selector("doubleTapped:"))
+			let singleTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(AWImageViewController.singleTapped))
+			let doubleTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(AWImageViewController.doubleTapped(_:)))
 			doubleTapRecognizer.numberOfTapsRequired = 2
 			singleTapRecognizer.requireGestureRecognizerToFail(doubleTapRecognizer)
 			
