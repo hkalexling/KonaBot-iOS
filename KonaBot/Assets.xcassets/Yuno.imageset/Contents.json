@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "1024 copy 2.png",
+      "filename" : "yuno copy 2.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "1024 copy.png",
+      "filename" : "yuno copy.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "1024.png",
+      "filename" : "yuno.png",
       "scale" : "3x"
     }
   ],
