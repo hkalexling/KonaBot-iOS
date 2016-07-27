@@ -352,7 +352,6 @@ class AWImageViewController: UIViewController, NSURLSessionDownloadDelegate {
 				self.delegate?.awImageViewDidDismiss()
 		})
 	}
-	func awImageViewDidDismiss() {}
 	
 	func updateContentInset(){
 		self.scrollView.contentSize = self.imageView!.frame.size
@@ -370,7 +369,7 @@ class AWImageViewController: UIViewController, NSURLSessionDownloadDelegate {
 	
 	func longPressed(){
 		if self.longPressDelegate == nil {
-			awImageViewDidLongPress()
+			self.awImageViewDidLongPress()
 		}
 		else{
 			self.longPressDelegate?.awImageViewDidLongPress()

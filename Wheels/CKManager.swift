@@ -106,7 +106,7 @@ class CKManager: NSObject {
 	}
 	
 	private func CKprint(arg : Any) {
-		print ("CKManager: \(arg)", terminator: "")
+		print ("CKManager: \(arg)")
 	}
 	
 	private func CKHandler<A>(recordOrIDHandler: ((recordOrID : A) -> Void)?) -> (A?, NSError?) -> Void {
