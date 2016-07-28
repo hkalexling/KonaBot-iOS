@@ -439,7 +439,7 @@ class AWImageViewController: UIViewController, URLSessionDownloadDelegate {
 	
 	func imageFromUrl(_ url : String) {
 		if let nsUrl = URL(string: url){
-			let session = Foundation.URLSession(configuration: URLSessionConfiguration.default(), delegate: self, delegateQueue: nil)
+			let session = Foundation.URLSession(configuration: URLSessionConfiguration.default, delegate: self, delegateQueue: nil)
 			self.downloadTask = session.downloadTask(with: nsUrl)
 			self.downloadTask?.resume()
 		}

@@ -45,7 +45,7 @@ class FavoriteCollectionViewController: UICollectionViewController, UICollection
 	override func viewWillAppear(_ animated: Bool) {
 		
 		self.ckManager.checkNewFavorited()
-		self.compact = UserDefaults.standard().integer(forKey: "viewMode") == 1
+		self.compact = UserDefaults.standard.integer(forKey: "viewMode") == 1
 		
 		if UIDevice.current().model.hasPrefix("iPad"){
 			self.columnNum = 3
@@ -218,7 +218,7 @@ class FavoriteCollectionViewController: UICollectionViewController, UICollection
 	
 	func imageFromUrl(_ url : String) {
 		if let nsUrl = URL(string: url){
-			let session = Foundation.URLSession(configuration: URLSessionConfiguration.default(), delegate: self, delegateQueue: nil)
+			let session = Foundation.URLSession(configuration: URLSessionConfiguration.default, delegate: self, delegateQueue: nil)
 			self.downloadTask = session.downloadTask(with: nsUrl)
 			self.downloadTask?.resume()
 		}

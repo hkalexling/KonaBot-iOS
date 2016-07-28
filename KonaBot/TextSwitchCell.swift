@@ -21,7 +21,7 @@ class TextSwitchCell: UITableViewCell {
 		self.`switch`.backgroundColor = UIColor.placeHolderImageColor()
 		self.`switch`.layer.cornerRadius = 16
 		self.`switch`.tintColor = UIColor.konaColor()
-		self.`switch`.setOn(UserDefaults.standard().bool(forKey: "optimize"), animated: false)
+		self.`switch`.setOn(UserDefaults.standard.bool(forKey: "optimize"), animated: false)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

@@ -18,16 +18,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 		
 		self.yuno.deleteEntity("Preview")
-		if UserDefaults.standard().bool(forKey: "optimize"){
+		if UserDefaults.standard.bool(forKey: "optimize"){
 			self.yuno.deleteEntity("Cache")
 		}
 		
-		if UserDefaults.standard().object(forKey: "optimize") == nil{
-			UserDefaults.standard().set(true, forKey: "optimize")
+		if UserDefaults.standard.object(forKey: "optimize") == nil{
+			UserDefaults.standard.set(true, forKey: "optimize")
 		}
 		
-		if UserDefaults.standard().object(forKey: "viewMode") == nil {
-			UserDefaults.standard().set(1, forKey: "viewMode")
+		if UserDefaults.standard.object(forKey: "viewMode") == nil {
+			UserDefaults.standard.set(1, forKey: "viewMode")
 		}
 		
 		UITabBar.appearance().tintColor = UIColor.konaColor()
@@ -55,12 +55,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		if( shortcutItem.type == "search" ) {
 			succeeded = true
 			
-			UserDefaults.standard().set(1, forKey: "tabToSelect")
+			UserDefaults.standard.set(1, forKey: "tabToSelect")
 		}
 		if( shortcutItem.type == "favorite" ) {
 			succeeded = true
 			
-			UserDefaults.standard().set(2, forKey: "tabToSelect")
+			UserDefaults.standard.set(2, forKey: "tabToSelect")
 		}
 		return succeeded
 	}
@@ -72,7 +72,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	func applicationDidEnterBackground(_ application: UIApplication) {
 		self.yuno.deleteEntity("Preview")
-		if UserDefaults.standard().bool(forKey: "optimize"){
+		if UserDefaults.standard.bool(forKey: "optimize"){
 			self.yuno.deleteEntity("Cache")
 		}
 	}
@@ -89,13 +89,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	
 	lazy var applicationDocumentsDirectory: URL = {
 		// The directory the application uses to store the Core Data store file. This code uses a directory named "uk.co.plymouthsoftware.core_data" in the application's documents Application Support directory.
-		let urls = FileManager.default().urlsForDirectory(.documentDirectory, inDomains: .userDomainMask)
+		let urls = FileManager.default.urlsForDirectory(.documentDirectory, inDomains: .userDomainMask)
 		return urls[urls.count-1]
 	}()
 	
 	lazy var managedObjectModel: NSManagedObjectModel = {
 		// The managed object model for the application. This property is not optional. It is a fatal error for the application not to be able to find and load its model.
-		let modelURL = Bundle.main().urlForResource("Model", withExtension: "momd")!
+		let modelURL = Bundle.main.urlForResource("Model", withExtension: "momd")!
 		return NSManagedObjectModel(contentsOf: modelURL)!
 	}()
 	

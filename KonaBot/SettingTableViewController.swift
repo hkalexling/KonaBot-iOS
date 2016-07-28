@@ -8,34 +8,37 @@
 
 import UIKit
 
-class SettingTableViewController: UITableViewController, UIWebViewDelegate {
+extension SettingTableViewController: UIWebViewDelegate {
+	func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
+		if navigationType == UIWebViewNavigationType.linkClicked {
+			UIApplication.shared().openURL(request.url!)
+			return false
+		}
+		return true
+	}
+}
+
+class SettingTableViewController: UITableViewController {
 	
 	var canAdjustViewMode : Bool = false
 	
     override func viewDidLoad() {
-        super.viewDidLoad()
-		
+		super.viewDidLoad()
+	
 		self.canAdjustViewMode = CGSize.screenSize().width >= 375 && UIDevice.current().model.hasPrefix("iPhone")
 		
-        self.tableView.tableFooterView = UIView()
+		self.tableView.tableFooterView = UIView()
 		self.tableView.separatorStyle = .none
 		self.title = "More".localized
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
     // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
+	
+	override func numberOfSections(in tableView: UITableView) -> Int {
 		return self.canAdjustViewMode ? 4 : 3
-    }
+	}
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
 		return section == tableView.numberOfSections - 2 ? 2 : 1
     }
 
@@ -65,6 +68,10 @@ class SettingTableViewController: UITableViewController, UIWebViewDelegate {
 		}
 		
 		return 0
+	}
+	
+	override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+		return 30
 	}
 	
 	override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -134,7 +141,7 @@ class SettingTableViewController: UITableViewController, UIWebViewDelegate {
 			}
 		}
 		if (indexPath as NSIndexPath).section == tableView.numberOfSections - 1 {
-			UserDefaults.standard().set(true, forKey: "feedbackFinished")
+			UserDefaults.standard.set(true, forKey: "feedbackFinished")
 			
 			_ = FeedbackManager(parentVC: self, backgroundVC: self.tabBarController!, baseColor: UIColor.themeColor(), secondaryColor: UIColor.konaColor(), dismissButtonColor: UIColor.konaColor())
 		}
@@ -151,7 +158,7 @@ class SettingTableViewController: UITableViewController, UIWebViewDelegate {
 		webView.delegate = self
 		aboutVC.view.addSubview(webView)
 		
-		let htmlFile = Bundle.main().pathForResource("about", ofType: "html")!
+		let htmlFile = Bundle.main.pathForResource("about", ofType: "html")!
 		var htmlString : NSString!
 		do {
 			htmlString = try NSString(contentsOfFile: htmlFile, encoding: String.Encoding.utf8.rawValue)
@@ -161,19 +168,14 @@ class SettingTableViewController: UITableViewController, UIWebViewDelegate {
 		self.navigationController!.pushViewController(aboutVC, animated: true)
 	}
 	
-	func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
-		if navigationType == UIWebViewNavigationType.linkClicked {
-			UIApplication.shared().openURL(request.url!)
-			return false
-		}
-		return true
-	}
-	
 	@IBAction func switched(_ sender: UISwitch) {
-		UserDefaults.standard().set(sender.isOn, forKey: "optimize")
+		UserDefaults.standard.set(sender.isOn, forKey: "optimize")
 	}
 	
 	@IBAction func seguementChanged(_ sender: UISegmentedControl) {
-		UserDefaults.standard().set(sender.selectedSegmentIndex, forKey: "viewMode")
+		UserDefaults.standard.set(sender.selectedSegmentIndex, forKey: "viewMode")
+		print("setted: \(sender.selectedSegmentIndex)")
+		print("object stored: \(UserDefaults.standard.object(forKey: "viewMode"))")
+		print("stored: \(UserDefaults.standard.integer(forKey: "viewMode"))")
 	}
 }

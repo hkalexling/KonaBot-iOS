@@ -56,10 +56,10 @@ class DetailViewController: UIViewController, AWImageViewControllerDownloadDeleg
         super.viewDidLoad()
 		
 		//Feedback counting thing
-		if !UserDefaults.standard().bool(forKey: "feedbackFinished") {
-			var viewCount = UserDefaults.standard().integer(forKey: "viewCount")
+		if !UserDefaults.standard.bool(forKey: "feedbackFinished") {
+			var viewCount = UserDefaults.standard.integer(forKey: "viewCount")
 			viewCount += 1
-			UserDefaults.standard().set(viewCount, forKey: "viewCount")
+			UserDefaults.standard.set(viewCount, forKey: "viewCount")
 		}
 		
 		//iPad

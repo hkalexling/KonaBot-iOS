@@ -20,7 +20,7 @@ class CKManager: NSObject {
 	
 	override init(){
 		super.init()
-		self.icloudAvaiable = FileManager.default().ubiquityIdentityToken != nil
+		self.icloudAvaiable = FileManager.default.ubiquityIdentityToken != nil
 	}
 	
 	func addFavorited(_ postID : String) {

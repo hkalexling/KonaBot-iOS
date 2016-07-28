@@ -16,8 +16,8 @@ class ViewModeCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
 		
-		if UserDefaults.standard().object(forKey: "viewMode") != nil{
-			segmentControl.selectedSegmentIndex = UserDefaults.standard().integer(forKey: "viewMode")
+		if UserDefaults.standard.object(forKey: "viewMode") != nil{
+			segmentControl.selectedSegmentIndex = UserDefaults.standard.integer(forKey: "viewMode")
 		}
     }
 

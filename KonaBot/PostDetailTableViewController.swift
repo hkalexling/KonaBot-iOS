@@ -8,7 +8,17 @@
 
 import UIKit
 
-class PostDetailTableViewController: UITableViewController, TagViewDelegate {
+extension PostDetailTableViewController: TagViewDelegate {
+	func tagViewDidSelecteTag(_ tag: String?) {
+		let collectionVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "collectionVC") as! CollectionViewController
+		collectionVC.keyword = tag!
+		collectionVC.isFromDetailTableVC = true
+		collectionVC.searchVC = SearchViewController()
+		self.parentVC.navigationController!.pushViewController(collectionVC, animated: true)
+	}
+}
+
+class PostDetailTableViewController: UITableViewController {
 	
 	var post : Post?
 	var parsedPost : ParsedPost?
@@ -26,6 +36,7 @@ class PostDetailTableViewController: UITableViewController, TagViewDelegate {
 		let tags = self.post != nil ? self.post!.tags : self.parsedPost!.tags
 		self.tagView = TagView(tags: tags, textColor: UIColor.themeColor(), tagColor: UIColor.konaColor(), font: UIFont.systemFont(ofSize: 17))
 		self.tagView!.delegate = self
+		
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -61,6 +72,10 @@ class PostDetailTableViewController: UITableViewController, TagViewDelegate {
 		
 		return headerView
 	}
+	
+	override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+		return 30
+	}
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		
@@ -80,11 +95,11 @@ class PostDetailTableViewController: UITableViewController, TagViewDelegate {
 			if row == 1 {
 				if let _post = self.post {
 					let date = Date(timeIntervalSince1970: TimeInterval(_post.created_at))
-					cell.label.text = "Created at".localized + ": " + DateFormatter.localizedString(from: date, dateStyle: .mediumStyle, timeStyle: .shortStyle)
+					cell.label.text = "Created at".localized + ": " + DateFormatter.localizedString(from: date, dateStyle: .medium, timeStyle: .short)
 				}
 				if let _parsed = self.parsedPost {
 					let date = Date(timeIntervalSince1970: TimeInterval(_parsed.time))
-					cell.label.text = "Created at".localized + ": " + DateFormatter.localizedString(from: date, dateStyle: .mediumStyle, timeStyle: .shortStyle)
+					cell.label.text = "Created at".localized + ": " + DateFormatter.localizedString(from: date, dateStyle: .medium, timeStyle: .short)
 				}
 			}
 			if row == 2 {
@@ -128,13 +143,5 @@ class PostDetailTableViewController: UITableViewController, TagViewDelegate {
 			}
 		}
 		return 44
-	}
-	
-	func tagViewDidSelecteTag(_ tag: String?) {
-		let collectionVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "collectionVC") as! CollectionViewController
-		collectionVC.keyword = tag!
-		collectionVC.isFromDetailTableVC = true
-		collectionVC.searchVC = SearchViewController()
-		self.parentVC.navigationController!.pushViewController(collectionVC, animated: true)
 	}
 }

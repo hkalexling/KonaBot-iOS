@@ -42,9 +42,9 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
     override func viewDidLoad() {
         super.viewDidLoad()
 		
-		if UserDefaults.standard().object(forKey: "tabToSelect") != nil {
-			let tabToSelect = UserDefaults.standard().integer(forKey: "tabToSelect")
-			UserDefaults.standard().removeObject(forKey: "tabToSelect")
+		if UserDefaults.standard.object(forKey: "tabToSelect") != nil {
+			let tabToSelect = UserDefaults.standard.integer(forKey: "tabToSelect")
+			UserDefaults.standard.removeObject(forKey: "tabToSelect")
 			self.tabBarController!.selectedIndex = tabToSelect
 		}
 		
@@ -60,7 +60,9 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 		
 		self.r18 = Yuno().baseUrl().contains(".com")
 		
-		self.compact = UserDefaults.standard().integer(forKey: "viewMode") == 1
+		self.compact = UserDefaults.standard.integer(forKey: "viewMode") == 1
+		
+		print("compact: \(self.compact)")
 		
 		if UIDevice.current().model.hasPrefix("iPad"){
 			self.columnNum = 3
@@ -186,9 +188,9 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 	
 	func loadMore(){
 		self.api.getPosts(self.postsPerRequest, page: self.currentPage, tag: self.keyword)
-		if !UserDefaults.standard().bool(forKey: "feedbackFinished") {
-			if UserDefaults.standard().integer(forKey: "viewCount") > Yuno.viewCountBeforeFeedback {
-				UserDefaults.standard().set(true, forKey: "feedbackFinished")
+		if !UserDefaults.standard.bool(forKey: "feedbackFinished") {
+			if UserDefaults.standard.integer(forKey: "viewCount") > Yuno.viewCountBeforeFeedback {
+				UserDefaults.standard.set(true, forKey: "feedbackFinished")
 				_ = FeedbackManager(parentVC: self, backgroundVC: self.tabBarController!, baseColor: UIColor.themeColor(), secondaryColor: UIColor.konaColor(), dismissButtonColor: UIColor.konaColor())
 			}
 		}

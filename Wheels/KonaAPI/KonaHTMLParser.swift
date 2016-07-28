@@ -174,7 +174,7 @@ extension String {
 		(component as NSDateComponents).setValue(minute, forComponent: .minute)
 		(component as NSDateComponents).setValue(second, forComponent: .second)
 		
-		(component as NSDateComponents).calendar = Calendar.current()
+		(component as NSDateComponents).calendar = Calendar.current
 		(component as NSDateComponents).calendar!.timeZone = TimeZone(forSecondsFromGMT: 0)
 		
 		return Int((component as NSDateComponents).date!.timeIntervalSince1970)

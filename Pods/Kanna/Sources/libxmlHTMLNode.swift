@@ -53,8 +53,8 @@ internal final class libxmlHTMLNode: XMLElement {
     
     var innerHTML: String? {
         if let html = self.toHTML {
-            let inner = html.replacingOccurrences(of: "</[^>]*>$", with: "", options: .regularExpressionSearch, range: nil)
-                            .replacingOccurrences(of: "^<[^>]*>", with: "", options: .regularExpressionSearch, range: nil)
+            let inner = html.replacingOccurrences(of: "</[^>]*>$", with: "", options: .regularExpression, range: nil)
+                            .replacingOccurrences(of: "^<[^>]*>", with: "", options: .regularExpression, range: nil)
             return inner
         }
         return nil

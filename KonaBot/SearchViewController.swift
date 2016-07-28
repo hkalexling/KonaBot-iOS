@@ -108,12 +108,12 @@ class SearchViewController: UIViewController, UISearchBarDelegate, KonaAPITagDel
 	}
 	
 	func toggleR18(){
-		let r18 = UserDefaults.standard().bool(forKey: "r18")
+		let r18 = UserDefaults.standard.bool(forKey: "r18")
 		if r18 {
-			UserDefaults.standard().set(false, forKey: "r18")
+			UserDefaults.standard.set(false, forKey: "r18")
 		}
 		else{
-			UserDefaults.standard().set(true, forKey: "r18")
+			UserDefaults.standard.set(true, forKey: "r18")
 		}
 	}
 	
@@ -231,7 +231,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, KonaAPITagDel
 	}
 	
 	func getTopTags(){
-		let api = KonaAPI(r18: UserDefaults.standard().bool(forKey: "r18"), delegate: self, errorDelegate: self)
+		let api = KonaAPI(r18: UserDefaults.standard.bool(forKey: "r18"), delegate: self, errorDelegate: self)
 		api.getTags(50, type: 0, order: "count")
 	}
 	

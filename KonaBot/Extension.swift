@@ -117,13 +117,13 @@ public extension Date {
 		return formatter.string(from: self)
 	}
 	func toLocalTime() -> Date {
-		let tz = TimeZone.default()
+		let tz = TimeZone.default
 		let seconds = tz.secondsFromGMT(for: self)
 		let date : Date = self.addingTimeInterval(TimeInterval(seconds))
 		return date
 	}
 	func extract() -> DateComponents {
-		let cal = Calendar.current()
+		let cal = Calendar.current
 		let comp = cal.components([.calendar, .day, .era, .hour, .minute, .month, .nanosecond, .year], from: self)
 		return comp
 	}
@@ -297,7 +297,7 @@ public extension UIDevice {
 		uname(&systemInfo)
 		let machineMirror = Mirror(reflecting: systemInfo.machine)
 		let identifier = machineMirror.children.reduce("") { identifier, element in
-			guard let value = element.value as? Int8 where value != 0 else { return identifier }
+			guard let value = element.value as? Int8 , value != 0 else { return identifier }
 			return identifier + String(UnicodeScalar(UInt8(value)))
 		}
 		
@@ -345,12 +345,12 @@ public class Yuno{
 	static let viewCountBeforeFeedback = 10
 	
 	static var r18 : Bool {
-		return UserDefaults.standard().bool(forKey: "r18")
+		return UserDefaults.standard.bool(forKey: "r18")
 	}
 	
 	func baseUrl() -> String{
 
-		let r18 = UserDefaults.standard().bool(forKey: "r18")
+		let r18 = UserDefaults.standard.bool(forKey: "r18")
 		
 		if r18 {
 			return "http://konachan.com"
