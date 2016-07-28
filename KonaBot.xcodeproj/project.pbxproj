@@ -50,11 +50,11 @@
 		71D17C0F1C58F159001088FA /* CacheModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 71D17C0D1C58F159001088FA /* CacheModel.xcdatamodeld */; };
 		71D17C111C58F259001088FA /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D17C101C58F259001088FA /* CacheManager.swift */; };
 		71F478981C9698320072D3C3 /* CKManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F478971C9698320072D3C3 /* CKManager.swift */; };
-		9ED8778B9163BFB7FA813BD4 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7B31C0517915B780B0EC2D9 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		BADE2258E29743EA854EAF44 /* Pods_KonaBot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8457550CDB5DBABC8DD6254 /* Pods_KonaBot.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		45D08A0DF5AB84ADDE690111 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		60826C62BCE2A8C19442977C /* Pods-KonaBot.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KonaBot.release.xcconfig"; path = "Pods/Target Support Files/Pods-KonaBot/Pods-KonaBot.release.xcconfig"; sourceTree = "<group>"; };
 		71018C3F1C46C652004F881C /* PostNameCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostNameCell.swift; sourceTree = "<group>"; };
 		7109E53F1BE8F9D2003B1A93 /* SettingTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingTableViewController.swift; path = KonaBot/SettingTableViewController.swift; sourceTree = "<group>"; };
 		7109E5431BE8FA71003B1A93 /* TextArrowCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextArrowCell.swift; sourceTree = "<group>"; };
@@ -108,7 +108,8 @@
 		71F478941C9693190072D3C3 /* KonaBot.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = KonaBot.entitlements; sourceTree = "<group>"; };
 		71F478971C9698320072D3C3 /* CKManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CKManager.swift; path = Wheels/CKManager.swift; sourceTree = "<group>"; };
 		D7B31C0517915B780B0EC2D9 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		DED2764263359DECA2BAE97F /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		DBED0695173189F8282DC892 /* Pods-KonaBot.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KonaBot.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KonaBot/Pods-KonaBot.debug.xcconfig"; sourceTree = "<group>"; };
+		E8457550CDB5DBABC8DD6254 /* Pods_KonaBot.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KonaBot.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,7 +120,7 @@
 				7177E9001C4AD09400109502 /* Social.framework in Frameworks */,
 				711D66401C9840CE00688192 /* CloudKit.framework in Frameworks */,
 				71B2FC8B1BF7A359000B862D /* StoreKit.framework in Frameworks */,
-				9ED8778B9163BFB7FA813BD4 /* Pods.framework in Frameworks */,
+				BADE2258E29743EA854EAF44 /* Pods_KonaBot.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -155,8 +156,8 @@
 				7183783E1BE8007A00131A74 /* Wheels */,
 				7152C1411BE3452400A44945 /* KonaBot */,
 				7152C1401BE3452400A44945 /* Products */,
-				E66CD9DEA78C6196F9B42F07 /* Pods */,
 				F12FBDFA18695533EA3CEFED /* Frameworks */,
+				9CF2A3CBA5AF767FDFBF1A0A /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -294,11 +295,11 @@
 			path = Wheels/AWImageViewController;
 			sourceTree = "<group>";
 		};
-		E66CD9DEA78C6196F9B42F07 /* Pods */ = {
+		9CF2A3CBA5AF767FDFBF1A0A /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				45D08A0DF5AB84ADDE690111 /* Pods.debug.xcconfig */,
-				DED2764263359DECA2BAE97F /* Pods.release.xcconfig */,
+				DBED0695173189F8282DC892 /* Pods-KonaBot.debug.xcconfig */,
+				60826C62BCE2A8C19442977C /* Pods-KonaBot.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -309,6 +310,7 @@
 				711D663F1C9840CE00688192 /* CloudKit.framework */,
 				7177E8FF1C4AD09400109502 /* Social.framework */,
 				D7B31C0517915B780B0EC2D9 /* Pods.framework */,
+				E8457550CDB5DBABC8DD6254 /* Pods_KonaBot.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -320,13 +322,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7152C1511BE3452400A44945 /* Build configuration list for PBXNativeTarget "KonaBot" */;
 			buildPhases = (
-				062D44CCBEE9F0B04ED7E6A5 /* Check Pods Manifest.lock */,
+				C20BB4C47B290EFE9805C91A /* 📦 Check Pods Manifest.lock */,
 				7152C13B1BE3452400A44945 /* Sources */,
 				7152C13C1BE3452400A44945 /* Frameworks */,
 				7152C13D1BE3452400A44945 /* Resources */,
 				7152C1D81BE3E43B00A44945 /* Run Script */,
-				71D673C8F374C3E3A2BA0ABA /* Embed Pods Frameworks */,
-				A78D014E6E6D9E6A9FC0A607 /* Copy Pods Resources */,
+				07FA7A7E45213B4A0446828F /* 📦 Embed Pods Frameworks */,
+				84A20CC5B65C97792ABA3DF1 /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -351,6 +353,7 @@
 					7152C13E1BE3452400A44945 = {
 						CreatedOnToolsVersion = 7.1;
 						DevelopmentTeam = 9947S4AFL2;
+						LastSwiftMigration = 0800;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 0;
@@ -401,19 +404,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		062D44CCBEE9F0B04ED7E6A5 /* Check Pods Manifest.lock */ = {
+		07FA7A7E45213B4A0446828F /* 📦 Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "📦 Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-KonaBot/Pods-KonaBot-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		7152C1D81BE3E43B00A44945 /* Run Script */ = {
@@ -431,34 +434,34 @@
 			shellScript = "
 ";
 		};
-		71D673C8F374C3E3A2BA0ABA /* Embed Pods Frameworks */ = {
+		84A20CC5B65C97792ABA3DF1 /* 📦 Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "📦 Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-KonaBot/Pods-KonaBot-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		A78D014E6E6D9E6A9FC0A607 /* Copy Pods Resources */ = {
+		C20BB4C47B290EFE9805C91A /* 📦 Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "📦 Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -632,7 +635,7 @@
 		};
 		7152C1521BE3452400A44945 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 45D08A0DF5AB84ADDE690111 /* Pods.debug.xcconfig */;
+			baseConfigurationReference = DBED0695173189F8282DC892 /* Pods-KonaBot.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = KonaBot/KonaBot.entitlements;
@@ -653,12 +656,13 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
 		7152C1531BE3452400A44945 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DED2764263359DECA2BAE97F /* Pods.release.xcconfig */;
+			baseConfigurationReference = 60826C62BCE2A8C19442977C /* Pods-KonaBot.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = KonaBot/KonaBot.entitlements;
@@ -679,6 +683,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

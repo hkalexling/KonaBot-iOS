@@ -9,7 +9,7 @@
 import UIKit
 
 protocol TagViewDelegate {
-	func tagViewDidSelecteTag(tag : String?)
+	func tagViewDidSelecteTag(_ tag : String?)
 }
 
 class TagView: UIView {
@@ -27,10 +27,10 @@ class TagView: UIView {
 	var yEdge : CGFloat = 12
 	var cornerRadius : CGFloat = 5
 	
-	var width : CGFloat = UIScreen.mainScreen().bounds.width
+	var width : CGFloat = UIScreen.main().bounds.width
 	
 	init(tags : [String], textColor : UIColor, tagColor : UIColor, font : UIFont) {
-		super.init(frame: CGRectMake(0, 0, 10, 10))
+		super.init(frame: CGRect(x: 0, y: 0, width: 10, height: 10))
 		
 		self.tagStrs = tags
 		self.textColor = textColor
@@ -49,18 +49,18 @@ class TagView: UIView {
 		var yCenter : CGFloat = 0
 		var currentXMax : CGFloat = 0
 		for tag in self.tagStrs {
-			let label = UILabel(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, 10))
+			let label = UILabel(frame: CGRect(x: 0, y: 0, width: UIScreen.main().bounds.width, height: 10))
 			label.font = self.font
-			label.textAlignment = .Center
+			label.textAlignment = .center
 			label.text = tag
 			label.sizeToFit()
 			label.backgroundColor = self.tagColor
 			label.textColor = self.textColor
 			label.layer.cornerRadius = self.cornerRadius
 			label.clipsToBounds = true
-			label.frame = CGRectMake(0, 0, label.bounds.width + 2 * self.xExtension, label.bounds.height + 2 * self.yExtension)
-			if label.frame.size.width > UIScreen.mainScreen().bounds.width - 2 * self.xEdge {
-				label.frame = CGRectMake(label.frame.origin.x, label.frame.origin.y, UIScreen.mainScreen().bounds.width - 2 * self.xEdge, label.frame.height)
+			label.frame = CGRect(x: 0, y: 0, width: label.bounds.width + 2 * self.xExtension, height: label.bounds.height + 2 * self.yExtension)
+			if label.frame.size.width > UIScreen.main().bounds.width - 2 * self.xEdge {
+				label.frame = CGRect(x: label.frame.origin.x, y: label.frame.origin.y, width: UIScreen.main().bounds.width - 2 * self.xEdge, height: label.frame.height)
 			}
 			
 			if yCenter == 0 {
@@ -71,17 +71,17 @@ class TagView: UIView {
 				xCenter = currentXMax + self.gap + label.bounds.width/2
 			}
 			
-			label.center = CGPointMake(xCenter, yCenter)
+			label.center = CGPoint(x: xCenter, y: yCenter)
 			
-			if label.frame.maxX + self.xEdge > UIScreen.mainScreen().bounds.width {
+			if label.frame.maxX + self.xEdge > UIScreen.main().bounds.width {
 				xCenter = label.bounds.width/2 + self.xEdge
 				yCenter += label.bounds.height + gap
-				label.center = CGPointMake(xCenter, yCenter)
+				label.center = CGPoint(x: xCenter, y: yCenter)
 			}
 			
 			currentXMax = label.frame.maxX
 			
-			label.userInteractionEnabled = true
+			label.isUserInteractionEnabled = true
 			label.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.tapped(_:))))
 			
 			self.addSubview(label)
@@ -100,11 +100,11 @@ class TagView: UIView {
 			width = max(width, fw)
 			height = max(height, fh)
 			
-			self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, width + self.xEdge, height + self.yEdge)
+			self.frame = CGRect(x: self.frame.origin.x, y: self.frame.origin.y, width: width + self.xEdge, height: height + self.yEdge)
 		}
 	}
 	
-	func tapped(sender : UIGestureRecognizer) {
+	func tapped(_ sender : UIGestureRecognizer) {
 		let label = sender.view as! UILabel
 		self.delegate?.tagViewDidSelecteTag(label.text)
 	}

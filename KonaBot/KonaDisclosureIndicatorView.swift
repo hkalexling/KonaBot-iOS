@@ -15,26 +15,26 @@ class KonaDisclosureIndicatorView: UIView {
 	
 	init(color : UIColor){
 		self.color = color
-		super.init(frame: CGRectMake(0, 0, 16, 24))
-		self.backgroundColor = UIColor.clearColor()
+		super.init(frame: CGRect(x: 0, y: 0, width: 16, height: 24))
+		self.backgroundColor = UIColor.clear()
 	}
 
 	required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 	}
 
-    override func drawRect(rect: CGRect) {
+    override func draw(_ rect: CGRect) {
 		let context = UIGraphicsGetCurrentContext()
-		CGContextSetRGBFillColor(context, self.color.components.red, self.color.components.green, self.color.components.blue, self.color.components.alpha)
+		context?.setFillColor(red: self.color.components.red, green: self.color.components.green, blue: self.color.components.blue, alpha: self.color.components.alpha)
 		
-		CGContextMoveToPoint(context, 4, 0)
-		CGContextAddLineToPoint(context, 4, 0)
-		CGContextAddLineToPoint(context, 16, 12)
-		CGContextAddLineToPoint(context, 4, 24)
-		CGContextAddLineToPoint(context, 2, 22)
-		CGContextAddLineToPoint(context, 12.5, 12)
-		CGContextAddLineToPoint(context, 2, 2)
-		CGContextAddLineToPoint(context, 4, 0)
-		CGContextFillPath(context)
+		context?.moveTo(x: 4, y: 0)
+		context?.addLineTo(x: 4, y: 0)
+		context?.addLineTo(x: 16, y: 12)
+		context?.addLineTo(x: 4, y: 24)
+		context?.addLineTo(x: 2, y: 22)
+		context?.addLineTo(x: 12.5, y: 12)
+		context?.addLineTo(x: 2, y: 2)
+		context?.addLineTo(x: 4, y: 0)
+		context?.fillPath()
     }
 }

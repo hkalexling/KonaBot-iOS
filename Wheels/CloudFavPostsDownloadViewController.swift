@@ -20,7 +20,7 @@ class CloudFavPostsDownloadViewController: UIViewController {
 	private var messageLabel : UILabel!
 	private var delegate : CloudFavPostDownloadVCDelegate?
 	
-	private var animationDuration : NSTimeInterval = 0.3
+	private var animationDuration : TimeInterval = 0.3
 	
 	init(backgroundVC : UIViewController, color : UIColor, delegate : CloudFavPostDownloadVCDelegate?){
 		super.init(nibName: nil, bundle: nil)
@@ -32,24 +32,24 @@ class CloudFavPostsDownloadViewController: UIViewController {
 		self.blurImageView.alpha = 0
 		self.view.addSubview(self.blurImageView)
 		
-		self.dismissButton = UIImageView(frame: CGRectMake(20, 40, 25, 25))
+		self.dismissButton = UIImageView(frame: CGRect(x: 20, y: 40, width: 25, height: 25))
 		self.dismissButton.image = UIImage(named: "Dismiss")!.coloredImage(color)
-		self.dismissButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(CloudFavPostsDownloadViewController.dismiss)))
+		self.dismissButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.dismiss as (Void) -> Void)))
 		self.dismissButton.alpha = 0
 		self.view.addSubview(self.dismissButton)
 		
-		self.progressView = AWProgressIndicatorView(color: color, textColor: color, bgColor: UIColor.clearColor(), showText: true, width: 10, radius: 80, font: UIFont.systemFontOfSize(40))
+		self.progressView = AWProgressIndicatorView(color: color, textColor: color, bgColor: UIColor.clear(), showText: true, width: 10, radius: 80, font: UIFont.systemFont(ofSize: 40))
 		self.progressView.center = self.view.center
 		self.blurImageView.addSubview(self.progressView)
 		
-		self.messageLabel = UILabel(frame: CGRectMake(0, 0, self.progressView.frame.size.width, 10))
+		self.messageLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.progressView.frame.size.width, height: 10))
 		self.messageLabel.textColor = color
-		self.messageLabel.textAlignment = .Center
+		self.messageLabel.textAlignment = .center
 		self.messageLabel.numberOfLines = 0
-		self.messageLabel.lineBreakMode = .ByWordWrapping
-		self.messageLabel.font = UIFont.systemFontOfSize(20)
+		self.messageLabel.lineBreakMode = .byWordWrapping
+		self.messageLabel.font = UIFont.systemFont(ofSize: 20)
 		self.messageLabel.sizeToFitKeepingWidth()
-		self.messageLabel.center = CGPointMake(self.progressView.center.x, self.progressView.frame.maxY + 10 + self.messageLabel.frame.size.height/2)
+		self.messageLabel.center = CGPoint(x: self.progressView.center.x, y: self.progressView.frame.maxY + 10 + self.messageLabel.frame.size.height/2)
 		self.blurImageView.addSubview(self.messageLabel)
 		
 		backgroundVC.addChildViewController(self)
@@ -65,18 +65,18 @@ class CloudFavPostsDownloadViewController: UIViewController {
     }
 	
 	func show() {
-		UIView.animateWithDuration(self.animationDuration, delay: 0, options: [UIViewAnimationOptions.CurveEaseInOut], animations: {
+		UIView.animate(withDuration: self.animationDuration, delay: 0, options: UIViewAnimationOptions(), animations: {
 			self.blurImageView.alpha = 1
 			self.dismissButton.alpha = 1
 			}, completion: {(finished) in
-				self.dismissButton.userInteractionEnabled = true
+				self.dismissButton.isUserInteractionEnabled = true
 		})
 	}
 	
 	func dismiss(){
 		self.delegate?.CloudFavPostDownloadViewControllerWillDismiss()
 		self.rotateDismissBtn(-1)
-		UIView.animateWithDuration(self.animationDuration, delay: 0, options: [UIViewAnimationOptions.CurveEaseInOut], animations: {
+		UIView.animate(withDuration: self.animationDuration, delay: 0, options: UIViewAnimationOptions(), animations: {
 			self.blurImageView.alpha = 0
 			self.dismissButton.alpha = 0
 			}, completion: {(finished) in
@@ -92,20 +92,20 @@ class CloudFavPostsDownloadViewController: UIViewController {
 		self.progressView.stopSpin()
 	}
 	
-	func setProgress(progress : CGFloat) {
+	func setProgress(_ progress : CGFloat) {
 		self.progressView.updateProgress(progress)
 	}
 	
-	func setMessage(message : String) {
+	func setMessage(_ message : String) {
 		self.messageLabel.text = message
 		self.messageLabel.sizeToFitKeepingWidth()
 	}
 	
-	private func rotateDismissBtn(numberOfPi : CGFloat) {
+	private func rotateDismissBtn(_ numberOfPi : CGFloat) {
 		let rotateAnimation = CABasicAnimation(keyPath: "transform.rotation")
 		rotateAnimation.duration = self.animationDuration
 		rotateAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-		rotateAnimation.toValue = NSNumber(double: Double(numberOfPi) * M_PI)
-		self.dismissButton.layer.addAnimation(rotateAnimation, forKey: nil)
+		rotateAnimation.toValue = NSNumber(value: Double(numberOfPi) * M_PI)
+		self.dismissButton.layer.add(rotateAnimation, forKey: nil)
 	}
 }

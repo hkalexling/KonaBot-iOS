@@ -16,12 +16,12 @@ class ViewModeCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
 		
-		if NSUserDefaults.standardUserDefaults().objectForKey("viewMode") != nil{
-			segmentControl.selectedSegmentIndex = NSUserDefaults.standardUserDefaults().integerForKey("viewMode")
+		if UserDefaults.standard().object(forKey: "viewMode") != nil{
+			segmentControl.selectedSegmentIndex = UserDefaults.standard().integer(forKey: "viewMode")
 		}
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
 

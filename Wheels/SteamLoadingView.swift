@@ -11,22 +11,22 @@ import UIKit
 class SteamLoadingView: UIView {
 
 	private var barNumber = 3
-	private var color = UIColor.blueColor()
+	private var color = UIColor.blue()
 	private var barMinHeight : CGFloat = 10
 	private var barMaxHeight : CGFloat = 50
 	private var barWidth : CGFloat = 10
 	private var barSpacing : CGFloat = 5
-	private var animationDuration : NSTimeInterval = 0.5
-	private var deltaDuration : NSTimeInterval = 0.3
-	private var delay : NSTimeInterval = 0.3
-	private var animationOptions : UIViewAnimationOptions = [UIViewAnimationOptions.CurveEaseInOut]
+	private var animationDuration : TimeInterval = 0.5
+	private var deltaDuration : TimeInterval = 0.3
+	private var delay : TimeInterval = 0.3
+	private var animationOptions : UIViewAnimationOptions = UIViewAnimationOptions()
 	
 	private var bars : [UIView] = []
 	
-	private let screenSize = UIScreen.mainScreen().bounds.size
+	private let screenSize = UIScreen.main().bounds.size
 	
-	init(barNumber : Int?, color: UIColor?, minHeight : CGFloat?, maxHeight : CGFloat?, width : CGFloat?, spacing : CGFloat?, animationDuration : NSTimeInterval?, deltaDuration : NSTimeInterval?, delay : NSTimeInterval?, options : UIViewAnimationOptions?){
-		super.init(frame: CGRectZero)
+	init(barNumber : Int?, color: UIColor?, minHeight : CGFloat?, maxHeight : CGFloat?, width : CGFloat?, spacing : CGFloat?, animationDuration : TimeInterval?, deltaDuration : TimeInterval?, delay : TimeInterval?, options : UIViewAnimationOptions?){
+		super.init(frame: CGRect.zero)
 		
 		if let barNumber_ = barNumber {
 			self.barNumber = barNumber_
@@ -60,21 +60,21 @@ class SteamLoadingView: UIView {
 		}
 		
 		let viewWidth = CGFloat(self.barNumber) * self.barWidth + CGFloat(self.barNumber - 1) * self.barSpacing
-		self.frame = CGRectMake((screenSize.width - viewWidth)/2, (screenSize.height - self.barMaxHeight)/2, viewWidth, self.barMaxHeight)
+		self.frame = CGRect(x: (screenSize.width - viewWidth)/2, y: (screenSize.height - self.barMaxHeight)/2, width: viewWidth, height: self.barMaxHeight)
 		self.addBars()
 		
 		for i in 0 ..< self.barNumber {
-			animateBar(self.bars[i], delay: NSTimeInterval(i) * self.delay)
+			animateBar(self.bars[i], delay: TimeInterval(i) * self.delay)
 		}
 	}
 	init(){
-		super.init(frame: CGRectZero)
+		super.init(frame: CGRect.zero)
 		let viewWidth = CGFloat(self.barNumber) * self.barWidth + CGFloat(self.barNumber - 1) * self.barSpacing
-		self.frame = CGRectMake((screenSize.width - viewWidth)/2, (screenSize.height - self.barMaxHeight)/2, viewWidth, self.barMaxHeight)
+		self.frame = CGRect(x: (screenSize.width - viewWidth)/2, y: (screenSize.height - self.barMaxHeight)/2, width: viewWidth, height: self.barMaxHeight)
 		self.addBars()
 		
 		for i in 0 ..< self.barNumber {
-			animateBar(self.bars[i], delay: NSTimeInterval(i) * self.delay)
+			animateBar(self.bars[i], delay: TimeInterval(i) * self.delay)
 		}
 	}
 	
@@ -85,7 +85,7 @@ class SteamLoadingView: UIView {
 	private func addBars(){
 		var x : CGFloat = 0
 		for _ in 0 ..< self.barNumber {
-			let bar = UIView(frame: CGRectMake(x, 0, self.barWidth, self.barMaxHeight))
+			let bar = UIView(frame: CGRect(x: x, y: 0, width: self.barWidth, height: self.barMaxHeight))
 			bar.backgroundColor = self.color
 			bar.layer.cornerRadius = 5
 			self.addSubview(bar)
@@ -94,19 +94,19 @@ class SteamLoadingView: UIView {
 		}
 	}
 	
-	private func animateBar(bar : UIView, delay : NSTimeInterval) {
-		UIView.animateWithDuration(self.randomInterval(), delay: delay, options: self.animationOptions, animations: {
-			bar.frame = CGRectMake(bar.frame.minX, (self.barMaxHeight - self.barMinHeight)/2, self.barWidth, self.barMinHeight)
+	private func animateBar(_ bar : UIView, delay : TimeInterval) {
+		UIView.animate(withDuration: self.randomInterval(), delay: delay, options: self.animationOptions, animations: {
+			bar.frame = CGRect(x: bar.frame.minX, y: (self.barMaxHeight - self.barMinHeight)/2, width: self.barWidth, height: self.barMinHeight)
 			}, completion: {(finished) in
-				UIView.animateWithDuration(self.randomInterval(), delay: 0, options: self.animationOptions, animations: {
-					bar.frame = CGRectMake(bar.frame.minX, 0, self.barWidth, self.barMaxHeight)
+				UIView.animate(withDuration: self.randomInterval(), delay: 0, options: self.animationOptions, animations: {
+					bar.frame = CGRect(x: bar.frame.minX, y: 0, width: self.barWidth, height: self.barMaxHeight)
 					}, completion: {(finished) in
 						self.animateBar(bar, delay: 0)
 				})
 		})
 	}
 	
-	private func randomInterval() -> NSTimeInterval {
-		return NSTimeInterval(2 * Float(arc4random()) / Float(UINT32_MAX) - 1) * self.deltaDuration + self.animationDuration
+	private func randomInterval() -> TimeInterval {
+		return TimeInterval(2 * Float(arc4random()) / Float(UINT32_MAX) - 1) * self.deltaDuration + self.animationDuration
 	}
 }

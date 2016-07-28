@@ -41,9 +41,9 @@ class DetailViewController: UIViewController, AWImageViewControllerDownloadDeleg
 	let postDetailTableViewContainer = UIView()
 	var smallerHeight : CGFloat = 100
 	let smallerImageTransparentView = UIView()
-	let animationDuration : NSTimeInterval = 0.3
-	var bigFrame : CGRect = CGRectZero
-	var smallFrame : CGRect = CGRectZero
+	let animationDuration : TimeInterval = 0.3
+	var bigFrame : CGRect = CGRect.zero
+	var smallFrame : CGRect = CGRect.zero
 	
 	var originalImage = UIImage()
 	
@@ -56,14 +56,14 @@ class DetailViewController: UIViewController, AWImageViewControllerDownloadDeleg
         super.viewDidLoad()
 		
 		//Feedback counting thing
-		if !NSUserDefaults.standardUserDefaults().boolForKey("feedbackFinished") {
-			var viewCount = NSUserDefaults.standardUserDefaults().integerForKey("viewCount")
+		if !UserDefaults.standard().bool(forKey: "feedbackFinished") {
+			var viewCount = UserDefaults.standard().integer(forKey: "viewCount")
 			viewCount += 1
-			NSUserDefaults.standardUserDefaults().setInteger(viewCount, forKey: "viewCount")
+			UserDefaults.standard().set(viewCount, forKey: "viewCount")
 		}
 		
 		//iPad
-		if UIScreen.mainScreen().bounds.width > 415 {
+		if UIScreen.main().bounds.width > 415 {
 			self.smallerHeight = 200
 		}
 				
@@ -74,10 +74,10 @@ class DetailViewController: UIViewController, AWImageViewControllerDownloadDeleg
 		self.view.addSubview(bgView)
 		
 		detailImageView = UIImageView()
-		let width = UIScreen.mainScreen().bounds.width - 40
+		let width = UIScreen.main().bounds.width - 40
 		let height = width * self.heightOverWidth
-		detailImageView.frame = CGRectMake((CGSize.screenSize().width - width)/2, UIScreen.mainScreen().bounds.height/2 - height/2, width, height)
-		detailImageView.userInteractionEnabled = true
+		detailImageView.frame = CGRect(x: (CGSize.screenSize().width - width)/2, y: UIScreen.main().bounds.height/2 - height/2, width: width, height: height)
+		detailImageView.isUserInteractionEnabled = true
 		self.bigFrame = detailImageView.frame
 		self.view.addSubview(detailImageView)
 		
@@ -89,30 +89,30 @@ class DetailViewController: UIViewController, AWImageViewControllerDownloadDeleg
 		self.moreImageView.image = UIImage(named: "More")?.coloredImage(UIColor.konaColor())
 		let moreImageViewWidth : CGFloat = 50
 		let moreImageViewHeight : CGFloat = moreImageViewWidth * self.moreImageView.image!.size.height/self.moreImageView.image!.size.width
-		self.moreImageView.frame = CGRectMake((CGSize.screenSize().width - moreImageViewWidth)/2, CGSize.screenSize().height - moreImageViewHeight - CGFloat.tabBarHeight() - 20, moreImageViewWidth, moreImageViewHeight)
-		self.moreImageView.userInteractionEnabled = true
+		self.moreImageView.frame = CGRect(x: (CGSize.screenSize().width - moreImageViewWidth)/2, y: CGSize.screenSize().height - moreImageViewHeight - CGFloat.tabBarHeight() - 20, width: moreImageViewWidth, height: moreImageViewHeight)
+		self.moreImageView.isUserInteractionEnabled = true
 		self.moreImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.moreButtonTapped)))
 		self.view.addSubview(self.moreImageView)
 		
-		self.smallFrame = CGRectMake(20, 20 + CGFloat.navitaionBarHeight() + CGFloat.statusBarHeight(), self.smallerHeight / self.heightOverWidth,self.smallerHeight)
-		let transparentViewFrame = CGRectMake(0, 0, CGSize.screenSize().width, CGFloat.navitaionBarHeight() + CGFloat.statusBarHeight() + self.smallFrame.height + 40)
+		self.smallFrame = CGRect(x: 20, y: 20 + CGFloat.navitaionBarHeight() + CGFloat.statusBarHeight(), width: self.smallerHeight / self.heightOverWidth,height: self.smallerHeight)
+		let transparentViewFrame = CGRect(x: 0, y: 0, width: CGSize.screenSize().width, height: CGFloat.navitaionBarHeight() + CGFloat.statusBarHeight() + self.smallFrame.height + 40)
 		self.smallerImageTransparentView.frame = transparentViewFrame
 		self.smallerImageTransparentView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.smallerViewTapped)))
 		
-		self.postDetailTableViewContainer.frame = CGRectMake(0, self.smallerImageTransparentView.frame.maxY, CGSize.screenSize().width, CGSize.screenSize().height - self.smallerImageTransparentView.frame.maxY - CGFloat.tabBarHeight())
+		self.postDetailTableViewContainer.frame = CGRect(x: 0, y: self.smallerImageTransparentView.frame.maxY, width: CGSize.screenSize().width, height: CGSize.screenSize().height - self.smallerImageTransparentView.frame.maxY - CGFloat.tabBarHeight())
 		self.postDetailTableViewContainer.clipsToBounds = true
 		
 		//swipe
 		let swipeRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(self.moreButtonTapped))
-		swipeRecognizer.direction = .Up
+		swipeRecognizer.direction = .up
 		self.view.addGestureRecognizer(swipeRecognizer)
 		
 		let downSwipeRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(self.smallerViewTapped))
-		downSwipeRecognizer.direction = .Down
+		downSwipeRecognizer.direction = .down
 		self.smallerImageTransparentView.addGestureRecognizer(downSwipeRecognizer)
     }
 	
-	override func viewDidAppear(animated: Bool) {
+	override func viewDidAppear(_ animated: Bool) {
 		
 		if !self.shouldDownloadWhenViewAppeared {
 			return
@@ -125,19 +125,19 @@ class DetailViewController: UIViewController, AWImageViewControllerDownloadDeleg
 			screenshotImageView.image = UIImage.imageFromUIView(self.tabBarController!.view)
 			self.loadingBackgroundView.addSubview(screenshotImageView)
 			
-			self.moreImageView.userInteractionEnabled = false
+			self.moreImageView.isUserInteractionEnabled = false
 			self.tabBarController?.view.addSubview(self.loadingBackgroundView)
 			
 			let blurView = UIImageView(frame: self.loadingBackgroundView.frame)
 			blurView.image = UIImage.imageFromUIView(self.tabBarController!.view).applyKonaDarkEffect()
 			self.loadingBackgroundView.addSubview(blurView)
 			
-			let indicator = AWProgressIndicatorView(color: UIColor.konaColor(), textColor: UIColor.konaColor(), bgColor: UIColor.clearColor(), showText: true, width: 10, radius: 80, font: UIFont.systemFontOfSize(40))
+			let indicator = AWProgressIndicatorView(color: UIColor.konaColor(), textColor: UIColor.konaColor(), bgColor: UIColor.clear(), showText: true, width: 10, radius: 80, font: UIFont.systemFont(ofSize: 40))
 			indicator.center = self.view.center
 			indicator.startSpin(0.3)
 			self.loadingBackgroundView.addSubview(indicator)
 			
-			self.tabBarController!.view.userInteractionEnabled = false
+			self.tabBarController!.view.isUserInteractionEnabled = false
 			let konaParser = KonaHTMLParser(delegate: self, errorDelegate: self)
 			konaParser.getPostInformation(self.postUrl.hasPrefix("http") ? self.postUrl : self.baseUrl + self.postUrl)
 		}
@@ -149,7 +149,7 @@ class DetailViewController: UIViewController, AWImageViewControllerDownloadDeleg
 		self.shouldDownloadWhenViewAppeared = false
 	}
 	
-	override func viewWillAppear(animated: Bool) {
+	override func viewWillAppear(_ animated: Bool) {
 		
 		self.favoriteList = self.yuno.favoriteList()
 
@@ -162,7 +162,7 @@ class DetailViewController: UIViewController, AWImageViewControllerDownloadDeleg
 	}
 	
 	func stared(){
-		self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "Star"), style: .Done, target: self, action: #selector(self.unstared))
+		self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "Star"), style: .done, target: self, action: #selector(self.unstared))
 		if (!self.favoriteList.contains(self.postUrl)){
 			self.favoriteList.append(self.postUrl)
 			self.yuno.saveImageWithKey("FavoritedImage", image: self.detailImageView.image!, key: self.postUrl, skipUpload: false)
@@ -170,14 +170,14 @@ class DetailViewController: UIViewController, AWImageViewControllerDownloadDeleg
 	}
 	
 	func unstared(){
-		self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "Star Outline"), style: .Done, target: self, action: #selector(self.stared))
+		self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "Star Outline"), style: .done, target: self, action: #selector(self.stared))
 		if (self.favoriteList.contains(self.postUrl)){
-			self.favoriteList.removeAtIndex(self.favoriteList.indexOf(self.postUrl)!)
+			self.favoriteList.remove(at: self.favoriteList.index(of: self.postUrl)!)
 			self.yuno.deleteRecordForKey("FavoritedImage", key: self.postUrl, skipUpload: false)
 		}
 	}
 
-	func tapped(sender : UIGestureRecognizer){
+	func tapped(_ sender : UIGestureRecognizer){
 		if self.urlStr != nil {
 			var sourceImage : UIImage?
 			var sourceUrl : String?
@@ -209,13 +209,13 @@ class DetailViewController: UIViewController, AWImageViewControllerDownloadDeleg
 			self.awImageVC.progressIndicatorColor = UIColor.konaColor()
 			self.awImageVC.progressIndicatorTextColor = UIColor.konaColor()
 			
-			self.awImageVC.setup(sourceUrl, originImageView: self.detailImageView, parentView: self.tabBarController!.view, backgroundStyle: .DarkBlur, animationDuration: nil, dismissButtonColor: UIColor.konaColor(), dismissButtonWidth: 25, delegate: nil, longPressDelegate: self, downloadDelegate: self)
+			self.awImageVC.setup(sourceUrl, originImageView: self.detailImageView, parentView: self.tabBarController!.view, backgroundStyle: .darkBlur, animationDuration: nil, dismissButtonColor: UIColor.konaColor(), dismissButtonWidth: 25, delegate: nil, longPressDelegate: self, downloadDelegate: self)
 			
 			self.tabBarController!.view.addSubview(self.awImageVC.view)
 		}
 	}
 	
-	func downloadImg(url : String){
+	func downloadImg(_ url : String){
 		self.urlStr = url
 		var sourceImage : UIImage?
 		var sourceUrl : String?
@@ -242,13 +242,13 @@ class DetailViewController: UIViewController, AWImageViewControllerDownloadDeleg
 		self.awImageVC.progressIndicatorColor = UIColor.konaColor()
 		self.awImageVC.progressIndicatorTextColor = UIColor.konaColor()
 		
-		self.awImageVC.setup(sourceUrl, originImageView: self.detailImageView, parentView: self.tabBarController!.view, backgroundStyle: .DarkBlur, animationDuration: nil, dismissButtonColor: UIColor.konaColor(), dismissButtonWidth: 25, delegate: nil, longPressDelegate: self, downloadDelegate: self)
+		self.awImageVC.setup(sourceUrl, originImageView: self.detailImageView, parentView: self.tabBarController!.view, backgroundStyle: .darkBlur, animationDuration: nil, dismissButtonColor: UIColor.konaColor(), dismissButtonWidth: 25, delegate: nil, longPressDelegate: self, downloadDelegate: self)
 		
 		self.tabBarController!.view.addSubview(self.awImageVC.view)
 	}
 	
-	func imageSaved(image: UIImage, didFinishSavingWithError error: NSErrorPointer, contextInfo: UnsafePointer<()>) {
-		dispatch_async(dispatch_get_main_queue(), {
+	@objc func imageSaved(_ image: UIImage, didFinishSavingWithError error: NSError?, contextInfo: UnsafePointer<()>) {
+		DispatchQueue.main.async(execute: {
 			if error == nil {
 				self.awAlert("Image Saved".localized, message: "This image has been saved to your camera roll".localized)
 			}
@@ -260,8 +260,8 @@ class DetailViewController: UIViewController, AWImageViewControllerDownloadDeleg
 		})
 	}
 	
-	func awAlert(title : String, message : String) {
-		dispatch_async(dispatch_get_main_queue(), {
+	func awAlert(_ title : String, message : String) {
+		DispatchQueue.main.async(execute: {
 			let alert = AWAlertView.alertFromTitleAndMessage(title, message: message)
 			self.awImageVC.view.addSubview(alert)
 			alert.showAlert()
@@ -269,8 +269,8 @@ class DetailViewController: UIViewController, AWImageViewControllerDownloadDeleg
 	}
 	
 	func moreButtonTapped(){
-		self.moreImageView.userInteractionEnabled = false
-		UIView.animateWithDuration(self.animationDuration, animations: {
+		self.moreImageView.isUserInteractionEnabled = false
+		UIView.animate(withDuration: self.animationDuration, animations: {
 			self.detailImageView.frame = self.smallFrame
 			self.moreImageView.alpha = 0
 			}, completion: {(finished) in
@@ -284,13 +284,13 @@ class DetailViewController: UIViewController, AWImageViewControllerDownloadDeleg
 	
 	func smallerViewTapped(){
 		self.postDetailTableViewContainer.removeFromSuperview()
-		UIView.animateWithDuration(self.animationDuration, animations: {
+		UIView.animate(withDuration: self.animationDuration, animations: {
 			self.detailImageView.frame = self.bigFrame
 			self.moreImageView.alpha = 1
 			self.detailImageView.image = self.originalImage
 			}, completion: {(finished) in
 				self.smallerImageTransparentView.removeFromSuperview()
-				self.moreImageView.userInteractionEnabled = true
+				self.moreImageView.isUserInteractionEnabled = true
 		})
 	}
 	
@@ -299,7 +299,7 @@ class DetailViewController: UIViewController, AWImageViewControllerDownloadDeleg
 	}
 	
 	func initializePostDetailTableVC (){
-		let postDetailTableVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("postDetailTableVC") as! PostDetailTableViewController
+		let postDetailTableVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "postDetailTableVC") as! PostDetailTableViewController
 		postDetailTableVC.post = self.post
 		postDetailTableVC.parsedPost = self.parsedPost
 		postDetailTableVC.parentVC = self
@@ -310,30 +310,30 @@ class DetailViewController: UIViewController, AWImageViewControllerDownloadDeleg
 	
 	func unlock() {
 		self.loadingBackgroundView.removeFromSuperview()
-		self.tabBarController!.view.userInteractionEnabled = true
+		self.tabBarController!.view.isUserInteractionEnabled = true
 	}
 	
-	func konaHTMLParserFinishedParsing(parsedPost: ParsedPost) {
+	func konaHTMLParserFinishedParsing(_ parsedPost: ParsedPost) {
 		self.unlock()
 		self.parsedPost = parsedPost
 		self.downloadImg(self.parsedPost!.url)
-		self.moreImageView.userInteractionEnabled = true
+		self.moreImageView.isUserInteractionEnabled = true
 	}
 	
-	func konaAPIGotError(error: NSError) {
+	func konaAPIGotError(_ error: NSError) {
 		self.unlock()
 		let alert = AWAlertView.networkAlertFromError(error)
 		self.navigationController?.view.addSubview(alert)
 		alert.showAlert()
 	}
 	
-	func shareToSocial (serviceType : String) {
-		if SLComposeViewController.isAvailableForServiceType(serviceType) {
+	func shareToSocial (_ serviceType : String) {
+		if SLComposeViewController.isAvailable(forServiceType: serviceType) {
 			let controller = SLComposeViewController(forServiceType: serviceType)
-			controller.setInitialText("Shared via #KonaBot_iOS".localized)
-			controller.addImage(self.awImageVC.image)
-			controller.addURL(NSURL(string: self.postUrl.hasPrefix("http") ? self.postUrl : self.baseUrl + self.postUrl))
-			self.awImageVC.presentViewController(controller, animated: true, completion: nil)
+			controller?.setInitialText("Shared via #KonaBot_iOS".localized)
+			controller?.add(self.awImageVC.image)
+			controller?.add(URL(string: self.postUrl.hasPrefix("http") ? self.postUrl : self.baseUrl + self.postUrl))
+			self.awImageVC.present(controller!, animated: true, completion: nil)
 		}
 		else{
 			let alert = AWAlertView.redAlertFromTitleAndMessage("Service Not Avaiable".localized, message: "Please set up the social account in Settings or use another service".localized)
@@ -352,7 +352,7 @@ class DetailViewController: UIViewController, AWImageViewControllerDownloadDeleg
 		awActionSheet.delegate = self
 		
 		let saveAction = AWActionSheetAction(title: "Save Image".localized, handler: {
-			UIImageWriteToSavedPhotosAlbum(image, self, #selector(self.imageSaved(_:didFinishSavingWithError:contextInfo:)), nil)
+			UIImageWriteToSavedPhotosAlbum(image!, self, #selector(DetailViewController.imageSaved(_:didFinishSavingWithError:contextInfo:)), nil)
 		})
 		
 		let favoriteAction = AWActionSheetAction(title: "Favorite".localized, handler: {
@@ -364,17 +364,17 @@ class DetailViewController: UIViewController, AWImageViewControllerDownloadDeleg
 		})
 		
 		let copyAction = AWActionSheetAction(title: "Copy Image".localized, handler: {
-			UIPasteboard.generalPasteboard().image = image
+			UIPasteboard.general().image = image
 			self.awAlert("Image Copied".localized, message: "This image has been copied to your clipboard".localized)
 		})
 		
 		let copyLinkAction = AWActionSheetAction(title: "Copy Image URL".localized, handler: {
-			UIPasteboard.generalPasteboard().string = self.urlStr!
+			UIPasteboard.general().string = self.urlStr!
 			self.awAlert("URL Copied".localized, message: "The image URL has been copied to your clipboard".localized)
 		})
 		
 		let openAction = AWActionSheetAction(title: "Open Post in Safari".localized, handler: {
-			UIApplication.sharedApplication().openURL(NSURL(string: self.postUrl.hasPrefix("http") ? self.postUrl : self.baseUrl + self.postUrl)!)
+			UIApplication.shared().openURL(URL(string: self.postUrl.hasPrefix("http") ? self.postUrl : self.baseUrl + self.postUrl)!)
 		})
 		
 		let shareAction = AWActionSheetAction(title: "Share to...".localized, handler: {
@@ -401,7 +401,7 @@ class DetailViewController: UIViewController, AWImageViewControllerDownloadDeleg
 		awActionSheet.showActionSheet()
 	}
 	
-	func awImageViewDidFinishDownloading(image: UIImage?, error: NSError?) {
+	func awImageViewDidFinishDownloading(_ image: UIImage?, error: NSError?) {
 		if image != nil {
 			self.detailImageView.image = image!
 			self.finishedDownload = true

@@ -42,14 +42,14 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
     override func viewDidLoad() {
         super.viewDidLoad()
 		
-		if NSUserDefaults.standardUserDefaults().objectForKey("tabToSelect") != nil {
-			let tabToSelect = NSUserDefaults.standardUserDefaults().integerForKey("tabToSelect")
-			NSUserDefaults.standardUserDefaults().removeObjectForKey("tabToSelect")
+		if UserDefaults.standard().object(forKey: "tabToSelect") != nil {
+			let tabToSelect = UserDefaults.standard().integer(forKey: "tabToSelect")
+			UserDefaults.standard().removeObject(forKey: "tabToSelect")
 			self.tabBarController!.selectedIndex = tabToSelect
 		}
 		
 		self.refreshControl = UIRefreshControl()
-		self.refreshControl.addTarget(self, action: #selector(self.refresh), forControlEvents: .ValueChanged)
+		self.refreshControl.addTarget(self, action: #selector(self.refresh), for: .valueChanged)
 		self.refreshControl.tintColor = UIColor.konaColor()
 		self.collectionView!.addSubview(self.refreshControl)
 		
@@ -58,11 +58,11 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 	
 	func refresh(){
 		
-		self.r18 = Yuno().baseUrl().containsString(".com")
+		self.r18 = Yuno().baseUrl().contains(".com")
 		
-		self.compact = NSUserDefaults.standardUserDefaults().integerForKey("viewMode") == 1
+		self.compact = UserDefaults.standard().integer(forKey: "viewMode") == 1
 		
-		if UIDevice.currentDevice().model.hasPrefix("iPad"){
+		if UIDevice.current().model.hasPrefix("iPad"){
 			self.columnNum = 3
 		}
 		else{
@@ -84,10 +84,10 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 		
 		self.navigationItem.rightBarButtonItem = UIBarButtonItem()
 		if self.r18 {
-			let r18Label = UILabel(frame: CGRectMake(0, 0, 80, 20))
+			let r18Label = UILabel(frame: CGRect(x: 0, y: 0, width: 80, height: 20))
 			r18Label.textColor = UIColor.konaColor()
 			r18Label.text = "R18"
-			r18Label.textAlignment = NSTextAlignment.Right
+			r18Label.textAlignment = NSTextAlignment.right
 			self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: r18Label)
 		}
 		self.loading = SteamLoadingView(barNumber: nil, color: UIColor.konaColor(), minHeight: 10, maxHeight: 80, width: 20, spacing: 10, animationDuration: nil, deltaDuration: nil, delay: nil, options: nil)
@@ -110,56 +110,56 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
         super.didReceiveMemoryWarning()
     }
 
-    override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
 
-    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 		return self.posts.count
     }
 	
-	override func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
-		if indexPath.row == self.posts.count - (self.posts.count >= 4 ? 5 : 1) {
+	override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+		if (indexPath as NSIndexPath).row == self.posts.count - (self.posts.count >= 4 ? 5 : 1) {
 			self.loadMore()
 		}
 	}
 
-    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("ImageCell", forIndexPath: indexPath) as! ImageCell
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCell", for: indexPath) as! ImageCell
 		
-		if let img = Yuno().fetchImageWithKey("Preview", key: self.posts[indexPath.row].previewUrl) {
+		if let img = Yuno().fetchImageWithKey("Preview", key: self.posts[(indexPath as NSIndexPath).row].previewUrl) {
 			cell.imageView.image = img
-			self.postSelectable[indexPath.row] = true
+			self.postSelectable[(indexPath as NSIndexPath).row] = true
 		}
 		else{
 			cell.imageView.image = UIImage.imageWithColor(UIColor.placeHolderImageColor())
-			downloadImg(self.posts[indexPath.row].previewUrl, view: cell.imageView, index: indexPath.row)
+			downloadImg(self.posts[(indexPath as NSIndexPath).row].previewUrl, view: cell.imageView, index: (indexPath as NSIndexPath).row)
 		}
 		
         return cell
     }
 	
-	override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-		if !self.postSelectable[indexPath.row] {return}
+	override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+		if !self.postSelectable[(indexPath as NSIndexPath).row] {return}
 		let detailVC : DetailViewController = DetailViewController()
-		detailVC.postUrl = self.posts[indexPath.row].postUrl
-		detailVC.heightOverWidth = self.posts[indexPath.row].heightOverWidth
-		detailVC.imageUrl = self.posts[indexPath.row].url
-		detailVC.smallImage =  (self.collectionView!.cellForItemAtIndexPath(indexPath) as! ImageCell).imageView!.image
-		detailVC.post = self.posts[indexPath.row]
+		detailVC.postUrl = self.posts[(indexPath as NSIndexPath).row].postUrl
+		detailVC.heightOverWidth = self.posts[(indexPath as NSIndexPath).row].heightOverWidth
+		detailVC.imageUrl = self.posts[(indexPath as NSIndexPath).row].url
+		detailVC.smallImage =  (self.collectionView!.cellForItem(at: indexPath) as! ImageCell).imageView!.image
+		detailVC.post = self.posts[(indexPath as NSIndexPath).row]
 		self.navigationController!.pushViewController(detailVC, animated: true)
 	}
 	
-	override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
+	override func didRotate(from fromInterfaceOrientation: UIInterfaceOrientation) {
 		self.collectionView!.reloadData()
 	}
 
-	func downloadImg(url : String, view : UIImageView, index : Int){
-		
+	func downloadImg(_ url : String, view : UIImageView, index : Int){
+				
 		let manager = AFHTTPSessionManager()
 		manager.responseSerializer = AFImageResponseSerializer()
-		manager.GET(url, parameters: nil, progress: nil, success: {(task, response) in
-			UIView.transitionWithView(view, duration: 0.5, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: {
+		manager.get(url, parameters: nil, progress: nil, success: {(task, response) in
+			UIView.transition(with: view, duration: 0.5, options: UIViewAnimationOptions.transitionCrossDissolve, animations: {
 				view.image = response as? UIImage
 				}, completion: {(finished) in
 					self.postSelectable[index] = true
@@ -179,22 +179,22 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 		})
 	}
 	
-	func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 
-		return CGSize(width: self.cellWidth, height: self.cellWidth * self.posts[indexPath.row].heightOverWidth)
+		return CGSize(width: self.cellWidth, height: self.cellWidth * self.posts[(indexPath as NSIndexPath).row].heightOverWidth)
 	}
 	
 	func loadMore(){
 		self.api.getPosts(self.postsPerRequest, page: self.currentPage, tag: self.keyword)
-		if !NSUserDefaults.standardUserDefaults().boolForKey("feedbackFinished") {
-			if NSUserDefaults.standardUserDefaults().integerForKey("viewCount") > Yuno.viewCountBeforeFeedback {
-				NSUserDefaults.standardUserDefaults().setBool(true, forKey: "feedbackFinished")
+		if !UserDefaults.standard().bool(forKey: "feedbackFinished") {
+			if UserDefaults.standard().integer(forKey: "viewCount") > Yuno.viewCountBeforeFeedback {
+				UserDefaults.standard().set(true, forKey: "feedbackFinished")
 				_ = FeedbackManager(parentVC: self, backgroundVC: self.tabBarController!, baseColor: UIColor.themeColor(), secondaryColor: UIColor.konaColor(), dismissButtonColor: UIColor.konaColor())
 			}
 		}
 	}
 	
-	func konaAPIDidGetPost(ary: [Post]) {
+	func konaAPIDidGetPost(_ ary: [Post]) {
 		if ary.count == 0 && self.keyword != "" {
 			self.handleEmtptySearch()
 			return
@@ -208,15 +208,15 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 		self.currentPage += 1
 		self.loading.removeFromSuperview()
 		self.posts += ary
-		self.postSelectable += [Bool](count: ary.count, repeatedValue: false)
-		var index : [NSIndexPath] = []
-		for i in self.collectionView!.numberOfItemsInSection(0) ..< self.posts.count {
-			index.append(NSIndexPath(forRow: i, inSection: 0))
+		self.postSelectable += [Bool](repeating: false, count: ary.count)
+		var index : [IndexPath] = []
+		for i in self.collectionView!.numberOfItems(inSection: 0) ..< self.posts.count {
+			index.append(IndexPath(row: i, section: 0))
 		}
-		self.collectionView!.insertItemsAtIndexPaths(index)
+		self.collectionView!.insertItems(at: index)
 	}
 	
-	func konaAPIGotError(error: NSError) {
+	func konaAPIGotError(_ error: NSError) {
 		if let _alert = self.alert {
 			if !_alert.alertHidden {
 				return
@@ -227,26 +227,26 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 		self.alert!.showAlert()
 	}
 	
-	func konaHTMLParserFinishedParsing(tags: [String]) {
+	func konaHTMLParserFinishedParsing(_ tags: [String]) {
 		if (self.searchVC != nil && self.posts.count == 0){
 			if self.isFromDetailTableVC {
 				self.alert = AWAlertView.redAlertFromTitleAndMessage("No Result Found".localized, message: "Post with this tag does not exist. Please try another tag".localized)
 				self.navigationController!.view.addSubview(self.alert!)
 				self.alert!.showAlert()
-				self.navigationController!.popViewControllerAnimated(true)
+				self.navigationController!.popViewController(animated: true)
 				return
 			}
 			self.searchVC!.noResult = true
 			if (tags.count > 0){
 				self.searchVC!.suggestedTag = tags
 			}
-			self.navigationController!.popViewControllerAnimated(true)
+			self.navigationController!.popViewController(animated: true)
 		}
 	}
 	
 	//Parse HTML and get suggested tags
 	func handleEmtptySearch(){
 		let konaParser = KonaHTMLParser(delegate: self, errorDelegate: self)
-		konaParser.getSuggestedTagsFromEmptyTag(self.keyword.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLHostAllowedCharacterSet())!)
+		konaParser.getSuggestedTagsFromEmptyTag(self.keyword.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlHostAllowed)!)
 	}
 }

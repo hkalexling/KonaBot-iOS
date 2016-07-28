@@ -17,10 +17,10 @@ class PostNameCell: UITableViewCell {
 		
 		self.label.textColor = UIColor.konaColor()
 		self.label.numberOfLines = 0
-		self.label.lineBreakMode = .ByWordWrapping
+		self.label.lineBreakMode = .byWordWrapping
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

@@ -42,35 +42,35 @@ class IAPViewController: UIViewController, SKProductsRequestDelegate, SKPaymentT
 		let contentWidth : CGFloat = CGSize.screenSize().width * 0.8
 		let contentHeight : CGFloat = CGSize.screenSize().height/3
 		
-		self.contentLabel.frame = CGRectMake(CGSize.screenSize().width/2 - contentWidth/2, CGSize.screenSize().height/2 - contentHeight/2, contentWidth, contentHeight)
+		self.contentLabel.frame = CGRect(x: CGSize.screenSize().width/2 - contentWidth/2, y: CGSize.screenSize().height/2 - contentHeight/2, width: contentWidth, height: contentHeight)
 		self.contentLabel.text = ""
-		self.contentLabel.textAlignment = NSTextAlignment.Center
+		self.contentLabel.textAlignment = NSTextAlignment.center
 		self.contentLabel.textColor = UIColor.konaColor()
-		self.contentLabel.backgroundColor = UIColor.clearColor()
+		self.contentLabel.backgroundColor = UIColor.clear()
 		self.contentLabel.numberOfLines = 0
-		self.contentLabel.lineBreakMode = .ByWordWrapping
+		self.contentLabel.lineBreakMode = .byWordWrapping
 		self.view.addSubview(self.contentLabel)
 		
 		let titleHeight : CGFloat = 30
-		self.titleLabel.frame = CGRectMake(0, CGSize.screenSize().height/2 - contentHeight/2 - 10 - titleHeight, CGSize.screenSize().width, titleHeight)
-		self.titleLabel.textAlignment = .Center
+		self.titleLabel.frame = CGRect(x: 0, y: CGSize.screenSize().height/2 - contentHeight/2 - 10 - titleHeight, width: CGSize.screenSize().width, height: titleHeight)
+		self.titleLabel.textAlignment = .center
 		self.titleLabel.text = ""
-		self.titleLabel.backgroundColor = UIColor.clearColor()
+		self.titleLabel.backgroundColor = UIColor.clear()
 		self.titleLabel.textColor = UIColor.konaColor()
-		self.titleLabel.font = UIFont.boldSystemFontOfSize(23)
+		self.titleLabel.font = UIFont.boldSystemFont(ofSize: 23)
 		self.view.addSubview(self.titleLabel)
 		
 		let buttonWidth : CGFloat = 100
 		let buttonHeight : CGFloat = 30
 		
-		self.button.frame = CGRectMake(CGSize.screenSize().width/2 - buttonWidth/2, CGSize.screenSize().height/2 + self.contentLabel.frame.height/2 + 10, buttonWidth, buttonHeight)
-		self.button.backgroundColor = UIColor.clearColor()
+		self.button.frame = CGRect(x: CGSize.screenSize().width/2 - buttonWidth/2, y: CGSize.screenSize().height/2 + self.contentLabel.frame.height/2 + 10, width: buttonWidth, height: buttonHeight)
+		self.button.backgroundColor = UIColor.clear()
 		self.button.layer.cornerRadius = 5
-		self.button.layer.borderColor = UIColor.konaColor().CGColor
+		self.button.layer.borderColor = UIColor.konaColor().cgColor
 		self.button.layer.borderWidth = 1.5
-		self.button.setTitleColor(UIColor.konaColor(), forState: .Normal)
-		self.button.addTarget(self, action: #selector(IAPViewController.buyProduct), forControlEvents: .TouchDown)
-		self.button.hidden = true
+		self.button.setTitleColor(UIColor.konaColor(), for: UIControlState())
+		self.button.addTarget(self, action: #selector(IAPViewController.buyProduct), for: .touchDown)
+		self.button.isHidden = true
 		self.view.addSubview(self.button)
 	}
 	
@@ -81,25 +81,25 @@ class IAPViewController: UIViewController, SKProductsRequestDelegate, SKPaymentT
 			request.delegate = self
 			request.start()
 		} else {
-			let alert = UIAlertController(title: "In-App Purchases Not Enabled", message: "Please enable In App Purchase in Settings", preferredStyle: UIAlertControllerStyle.Alert)
-			alert.addAction(UIAlertAction(title: "Settings", style: UIAlertActionStyle.Default, handler: { alertAction in
-				alert.dismissViewControllerAnimated(true, completion: nil)
+			let alert = UIAlertController(title: "In-App Purchases Not Enabled", message: "Please enable In App Purchase in Settings", preferredStyle: UIAlertControllerStyle.alert)
+			alert.addAction(UIAlertAction(title: "Settings", style: UIAlertActionStyle.default, handler: { alertAction in
+				alert.dismiss(animated: true, completion: nil)
 				
-				let url: NSURL? = NSURL(string: UIApplicationOpenSettingsURLString)
+				let url: URL? = URL(string: UIApplicationOpenSettingsURLString)
 				if url != nil
 				{
-					UIApplication.sharedApplication().openURL(url!)
+					UIApplication.shared().openURL(url!)
 				}
 				
 			}))
-			alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: { alertAction in
-				alert.dismissViewControllerAnimated(true, completion: nil)
+			alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: { alertAction in
+				alert.dismiss(animated: true, completion: nil)
 			}))
-			self.presentViewController(alert, animated: true, completion: nil)
+			self.present(alert, animated: true, completion: nil)
 		}
 	}
 	
-	func productsRequest(request: SKProductsRequest, didReceiveResponse response: SKProductsResponse) {
+	func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
 		
 		var products = response.products
 		if (products.count != 0) {
@@ -119,35 +119,35 @@ class IAPViewController: UIViewController, SKProductsRequestDelegate, SKPaymentT
 	
 	func buyProduct() {
 		let payment = SKPayment(product: self.product!)
-		SKPaymentQueue.defaultQueue().addPayment(payment)
+		SKPaymentQueue.default().add(payment)
 	}
 	
 	func getPrice(){
-		let numberFormatter = NSNumberFormatter()
-		numberFormatter.formatterBehavior = NSNumberFormatterBehavior.Behavior10_4
-		numberFormatter.numberStyle = .CurrencyStyle
+		let numberFormatter = NumberFormatter()
+		numberFormatter.formatterBehavior = NumberFormatter.Behavior.behavior10_4
+		numberFormatter.numberStyle = .currency
 		numberFormatter.locale = self.product!.priceLocale
 		
-		self.button.setTitle(numberFormatter.stringFromNumber(self.product!.price), forState: .Normal)
-		self.button.hidden = false
+		self.button.setTitle(numberFormatter.string(from: self.product!.price), for: UIControlState())
+		self.button.isHidden = false
 		self.loading.removeFromSuperview()
 	}
 	
-	func paymentQueue(queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
+	func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
 
 		for transaction in transactions {
 			
 			switch transaction.transactionState {
 				
-			case SKPaymentTransactionState.Purchased:
+			case SKPaymentTransactionState.purchased:
 				print("Transaction Approved", terminator: "")
 				print("Product Identifier: \(transaction.payment.productIdentifier)", terminator: "")
 				self.thanks()
-				SKPaymentQueue.defaultQueue().finishTransaction(transaction)
+				SKPaymentQueue.default().finishTransaction(transaction)
 				
-			case SKPaymentTransactionState.Failed:
+			case SKPaymentTransactionState.failed:
 				print("Transaction Failed", terminator: "")
-				SKPaymentQueue.defaultQueue().finishTransaction(transaction)
+				SKPaymentQueue.default().finishTransaction(transaction)
 			default:
 				break
 			}
@@ -155,8 +155,8 @@ class IAPViewController: UIViewController, SKProductsRequestDelegate, SKPaymentT
 	}
 	
 	func thanks(){
-		self.titleLabel.hidden = true
-		self.button.hidden = true
+		self.titleLabel.isHidden = true
+		self.button.isHidden = true
 		self.contentLabel.text = "Thanks for your donation!\n\nIt's a huge motivation for me to maintain this project and keep it free of charge :)".localized
 	}
 }

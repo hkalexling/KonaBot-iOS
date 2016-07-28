@@ -14,15 +14,15 @@ import UIKit
 import AFNetworking
 
 protocol KonaAPIPostDelegate {
-	func konaAPIDidGetPost(ary : [Post])
+	func konaAPIDidGetPost(_ ary : [Post])
 }
 
 protocol KonaAPITagDelegate {
-	func konaAPIDidGetTag(ary : [String])
+	func konaAPIDidGetTag(_ ary : [String])
 }
 
 protocol KonaAPIErrorDelegate {
-	func konaAPIGotError(error : NSError)
+	func konaAPIGotError(_ error : NSError)
 }
 
 class KonaAPI: NSObject {
@@ -52,9 +52,9 @@ class KonaAPI: NSObject {
 		self.errorDelegate = errorDelegate
 	}
 	
-	func getPosts(limit : Int?, page : Int?, tag : String?){
+	func getPosts(_ limit : Int?, page : Int?, tag : String?){
 		let parameters = self.parameterFactory(["limit" : limit, "page" : page, "tags" : tag])
-		let successBlock = {(task : NSURLSessionDataTask, response : AnyObject?) in
+		let successBlock = {(task : URLSessionDataTask, response : AnyObject?) in
 			for post in response as! [NSDictionary] {
 				var rating : String = post["rating"] as! String
 				if !self.r18 && rating != "s" {
@@ -75,7 +75,7 @@ class KonaAPI: NSObject {
 				let previewUrl : String = post["preview_url"] as! String
 				let url : String = post["jpeg_url"] as! String
 				let heightOverWidth = (post["height"] as! CGFloat)/(post["width"] as! CGFloat)
-				let postTags : [String] = (post["tags"] as! String).componentsSeparatedByString(" ")
+				let postTags : [String] = (post["tags"] as! String).components(separatedBy: " ")
 				let score : Int = post["score"] as! Int
 				let author : String = post["author"] as! String
 				let created_at : Int = post["created_at"] as! Int
@@ -91,11 +91,11 @@ class KonaAPI: NSObject {
 	
 	//Types:  General: 0, artist: 1, copyright: 3, character: 4
 	//Order: date, count, name
-	func getTags(limit : Int?, type : Int?, order : String?){
+	func getTags(_ limit : Int?, type : Int?, order : String?){
 		let parameters = self.parameterFactory(["limit" : limit, "type" : type, "order" : order])
-		let successBlock = {(task : NSURLSessionDataTask, response : AnyObject?) in
+		let successBlock = {(task : URLSessionDataTask, response : AnyObject?) in
 			for tag in response as! [NSDictionary]{
-				let tagStr = tag.objectForKey("name") as! String
+				let tagStr = tag.object(forKey: "name") as! String
 				self.tagAry.append(tagStr)
 			}
 			if !self.r18 {
@@ -107,20 +107,20 @@ class KonaAPI: NSObject {
 		self.makeHTTPRequest(false, url: self.baseUrl + "/tag.json", parameters: parameters, successBlock: successBlock)
 	}
 	
-	func makeHTTPRequest(isPost : Bool, url : String, parameters : AnyObject?, successBlock: ((NSURLSessionDataTask, AnyObject?) -> Void)?){
-		let errorBlock : ((NSURLSessionDataTask?, NSError) -> Void) = {(task : NSURLSessionDataTask?, error : NSError) in
+	func makeHTTPRequest(_ isPost : Bool, url : String, parameters : AnyObject?, successBlock: ((URLSessionDataTask, AnyObject?) -> Void)?){
+		let errorBlock : ((URLSessionDataTask?, NSError) -> Void) = {(task : URLSessionDataTask?, error : NSError) in
 			self.errorDelegate?.konaAPIGotError(error)
 			print (error, terminator: "")
 		}
 		if isPost {
-			self.manager.POST(url, parameters: parameters, progress: nil, success: successBlock, failure: errorBlock)
+			self.manager.post(url, parameters: parameters, progress: nil, success: successBlock, failure: errorBlock)
 		}
 		else {
-			self.manager.GET(url, parameters: parameters, progress: nil, success: successBlock, failure: errorBlock)
+			self.manager.get(url, parameters: parameters, progress: nil, success: successBlock, failure: errorBlock)
 		}
 	}
 	
-	func parameterFactory(rawParameters : [String : AnyObject?]) -> [String : String] {
+	func parameterFactory(_ rawParameters : [String : AnyObject?]) -> [String : String] {
 		var parameters : [String : String] = [:]
 		for (key, value) in rawParameters {
 			if let unwrapValue = value {
@@ -130,11 +130,11 @@ class KonaAPI: NSObject {
 		return parameters
 	}
 	
-	class func r18Filter (tags : [String]) -> [String] {
+	class func r18Filter (_ tags : [String]) -> [String] {
 		var safeTags : [String] = []
 		tagLoop: for tag in tags {
 			for hidden in KonaAPI.hiddenTags {
-				if tag.rangeOfString(hidden) != nil {
+				if tag.range(of: hidden) != nil {
 					continue tagLoop
 				}
 			}

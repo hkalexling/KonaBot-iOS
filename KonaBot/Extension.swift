@@ -17,14 +17,14 @@ public extension String {
 }
 
 extension AWAlertView {
-	static func networkAlertFromError (error : NSError) -> AWAlertView {
-		return AWAlertView(title: "Network Error".localized, message: error.localizedDescription, height: 100, bgColor: UIColor(red: 239/255, green: 92/255, blue: 72/255, alpha: 1), textColor: UIColor.whiteColor())
+	static func networkAlertFromError (_ error : NSError) -> AWAlertView {
+		return AWAlertView(title: "Network Error".localized, message: error.localizedDescription, height: 100, bgColor: UIColor(red: 239/255, green: 92/255, blue: 72/255, alpha: 1), textColor: UIColor.white())
 	}
-	static func alertFromTitleAndMessage (title : String, message : String) -> AWAlertView {
-		return AWAlertView(title: title, message: message, height: 100, bgColor: UIColor(red: 48/255, green: 176/255, blue: 114/255, alpha: 1), textColor: UIColor.whiteColor())
+	static func alertFromTitleAndMessage (_ title : String, message : String) -> AWAlertView {
+		return AWAlertView(title: title, message: message, height: 100, bgColor: UIColor(red: 48/255, green: 176/255, blue: 114/255, alpha: 1), textColor: UIColor.white())
 	}
-	static func redAlertFromTitleAndMessage (title : String, message : String) -> AWAlertView {
-		return AWAlertView(title: title, message: message, height: 100, bgColor: UIColor(red: 239/255, green: 92/255, blue: 72/255, alpha: 1), textColor: UIColor.whiteColor())
+	static func redAlertFromTitleAndMessage (_ title : String, message : String) -> AWAlertView {
+		return AWAlertView(title: title, message: message, height: 100, bgColor: UIColor(red: 239/255, green: 92/255, blue: 72/255, alpha: 1), textColor: UIColor.white())
 	}
 }
 
@@ -36,95 +36,95 @@ extension CGFloat {
 		return 44
 	}
 	static func statusBarHeight() -> CGFloat {
-		let statusBarSize = UIApplication.sharedApplication().statusBarFrame.size
+		let statusBarSize = UIApplication.shared().statusBarFrame.size
 		return Swift.min(statusBarSize.width, statusBarSize.height)
 	}
 }
 
 extension UIButton {
-	func block_setAction(block: ButtonActionBlock) {
+	func block_setAction(_ block: ButtonActionBlock) {
 		objc_setAssociatedObject(self, &ActionBlockKey, ActionBlockWrapper(block: block), objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-		addTarget(self, action: #selector(self.block_handleAction(_:)), forControlEvents: .TouchUpInside)
+		addTarget(self, action: #selector(self.block_handleAction(_:)), for: .touchUpInside)
 	}
 	
-	func block_handleAction(sender: UIButton) {
+	func block_handleAction(_ sender: UIButton) {
 		let wrapper = objc_getAssociatedObject(self, &ActionBlockKey) as! ActionBlockWrapper
 		wrapper.block()
 	}
 }
 
 public extension UIImage {
-	class func imageWithColor(color: UIColor) -> UIImage {
-		let size = CGSizeMake(10, 10)
-		let rect = CGRectMake(0, 0, size.width, size.height)
+	class func imageWithColor(_ color: UIColor) -> UIImage {
+		let size = CGSize(width: 10, height: 10)
+		let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
 		UIGraphicsBeginImageContextWithOptions(size, false, 0)
 		color.setFill()
 		UIRectFill(rect)
-		let image: UIImage = UIGraphicsGetImageFromCurrentImageContext()
+		let image: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
 		UIGraphicsEndImageContext()
 		return image
 	}
-	func coloredImage(color : UIColor) -> UIImage {
+	func coloredImage(_ color : UIColor) -> UIImage {
 		UIGraphicsBeginImageContextWithOptions(self.size, false, self.scale)
-		let context : CGContextRef? = UIGraphicsGetCurrentContext()
-		CGContextTranslateCTM(context, 0, self.size.height)
-		CGContextScaleCTM(context, 1.0, -1.0)
-		CGContextSetBlendMode(context, .Normal)
-		let rect : CGRect = CGRectMake(0, 0, self.size.width, self.size.height)
-		CGContextClipToMask(context, rect, self.CGImage)
+		let context : CGContext? = UIGraphicsGetCurrentContext()
+		context?.translate(x: 0, y: self.size.height)
+		context?.scale(x: 1.0, y: -1.0)
+		context?.setBlendMode(.normal)
+		let rect : CGRect = CGRect(x: 0, y: 0, width: self.size.width, height: self.size.height)
+		context?.clipToMask(rect, mask: self.cgImage!)
 		color.setFill()
-		CGContextFillRect(context, rect)
-		let newImage : UIImage = UIGraphicsGetImageFromCurrentImageContext()
+		context?.fill(rect)
+		let newImage : UIImage = UIGraphicsGetImageFromCurrentImageContext()!
 		UIGraphicsEndImageContext()
 		return newImage
 	}
-	func resize(newWidth: CGFloat) -> UIImage {
+	func resize(_ newWidth: CGFloat) -> UIImage {
 		
 		let scale = newWidth / self.size.width
 		let newHeight = self.size.height * scale
-		UIGraphicsBeginImageContext(CGSizeMake(newWidth, newHeight))
-		self.drawInRect(CGRectMake(0, 0, newWidth, newHeight))
+		UIGraphicsBeginImageContext(CGSize(width: newWidth, height: newHeight))
+		self.draw(in: CGRect(x: 0, y: 0, width: newWidth, height: newHeight))
 		let image = UIGraphicsGetImageFromCurrentImageContext()
 		UIGraphicsEndImageContext()
 		
-		return image
+		return image!
 	}
 }
 
 public extension Int{
-	static func randInRange(range: Range<Int>) -> Int {
-		return  Int(arc4random_uniform(UInt32(range.endIndex - range.startIndex))) + range.startIndex
+	static func randInRange(_ range: Range<Int>) -> Int {
+		return  Int(arc4random_uniform(UInt32(range.upperBound - range.lowerBound))) + range.lowerBound
 	}
 }
 
 public extension CGSize {
 	static func screenSize() -> CGSize {
-		return UIScreen.mainScreen().bounds.size
+		return UIScreen.main().bounds.size
 	}
 }
 
-public extension NSDate {
+public extension Date {
 	func toString() -> String{
-		let dateFormatter: NSDateFormatter = NSDateFormatter()
+		let dateFormatter: DateFormatter = DateFormatter()
 		dateFormatter.dateFormat = "MM-dd-yyyy"
 		
-		return dateFormatter.stringFromDate(self)
+		return dateFormatter.string(from: self)
 	}
 	func weekDay() -> String{
-		let formatter = NSDateFormatter()
+		let formatter = DateFormatter()
 		formatter.dateFormat = "E"
 		
-		return formatter.stringFromDate(self)
+		return formatter.string(from: self)
 	}
-	func toLocalTime() -> NSDate {
-		let tz = NSTimeZone.defaultTimeZone()
-		let seconds = tz.secondsFromGMTForDate(self)
-		let date : NSDate = self.dateByAddingTimeInterval(NSTimeInterval(seconds))
+	func toLocalTime() -> Date {
+		let tz = TimeZone.default()
+		let seconds = tz.secondsFromGMT(for: self)
+		let date : Date = self.addingTimeInterval(TimeInterval(seconds))
 		return date
 	}
-	func extract() -> NSDateComponents {
-		let cal = NSCalendar.currentCalendar()
-		let comp = cal.components([.Calendar, .Day, .Era, .Hour, .Minute, .Month, .Nanosecond, .Year], fromDate: self)
+	func extract() -> DateComponents {
+		let cal = Calendar.current()
+		let comp = cal.components([.calendar, .day, .era, .hour, .minute, .month, .nanosecond, .year], from: self)
 		return comp
 	}
 }
@@ -156,7 +156,7 @@ public extension UIColor {
 		getRed(&r, green: &g, blue: &b, alpha: &a)
 		return (r,g,b,a)
 	}
-	func soften(coeff : CGFloat) -> UIColor{
+	func soften(_ coeff : CGFloat) -> UIColor{
 		let comp = self.components
 		return UIColor(red: comp.red * coeff, green: comp.green * coeff, blue: comp.blue * coeff, alpha: comp.alpha)
 	}
@@ -164,69 +164,69 @@ public extension UIColor {
 	
 	class func themeColor() -> UIColor{
 		switch Yuno.theme{
-		case .KonaChan:
+		case .konaChan:
 			return UIColor(red: 34/255, green: 34/255, blue: 34/255, alpha: 1)
-		case .LightBlue:
+		case .lightBlue:
 			return UIColor(hexString: "#EEEEEE")
-		case .Orange:
+		case .orange:
 			return UIColor(hexString: "#EEEEEE")
-		case .Dark:
+		case .dark:
 			return UIColor(hexString: "#262626")
 		}
 	}
 	class func konaColor() -> UIColor{
 		switch Yuno.theme{
-		case .KonaChan:
+		case .konaChan:
 			return UIColor(red: 253/255, green: 168/255, blue: 142/255, alpha: 1)
-		case .LightBlue:
+		case .lightBlue:
 			return UIColor(hexString: "#2196F3")
-		case .Orange:
+		case .orange:
 			return UIColor(hexString: "#FF8F00")
-		case .Dark:
+		case .dark:
 			return UIColor(hexString: "#84FFFF")
 		}
 	}
 	class func lighterThemeColor() -> UIColor {
 		switch Yuno.theme{
-		case .KonaChan:
+		case .konaChan:
 			return UIColor(red: 50/255, green: 50/255, blue: 50/255, alpha: 1)
-		case .LightBlue:
-			return UIColor.whiteColor()
-		case .Orange:
-			return UIColor.whiteColor()
-		case .Dark:
+		case .lightBlue:
+			return UIColor.white()
+		case .orange:
+			return UIColor.white()
+		case .dark:
 			return UIColor(hexString: "#333333")
 		}
 	}
 	class func searchVCLabelColor() -> UIColor {
 		switch Yuno.theme{
-		case .KonaChan:
-			return UIColor.whiteColor()
-		case .LightBlue:
-			return UIColor.grayColor()
-		case .Orange:
-			return UIColor.grayColor()
-		case .Dark:
-			return UIColor.whiteColor()
+		case .konaChan:
+			return UIColor.white()
+		case .lightBlue:
+			return UIColor.gray()
+		case .orange:
+			return UIColor.gray()
+		case .dark:
+			return UIColor.white()
 		}
 	}
 	class func placeHolderImageColor() -> UIColor {
 		switch Yuno.theme{
-		case .KonaChan:
-			return UIColor.darkGrayColor()
-		case .LightBlue:
-			return UIColor.lightGrayColor()
-		case .Orange:
-			return UIColor.lightGrayColor()
-		case .Dark:
-			return UIColor.darkGrayColor()
+		case .konaChan:
+			return UIColor.darkGray()
+		case .lightBlue:
+			return UIColor.lightGray()
+		case .orange:
+			return UIColor.lightGray()
+		case .dark:
+			return UIColor.darkGray()
 		}
 	}
 	
 	convenience init(hexString: String) {
-		let hex = hexString.stringByTrimmingCharactersInSet(NSCharacterSet.alphanumericCharacterSet().invertedSet)
+		let hex = hexString.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
 		var int = UInt32()
-		NSScanner(string: hex).scanHexInt(&int)
+		Scanner(string: hex).scanHexInt32(&int)
 		let a, r, g, b: UInt32
 		switch hex.characters.count {
 		case 3: // RGB (12-bit)
@@ -245,14 +245,14 @@ public extension UIColor {
 extension UIStatusBarStyle {
 	static func styleAccordingToTheme() -> UIStatusBarStyle {
 		switch Yuno.theme{
-		case .KonaChan:
-			return .LightContent
-		case .LightBlue:
-			return .Default
-		case .Orange:
-			return .Default
-		case .Dark:
-			return .LightContent
+		case .konaChan:
+			return .lightContent
+		case .lightBlue:
+			return .default
+		case .orange:
+			return .default
+		case .dark:
+			return .lightContent
 		}
 	}
 }
@@ -260,27 +260,27 @@ extension UIStatusBarStyle {
 extension UIScrollViewIndicatorStyle {
 	static func styleAccordingToTheme() -> UIScrollViewIndicatorStyle {
 		switch Yuno.theme{
-		case .KonaChan:
-			return .White
-		case .LightBlue:
-			return .Black
-		case .Orange:
-			return .Black
-		case .Dark:
-			return .White
+		case .konaChan:
+			return .white
+		case .lightBlue:
+			return .black
+		case .orange:
+			return .black
+		case .dark:
+			return .white
 		}
 	}
 }
 
 public extension UIAlertController {
-	class func alertWithOKButton(title : String?, message : String?) -> UIAlertController {
-		let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
-		alert.addAction(UIAlertAction(title: "OK".localized, style: UIAlertActionStyle.Default, handler: nil))
+	class func alertWithOKButton(_ title : String?, message : String?) -> UIAlertController {
+		let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+		alert.addAction(UIAlertAction(title: "OK".localized, style: UIAlertActionStyle.default, handler: nil))
 		return alert
 	}
 	
-	class func alert(title : String?, message : String?, actions : [UIAlertAction]?) -> UIAlertController{
-		let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
+	class func alert(_ title : String?, message : String?, actions : [UIAlertAction]?) -> UIAlertController{
+		let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
 		
 		for action in actions! {
 			alert.addAction(action)
@@ -330,10 +330,10 @@ public extension UIDevice {
 }
 
 public enum Theme {
-	case KonaChan
-	case LightBlue
-	case Orange
-	case Dark
+	case konaChan
+	case lightBlue
+	case orange
+	case dark
 }
 
 public class Yuno{
@@ -341,16 +341,16 @@ public class Yuno{
 	var imageCoreData = [NSManagedObject]()
 	var favoriteCoreData = [NSManagedObject]()
 	
-	static let theme = Theme.KonaChan
+	static let theme = Theme.konaChan
 	static let viewCountBeforeFeedback = 10
 	
 	static var r18 : Bool {
-		return NSUserDefaults.standardUserDefaults().boolForKey("r18")
+		return UserDefaults.standard().bool(forKey: "r18")
 	}
 	
 	func baseUrl() -> String{
 
-		let r18 = NSUserDefaults.standardUserDefaults().boolForKey("r18")
+		let r18 = UserDefaults.standard().bool(forKey: "r18")
 		
 		if r18 {
 			return "http://konachan.com"
@@ -360,13 +360,13 @@ public class Yuno{
 		}
 	}
 	
-	public func saveImageWithKey(entity : String, image : UIImage, key : String, skipUpload : Bool){
-		let data = NSKeyedArchiver.archivedDataWithRootObject(image)
-		let managedContext = entity == "FavoritedImage" ? (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext : CacheManager.sharedInstance.managedObjectContext
-		let entityDescription = NSEntityDescription.entityForName(entity,
-			inManagedObjectContext: managedContext)
+	public func saveImageWithKey(_ entity : String, image : UIImage, key : String, skipUpload : Bool){
+		let data = NSKeyedArchiver.archivedData(withRootObject: image)
+		let managedContext = entity == "FavoritedImage" ? (UIApplication.shared().delegate as! AppDelegate).managedObjectContext : CacheManager.sharedInstance.managedObjectContext
+		let entityDescription = NSEntityDescription.entity(forEntityName: entity,
+			in: managedContext)
 		let options = NSManagedObject(entity: entityDescription!,
-			insertIntoManagedObjectContext:managedContext)
+			insertInto:managedContext)
 		
 		options.setValue(data, forKey: "image")
 		options.setValue(key, forKey: "key")
@@ -385,58 +385,58 @@ public class Yuno{
 		}
 	}
 	
-	public func fetchImageWithKey(entity : String, key : String) -> UIImage?{
-		let managedContext = entity == "FavoritedImage" ? (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext : CacheManager.sharedInstance.managedObjectContext
-		let fetchRequest = NSFetchRequest(entityName: entity)
-		fetchRequest.predicate = NSPredicate(format: "key == %@", key)
+	public func fetchImageWithKey(_ entity : String, key : String) -> UIImage?{
+		let managedContext = entity == "FavoritedImage" ? (UIApplication.shared().delegate as! AppDelegate).managedObjectContext : CacheManager.sharedInstance.managedObjectContext
+		let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entity)
+		fetchRequest.predicate = Predicate(format: "key == %@", key)
 		
 		var fetchedResults : [NSManagedObject] = []
 		do {
-			fetchedResults = try managedContext.executeFetchRequest(fetchRequest) as! [NSManagedObject]
+			fetchedResults = try managedContext.fetch(fetchRequest) as! [NSManagedObject]
 		}
 		catch{
 			print (error)
 		}
 		if fetchedResults.count == 1 {
-			return NSKeyedUnarchiver.unarchiveObjectWithData(fetchedResults[0].valueForKey("image") as! NSData) as? UIImage
+			return NSKeyedUnarchiver.unarchiveObject(with: fetchedResults[0].value(forKey: "image") as! Data) as? UIImage
 		}
 		return nil
 	}
 	
-	public func checkFullsSizeWithKey(key : String) -> Bool {
-		let managedContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
-		let fetchRequest = NSFetchRequest(entityName: "FavoritedImage")
-		fetchRequest.predicate = NSPredicate(format: "key == %@", key)
+	public func checkFullsSizeWithKey(_ key : String) -> Bool {
+		let managedContext = (UIApplication.shared().delegate as! AppDelegate).managedObjectContext
+		let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "FavoritedImage")
+		fetchRequest.predicate = Predicate(format: "key == %@", key)
 		
 		var fetchedResults : [NSManagedObject] = []
 		do {
-			fetchedResults = try managedContext.executeFetchRequest(fetchRequest) as! [NSManagedObject]
+			fetchedResults = try managedContext.fetch(fetchRequest) as! [NSManagedObject]
 		}
 		catch{
 			print (error)
 		}
 		
 		if fetchedResults.count == 1 {
-			return fetchedResults[0].valueForKey("isFullSize") as! Bool
+			return fetchedResults[0].value(forKey: "isFullSize") as! Bool
 		}
 		
 		return false
 	}
 	
-	public func deleteRecordForKey(entity : String, key : String, skipUpload : Bool) {
-		let managedContext = entity == "FavoritedImage" ? (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext : CacheManager.sharedInstance.managedObjectContext
-		let fetchRequest = NSFetchRequest(entityName: entity)
-		fetchRequest.predicate = NSPredicate(format: "key == %@", key)
+	public func deleteRecordForKey(_ entity : String, key : String, skipUpload : Bool) {
+		let managedContext = entity == "FavoritedImage" ? (UIApplication.shared().delegate as! AppDelegate).managedObjectContext : CacheManager.sharedInstance.managedObjectContext
+		let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entity)
+		fetchRequest.predicate = Predicate(format: "key == %@", key)
 		
 		var fetchedResults : [NSManagedObject] = []
 		do {
-			fetchedResults = try managedContext.executeFetchRequest(fetchRequest) as! [NSManagedObject]
+			fetchedResults = try managedContext.fetch(fetchRequest) as! [NSManagedObject]
 		}
 		catch{
 			print (error)
 		}
 		if fetchedResults.count == 1 {
-			managedContext.deleteObject(fetchedResults[0])
+			managedContext.delete(fetchedResults[0])
 			do {
 				try managedContext.save()
 			}
@@ -451,14 +451,14 @@ public class Yuno{
 		}
 	}
 	
-	public func saveFavoriteImageIfNecessary(key : String, image : UIImage){
-		let managedContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
-		let fetchRequest = NSFetchRequest(entityName: "FavoritedImage")
-		fetchRequest.predicate = NSPredicate(format: "key == %@", key)
+	public func saveFavoriteImageIfNecessary(_ key : String, image : UIImage){
+		let managedContext = (UIApplication.shared().delegate as! AppDelegate).managedObjectContext
+		let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "FavoritedImage")
+		fetchRequest.predicate = Predicate(format: "key == %@", key)
 		
 		var fetchedResults : [NSManagedObject] = []
 		do {
-			fetchedResults = try managedContext.executeFetchRequest(fetchRequest) as! [NSManagedObject]
+			fetchedResults = try managedContext.fetch(fetchRequest) as! [NSManagedObject]
 		}
 		catch{
 			print (error)
@@ -467,12 +467,12 @@ public class Yuno{
 		if fetchedResults.count > 0 {
 			self.deleteRecordForKey("FavoritedImage", key: key, skipUpload: true)
 
-			let data = NSKeyedArchiver.archivedDataWithRootObject(image)
-			let managedContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
-			let entity = NSEntityDescription.entityForName("FavoritedImage",
-				inManagedObjectContext: managedContext)
+			let data = NSKeyedArchiver.archivedData(withRootObject: image)
+			let managedContext = (UIApplication.shared().delegate as! AppDelegate).managedObjectContext
+			let entity = NSEntityDescription.entity(forEntityName: "FavoritedImage",
+				in: managedContext)
 			let options = NSManagedObject(entity: entity!,
-				insertIntoManagedObjectContext:managedContext)
+				insertInto:managedContext)
 			
 			options.setValue(data, forKey: "image")
 			options.setValue(key, forKey: "key")
@@ -491,31 +491,31 @@ public class Yuno{
 	public func favoriteList() -> [String]{
 		var returnAry : [String] = []
 		
-		let managedContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
-		let fetchRequest = NSFetchRequest(entityName: "FavoritedImage")
+		let managedContext = (UIApplication.shared().delegate as! AppDelegate).managedObjectContext
+		let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "FavoritedImage")
 		
 		var fetchedResults : [NSManagedObject] = []
 		do {
-			fetchedResults = try managedContext.executeFetchRequest(fetchRequest) as! [NSManagedObject]
+			fetchedResults = try managedContext.fetch(fetchRequest) as! [NSManagedObject]
 		}
 		catch{
 			print (error)
 		}
 		
 		for result in fetchedResults{
-			returnAry.append(result.valueForKey("key") as! String)
+			returnAry.append(result.value(forKey: "key") as! String)
 		}
 		
 		return returnAry
 	}
 	
-	public func deleteEntity(entity : String){
-		let managedContext = entity == "FavoritedImage" ? (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext : CacheManager.sharedInstance.managedObjectContext
-		let fetchRequest = NSFetchRequest(entityName: entity)
+	public func deleteEntity(_ entity : String){
+		let managedContext = entity == "FavoritedImage" ? (UIApplication.shared().delegate as! AppDelegate).managedObjectContext : CacheManager.sharedInstance.managedObjectContext
+		let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entity)
 		
 		var fetchedResults : [NSManagedObject] = []
 		do {
-			fetchedResults = try managedContext.executeFetchRequest(fetchRequest) as! [NSManagedObject]
+			fetchedResults = try managedContext.fetch(fetchRequest) as! [NSManagedObject]
 		}
 		catch{
 			print (error)
@@ -523,7 +523,7 @@ public class Yuno{
 
 		if fetchedResults.count > 0 {
 			for result in fetchedResults{
-				managedContext.deleteObject(result)
+				managedContext.delete(result)
 			}
 		}
 		
@@ -535,17 +535,17 @@ public class Yuno{
 		}
 	}
 	
-	public func backgroundThread(background: (() -> Void)? = nil, completion: (() -> Void)? = nil) {
-		dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+	public func backgroundThread(_ background: (() -> Void)? = nil, completion: (() -> Void)? = nil) {
+		DispatchQueue.global(attributes: DispatchQueue.GlobalAttributes.qosDefault).async {
 			if(background != nil){ background!(); }
 			
-			dispatch_async(dispatch_get_main_queue()){
+			DispatchQueue.main.async{
 				if(completion != nil){ completion!(); }
 			}
 		}
 	}
 	
-	func actionSheetSetStyle (awActionSheet : AWActionSheet){
+	func actionSheetSetStyle (_ awActionSheet : AWActionSheet){
 		awActionSheet.animationDuraton = 0.8
 		awActionSheet.cancelButtonColor = UIColor.themeColor()
 		let componets = UIColor.themeColor().components
@@ -553,12 +553,12 @@ public class Yuno{
 		awActionSheet.textColor = UIColor.konaColor()
 		
 		//iPad
-		if UIScreen.mainScreen().bounds.width > 415 {
+		if UIScreen.main().bounds.width > 415 {
 			awActionSheet.buttonWidth = 400
 			awActionSheet.buttonHeight = 60
 			awActionSheet.gapBetweetnCancelButtonAndOtherButtons = 15
-			awActionSheet.buttonFont = UIFont.systemFontOfSize(20)
-			awActionSheet.cancelButtonFont = UIFont.boldSystemFontOfSize(20)
+			awActionSheet.buttonFont = UIFont.systemFont(ofSize: 20)
+			awActionSheet.cancelButtonFont = UIFont.boldSystemFont(ofSize: 20)
 		}
 	}
 }

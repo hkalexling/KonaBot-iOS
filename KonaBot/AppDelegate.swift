@@ -15,19 +15,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	var window: UIWindow?
 	let yuno = Yuno()
 
-	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 		
 		self.yuno.deleteEntity("Preview")
-		if NSUserDefaults.standardUserDefaults().boolForKey("optimize"){
+		if UserDefaults.standard().bool(forKey: "optimize"){
 			self.yuno.deleteEntity("Cache")
 		}
 		
-		if NSUserDefaults.standardUserDefaults().objectForKey("optimize") == nil{
-			NSUserDefaults.standardUserDefaults().setBool(true, forKey: "optimize")
+		if UserDefaults.standard().object(forKey: "optimize") == nil{
+			UserDefaults.standard().set(true, forKey: "optimize")
 		}
 		
-		if NSUserDefaults.standardUserDefaults().objectForKey("viewMode") == nil {
-			NSUserDefaults.standardUserDefaults().setInteger(1, forKey: "viewMode")
+		if UserDefaults.standard().object(forKey: "viewMode") == nil {
+			UserDefaults.standard().set(1, forKey: "viewMode")
 		}
 		
 		UITabBar.appearance().tintColor = UIColor.konaColor()
@@ -45,68 +45,68 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}
 	
 	@available(iOS 9.0, *)
-	func application(application: UIApplication, performActionForShortcutItem shortcutItem: UIApplicationShortcutItem, completionHandler: (Bool) -> Void) {
+	func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: (Bool) -> Void) {
 		completionHandler( handleShortcut(shortcutItem) )
 	}
 	
 	@available(iOS 9.0, *)
-	func handleShortcut( shortcutItem:UIApplicationShortcutItem ) -> Bool {
+	func handleShortcut( _ shortcutItem:UIApplicationShortcutItem ) -> Bool {
 		var succeeded = false
 		if( shortcutItem.type == "search" ) {
 			succeeded = true
 			
-			NSUserDefaults.standardUserDefaults().setInteger(1, forKey: "tabToSelect")
+			UserDefaults.standard().set(1, forKey: "tabToSelect")
 		}
 		if( shortcutItem.type == "favorite" ) {
 			succeeded = true
 			
-			NSUserDefaults.standardUserDefaults().setInteger(2, forKey: "tabToSelect")
+			UserDefaults.standard().set(2, forKey: "tabToSelect")
 		}
 		return succeeded
 	}
 
-	func applicationWillResignActive(application: UIApplication) {
+	func applicationWillResignActive(_ application: UIApplication) {
 		// Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
 		// Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
 	}
 
-	func applicationDidEnterBackground(application: UIApplication) {
+	func applicationDidEnterBackground(_ application: UIApplication) {
 		self.yuno.deleteEntity("Preview")
-		if NSUserDefaults.standardUserDefaults().boolForKey("optimize"){
+		if UserDefaults.standard().bool(forKey: "optimize"){
 			self.yuno.deleteEntity("Cache")
 		}
 	}
 
-	func applicationWillEnterForeground(application: UIApplication) {
+	func applicationWillEnterForeground(_ application: UIApplication) {
 		// Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
 	}
 
-	func applicationDidBecomeActive(application: UIApplication) {
+	func applicationDidBecomeActive(_ application: UIApplication) {
 		// Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 	}
 	
 	// MARK: - Core Data stack
 	
-	lazy var applicationDocumentsDirectory: NSURL = {
+	lazy var applicationDocumentsDirectory: URL = {
 		// The directory the application uses to store the Core Data store file. This code uses a directory named "uk.co.plymouthsoftware.core_data" in the application's documents Application Support directory.
-		let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
+		let urls = FileManager.default().urlsForDirectory(.documentDirectory, inDomains: .userDomainMask)
 		return urls[urls.count-1]
 	}()
 	
 	lazy var managedObjectModel: NSManagedObjectModel = {
 		// The managed object model for the application. This property is not optional. It is a fatal error for the application not to be able to find and load its model.
-		let modelURL = NSBundle.mainBundle().URLForResource("Model", withExtension: "momd")!
-		return NSManagedObjectModel(contentsOfURL: modelURL)!
+		let modelURL = Bundle.main().urlForResource("Model", withExtension: "momd")!
+		return NSManagedObjectModel(contentsOf: modelURL)!
 	}()
 	
 	lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator = {
 		// The persistent store coordinator for the application. This implementation creates and return a coordinator, having added the store for the application to it. This property is optional since there are legitimate error conditions that could cause the creation of the store to fail.
 		// Create the coordinator and store
 		let coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
-		let url = self.applicationDocumentsDirectory.URLByAppendingPathComponent("KonaBot.sqlite")
+		let url = try! self.applicationDocumentsDirectory.appendingPathComponent("KonaBot.sqlite")
 		var failureReason = "There was an error creating or loading the application's saved data."
 		do {
-			try coordinator.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil)
+			try coordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: url, options: nil)
 		} catch {
 			// Report any error we got.
 			var dict = [String: AnyObject]()
@@ -127,7 +127,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	lazy var managedObjectContext: NSManagedObjectContext = {
 		// Returns the managed object context for the application (which is already bound to the persistent store coordinator for the application.) This property is optional since there are legitimate error conditions that could cause the creation of the context to fail.
 		let coordinator = self.persistentStoreCoordinator
-		var managedObjectContext = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
+		var managedObjectContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
 		managedObjectContext.persistentStoreCoordinator = coordinator
 		return managedObjectContext
 	}()

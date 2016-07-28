@@ -19,7 +19,7 @@ class AWProgressIndicatorView: UIImageView {
 	var showText : Bool!
 	
 	var text : UILabel!
-	var spinTimer : NSTimer?
+	var spinTimer : Timer?
 	var angle : CGFloat!
 	var spinSpeed : CGFloat!
 	
@@ -36,25 +36,25 @@ class AWProgressIndicatorView: UIImageView {
 		self.radius = radius
 		self.font = font
 		
-		self.text = UILabel(frame: CGRectMake(0, 0, self.radius * 2, self.radius * 2))
-		self.text.textAlignment = .Center
+		self.text = UILabel(frame: CGRect(x: 0, y: 0, width: self.radius * 2, height: self.radius * 2))
+		self.text.textAlignment = .center
 		self.text.textColor = self.textColor
 		self.text.font = self.font
-		self.text.hidden = !self.showText
+		self.text.isHidden = !self.showText
 		
-		super.init(frame: CGRectMake(0, 0, self.radius * 2, self.radius * 2))
+		super.init(frame: CGRect(x: 0, y: 0, width: self.radius * 2, height: self.radius * 2))
 		self.addSubview(self.text)
 	}
 	
-	func updateProgress(progress : CGFloat) {
-		UIGraphicsBeginImageContextWithOptions(CGSizeMake(2 * self.radius + self.width, 2 * self.radius + self.width), false, 0)
+	func updateProgress(_ progress : CGFloat) {
+		UIGraphicsBeginImageContextWithOptions(CGSize(width: 2 * self.radius + self.width, height: 2 * self.radius + self.width), false, 0)
 		
-		let bgPath = UIBezierPath(arcCenter: CGPointMake(self.radius + self.width/2, self.radius + self.width/2), radius: self.radius, startAngle: 0, endAngle: CGFloat(2 * M_PI), clockwise: true)
+		let bgPath = UIBezierPath(arcCenter: CGPoint(x: self.radius + self.width/2, y: self.radius + self.width/2), radius: self.radius, startAngle: 0, endAngle: CGFloat(2 * M_PI), clockwise: true)
 		bgPath.lineWidth = self.width
 		self.bgColor.setStroke()
 		bgPath.stroke()
 		
-		let percentagePath = UIBezierPath(arcCenter: CGPointMake(self.radius + self.width/2, self.radius + self.width/2), radius: self.radius, startAngle: CGFloat(-0.5 * M_PI), endAngle: self.progressToRadian(progress), clockwise: true)
+		let percentagePath = UIBezierPath(arcCenter: CGPoint(x: self.radius + self.width/2, y: self.radius + self.width/2), radius: self.radius, startAngle: CGFloat(-0.5 * M_PI), endAngle: self.progressToRadian(progress), clockwise: true)
 		percentagePath.lineWidth = self.width
 		self.color.setStroke()
 		percentagePath.stroke()
@@ -62,14 +62,14 @@ class AWProgressIndicatorView: UIImageView {
 		let image = UIGraphicsGetImageFromCurrentImageContext()
 		UIGraphicsEndImageContext()
 		
-		UIView.transitionWithView(self, duration: 0.1, options: [.TransitionCrossDissolve], animations: {self.image = image}, completion: nil)
-		UIView.transitionWithView(self.text, duration: 0.1, options: [.TransitionCrossDissolve], animations: {self.text.text = "\(Int(progress * 100))%"}, completion: nil)
+		UIView.transition(with: self, duration: 0.1, options: [.transitionCrossDissolve], animations: {self.image = image}, completion: nil)
+		UIView.transition(with: self.text, duration: 0.1, options: [.transitionCrossDissolve], animations: {self.text.text = "\(Int(progress * 100))%"}, completion: nil)
 	}
 	
-	func startSpin(speed : CGFloat) {
+	func startSpin(_ speed : CGFloat) {
 		self.angle = 0
 		self.spinSpeed = speed
-		self.spinTimer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(AWProgressIndicatorView.updateSpin), userInfo: nil, repeats: true)
+		self.spinTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(AWProgressIndicatorView.updateSpin), userInfo: nil, repeats: true)
 	}
 	
 	func stopSpin() {
@@ -83,14 +83,14 @@ class AWProgressIndicatorView: UIImageView {
 	}
 	
 	func spin() {
-		UIGraphicsBeginImageContextWithOptions(CGSizeMake(2 * self.radius + self.width, 2 * self.radius + self.width), false, 0)
+		UIGraphicsBeginImageContextWithOptions(CGSize(width: 2 * self.radius + self.width, height: 2 * self.radius + self.width), false, 0)
 		
-		let bgPath = UIBezierPath(arcCenter: CGPointMake(self.radius + self.width/2, self.radius + self.width/2), radius: self.radius, startAngle: 0, endAngle: CGFloat(2 * M_PI), clockwise: true)
+		let bgPath = UIBezierPath(arcCenter: CGPoint(x: self.radius + self.width/2, y: self.radius + self.width/2), radius: self.radius, startAngle: 0, endAngle: CGFloat(2 * M_PI), clockwise: true)
 		bgPath.lineWidth = self.width
 		self.bgColor.setStroke()
 		bgPath.stroke()
 		
-		let percentagePath = UIBezierPath(arcCenter: CGPointMake(self.radius + self.width/2, self.radius + self.width/2), radius: self.radius, startAngle: self.angle, endAngle: self.angle + CGFloat(M_PI/3), clockwise: true)
+		let percentagePath = UIBezierPath(arcCenter: CGPoint(x: self.radius + self.width/2, y: self.radius + self.width/2), radius: self.radius, startAngle: self.angle, endAngle: self.angle + CGFloat(M_PI/3), clockwise: true)
 		percentagePath.lineWidth = self.width
 		self.color.setStroke()
 		percentagePath.stroke()
@@ -100,7 +100,7 @@ class AWProgressIndicatorView: UIImageView {
 		self.text.text = ""
 	}
 	
-	func progressToRadian(progress : CGFloat) -> CGFloat {
+	func progressToRadian(_ progress : CGFloat) -> CGFloat {
 		return CGFloat(2 * M_PI) * progress - CGFloat(M_PI / 2)
 	}
 }

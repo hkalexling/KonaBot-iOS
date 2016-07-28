@@ -15,10 +15,10 @@ class SettingTableViewController: UITableViewController, UIWebViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 		
-		self.canAdjustViewMode = CGSize.screenSize().width >= 375 && UIDevice.currentDevice().model.hasPrefix("iPhone")
+		self.canAdjustViewMode = CGSize.screenSize().width >= 375 && UIDevice.current().model.hasPrefix("iPhone")
 		
         self.tableView.tableFooterView = UIView()
-		self.tableView.separatorStyle = .None
+		self.tableView.separatorStyle = .none
 		self.title = "More".localized
     }
 
@@ -29,25 +29,25 @@ class SettingTableViewController: UITableViewController, UIWebViewDelegate {
 
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
 		return self.canAdjustViewMode ? 4 : 3
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
 		return section == tableView.numberOfSections - 2 ? 2 : 1
     }
 
-	override func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+	override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
 		if section == 0 {
-			let view = UIView(frame: CGRectMake(0, 0, CGSize.screenSize().width, 100))
+			let view = UIView(frame: CGRect(x: 0, y: 0, width: CGSize.screenSize().width, height: 100))
 			
-			let label = UILabel(frame: CGRectMake(10, 10, CGSize.screenSize().width - 20, 90))
+			let label = UILabel(frame: CGRect(x: 10, y: 10, width: CGSize.screenSize().width - 20, height: 90))
 			label.textColor = UIColor.konaColor()
 			label.numberOfLines = 0
-			label.lineBreakMode = .ByWordWrapping
-			label.font = UIFont.systemFontOfSize(13)
+			label.lineBreakMode = .byWordWrapping
+			label.font = UIFont.systemFont(ofSize: 13)
 			label.text = "When enabled, image cache will be deleted after the app's termination. Cache of images in your favorite list won't be affected.".localized
 			label.alpha = 0.5
 			label.sizeToFit()
@@ -59,7 +59,7 @@ class SettingTableViewController: UITableViewController, UIWebViewDelegate {
 		return nil
 	}
 	
-	override func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+	override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
 		if section == 0 {
 			return 50
 		}
@@ -67,16 +67,16 @@ class SettingTableViewController: UITableViewController, UIWebViewDelegate {
 		return 0
 	}
 	
-	override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+	override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 		return UIView()
 	}
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-		let section = indexPath.section
-		let row = indexPath.row
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		let section = (indexPath as NSIndexPath).section
+		let row = (indexPath as NSIndexPath).row
 		
 		if section == 0 {
-			let cell = tableView.dequeueReusableCellWithIdentifier("textSwitchCell") as! TextSwitchCell
+			let cell = tableView.dequeueReusableCell(withIdentifier: "textSwitchCell") as! TextSwitchCell
 			
 			cell.label.text = "Optimize Storage".localized
 			cell.label.textColor = UIColor.konaColor()
@@ -85,7 +85,7 @@ class SettingTableViewController: UITableViewController, UIWebViewDelegate {
 		}
 		
 		if self.canAdjustViewMode && section == 1 {
-			let cell = tableView.dequeueReusableCellWithIdentifier("viewModeCell") as! ViewModeCell
+			let cell = tableView.dequeueReusableCell(withIdentifier: "viewModeCell") as! ViewModeCell
 			
 			cell.label.textColor = UIColor.konaColor()
 			cell.segmentControl.tintColor = UIColor.konaColor()
@@ -95,7 +95,7 @@ class SettingTableViewController: UITableViewController, UIWebViewDelegate {
 		
 		if section == tableView.numberOfSections - 2 {
 			if row == 0{
-				let cell = tableView.dequeueReusableCellWithIdentifier("textArrowCell") as! TextArrowCell
+				let cell = tableView.dequeueReusableCell(withIdentifier: "textArrowCell") as! TextArrowCell
 				
 				cell.label.text = "About".localized
 				cell.label.textColor = UIColor.konaColor()
@@ -103,7 +103,7 @@ class SettingTableViewController: UITableViewController, UIWebViewDelegate {
 				return cell
 			}
 			else{
-				let cell = tableView.dequeueReusableCellWithIdentifier("textArrowCell") as! TextArrowCell
+				let cell = tableView.dequeueReusableCell(withIdentifier: "textArrowCell") as! TextArrowCell
 				
 				cell.label.text = "Buy Me A Coffee :)".localized
 				cell.label.textColor = UIColor.konaColor()
@@ -113,7 +113,7 @@ class SettingTableViewController: UITableViewController, UIWebViewDelegate {
 		}
 		
 		if section == tableView.numberOfSections - 1 {
-			let cell = tableView.dequeueReusableCellWithIdentifier("textCell") as! TextCell
+			let cell = tableView.dequeueReusableCell(withIdentifier: "textCell") as! TextCell
 			
 			cell.label.text = "Feedback".localized
 			cell.label.textColor = UIColor.konaColor()
@@ -124,17 +124,17 @@ class SettingTableViewController: UITableViewController, UIWebViewDelegate {
 		return UITableViewCell()
     }
 	
-	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		if indexPath.section == tableView.numberOfSections - 2 {
-			if indexPath.row == 0{
+	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		if (indexPath as NSIndexPath).section == tableView.numberOfSections - 2 {
+			if (indexPath as NSIndexPath).row == 0{
 				self.loadAboutVC()
 			}
 			else{
 				self.navigationController!.pushViewController(IAPViewController(), animated: true)
 			}
 		}
-		if indexPath.section == tableView.numberOfSections - 1 {
-			NSUserDefaults.standardUserDefaults().setBool(true, forKey: "feedbackFinished")
+		if (indexPath as NSIndexPath).section == tableView.numberOfSections - 1 {
+			UserDefaults.standard().set(true, forKey: "feedbackFinished")
 			
 			_ = FeedbackManager(parentVC: self, backgroundVC: self.tabBarController!, baseColor: UIColor.themeColor(), secondaryColor: UIColor.konaColor(), dismissButtonColor: UIColor.konaColor())
 		}
@@ -146,34 +146,34 @@ class SettingTableViewController: UITableViewController, UIWebViewDelegate {
 		aboutVC.view.backgroundColor = UIColor.themeColor()
 		
 		let webView = UIWebView(frame: aboutVC.view.frame)
-		webView.opaque = false
+		webView.isOpaque = false
 		webView.backgroundColor = UIColor.themeColor()
 		webView.delegate = self
 		aboutVC.view.addSubview(webView)
 		
-		let htmlFile = NSBundle.mainBundle().pathForResource("about", ofType: "html")!
+		let htmlFile = Bundle.main().pathForResource("about", ofType: "html")!
 		var htmlString : NSString!
 		do {
-			htmlString = try NSString(contentsOfFile: htmlFile, encoding: NSUTF8StringEncoding)
+			htmlString = try NSString(contentsOfFile: htmlFile, encoding: String.Encoding.utf8.rawValue)
 		}catch{}
 		webView.loadHTMLString(htmlString as String, baseURL: nil)
 		
 		self.navigationController!.pushViewController(aboutVC, animated: true)
 	}
 	
-	func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
-		if navigationType == UIWebViewNavigationType.LinkClicked {
-			UIApplication.sharedApplication().openURL(request.URL!)
+	func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
+		if navigationType == UIWebViewNavigationType.linkClicked {
+			UIApplication.shared().openURL(request.url!)
 			return false
 		}
 		return true
 	}
 	
-	@IBAction func switched(sender: UISwitch) {
-		NSUserDefaults.standardUserDefaults().setBool(sender.on, forKey: "optimize")
+	@IBAction func switched(_ sender: UISwitch) {
+		UserDefaults.standard().set(sender.isOn, forKey: "optimize")
 	}
 	
-	@IBAction func seguementChanged(sender: UISegmentedControl) {
-		NSUserDefaults.standardUserDefaults().setInteger(sender.selectedSegmentIndex, forKey: "viewMode")
+	@IBAction func seguementChanged(_ sender: UISegmentedControl) {
+		UserDefaults.standard().set(sender.selectedSegmentIndex, forKey: "viewMode")
 	}
 }

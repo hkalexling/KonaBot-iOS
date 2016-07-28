@@ -11,11 +11,32 @@ import Kanna
 import AFNetworking
 
 protocol KonaHTMLParserDelegate {
-	func konaHTMLParserFinishedParsing(parsedPost : ParsedPost)
+	func konaHTMLParserFinishedParsing(_ parsedPost : ParsedPost)
 }
 
 protocol KonaHTMLParserTagsDelegate {
-	func konaHTMLParserFinishedParsing(tags : [String])
+	func konaHTMLParserFinishedParsing(_ tags : [String])
+}
+
+extension XPathObject {
+	var count : Int {
+		get {
+			var count_ = 0
+			for _ in self {
+				count_ += 1
+			}
+			return count_
+		}
+	}
+	var last : XMLElement? {
+		get {
+			var last_ : XMLElement? = nil
+			for ele in self {
+				last_ = ele
+			}
+			return last_
+		}
+	}
 }
 
 //Some data such as comments of a post can not be accessed using API, so I have to parse the HTML and get the information I need
@@ -36,28 +57,27 @@ class KonaHTMLParser: NSObject {
 		self.errorDelegate = errorDelegate
 	}
 	
-	func getPostInformation (postUrl : String) {
+	func getPostInformation (_ postUrl : String) {
 		let successBlock : ((html : String) -> Void) = {(html) in
 			self.parseHTML(html)
 		}
 		self.getHTML(postUrl, successBlock: successBlock)
 	}
 	
-	private func getHTML (url : String, successBlock : ((html : String) -> Void)) {
+	private func getHTML (_ url : String, successBlock : ((html : String) -> Void)) {
 		let manager = AFHTTPSessionManager()
 		manager.responseSerializer = AFHTTPResponseSerializer()
-		manager.GET(url, parameters: nil, progress: nil,
-			success: {(task, response) in
-				let html = NSString(data: response as! NSData, encoding: NSASCIIStringEncoding)! as String
-				successBlock(html: html)
+		manager.get(url, parameters: nil, progress: nil, success: {(task, response) in
+			let html = NSString(data: response as! NSData as Data, encoding: String.Encoding.ascii.rawValue)! as String
+			successBlock(html: html)
 			}, failure: {(operation, error) -> Void in
 				self.errorDelegate.konaAPIGotError(error)
 				print ("Error : \(error)")
 		})
 	}
 	
-	private func parseHTML (html : String) {
-		let doc = Kanna.HTML(html: html, encoding: NSUTF8StringEncoding)!
+	private func parseHTML (_ html : String) {
+		let doc = Kanna.HTML(html: html, encoding: String.Encoding.utf8)!
 		
 		var imageUrl = ""
 		var tags : [String] = []
@@ -77,10 +97,8 @@ class KonaHTMLParser: NSObject {
 		for div in divs {
 			if let sideBar = div.at_css("ul#tag-sidebar") {
 				let tagUl = sideBar.css("li")
-				for tagLi in tagUl {
-					let tag = tagLi.css("a").last!.text!.stringByReplacingOccurrencesOfString(" ", withString: "_")
-					tags.append(tag)
-				}
+				let tag = tagUl.last!.text!.replacingOccurrences(of: " ", with: "_")
+				tags.append(tag)
 				break
 			}
 		}
@@ -89,7 +107,7 @@ class KonaHTMLParser: NSObject {
 		
 		time = lis[1].at_css("a")!["title"]!.konaChanTimeToUnixTime()
 		author = lis[1].css("a").count > 1 ? lis[1].css("a")[1].text! : "Unknown"
-		rating = lis[4].text!.componentsSeparatedByString(" ")[1].localized
+		rating = lis[4].text!.components(separatedBy: " ")[1].localized
 		score = lis[5].at_css("span")!.text!
 		
 		if !Yuno.r18 {
@@ -100,9 +118,9 @@ class KonaHTMLParser: NSObject {
 		self.delegate.konaHTMLParserFinishedParsing(self.parsedPost)
 	}
 	
-	private func parseSuggestedTagsFromHTML (html : String) -> [String] {
+	private func parseSuggestedTagsFromHTML (_ html : String) -> [String] {
 		var suggestedTag : [String] = []
-		if let doc = Kanna.HTML(html: html, encoding: NSUTF8StringEncoding) {
+		if let doc = Kanna.HTML(html: html, encoding: String.Encoding.utf8) {
 			let ulList = doc.css("ul#post-list-posts")
 			if ulList.count == 0 {
 				for div in doc.css("div"){
@@ -123,7 +141,7 @@ class KonaHTMLParser: NSObject {
 		return suggestedTag
 	}
 	
-	func getSuggestedTagsFromEmptyTag (tag : String) {
+	func getSuggestedTagsFromEmptyTag (_ tag : String) {
 		let successBlock = {(html : String) in
 			let tags = self.parseSuggestedTagsFromHTML(html)
 			self.tagDelegate.konaHTMLParserFinishedParsing(tags)
@@ -134,31 +152,31 @@ class KonaHTMLParser: NSObject {
 
 extension String {
 	func konaChanTimeToUnixTime() -> Int {
-		var ary = self.componentsSeparatedByString(" ")
+		var ary = self.components(separatedBy: " ")
 		ary = ary.filter({element in
 			element != ""
 		})
 		let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 		
 		let year : Int = (ary.last! as NSString).integerValue
-		let month : Int = months.indexOf(ary[1])! + 1
+		let month : Int = months.index(of: ary[1])! + 1
 		let day : Int = (ary[2] as NSString).integerValue
-		let timeAry = ary[3].componentsSeparatedByString(":")
+		let timeAry = ary[3].components(separatedBy: ":")
 		let hour = (timeAry[0] as NSString).integerValue
 		let minute = (timeAry[1] as NSString).integerValue
 		let second = (timeAry[2] as NSString).integerValue
 		
-		let component = NSDateComponents()
-		component.setValue(year, forComponent: .Year)
-		component.setValue(month, forComponent: .Month)
-		component.setValue(day, forComponent: .Day)
-		component.setValue(hour, forComponent: .Hour)
-		component.setValue(minute, forComponent: .Minute)
-		component.setValue(second, forComponent: .Second)
+		let component = DateComponents()
+		(component as NSDateComponents).setValue(year, forComponent: .year)
+		(component as NSDateComponents).setValue(month, forComponent: .month)
+		(component as NSDateComponents).setValue(day, forComponent: .day)
+		(component as NSDateComponents).setValue(hour, forComponent: .hour)
+		(component as NSDateComponents).setValue(minute, forComponent: .minute)
+		(component as NSDateComponents).setValue(second, forComponent: .second)
 		
-		component.calendar = NSCalendar.currentCalendar()
-		component.calendar!.timeZone = NSTimeZone(forSecondsFromGMT: 0)
+		(component as NSDateComponents).calendar = Calendar.current()
+		(component as NSDateComponents).calendar!.timeZone = TimeZone(forSecondsFromGMT: 0)
 		
-		return Int(component.date!.timeIntervalSince1970)
+		return Int((component as NSDateComponents).date!.timeIntervalSince1970)
 	}
 }

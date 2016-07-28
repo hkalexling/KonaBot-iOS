@@ -10,7 +10,7 @@ import UIKit
 import CloudKit
 
 protocol CKManagerNewFavDelegate {
-	func CKManagerDidFoundNewFavPost(ids : [String])
+	func CKManagerDidFoundNewFavPost(_ ids : [String])
 }
 
 class CKManager: NSObject {
@@ -20,10 +20,10 @@ class CKManager: NSObject {
 	
 	override init(){
 		super.init()
-		self.icloudAvaiable = NSFileManager.defaultManager().ubiquityIdentityToken != nil
+		self.icloudAvaiable = FileManager.default().ubiquityIdentityToken != nil
 	}
 	
-	func addFavorited(postID : String) {
+	func addFavorited(_ postID : String) {
 		if !self.icloudAvaiable {
 			self.CKprint ("iCloud Not Avaiable")
 			return
@@ -31,35 +31,35 @@ class CKManager: NSObject {
 		let record = CKRecord(recordType: "FavoritedImage")
 		record.setValue(postID, forKey: "postID")
 		self.CKprint ("uploading")
-		CKContainer.defaultContainer().privateCloudDatabase.saveRecord(record, completionHandler: self.CKHandler({(record) in
+		CKContainer.default().privateCloudDatabase.save(record, completionHandler: self.CKHandler({(record) in
 			self.CKprint(record)
 		}))
 	}
 	
-	func addFavoritedWithUrl(urlString : String) {
+	func addFavoritedWithUrl(_ urlString : String) {
 		if let id = self.urlToID(urlString) {
 			self.addFavorited(id)
 		}
 	}
 	
-	func removeFavorited(postID : String) {
+	func removeFavorited(_ postID : String) {
 		if !self.icloudAvaiable {
 			self.CKprint ("iCloud Not Avaiable")
 			return
 		}
-		let predicate = NSPredicate(format: "postID == %@", postID)
+		let predicate = Predicate(format: "postID == %@", postID)
 		let query = CKQuery(recordType: "FavoritedImage", predicate: predicate)
-		CKContainer.defaultContainer().privateCloudDatabase.performQuery(query, inZoneWithID: nil, completionHandler: self.CKHandler({(records) in
+		CKContainer.default().privateCloudDatabase.perform(query, inZoneWith: nil, completionHandler: self.CKHandler({(records) in
 			if records.count == 1 {
 				let id = records[0].recordID
-				CKContainer.defaultContainer().privateCloudDatabase.deleteRecordWithID(id, completionHandler: self.CKHandler({(_) in
+				CKContainer.default().privateCloudDatabase.delete(withRecordID: id, completionHandler: self.CKHandler({(_) in
 					self.CKprint ("deleted")
 				}))
 			}
 		}))
 	}
 	
-	func removeFavoritedWithUrl(urlString : String) {
+	func removeFavoritedWithUrl(_ urlString : String) {
 		if let id = self.urlToID(urlString) {
 			self.removeFavorited(id)
 		}
@@ -81,12 +81,12 @@ class CKManager: NSObject {
 			}
 			return fav
 		})
-		let postIDList = favListWithoutLastSlash.map({$0.componentsSeparatedByString("/").last}).filter({$0 != nil}).map({$0!})
-		let predicate = NSPredicate(format: "NOT (postID IN %@)", postIDList)
+		let postIDList = favListWithoutLastSlash.map({$0.components(separatedBy: "/").last}).filter({$0 != nil}).map({$0!})
+		let predicate = Predicate(format: "NOT (postID IN %@)", postIDList)
 		let query = CKQuery(recordType: "FavoritedImage", predicate: predicate)
 		self.CKprint ("checking favorited images from other devices")
-		CKContainer.defaultContainer().privateCloudDatabase.performQuery(query, inZoneWithID: nil, completionHandler: self.CKHandler({(records) in
-			let ids : [String] = records.map({$0.valueForKey("postID")}).filter({$0 != nil}).map({($0! as! String)})
+		CKContainer.default().privateCloudDatabase.perform(query, inZoneWith: nil, completionHandler: self.CKHandler({(records) in
+			let ids : [String] = records.map({$0.value(forKey: "postID")}).filter({$0 != nil}).map({($0! as! String)})
 			let distinctIDs : [String] = Array(Set(ids))
 			self.CKprint ("found \(distinctIDs.count) new favorited images")
 			for id in distinctIDs {
@@ -96,20 +96,20 @@ class CKManager: NSObject {
 		}))
 	}
 	
-	private func urlToID(urlString : String) -> String? {
+	private func urlToID(_ urlString : String) -> String? {
 		let urlStrWithoutLastSlash = urlString.hasSuffix("/") ? String(urlString.characters.dropLast()) : urlString
-		if let id = urlStrWithoutLastSlash.componentsSeparatedByString("/").last {
+		if let id = urlStrWithoutLastSlash.components(separatedBy: "/").last {
 			return id
 		}
 		self.CKprint ("invalid url provided")
 		return nil
 	}
 	
-	private func CKprint(arg : Any) {
+	private func CKprint(_ arg : Any) {
 		print ("CKManager: \(arg)")
 	}
 	
-	private func CKHandler<A>(recordOrIDHandler: ((recordOrID : A) -> Void)?) -> (A?, NSError?) -> Void {
+	private func CKHandler<A>(_ recordOrIDHandler: ((recordOrID : A) -> Void)?) -> (A?, NSError?) -> Void {
 		return {(result, error) in
 			if error != nil {
 				self.CKprint(error!)

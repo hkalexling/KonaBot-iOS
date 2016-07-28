@@ -10,14 +10,14 @@ import UIKit
 
 class AWAlertView: UIView {
 	
-	let width = UIScreen.mainScreen().bounds.width
-	let height = UIScreen.mainScreen().bounds.height
+	let width = UIScreen.main().bounds.width
+	let height = UIScreen.main().bounds.height
 	
 	let offset : CGFloat = 30
 	let labelOffset : CGFloat = 20
 	
-	var animationDuration : NSTimeInterval = 0.5
-	var alertShowTime : NSTimeInterval = 2
+	var animationDuration : TimeInterval = 0.5
+	var alertShowTime : TimeInterval = 2
 	
 	var cornerRadius : CGFloat = 15
 	
@@ -30,28 +30,28 @@ class AWAlertView: UIView {
 	
 	init(title : String, message : String, height : CGFloat, bgColor : UIColor, textColor : UIColor){
 		
-		self.alertHiddenFrame = CGRectMake((1 - self.widthPercentage)/2 * self.width, -height - self.offset, self.widthPercentage * self.width, height + self.offset)
-		self.alertShownFrame = CGRectMake((1 - self.widthPercentage)/2 * self.width, -self.offset, self.widthPercentage * self.width, height + self.offset)
+		self.alertHiddenFrame = CGRect(x: (1 - self.widthPercentage)/2 * self.width, y: -height - self.offset, width: self.widthPercentage * self.width, height: height + self.offset)
+		self.alertShownFrame = CGRect(x: (1 - self.widthPercentage)/2 * self.width, y: -self.offset, width: self.widthPercentage * self.width, height: height + self.offset)
 		
 		super.init(frame: self.alertHiddenFrame)
 		
 		self.backgroundColor = bgColor
 		self.layer.cornerRadius = self.cornerRadius
 		
-		let titleLabel = UILabel(frame: CGRectMake(self.labelOffset, self.offset, self.alertHiddenFrame.width - 2 * self.labelOffset, self.frame.height/2))
+		let titleLabel = UILabel(frame: CGRect(x: self.labelOffset, y: self.offset, width: self.alertHiddenFrame.width - 2 * self.labelOffset, height: self.frame.height/2))
 		titleLabel.text = title
-		titleLabel.font = UIFont.boldSystemFontOfSize(18)
+		titleLabel.font = UIFont.boldSystemFont(ofSize: 18)
 		titleLabel.textColor = textColor
-		titleLabel.textAlignment = .Center
+		titleLabel.textAlignment = .center
 		self.addSubview(titleLabel)
 		
-		let messageLabel = UILabel(frame: CGRectMake(self.labelOffset, self.frame.height/2, self.alertHiddenFrame.width - 2 * self.labelOffset, self.frame.height/2))
+		let messageLabel = UILabel(frame: CGRect(x: self.labelOffset, y: self.frame.height/2, width: self.alertHiddenFrame.width - 2 * self.labelOffset, height: self.frame.height/2))
 		messageLabel.text = message
 		messageLabel.numberOfLines = 0
-		messageLabel.lineBreakMode = .ByWordWrapping
-		messageLabel.font = UIFont.systemFontOfSize(15)
+		messageLabel.lineBreakMode = .byWordWrapping
+		messageLabel.font = UIFont.systemFont(ofSize: 15)
 		messageLabel.textColor = textColor
-		messageLabel.textAlignment = .Center
+		messageLabel.textAlignment = .center
 		self.addSubview(messageLabel)
 	}
 	
@@ -61,10 +61,10 @@ class AWAlertView: UIView {
 	
 	func showAlert(){
 		self.alertHidden = false
-		UIView.animateWithDuration(self.animationDuration, delay: 0, usingSpringWithDamping: 0.4, initialSpringVelocity: 0, options : [], animations: {
+		UIView.animate(withDuration: self.animationDuration, delay: 0, usingSpringWithDamping: 0.4, initialSpringVelocity: 0, options : [], animations: {
 			self.frame = self.alertShownFrame
 			}, completion: {(finished) in
-				UIView.animateWithDuration(self.animationDuration, delay: self.alertShowTime, usingSpringWithDamping: 0.9, initialSpringVelocity: 15, options : [], animations: {
+				UIView.animate(withDuration: self.animationDuration, delay: self.alertShowTime, usingSpringWithDamping: 0.9, initialSpringVelocity: 15, options : [], animations: {
 					self.frame = self.alertHiddenFrame
 					}, completion: {(finished) in
 						self.alertHidden = true

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FavoriteCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, CKManagerNewFavDelegate, KonaHTMLParserDelegate, KonaAPIErrorDelegate, NSURLSessionDownloadDelegate, CloudFavPostDownloadVCDelegate {
+class FavoriteCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, CKManagerNewFavDelegate, KonaHTMLParserDelegate, KonaAPIErrorDelegate, URLSessionDownloadDelegate, CloudFavPostDownloadVCDelegate {
 	
 	let yuno = Yuno()
 	
@@ -29,7 +29,7 @@ class FavoriteCollectionViewController: UICollectionViewController, UICollection
 	var newFavUrls : [String] = []
 	var newFavPostUrls : [String] = []
 	var newFavNum = 0
-	var downloadTask : NSURLSessionDownloadTask?
+	var downloadTask : URLSessionDownloadTask?
 	var favUrlIndex = 0
 	
 	var favDownloadVC : CloudFavPostsDownloadViewController!
@@ -42,12 +42,12 @@ class FavoriteCollectionViewController: UICollectionViewController, UICollection
 		self.ckManager.favDelegate = self
     }
 	
-	override func viewWillAppear(animated: Bool) {
+	override func viewWillAppear(_ animated: Bool) {
 		
 		self.ckManager.checkNewFavorited()
-		self.compact = NSUserDefaults.standardUserDefaults().integerForKey("viewMode") == 1
+		self.compact = UserDefaults.standard().integer(forKey: "viewMode") == 1
 		
-		if UIDevice.currentDevice().model.hasPrefix("iPad"){
+		if UIDevice.current().model.hasPrefix("iPad"){
 			self.columnNum = 3
 		}
 		else{
@@ -71,36 +71,36 @@ class FavoriteCollectionViewController: UICollectionViewController, UICollection
 		}
 	}
 	
-	override func viewDidDisappear(animated: Bool) {
+	override func viewDidDisappear(_ animated: Bool) {
 		self.label.removeFromSuperview()
 	}
 	
 	func showLabel(){
 		let height : CGFloat = 20
 		self.label.text = "You haven't favorited any image yet".localized
-		self.label.frame = CGRectMake(0, CGSize.screenSize().height/2 - height/2, CGSize.screenSize().width, height)
+		self.label.frame = CGRect(x: 0, y: CGSize.screenSize().height/2 - height/2, width: CGSize.screenSize().width, height: height)
 		self.label.backgroundColor = UIColor.themeColor()
 		self.label.textColor = UIColor.konaColor()
-		self.label.textAlignment = NSTextAlignment.Center
+		self.label.textAlignment = NSTextAlignment.center
 		self.view.addSubview(self.label)
 	}
 
-    override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
 
-    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 		return self.favoritePostList.count
     }
 
-    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("ImageCell", forIndexPath: indexPath) as! ImageCell
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCell", for: indexPath) as! ImageCell
 		cell.imageView.image = UIImage.imageWithColor(UIColor.placeHolderImageColor())
-		dispatch_async(dispatch_get_global_queue(Int(QOS_CLASS_USER_INITIATED.rawValue), 0), {
-			if var img = self.yuno.fetchImageWithKey("FavoritedImage", key: self.favoritePostList[indexPath.row]){
+		DispatchQueue.global(attributes: DispatchQueue.GlobalAttributes(rawValue: UInt64(Int(DispatchQueueAttributes.qosUserInitiated.rawValue)))).async(execute: {
+			if var img = self.yuno.fetchImageWithKey("FavoritedImage", key: self.favoritePostList[(indexPath as NSIndexPath).row]){
 				img = img.resize(cell.imageView.bounds.width * self.previewQuility)
-				dispatch_async(dispatch_get_main_queue(), {
-					UIView.transitionWithView(cell.imageView, duration: 0.5, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: {
+				DispatchQueue.main.async(execute: {
+					UIView.transition(with: cell.imageView, duration: 0.5, options: UIViewAnimationOptions.transitionCrossDissolve, animations: {
 						cell.imageView.image = img
 						}, completion: nil)
 				})
@@ -110,30 +110,30 @@ class FavoriteCollectionViewController: UICollectionViewController, UICollection
         return cell
 	}
 	
-	override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+	override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 		let detailVC = DetailViewController()
-		detailVC.postUrl = self.favoritePostList[indexPath.row]
-		let frame = collectionView.cellForItemAtIndexPath(indexPath)?.frame
+		detailVC.postUrl = self.favoritePostList[(indexPath as NSIndexPath).row]
+		let frame = collectionView.cellForItem(at: indexPath)?.frame
 		detailVC.heightOverWidth = frame!.height/frame!.width
-		detailVC.smallImage = yuno.fetchImageWithKey("FavoritedImage", key: self.favoritePostList[indexPath.row])
+		detailVC.smallImage = yuno.fetchImageWithKey("FavoritedImage", key: self.favoritePostList[(indexPath as NSIndexPath).row])
 		self.navigationController!.pushViewController(detailVC, animated: true)
 	}
 	
-	func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-		let size = (yuno.fetchImageWithKey("FavoritedImage", key: self.favoritePostList[indexPath.row]))!.size
+	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+		let size = (yuno.fetchImageWithKey("FavoritedImage", key: self.favoritePostList[(indexPath as NSIndexPath).row]))!.size
 		let height = self.cellWidth * (size.height / size.width)
-		return CGSizeMake(self.cellWidth, height)
+		return CGSize(width: self.cellWidth, height: height)
 	}
 	
-	override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
+	override func didRotate(from fromInterfaceOrientation: UIInterfaceOrientation) {
 		self.collectionView!.reloadData()
 	}
 	
-	func CKManagerDidFoundNewFavPost(ids: [String]) {
+	func CKManagerDidFoundNewFavPost(_ ids: [String]) {
 		if ids.count == 0 {
 			return
 		}
-		dispatch_async(dispatch_get_main_queue(), {
+		DispatchQueue.main.async(execute: {
 			let konaAlertVC = KonaAlertViewController(backgroundView: self.tabBarController!.view, baseColor: UIColor.themeColor(), secondaryColor: UIColor.konaColor(), dismissButtonColor: UIColor.konaColor())
 			self.tabBarController!.addChildViewController(konaAlertVC)
 			self.tabBarController!.view.addSubview(konaAlertVC.view)
@@ -162,11 +162,11 @@ class FavoriteCollectionViewController: UICollectionViewController, UICollection
 		})
 	}
 	
-	func konaAPIGotError(error: NSError) {
+	func konaAPIGotError(_ error: NSError) {
 		print ("kona api error: \(error)", terminator: "")
 	}
 	
-	func konaHTMLParserFinishedParsing(parsedPost: ParsedPost) {
+	func konaHTMLParserFinishedParsing(_ parsedPost: ParsedPost) {
 		self.favDownloadVC.setMessage("Parsing Data From KonaChan")
 		self.newFavUrls.append(parsedPost.url)
 		if self.newFavUrls.count == self.newFavNum {
@@ -180,22 +180,22 @@ class FavoriteCollectionViewController: UICollectionViewController, UICollection
 		self.imageFromUrl(self.newFavUrls[self.favUrlIndex])
 	}
 	
-	func URLSession(session: NSURLSession, downloadTask: NSURLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
-		dispatch_async(dispatch_get_main_queue()){
+	func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
+		DispatchQueue.main.async{
 			print (Float(totalBytesWritten) / Float(totalBytesExpectedToWrite), terminator: "")
 			self.favDownloadVC.stopSpin()
 			self.favDownloadVC.setProgress(CGFloat(totalBytesWritten)/(CGFloat)(totalBytesExpectedToWrite))
 		}
 	}
 	
-	func URLSession(session: NSURLSession, downloadTask: NSURLSessionDownloadTask, didFinishDownloadingToURL location: NSURL) {
+	func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
 		
 		if self.downloadDismissed {
 			return
 		}
 		
-		let downloadedImage = UIImage(data: NSData(contentsOfURL: location)!)!
-		dispatch_async(dispatch_get_main_queue()){
+		let downloadedImage = UIImage(data: try! Data(contentsOf: location))!
+		DispatchQueue.main.async{
 			
 			Yuno().saveImageWithKey("FavoritedImage", image: downloadedImage, key: self.newFavPostUrls[self.favUrlIndex], skipUpload: true)
 			
@@ -206,9 +206,9 @@ class FavoriteCollectionViewController: UICollectionViewController, UICollection
 			else{
 				self.favoritePostList += self.newFavPostUrls
 				let indexPaths = Array(0 ..< self.newFavNum)
-					.map({$0 + self.collectionView!.numberOfItemsInSection(0)})
-					.map({NSIndexPath(forRow: $0, inSection: 0)})
-				self.collectionView!.insertItemsAtIndexPaths(indexPaths)
+					.map({$0 + self.collectionView!.numberOfItems(inSection: 0)})
+					.map({IndexPath(row: $0, section: 0)})
+				self.collectionView!.insertItems(at: indexPaths)
 				self.favDownloadVC.setMessage("Finished")
 				self.favDownloadVC.dismiss()
 				self.label.removeFromSuperview()
@@ -216,10 +216,10 @@ class FavoriteCollectionViewController: UICollectionViewController, UICollection
 		}
 	}
 	
-	func imageFromUrl(url : String) {
-		if let nsUrl = NSURL(string: url){
-			let session = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration(), delegate: self, delegateQueue: nil)
-			self.downloadTask = session.downloadTaskWithURL(nsUrl)
+	func imageFromUrl(_ url : String) {
+		if let nsUrl = URL(string: url){
+			let session = Foundation.URLSession(configuration: URLSessionConfiguration.default(), delegate: self, delegateQueue: nil)
+			self.downloadTask = session.downloadTask(with: nsUrl)
 			self.downloadTask?.resume()
 		}
 	}

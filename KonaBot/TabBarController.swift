@@ -18,7 +18,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
 		self.delegate = self
     }
 
-	func tabBarController(tabBarController: UITabBarController, shouldSelectViewController viewController: UIViewController) -> Bool {
+	func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
 		
 		self.tapCounter += 1
 		let hasTappedTwice = self.previousVC == viewController
@@ -29,19 +29,19 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
 			if selectedIndex == 0 {
 				let topVC = (viewController as! UINavigationController).topViewController
 				if let collectionVC = topVC as? CollectionViewController {
-					collectionVC.collectionView?.scrollToItemAtIndexPath(NSIndexPath(forItem: 0, inSection: 0), atScrollPosition: .Top, animated: true)
+					collectionVC.collectionView?.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
 				}
 			}
 			if selectedIndex == 2 {
 				let topVC = (viewController as! UINavigationController).topViewController
 				if let collectionVC = topVC as? FavoriteCollectionViewController {
-					collectionVC.collectionView?.scrollToItemAtIndexPath(NSIndexPath(forItem: 0, inSection: 0), atScrollPosition: .Top, animated: true)
+					collectionVC.collectionView?.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
 				}
 			}
 		}
 		if self.tapCounter == 1 {
-			let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.3 * Double(NSEC_PER_SEC)))
-			dispatch_after(delayTime, dispatch_get_main_queue(), {
+			let delayTime = DispatchTime.now() + Double(Int64(0.3 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+			DispatchQueue.main.after(when: delayTime, execute: {
 				self.tapCounter = 0
 			})
 		}

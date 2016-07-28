@@ -21,18 +21,18 @@ class PostDetailTableViewController: UITableViewController, TagViewDelegate {
 		self.tableView.tableFooterView = UIView()
 		self.tableView.rowHeight = UITableViewAutomaticDimension
 		self.tableView.estimatedRowHeight = 44
-		self.tableView.separatorColor = UIColor.clearColor()
+		self.tableView.separatorColor = UIColor.clear()
 		
 		let tags = self.post != nil ? self.post!.tags : self.parsedPost!.tags
-		self.tagView = TagView(tags: tags, textColor: UIColor.themeColor(), tagColor: UIColor.konaColor(), font: UIFont.systemFontOfSize(17))
+		self.tagView = TagView(tags: tags, textColor: UIColor.themeColor(), tagColor: UIColor.konaColor(), font: UIFont.systemFont(ofSize: 17))
 		self.tagView!.delegate = self
     }
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		if section == 0 {
 			return 4
 		}
@@ -42,11 +42,11 @@ class PostDetailTableViewController: UITableViewController, TagViewDelegate {
 		return 0
     }
 	
-	override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-		let headerView = UILabel(frame: CGRectMake(0, 0, CGSize.screenSize().width, 30))
-		headerView.textAlignment = .Left
+	override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+		let headerView = UILabel(frame: CGRect(x: 0, y: 0, width: CGSize.screenSize().width, height: 30))
+		headerView.textAlignment = .left
 		headerView.backgroundColor = UIColor.themeColor()
-		headerView.font = UIFont.boldSystemFontOfSize(18)
+		headerView.font = UIFont.boldSystemFont(ofSize: 18)
 		headerView.textColor = UIColor.konaColor()
 		
 		switch section{
@@ -62,13 +62,13 @@ class PostDetailTableViewController: UITableViewController, TagViewDelegate {
 		return headerView
 	}
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		
-		let section = indexPath.section
-		let row = indexPath.row
+		let section = (indexPath as NSIndexPath).section
+		let row = (indexPath as NSIndexPath).row
 		
 		if section == 0 {
-			let cell = tableView.dequeueReusableCellWithIdentifier("postNameCell", forIndexPath: indexPath) as! PostNameCell
+			let cell = tableView.dequeueReusableCell(withIdentifier: "postNameCell", for: indexPath) as! PostNameCell
 			if row == 0 {
 				if let _post = self.post {
 					cell.label.text = "Author".localized + ": \(_post.author)"
@@ -79,12 +79,12 @@ class PostDetailTableViewController: UITableViewController, TagViewDelegate {
 			}
 			if row == 1 {
 				if let _post = self.post {
-					let date = NSDate(timeIntervalSince1970: NSTimeInterval(_post.created_at))
-					cell.label.text = "Created at".localized + ": " + NSDateFormatter.localizedStringFromDate(date, dateStyle: .MediumStyle, timeStyle: .ShortStyle)
+					let date = Date(timeIntervalSince1970: TimeInterval(_post.created_at))
+					cell.label.text = "Created at".localized + ": " + DateFormatter.localizedString(from: date, dateStyle: .mediumStyle, timeStyle: .shortStyle)
 				}
 				if let _parsed = self.parsedPost {
-					let date = NSDate(timeIntervalSince1970: NSTimeInterval(_parsed.time))
-					cell.label.text = "Created at".localized + ": " + NSDateFormatter.localizedStringFromDate(date, dateStyle: .MediumStyle, timeStyle: .ShortStyle)
+					let date = Date(timeIntervalSince1970: TimeInterval(_parsed.time))
+					cell.label.text = "Created at".localized + ": " + DateFormatter.localizedString(from: date, dateStyle: .mediumStyle, timeStyle: .shortStyle)
 				}
 			}
 			if row == 2 {
@@ -107,7 +107,7 @@ class PostDetailTableViewController: UITableViewController, TagViewDelegate {
 		}
 		if section == 1 {
 			let cell = UITableViewCell()
-			cell.selectionStyle = .None
+			cell.selectionStyle = .none
 			
 			if self.tagView != nil {
 				cell.addSubview(self.tagView!)
@@ -117,12 +117,12 @@ class PostDetailTableViewController: UITableViewController, TagViewDelegate {
 		}
 		
 		let defaultCell = UITableViewCell()
-		defaultCell.selectionStyle = .None
+		defaultCell.selectionStyle = .none
 		return defaultCell
     }
 	
-	override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-		if indexPath.section == 1 {
+	override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+		if (indexPath as NSIndexPath).section == 1 {
 			if self.tagView != nil {
 				return self.tagView!.bounds.height
 			}
@@ -130,8 +130,8 @@ class PostDetailTableViewController: UITableViewController, TagViewDelegate {
 		return 44
 	}
 	
-	func tagViewDidSelecteTag(tag: String?) {
-		let collectionVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("collectionVC") as! CollectionViewController
+	func tagViewDidSelecteTag(_ tag: String?) {
+		let collectionVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "collectionVC") as! CollectionViewController
 		collectionVC.keyword = tag!
 		collectionVC.isFromDetailTableVC = true
 		collectionVC.searchVC = SearchViewController()
