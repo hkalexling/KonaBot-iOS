@@ -20,21 +20,21 @@ class IAPViewController: UIViewController, SKProductsRequestDelegate, SKPaymentT
 	let productIdentifiers = Set(["hkalexling.KonaBot.buyMeACoffee"])
 	var product: SKProduct?
 	
-    override func viewDidLoad() {
-        super.viewDidLoad()
+	override func viewDidLoad() {
+		super.viewDidLoad()
 		
 		self.loading = SteamLoadingView(barNumber: nil, color: UIColor.konaColor(), minHeight: 10, maxHeight: 80, width: 20, spacing: 10, animationDuration: nil, deltaDuration: nil, delay: nil, options: nil)
 		self.loading.alpha = 0.8
 		self.view.addSubview(self.loading)
 		
-        self.requestProductData()
+		self.requestProductData()
 		self.viewSetup()
-    }
+	}
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+	override func didReceiveMemoryWarning() {
+			super.didReceiveMemoryWarning()
+			// Dispose of any resources that can be recreated.
+	}
 	
 	func viewSetup(){
 		self.view.backgroundColor = UIColor.themeColor()
@@ -69,7 +69,7 @@ class IAPViewController: UIViewController, SKProductsRequestDelegate, SKPaymentT
 		self.button.layer.borderColor = UIColor.konaColor().cgColor
 		self.button.layer.borderWidth = 1.5
 		self.button.setTitleColor(UIColor.konaColor(), for: UIControlState())
-		self.button.addTarget(self, action: #selector(IAPViewController.buyProduct), for: .touchDown)
+		self.button.addTarget(self, action: #selector(IAPViewController.buyProduct), for: .touchUpInside)
 		self.button.isHidden = true
 		self.view.addSubview(self.button)
 	}
@@ -118,6 +118,10 @@ class IAPViewController: UIViewController, SKProductsRequestDelegate, SKPaymentT
 	}
 	
 	func buyProduct() {
+		self.button.isHidden = true
+		self.titleLabel.isHidden = true
+		self.contentLabel.isHidden = true
+		self.loading.isHidden = false
 		let payment = SKPayment(product: self.product!)
 		SKPaymentQueue.default().add(payment)
 	}
@@ -130,7 +134,7 @@ class IAPViewController: UIViewController, SKProductsRequestDelegate, SKPaymentT
 		
 		self.button.setTitle(numberFormatter.string(from: self.product!.price), for: UIControlState())
 		self.button.isHidden = false
-		self.loading.removeFromSuperview()
+		self.loading.isHidden = true
 	}
 	
 	func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
@@ -155,6 +159,7 @@ class IAPViewController: UIViewController, SKProductsRequestDelegate, SKPaymentT
 	}
 	
 	func thanks(){
+		self.loading.isHidden = true
 		self.titleLabel.isHidden = true
 		self.button.isHidden = true
 		self.contentLabel.text = "Thanks for your donation!\n\nIt's a huge motivation for me to maintain this project and keep it free of charge :)".localized

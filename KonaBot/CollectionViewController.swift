@@ -10,7 +10,7 @@ import UIKit
 import Kanna
 import AFNetworking
 
-class CollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, KonaAPIPostDelegate, KonaAPIErrorDelegate, KonaHTMLParserTagsDelegate {
+class CollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, KonaAPIPostDelegate, KonaAPIErrorDelegate, KonaHTMLParserTagsDelegate{
 	
 	var refreshControl : UIRefreshControl!
 	
@@ -39,8 +39,16 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 	
 	var isFromDetailTableVC = false
 	
-    override func viewDidLoad() {
-        super.viewDidLoad()
+	var previewingIndex : IndexPath?
+	
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		
+		if #available(iOS 9.0, *) {
+			if (traitCollection.forceTouchCapability == .available) {
+				registerForPreviewing(with: self, sourceView: self.collectionView!)
+			}
+		}
 		
 		if UserDefaults.standard.object(forKey: "tabToSelect") != nil {
 			let tabToSelect = UserDefaults.standard.integer(forKey: "tabToSelect")
@@ -54,7 +62,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 		self.collectionView!.addSubview(self.refreshControl)
 		
 		self.refresh()
-    }
+	}
 	
 	func refresh(){
 		
@@ -248,5 +256,37 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 	func handleEmtptySearch(){
 		let konaParser = KonaHTMLParser(delegate: self, errorDelegate: self)
 		konaParser.getSuggestedTagsFromEmptyTag(self.keyword.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlHostAllowed)!)
+	}
+}
+
+@available(iOS 9.0, *)
+extension CollectionViewController: UIViewControllerPreviewingDelegate {
+	func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+		guard let indexPath = self.collectionView!.indexPathForItem(at: location) else {
+			return nil
+		}
+		guard let cell = self.collectionView!.cellForItem(at: indexPath) else {
+			return nil
+		}
+		
+		self.previewingIndex = indexPath
+		
+		let previewVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "postDetailTableVC") as! PostDetailTableViewController
+		previewVC.post = self.posts[indexPath.row]
+		
+		let tagView = TagView(tags: self.posts[indexPath.row].tags, textColor: UIColor.themeColor(), tagColor: UIColor.konaColor(), font: UIFont.systemFont(ofSize: 17))
+		let height = tagView.bounds.height
+		
+		previewVC.preferredContentSize = CGSize(width: 0, height: 235 + height)
+		
+		previewingContext.sourceRect = cell.frame
+		
+		return previewVC
+	}
+	
+	func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+		if let indexPath = self.previewingIndex {
+			self.collectionView(self.collectionView!, didSelectItemAt: indexPath)
+		}
 	}
 }
