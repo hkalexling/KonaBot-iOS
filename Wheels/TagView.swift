@@ -14,10 +14,10 @@ protocol TagViewDelegate {
 
 class TagView: UIView {
 
-	private var tagStrs : [String] = []
-	private var textColor : UIColor!
-	private var tagColor : UIColor!
-	private var font : UIFont!
+	fileprivate var tagStrs : [String] = []
+	fileprivate var textColor : UIColor!
+	fileprivate var tagColor : UIColor!
+	fileprivate var font : UIFont!
 	
 	var delegate : TagViewDelegate?
 	var gap : CGFloat = 10
@@ -27,7 +27,7 @@ class TagView: UIView {
 	var yEdge : CGFloat = 12
 	var cornerRadius : CGFloat = 5
 	
-	var width : CGFloat = UIScreen.main().bounds.width
+	var width : CGFloat = UIScreen.main.bounds.width
 	
 	init(tags : [String], textColor : UIColor, tagColor : UIColor, font : UIFont) {
 		super.init(frame: CGRect(x: 0, y: 0, width: 10, height: 10))
@@ -44,12 +44,12 @@ class TagView: UIView {
 		super.init(coder: aDecoder)
 	}
 	
-	private func setup(){
+	fileprivate func setup(){
 		var xCenter : CGFloat = 0
 		var yCenter : CGFloat = 0
 		var currentXMax : CGFloat = 0
 		for tag in self.tagStrs {
-			let label = UILabel(frame: CGRect(x: 0, y: 0, width: UIScreen.main().bounds.width, height: 10))
+			let label = UILabel(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 10))
 			label.font = self.font
 			label.textAlignment = .center
 			label.text = tag
@@ -59,8 +59,8 @@ class TagView: UIView {
 			label.layer.cornerRadius = self.cornerRadius
 			label.clipsToBounds = true
 			label.frame = CGRect(x: 0, y: 0, width: label.bounds.width + 2 * self.xExtension, height: label.bounds.height + 2 * self.yExtension)
-			if label.frame.size.width > UIScreen.main().bounds.width - 2 * self.xEdge {
-				label.frame = CGRect(x: label.frame.origin.x, y: label.frame.origin.y, width: UIScreen.main().bounds.width - 2 * self.xEdge, height: label.frame.height)
+			if label.frame.size.width > UIScreen.main.bounds.width - 2 * self.xEdge {
+				label.frame = CGRect(x: label.frame.origin.x, y: label.frame.origin.y, width: UIScreen.main.bounds.width - 2 * self.xEdge, height: label.frame.height)
 			}
 			
 			if yCenter == 0 {
@@ -73,7 +73,7 @@ class TagView: UIView {
 			
 			label.center = CGPoint(x: xCenter, y: yCenter)
 			
-			if label.frame.maxX + self.xEdge > UIScreen.main().bounds.width {
+			if label.frame.maxX + self.xEdge > UIScreen.main.bounds.width {
 				xCenter = label.bounds.width/2 + self.xEdge
 				yCenter += label.bounds.height + gap
 				label.center = CGPoint(x: xCenter, y: yCenter)
@@ -89,7 +89,7 @@ class TagView: UIView {
 		self.resiztToFitSubViews()
 	}
 	
-	private func resiztToFitSubViews() {
+	fileprivate func resiztToFitSubViews() {
 		var width : CGFloat = 0
 		var height : CGFloat = 0
 		

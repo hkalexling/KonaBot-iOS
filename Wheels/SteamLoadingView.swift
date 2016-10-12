@@ -10,20 +10,20 @@ import UIKit
 
 class SteamLoadingView: UIView {
 
-	private var barNumber = 3
-	private var color = UIColor.blue()
-	private var barMinHeight : CGFloat = 10
-	private var barMaxHeight : CGFloat = 50
-	private var barWidth : CGFloat = 10
-	private var barSpacing : CGFloat = 5
-	private var animationDuration : TimeInterval = 0.5
-	private var deltaDuration : TimeInterval = 0.3
-	private var delay : TimeInterval = 0.3
-	private var animationOptions : UIViewAnimationOptions = UIViewAnimationOptions()
+	fileprivate var barNumber = 3
+	fileprivate var color = UIColor.blue
+	fileprivate var barMinHeight : CGFloat = 10
+	fileprivate var barMaxHeight : CGFloat = 50
+	fileprivate var barWidth : CGFloat = 10
+	fileprivate var barSpacing : CGFloat = 5
+	fileprivate var animationDuration : TimeInterval = 0.5
+	fileprivate var deltaDuration : TimeInterval = 0.3
+	fileprivate var delay : TimeInterval = 0.3
+	fileprivate var animationOptions : UIViewAnimationOptions = UIViewAnimationOptions()
 	
-	private var bars : [UIView] = []
+	fileprivate var bars : [UIView] = []
 	
-	private let screenSize = UIScreen.main().bounds.size
+	fileprivate let screenSize = UIScreen.main.bounds.size
 	
 	init(barNumber : Int?, color: UIColor?, minHeight : CGFloat?, maxHeight : CGFloat?, width : CGFloat?, spacing : CGFloat?, animationDuration : TimeInterval?, deltaDuration : TimeInterval?, delay : TimeInterval?, options : UIViewAnimationOptions?){
 		super.init(frame: CGRect.zero)
@@ -82,7 +82,7 @@ class SteamLoadingView: UIView {
 		super.init(coder: aDecoder)
 	}
 	
-	private func addBars(){
+	fileprivate func addBars(){
 		var x : CGFloat = 0
 		for _ in 0 ..< self.barNumber {
 			let bar = UIView(frame: CGRect(x: x, y: 0, width: self.barWidth, height: self.barMaxHeight))
@@ -94,7 +94,7 @@ class SteamLoadingView: UIView {
 		}
 	}
 	
-	private func animateBar(_ bar : UIView, delay : TimeInterval) {
+	fileprivate func animateBar(_ bar : UIView, delay : TimeInterval) {
 		UIView.animate(withDuration: self.randomInterval(), delay: delay, options: self.animationOptions, animations: {
 			bar.frame = CGRect(x: bar.frame.minX, y: (self.barMaxHeight - self.barMinHeight)/2, width: self.barWidth, height: self.barMinHeight)
 			}, completion: {(finished) in
@@ -106,7 +106,7 @@ class SteamLoadingView: UIView {
 		})
 	}
 	
-	private func randomInterval() -> TimeInterval {
+	fileprivate func randomInterval() -> TimeInterval {
 		return TimeInterval(2 * Float(arc4random()) / Float(UINT32_MAX) - 1) * self.deltaDuration + self.animationDuration
 	}
 }

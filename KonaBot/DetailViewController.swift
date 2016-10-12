@@ -12,7 +12,7 @@ import CoreData
 import AFNetworking
 import Social
 
-class DetailViewController: UIViewController, AWImageViewControllerDownloadDelegate, AWImageViewControllerLongPressDelegate, AWActionSheetDelegate, KonaHTMLParserDelegate, KonaAPIErrorDelegate {
+class DetailViewController: UIViewController {
 	
 	let yuno = Yuno()
 	var baseUrl : String = "http://konachan.com"
@@ -63,7 +63,7 @@ class DetailViewController: UIViewController, AWImageViewControllerDownloadDeleg
 		}
 		
 		//iPad
-		if UIScreen.main().bounds.width > 415 {
+		if UIScreen.main.bounds.width > 415 {
 			self.smallerHeight = 200
 		}
 				
@@ -74,9 +74,9 @@ class DetailViewController: UIViewController, AWImageViewControllerDownloadDeleg
 		self.view.addSubview(bgView)
 		
 		detailImageView = UIImageView()
-		let width = UIScreen.main().bounds.width - 40
+		let width = UIScreen.main.bounds.width - 40
 		let height = width * self.heightOverWidth
-		detailImageView.frame = CGRect(x: (CGSize.screenSize().width - width)/2, y: UIScreen.main().bounds.height/2 - height/2, width: width, height: height)
+		detailImageView.frame = CGRect(x: (CGSize.screenSize().width - width)/2, y: UIScreen.main.bounds.height/2 - height/2, width: width, height: height)
 		detailImageView.isUserInteractionEnabled = true
 		self.bigFrame = detailImageView.frame
 		self.view.addSubview(detailImageView)
@@ -132,7 +132,7 @@ class DetailViewController: UIViewController, AWImageViewControllerDownloadDeleg
 			blurView.image = UIImage.imageFromUIView(self.tabBarController!.view).applyKonaDarkEffect()
 			self.loadingBackgroundView.addSubview(blurView)
 			
-			let indicator = AWProgressIndicatorView(color: UIColor.konaColor(), textColor: UIColor.konaColor(), bgColor: UIColor.clear(), showText: true, width: 10, radius: 80, font: UIFont.systemFont(ofSize: 40))
+			let indicator = AWProgressIndicatorView(color: UIColor.konaColor(), textColor: UIColor.konaColor(), bgColor: UIColor.clear, showText: true, width: 10, radius: 80, font: UIFont.systemFont(ofSize: 40))
 			indicator.center = self.view.center
 			indicator.startSpin(0.3)
 			self.loadingBackgroundView.addSubview(indicator)
@@ -247,7 +247,7 @@ class DetailViewController: UIViewController, AWImageViewControllerDownloadDeleg
 		self.tabBarController!.view.addSubview(self.awImageVC.view)
 	}
 	
-	@objc func imageSaved(_ image: UIImage, didFinishSavingWithError error: NSError?, contextInfo: UnsafePointer<()>) {
+	@objc func imageSaved(_ image: UIImage, didFinishSavingWithError error: NSError?, contextInfo: UnsafeRawPointer) {
 		DispatchQueue.main.async(execute: {
 			if error == nil {
 				self.awAlert("Image Saved".localized, message: "This image has been saved to your camera roll".localized)
@@ -294,9 +294,6 @@ class DetailViewController: UIViewController, AWImageViewControllerDownloadDeleg
 		})
 	}
 	
-	func awActionSheetDidDismiss() {
-		self.allowLongPress = true
-	}
 	
 	func initializePostDetailTableVC (){
 		let postDetailTableVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "postDetailTableVC") as! PostDetailTableViewController
@@ -311,20 +308,6 @@ class DetailViewController: UIViewController, AWImageViewControllerDownloadDeleg
 	func unlock() {
 		self.loadingBackgroundView.removeFromSuperview()
 		self.tabBarController!.view.isUserInteractionEnabled = true
-	}
-	
-	func konaHTMLParserFinishedParsing(_ parsedPost: ParsedPost) {
-		self.unlock()
-		self.parsedPost = parsedPost
-		self.downloadImg(self.parsedPost!.url)
-		self.moreImageView.isUserInteractionEnabled = true
-	}
-	
-	func konaAPIGotError(_ error: NSError) {
-		self.unlock()
-		let alert = AWAlertView.networkAlertFromError(error)
-		self.navigationController?.view.addSubview(alert)
-		alert.showAlert()
 	}
 	
 	func shareToSocial (_ serviceType : String) {
@@ -342,7 +325,9 @@ class DetailViewController: UIViewController, AWImageViewControllerDownloadDeleg
 			alert.showAlert()
 		}
 	}
-	
+}
+
+extension DetailViewController : AWImageViewControllerDownloadDelegate, AWImageViewControllerLongPressDelegate {
 	func awImageViewDidLongPress() {
 		if !self.allowLongPress {return}
 		
@@ -364,17 +349,17 @@ class DetailViewController: UIViewController, AWImageViewControllerDownloadDeleg
 		})
 		
 		let copyAction = AWActionSheetAction(title: "Copy Image".localized, handler: {
-			UIPasteboard.general().image = image
+			UIPasteboard.general.image = image
 			self.awAlert("Image Copied".localized, message: "This image has been copied to your clipboard".localized)
 		})
 		
 		let copyLinkAction = AWActionSheetAction(title: "Copy Image URL".localized, handler: {
-			UIPasteboard.general().string = self.urlStr!
+			UIPasteboard.general.string = self.urlStr!
 			self.awAlert("URL Copied".localized, message: "The image URL has been copied to your clipboard".localized)
 		})
 		
 		let openAction = AWActionSheetAction(title: "Open Post in Safari".localized, handler: {
-			UIApplication.shared().openURL(URL(string: self.postUrl.hasPrefix("http") ? self.postUrl : self.baseUrl + self.postUrl)!)
+			UIApplication.shared.openURL(URL(string: self.postUrl.hasPrefix("http") ? self.postUrl : self.baseUrl + self.postUrl)!)
 		})
 		
 		let shareAction = AWActionSheetAction(title: "Share to...".localized, handler: {
@@ -418,5 +403,29 @@ class DetailViewController: UIViewController, AWImageViewControllerDownloadDeleg
 			self.navigationController?.view.addSubview(self.alert!)
 			self.alert!.showAlert()
 		}
+	}
+}
+
+extension DetailViewController : AWActionSheetDelegate {
+	func awActionSheetDidDismiss() {
+		self.allowLongPress = true
+	}
+}
+
+extension DetailViewController : KonaHTMLParserDelegate {
+	func konaHTMLParserFinishedParsing(_ parsedPost: ParsedPost) {
+		self.unlock()
+		self.parsedPost = parsedPost
+		self.downloadImg(self.parsedPost!.url)
+		self.moreImageView.isUserInteractionEnabled = true
+	}
+}
+
+extension DetailViewController : KonaAPIErrorDelegate {
+	func konaAPIGotError(_ error: Error) {
+		self.unlock()
+		let alert = AWAlertView.networkAlertFromError(error)
+		self.navigationController?.view.addSubview(alert)
+		alert.showAlert()
 	}
 }

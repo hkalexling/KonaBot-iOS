@@ -46,7 +46,7 @@ class IAPViewController: UIViewController, SKProductsRequestDelegate, SKPaymentT
 		self.contentLabel.text = ""
 		self.contentLabel.textAlignment = NSTextAlignment.center
 		self.contentLabel.textColor = UIColor.konaColor()
-		self.contentLabel.backgroundColor = UIColor.clear()
+		self.contentLabel.backgroundColor = UIColor.clear
 		self.contentLabel.numberOfLines = 0
 		self.contentLabel.lineBreakMode = .byWordWrapping
 		self.view.addSubview(self.contentLabel)
@@ -55,7 +55,7 @@ class IAPViewController: UIViewController, SKProductsRequestDelegate, SKPaymentT
 		self.titleLabel.frame = CGRect(x: 0, y: CGSize.screenSize().height/2 - contentHeight/2 - 10 - titleHeight, width: CGSize.screenSize().width, height: titleHeight)
 		self.titleLabel.textAlignment = .center
 		self.titleLabel.text = ""
-		self.titleLabel.backgroundColor = UIColor.clear()
+		self.titleLabel.backgroundColor = UIColor.clear
 		self.titleLabel.textColor = UIColor.konaColor()
 		self.titleLabel.font = UIFont.boldSystemFont(ofSize: 23)
 		self.view.addSubview(self.titleLabel)
@@ -64,7 +64,7 @@ class IAPViewController: UIViewController, SKProductsRequestDelegate, SKPaymentT
 		let buttonHeight : CGFloat = 30
 		
 		self.button.frame = CGRect(x: CGSize.screenSize().width/2 - buttonWidth/2, y: CGSize.screenSize().height/2 + self.contentLabel.frame.height/2 + 10, width: buttonWidth, height: buttonHeight)
-		self.button.backgroundColor = UIColor.clear()
+		self.button.backgroundColor = UIColor.clear
 		self.button.layer.cornerRadius = 5
 		self.button.layer.borderColor = UIColor.konaColor().cgColor
 		self.button.layer.borderWidth = 1.5
@@ -88,7 +88,7 @@ class IAPViewController: UIViewController, SKProductsRequestDelegate, SKPaymentT
 				let url: URL? = URL(string: UIApplicationOpenSettingsURLString)
 				if url != nil
 				{
-					UIApplication.shared().openURL(url!)
+					UIApplication.shared.openURL(url!)
 				}
 				
 			}))

@@ -16,7 +16,7 @@ class KonaDisclosureIndicatorView: UIView {
 	init(color : UIColor){
 		self.color = color
 		super.init(frame: CGRect(x: 0, y: 0, width: 16, height: 24))
-		self.backgroundColor = UIColor.clear()
+		self.backgroundColor = UIColor.clear
 	}
 
 	required init?(coder aDecoder: NSCoder) {
@@ -27,14 +27,14 @@ class KonaDisclosureIndicatorView: UIView {
 		let context = UIGraphicsGetCurrentContext()
 		context?.setFillColor(red: self.color.components.red, green: self.color.components.green, blue: self.color.components.blue, alpha: self.color.components.alpha)
 		
-		context?.moveTo(x: 4, y: 0)
-		context?.addLineTo(x: 4, y: 0)
-		context?.addLineTo(x: 16, y: 12)
-		context?.addLineTo(x: 4, y: 24)
-		context?.addLineTo(x: 2, y: 22)
-		context?.addLineTo(x: 12.5, y: 12)
-		context?.addLineTo(x: 2, y: 2)
-		context?.addLineTo(x: 4, y: 0)
+		context?.move(to: CGPoint(x: 4, y: 0))
+		context?.addLine(to: CGPoint(x: 4, y: 0))
+		context?.addLine(to: CGPoint(x: 16, y: 12))
+		context?.addLine(to: CGPoint(x: 4, y: 24))
+		context?.addLine(to: CGPoint(x: 2, y: 22))
+		context?.addLine(to: CGPoint(x: 12.5, y: 12))
+		context?.addLine(to: CGPoint(x: 2, y: 2))
+		context?.addLine(to: CGPoint(x: 4, y: 0))
 		context?.fillPath()
     }
 }

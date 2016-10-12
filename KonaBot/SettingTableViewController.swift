@@ -11,7 +11,7 @@ import UIKit
 extension SettingTableViewController: UIWebViewDelegate {
 	func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
 		if navigationType == UIWebViewNavigationType.linkClicked {
-			UIApplication.shared().openURL(request.url!)
+			UIApplication.shared.openURL(request.url!)
 			return false
 		}
 		return true
@@ -25,7 +25,7 @@ class SettingTableViewController: UITableViewController {
     override func viewDidLoad() {
 		super.viewDidLoad()
 	
-		self.canAdjustViewMode = CGSize.screenSize().width >= 375 && UIDevice.current().model.hasPrefix("iPhone")
+		self.canAdjustViewMode = CGSize.screenSize().width >= 375 && UIDevice.current.model.hasPrefix("iPhone")
 		
 		self.tableView.tableFooterView = UIView()
 		self.tableView.separatorStyle = .none
@@ -158,7 +158,7 @@ class SettingTableViewController: UITableViewController {
 		webView.delegate = self
 		aboutVC.view.addSubview(webView)
 		
-		let htmlFile = Bundle.main.pathForResource("about", ofType: "html")!
+		let htmlFile = Bundle.main.path(forResource: "about", ofType: "html")!
 		var htmlString : NSString!
 		do {
 			htmlString = try NSString(contentsOfFile: htmlFile, encoding: String.Encoding.utf8.rawValue)
@@ -174,8 +174,5 @@ class SettingTableViewController: UITableViewController {
 	
 	@IBAction func seguementChanged(_ sender: UISegmentedControl) {
 		UserDefaults.standard.set(sender.selectedSegmentIndex, forKey: "viewMode")
-		print("setted: \(sender.selectedSegmentIndex)")
-		print("object stored: \(UserDefaults.standard.object(forKey: "viewMode"))")
-		print("stored: \(UserDefaults.standard.integer(forKey: "viewMode"))")
 	}
 }

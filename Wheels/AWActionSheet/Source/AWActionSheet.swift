@@ -19,9 +19,9 @@ protocol AWActionSheetDelegate {
 
 class AWActionSheet: UIView {
 	
-	var buttonColor = UIColor.gray()
-	var cancelButtonColor = UIColor.darkGray()
-	var textColor = UIColor.white()
+	var buttonColor = UIColor.gray
+	var cancelButtonColor = UIColor.darkGray
+	var textColor = UIColor.white
 	
 	var buttonWidth : CGFloat = 300
 	var buttonHeight : CGFloat = 40
@@ -38,27 +38,27 @@ class AWActionSheet: UIView {
 	
 	var delegate : AWActionSheetDelegate?
 	
-	private var parentView : UIView!
+	fileprivate var parentView : UIView!
 	
-	private var actions : [AWActionSheetAction] = []
-	private var buttons : [UIButton] = []
+	fileprivate var actions : [AWActionSheetAction] = []
+	fileprivate var buttons : [UIButton] = []
 	
-	private let width = UIScreen.main().bounds.width
-	private let height = UIScreen.main().bounds.height
+	fileprivate let width = UIScreen.main.bounds.width
+	fileprivate let height = UIScreen.main.bounds.height
 	
-	private var shown : Bool = false
+	fileprivate var shown : Bool = false
 	
-	private let imageView = UIImageView()
+	fileprivate let imageView = UIImageView()
 	
-	private var deltaY : CGFloat = 0
+	fileprivate var deltaY : CGFloat = 0
 	
 	init(parentView : UIView){
-		super.init(frame: UIScreen.main().bounds)
+		super.init(frame: UIScreen.main.bounds)
 		self.parentView = parentView
 	}
 	
 	init(parentView : UIView, actions : [AWActionSheetAction]) {
-		super.init(frame: UIScreen.main().bounds)
+		super.init(frame: UIScreen.main.bounds)
 		self.parentView = parentView
 		self.actions = actions
 	}

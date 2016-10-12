@@ -23,7 +23,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 import Foundation
-import libxml2
 
 /*
 ParseOption
@@ -153,17 +152,20 @@ public protocol SearchableNode: Searchable {
     var toXML:     String? { get }
     var innerHTML: String? { get }
     var className: String? { get }
-    var tagName:   String? { get }
+    var tagName:   String? { get set }
+    var content:   String? { get set }
 }
 
 /**
 XMLElement
 */
 public protocol XMLElement: SearchableNode {
+    var parent: XMLElement? { get set }
     subscript(attr: String) -> String? { get set }
 
     func addPrevSibling(_ node: XMLElement)
     func addNextSibling(_ node: XMLElement)
+    func removeChild(_ node: XMLElement)
 }
 
 /**
@@ -185,7 +187,7 @@ public protocol HTMLDocument: XMLDocument {
 XMLNodeSet
 */
 public final class XMLNodeSet {
-    private var nodes: [XMLElement] = []
+    fileprivate var nodes: [XMLElement] = []
     
     public var toHTML: String? {
         let html = nodes.reduce("") {
@@ -297,7 +299,11 @@ extension XPathObject {
         case XPATH_NUMBER:
             self = .Number(num: object.floatval)
         case XPATH_STRING:
-            self = .String(text: Swift.String(cString: UnsafePointer<CChar>(object.stringval)) ?? "")
+            guard let str = UnsafeRawPointer(object.stringval)?.assumingMemoryBound(to: CChar.self) else {
+                self = .String(text: "")
+                return
+            }
+            self = .String(text: Swift.String(cString: str))
             return
         default:
             self = .none
@@ -307,6 +313,10 @@ extension XPathObject {
 
     public subscript(index: Int) -> XMLElement {
         return nodeSet![index]
+    }
+
+    public var first: XMLElement? {
+        return nodeSet?.first
     }
 
     var nodeSet: XMLNodeSet? {

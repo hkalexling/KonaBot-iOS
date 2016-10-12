@@ -18,6 +18,8 @@ It was inspired by [Nokogiri](https://github.com/sparklemotion/nokogiri)(鋸).
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![Reference Status](https://www.versioneye.com/objective-c/kanna/reference_badge.svg?style=flat)](https://www.versioneye.com/objective-c/kanna/references)
 
+:information_source: [Documentation](http://blog.guardlet.com/Kanna/)
+
 
 Features:
 =================
@@ -29,15 +31,22 @@ Features:
 Installation:
 =================
 
-### Swift 3.x
+### Swift 3.0
 
-Open terminal.app and execute `sudo xcode-select -switch /Applications/Xcode-beta.app/Contents/Developer`
+#####CocoaPods
+**:warning: CocoaPods (`0.39 or later`) is required.**
+
+Adding it to your `Podfile`:
+```
+use_frameworks!
+pod 'Kanna', '~> 2.0.0'
+```
 
 #####Carthage
 Adding it to your `Cartfile`:
 
 ```
-github "tid-kijyun/Kanna" "swift3.0"
+github "tid-kijyun/Kanna" ~> 2.0.0
 ```
 
 1. In the project settings add `$(SDKROOT)/usr/include/libxml2` to the "header search paths" field
@@ -53,17 +62,15 @@ Three means of installation are supported:
 Adding it to your `Podfile`:
 ```
 use_frameworks!
-pod 'Kanna', '~> 1.0.0'
+pod 'Kanna', '~> 1.1.0'
 ```
 
 #####Carthage
 Adding it to your `Cartfile`:
 
 ```
-github "tid-kijyun/Kanna" ~> 1.0.0
+github "tid-kijyun/Kanna" ~> 1.1.0
 ```
-
-1. In the project settings add `$(SDKROOT)/usr/include/libxml2` to the "header search paths" field
 
 #####Manual Installation
 1. Add these files to your project:  
@@ -72,10 +79,19 @@ github "tid-kijyun/Kanna" ~> 1.0.0
   [libxmlHTMLDocument.swift](Source/libxml/libxmlHTMLDocument.swift)  
   [libxmlHTMLNode.swift](Source/libxml/libxmlHTMLNode.swift)  
   [libxmlParserOption.swift](Source/libxml/libxmlParserOption.swift)  
-1. Copy this folder to your project:  
-  [Modules](Modules)
-1. In the project settings add `$(SRCROOT)/YOUR_PROJECT/Modules` to the "Swift Compiler - Search Paths > Import Paths" field
 1. In the target settings add `$(SDKROOT)/usr/include/libxml2` to the `Search Paths > Header Search Paths` field
+1. In the target settings add `-lxml2` to the `Linking > Other Linker Flags` field
+1. Import `libxml` headers:
+
+  Copy the those import statements:
+
+  ```
+  #import <libxml/HTMLtree.h>
+  #import <libxml/xpath.h>
+  #import <libxml/xpathInternals.h>
+  ```
+  
+  and paste them into your [Modulename]-Bridging-Header.h
 
 *Note: With manual installation, this library doesn't need to be imported, or namespace-qualified in your code.*
 

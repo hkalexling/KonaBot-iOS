@@ -47,7 +47,7 @@ class CKManager: NSObject {
 			self.CKprint ("iCloud Not Avaiable")
 			return
 		}
-		let predicate = Predicate(format: "postID == %@", postID)
+		let predicate = NSPredicate(format: "postID == %@", postID)
 		let query = CKQuery(recordType: "FavoritedImage", predicate: predicate)
 		CKContainer.default().privateCloudDatabase.perform(query, inZoneWith: nil, completionHandler: self.CKHandler({(records) in
 			if records.count == 1 {
@@ -82,7 +82,7 @@ class CKManager: NSObject {
 			return fav
 		})
 		let postIDList = favListWithoutLastSlash.map({$0.components(separatedBy: "/").last}).filter({$0 != nil}).map({$0!})
-		let predicate = Predicate(format: "NOT (postID IN %@)", postIDList)
+		let predicate = NSPredicate(format: "NOT (postID IN %@)", postIDList)
 		let query = CKQuery(recordType: "FavoritedImage", predicate: predicate)
 		self.CKprint ("checking favorited images from other devices")
 		CKContainer.default().privateCloudDatabase.perform(query, inZoneWith: nil, completionHandler: self.CKHandler({(records) in
@@ -109,14 +109,14 @@ class CKManager: NSObject {
 		print ("CKManager: \(arg)")
 	}
 	
-	private func CKHandler<A>(_ recordOrIDHandler: ((recordOrID : A) -> Void)?) -> (A?, NSError?) -> Void {
+	private func CKHandler<A>(_ recordOrIDHandler: ((_ recordOrID : A) -> Void)?) -> (A?, Error?) -> Void {
 		return {(result, error) in
 			if error != nil {
 				self.CKprint(error!)
 			}
 			if result != nil {
 				if let handler = recordOrIDHandler {
-					handler(recordOrID: result!)
+					handler(result!)
 				}
 			}
 		}

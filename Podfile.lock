@@ -14,26 +14,16 @@ PODS:
   - AFNetworking/Serialization (3.1.0)
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
-  - Kanna (1.0.6)
+  - Kanna (2.0.0)
 
 DEPENDENCIES:
   - AFNetworking (~> 3.0)
-  - Kanna (from `https://github.com/tid-kijyun/Kanna`, branch `swift3.0`)
-
-EXTERNAL SOURCES:
-  Kanna:
-    :branch: swift3.0
-    :git: https://github.com/tid-kijyun/Kanna
-
-CHECKOUT OPTIONS:
-  Kanna:
-    :commit: ecc112494ca81ad1f8bc3ddd136ad78d09dd2e1b
-    :git: https://github.com/tid-kijyun/Kanna
+  - Kanna (~> 2.0.0)
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
-  Kanna: 9f30945bbd293a609f698ea164687ccc0990ff60
+  Kanna: 9a6637f72f5c77fe9c045b1efb2a5bb074754af8
 
-PODFILE CHECKSUM: c9faa726a43b6f5d6501d3a1937ad8b4802b52aa
+PODFILE CHECKSUM: 452e3778bc9df7b971402c19b715ae75f7485215
 
 COCOAPODS: 1.0.0

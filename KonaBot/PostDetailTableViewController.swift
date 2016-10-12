@@ -31,7 +31,7 @@ class PostDetailTableViewController: UITableViewController {
 		self.tableView.tableFooterView = UIView()
 		self.tableView.rowHeight = UITableViewAutomaticDimension
 		self.tableView.estimatedRowHeight = 44
-		self.tableView.separatorColor = UIColor.clear()
+		self.tableView.separatorColor = UIColor.clear
 		
 		let tags = self.post != nil ? self.post!.tags : self.parsedPost!.tags
 		self.tagView = TagView(tags: tags, textColor: UIColor.themeColor(), tagColor: UIColor.konaColor(), font: UIFont.systemFont(ofSize: 17))

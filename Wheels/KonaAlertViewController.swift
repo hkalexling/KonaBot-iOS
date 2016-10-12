@@ -10,21 +10,21 @@ import UIKit
 
 class KonaAlertViewController: UIViewController {
 	
-	private var backgroundBlurImageView : UIImageView!
-	private var dismissButton : UIImageView!
-	private var yesButton : UIButton!
-	private var noButton : UIButton!
-	private var titleLabel : UILabel!
-	private var messageLabel : UILabel?
+	fileprivate var backgroundBlurImageView : UIImageView!
+	fileprivate var dismissButton : UIImageView!
+	fileprivate var yesButton : UIButton!
+	fileprivate var noButton : UIButton!
+	fileprivate var titleLabel : UILabel!
+	fileprivate var messageLabel : UILabel?
 	
-	private var dialogView : UIView!
-	private var dialogWidth : CGFloat = 300
-	private var dialogHeight : CGFloat?
-	private var animationDuration : TimeInterval = 0.3
+	fileprivate var dialogView : UIView!
+	fileprivate var dialogWidth : CGFloat = 300
+	fileprivate var dialogHeight : CGFloat?
+	fileprivate var animationDuration : TimeInterval = 0.3
 	
-	private var baseColor : UIColor!
-	private var secondaryColor : UIColor!
-	private var dismissButtonColor : UIColor!
+	fileprivate var baseColor : UIColor!
+	fileprivate var secondaryColor : UIColor!
+	fileprivate var dismissButtonColor : UIColor!
 	
 	init(backgroundView : UIView, baseColor : UIColor, secondaryColor : UIColor, dismissButtonColor : UIColor) {
 		super.init(nibName: nil, bundle: nil)
@@ -63,7 +63,7 @@ class KonaAlertViewController: UIViewController {
 	func dismiss(){
 		self.rotateDismissBtn(-1)
 		UIView.animate(withDuration: self.animationDuration, delay: 0, options: UIViewAnimationOptions(), animations: {
-			self.dialogView.center = CGPoint(x: UIScreen.main().bounds.width/2, y: -self.dialogHeight!/2)
+			self.dialogView.center = CGPoint(x: UIScreen.main.bounds.width/2, y: -self.dialogHeight!/2)
 			self.backgroundBlurImageView.alpha = 0
 			self.dismissButton.alpha = 0
 			}, completion: {(finished) in
@@ -71,7 +71,7 @@ class KonaAlertViewController: UIViewController {
 		})
 	}
 	
-	func showAlert(_ title : String, message : String?, badChoiceTitle : String, goodChoiceTitle : String, badChoiceHandler : (() -> Void), goodChoiceHandler : (() -> Void)) {
+	func showAlert(_ title : String, message : String?, badChoiceTitle : String, goodChoiceTitle : String, badChoiceHandler : @escaping (() -> Void), goodChoiceHandler : @escaping (() -> Void)) {
 		
 		self.titleLabel = UILabel(frame: CGRect(x: 20, y: 10, width: self.dialogWidth - 40, height: 30))
 		self.titleLabel.textAlignment = NSTextAlignment.center
@@ -117,7 +117,7 @@ class KonaAlertViewController: UIViewController {
 		
 		self.updateDialogContent(title, message: message, goodTitle: goodChoiceTitle, badTitle: badChoiceTitle, goodHandler: goodChoiceHandler, badHandler: badChoiceHandler)
 		let maxY = self.yesButton.frame.maxY
-		self.dialogView.center = CGPoint(x: UIScreen.main().bounds.width/2, y: UIScreen.main().bounds.height + (maxY + 20)/2)
+		self.dialogView.center = CGPoint(x: UIScreen.main.bounds.width/2, y: UIScreen.main.bounds.height + (maxY + 20)/2)
 		
 		self.yesButton.isEnabled = false
 		self.noButton.isEnabled = false
@@ -144,7 +144,7 @@ class KonaAlertViewController: UIViewController {
 		self.dismissButton.layer.add(rotateAnimation, forKey: nil)
 	}
 	
-	func updateDialogContent(_ title : String, message : String?, goodTitle : String, badTitle : String, goodHandler : ButtonActionBlock, badHandler : ButtonActionBlock) {
+	func updateDialogContent(_ title : String, message : String?, goodTitle : String, badTitle : String, goodHandler : @escaping ButtonActionBlock, badHandler : @escaping ButtonActionBlock) {
 		
 		var dialogViewFrameTemp = self.dialogView.frame
 		let tempOrignY = dialogViewFrameTemp.origin.y

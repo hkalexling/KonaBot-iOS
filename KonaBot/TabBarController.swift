@@ -41,8 +41,8 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
 		}
 		if self.tapCounter == 1 {
 			let delayTime = DispatchTime.now() + Double(Int64(0.3 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
-			DispatchQueue.main.after(when: delayTime, execute: {
-				self.tapCounter = 0
+			DispatchQueue.main.asyncAfter(deadline: delayTime, execute: { 
+				self.tapCounter = 0;
 			})
 		}
 		

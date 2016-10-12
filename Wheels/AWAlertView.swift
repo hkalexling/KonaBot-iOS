@@ -10,8 +10,8 @@ import UIKit
 
 class AWAlertView: UIView {
 	
-	let width = UIScreen.main().bounds.width
-	let height = UIScreen.main().bounds.height
+	let width = UIScreen.main.bounds.width
+	let height = UIScreen.main.bounds.height
 	
 	let offset : CGFloat = 30
 	let labelOffset : CGFloat = 20

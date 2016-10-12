@@ -23,17 +23,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 import Foundation
-import libxml2
 
 /*
 libxmlHTMLDocument
 */
 internal final class libxmlHTMLDocument: HTMLDocument {
-    private var docPtr:   htmlDocPtr? = nil
-    private var rootNode: XMLElement?
-    private var html: String
-    private var url:  String?
-    private var encoding: String.Encoding
+    fileprivate var docPtr:   htmlDocPtr? = nil
+    fileprivate var rootNode: XMLElement?
+    fileprivate var html: String
+    fileprivate var url:  String?
+    fileprivate var encoding: String.Encoding
     
     var text: String? {
         return rootNode?.text
@@ -72,7 +71,23 @@ internal final class libxmlHTMLDocument: HTMLDocument {
     }
     
     var tagName:   String? {
-        return nil
+        get {
+            return nil
+        }
+
+        set {
+
+        }
+    }
+
+    var content: String? {
+        get {
+            return text
+        }
+
+        set {
+            rootNode?.content = newValue
+        }
     }
     
     init?(html: String, url: String?, encoding: String.Encoding, option: UInt) {
@@ -88,7 +103,7 @@ internal final class libxmlHTMLDocument: HTMLDocument {
         
         if let cur = html.cString(using: encoding) {
             let url : String = ""
-            docPtr = htmlReadDoc(UnsafePointer<xmlChar>(cur), url, String(cfencstr), CInt(option))
+            docPtr = htmlReadDoc(UnsafeRawPointer(cur).assumingMemoryBound(to: xmlChar.self), url, (cfencstr as? String) ?? "", CInt(option))
             rootNode  = libxmlHTMLNode(docPtr: docPtr!)
         } else {
             return nil
@@ -140,11 +155,11 @@ internal final class libxmlHTMLDocument: HTMLDocument {
 libxmlXMLDocument
 */
 internal final class libxmlXMLDocument: XMLDocument {
-    private var docPtr:   xmlDocPtr? = nil
-    private var rootNode: XMLElement?
-    private var xml: String
-    private var url: String?
-    private var encoding: String.Encoding
+    fileprivate var docPtr:   xmlDocPtr? = nil
+    fileprivate var rootNode: XMLElement?
+    fileprivate var xml: String
+    fileprivate var url: String?
+    fileprivate var encoding: String.Encoding
     
     var text: String? {
         return rootNode?.text
@@ -183,7 +198,23 @@ internal final class libxmlXMLDocument: XMLDocument {
     }
     
     var tagName:   String? {
-        return nil
+        get {
+            return nil
+        }
+
+        set {
+            
+        }
+    }
+
+    var content: String? {
+        get {
+            return text
+        }
+
+        set {
+            rootNode?.content = newValue
+        }
     }
     
     init?(xml: String, url: String?, encoding: String.Encoding, option: UInt) {
@@ -199,7 +230,7 @@ internal final class libxmlXMLDocument: XMLDocument {
         
         if let cur = xml.cString(using: encoding) {
             let url : String = ""
-            docPtr = xmlReadDoc(UnsafePointer<xmlChar>(cur), url, String(cfencstr), CInt(option))
+            docPtr = xmlReadDoc(UnsafeRawPointer(cur).assumingMemoryBound(to: xmlChar.self), url, (cfencstr as? String) ?? "", CInt(option))
             rootNode  = libxmlHTMLNode(docPtr: docPtr!)
         } else {
             return nil

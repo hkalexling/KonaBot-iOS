@@ -14,13 +14,13 @@ protocol CloudFavPostDownloadVCDelegate {
 
 class CloudFavPostsDownloadViewController: UIViewController {
 	
-	private var blurImageView : UIImageView!
-	private var dismissButton : UIImageView!
-	private var progressView : AWProgressIndicatorView!
-	private var messageLabel : UILabel!
-	private var delegate : CloudFavPostDownloadVCDelegate?
+	fileprivate var blurImageView : UIImageView!
+	fileprivate var dismissButton : UIImageView!
+	fileprivate var progressView : AWProgressIndicatorView!
+	fileprivate var messageLabel : UILabel!
+	fileprivate var delegate : CloudFavPostDownloadVCDelegate?
 	
-	private var animationDuration : TimeInterval = 0.3
+	fileprivate var animationDuration : TimeInterval = 0.3
 	
 	init(backgroundVC : UIViewController, color : UIColor, delegate : CloudFavPostDownloadVCDelegate?){
 		super.init(nibName: nil, bundle: nil)
@@ -38,7 +38,7 @@ class CloudFavPostsDownloadViewController: UIViewController {
 		self.dismissButton.alpha = 0
 		self.view.addSubview(self.dismissButton)
 		
-		self.progressView = AWProgressIndicatorView(color: color, textColor: color, bgColor: UIColor.clear(), showText: true, width: 10, radius: 80, font: UIFont.systemFont(ofSize: 40))
+		self.progressView = AWProgressIndicatorView(color: color, textColor: color, bgColor: UIColor.clear, showText: true, width: 10, radius: 80, font: UIFont.systemFont(ofSize: 40))
 		self.progressView.center = self.view.center
 		self.blurImageView.addSubview(self.progressView)
 		
@@ -101,7 +101,7 @@ class CloudFavPostsDownloadViewController: UIViewController {
 		self.messageLabel.sizeToFitKeepingWidth()
 	}
 	
-	private func rotateDismissBtn(_ numberOfPi : CGFloat) {
+	fileprivate func rotateDismissBtn(_ numberOfPi : CGFloat) {
 		let rotateAnimation = CABasicAnimation(keyPath: "transform.rotation")
 		rotateAnimation.duration = self.animationDuration
 		rotateAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)

@@ -33,7 +33,7 @@ class FeedbackManager: NSObject, MFMailComposeViewControllerDelegate {
 			})
 			}, goodChoiceHandler: {
 				self.konaAlertVC.updateDialogContent("Then could you help me by rating KonaBot in App Store?".localized, message: "", goodTitle: "Sure".localized, badTitle: "No, thanks".localized, goodHandler: {
-					UIApplication.shared().openURL(URL(string: "https://itunes.apple.com/us/app/konabot/id1055716649")!)
+					UIApplication.shared.openURL(URL(string: "https://itunes.apple.com/us/app/konabot/id1055716649")!)
 					self.konaAlertVC.dismiss()
 					}, badHandler: {
 						self.konaAlertVC.dismiss()
@@ -68,7 +68,7 @@ class FeedbackManager: NSObject, MFMailComposeViewControllerDelegate {
 	
 	// MARK: MFMailComposeViewControllerDelegate
 	
-	func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: NSError?) {
+	func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
 		controller.dismiss(animated: true, completion: nil)
 		if error != nil {
 			self.alert = AWAlertView.redAlertFromTitleAndMessage("Error".localized, message: error!.localizedDescription)

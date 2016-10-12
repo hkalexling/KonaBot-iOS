@@ -22,22 +22,22 @@ protocol KonaAPITagDelegate {
 }
 
 protocol KonaAPIErrorDelegate {
-	func konaAPIGotError(_ error : NSError)
+	func konaAPIGotError(_ error : Error)
 }
 
 class KonaAPI: NSObject {
 	
-	private let baseUrl = "http://konachan.com"
+	fileprivate let baseUrl = "http://konachan.com"
 	
-	private let manager = AFHTTPSessionManager()
-	private var r18 : Bool = false
+	fileprivate let manager = AFHTTPSessionManager()
+	fileprivate var r18 : Bool = false
 	
-	private var postDelegate : KonaAPIPostDelegate?
-	private var tagDelegate : KonaAPITagDelegate?
-	private var errorDelegate : KonaAPIErrorDelegate?
+	fileprivate var postDelegate : KonaAPIPostDelegate?
+	fileprivate var tagDelegate : KonaAPITagDelegate?
+	fileprivate var errorDelegate : KonaAPIErrorDelegate?
 	
-	private var postAry : [Post] = []
-	private var tagAry : [String] = []
+	fileprivate var postAry : [Post] = []
+	fileprivate var tagAry : [String] = []
 	static let hiddenTags : [String] = ["nipples", "cleavage", "pussy", "nude" , "ass", "panties", "breasts", "porn"]
 	
 	init(r18 : Bool, delegate : KonaAPIPostDelegate, errorDelegate : KonaAPIErrorDelegate){
@@ -53,8 +53,8 @@ class KonaAPI: NSObject {
 	}
 	
 	func getPosts(_ limit : Int?, page : Int?, tag : String?){
-		let parameters = self.parameterFactory(["limit" : limit, "page" : page, "tags" : tag])
-		let successBlock = {(task : URLSessionDataTask, response : AnyObject?) in
+		let parameters = self.parameterFactory(["limit" : limit as Optional<AnyObject>, "page" : page as Optional<AnyObject>, "tags" : tag as Optional<AnyObject>])
+		let successBlock = {(task : URLSessionDataTask, response : Any?) in
 			for post in response as! [NSDictionary] {
 				var rating : String = post["rating"] as! String
 				if !self.r18 && rating != "s" {
@@ -92,8 +92,8 @@ class KonaAPI: NSObject {
 	//Types:  General: 0, artist: 1, copyright: 3, character: 4
 	//Order: date, count, name
 	func getTags(_ limit : Int?, type : Int?, order : String?){
-		let parameters = self.parameterFactory(["limit" : limit, "type" : type, "order" : order])
-		let successBlock = {(task : URLSessionDataTask, response : AnyObject?) in
+		let parameters = self.parameterFactory(["limit" : limit as Optional<AnyObject>, "type" : type as Optional<AnyObject>, "order" : order as Optional<AnyObject>])
+		let successBlock = {(task : URLSessionDataTask, response : Any?) in
 			for tag in response as! [NSDictionary]{
 				let tagStr = tag.object(forKey: "name") as! String
 				self.tagAry.append(tagStr)
@@ -104,11 +104,11 @@ class KonaAPI: NSObject {
 			self.tagDelegate?.konaAPIDidGetTag(self.tagAry)
 			self.tagAry = []
 		}
-		self.makeHTTPRequest(false, url: self.baseUrl + "/tag.json", parameters: parameters, successBlock: successBlock)
+		self.makeHTTPRequest(false, url: self.baseUrl + "/tag.json", parameters: parameters as Any?, successBlock: successBlock)
 	}
 	
-	func makeHTTPRequest(_ isPost : Bool, url : String, parameters : AnyObject?, successBlock: ((URLSessionDataTask, AnyObject?) -> Void)?){
-		let errorBlock : ((URLSessionDataTask?, NSError) -> Void) = {(task : URLSessionDataTask?, error : NSError) in
+	func makeHTTPRequest(_ isPost : Bool, url : String, parameters : Any?, successBlock: ((URLSessionDataTask, Any?) -> Void)?){
+		let errorBlock : ((URLSessionDataTask?, Error) -> Void) = {(task : URLSessionDataTask?, error : Error) in
 			self.errorDelegate?.konaAPIGotError(error)
 			print (error, terminator: "")
 		}

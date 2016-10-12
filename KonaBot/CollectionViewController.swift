@@ -61,10 +61,8 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 		self.r18 = Yuno().baseUrl().contains(".com")
 		
 		self.compact = UserDefaults.standard.integer(forKey: "viewMode") == 1
-		
-		print("compact: \(self.compact)")
-		
-		if UIDevice.current().model.hasPrefix("iPad"){
+				
+		if UIDevice.current.model.hasPrefix("iPad"){
 			self.columnNum = 3
 		}
 		else{
@@ -175,7 +173,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 						return
 					}
 				}
-				self.alert = AWAlertView.networkAlertFromError(error)
+				self.alert = AWAlertView.networkAlertFromError(error as NSError)
 				self.navigationController?.view.addSubview(self.alert!)
 				self.alert!.showAlert()
 		})
@@ -218,7 +216,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 		self.collectionView!.insertItems(at: index)
 	}
 	
-	func konaAPIGotError(_ error: NSError) {
+	func konaAPIGotError(_ error: Error) {
 		if let _alert = self.alert {
 			if !_alert.alertHidden {
 				return

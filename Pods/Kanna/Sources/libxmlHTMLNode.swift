@@ -22,7 +22,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-import libxml2
+import Foundation
 
 /**
 libxmlHTMLNode
@@ -65,15 +65,48 @@ internal final class libxmlHTMLNode: XMLElement {
     }
     
     var tagName:   String? {
-        if nodePtr != nil {
-            return String(cString: UnsafePointer((nodePtr?.pointee.name)!))
+        get {
+            if nodePtr != nil {
+                return String(cString: UnsafePointer((nodePtr?.pointee.name)!))
+            }
+            return nil
         }
-        return nil
+
+        set {
+            if let newValue = newValue {
+                xmlNodeSetName(nodePtr, newValue)
+            }
+        }
     }
-    
-    private var docPtr:  htmlDocPtr? = nil
-    private var nodePtr: xmlNodePtr? = nil
-    private var isRoot:  Bool       = false
+
+    var content: String? {
+        get {
+            return text
+        }
+
+        set {
+            if let newValue = newValue {
+                let v = escape(newValue)
+                xmlNodeSetContent(nodePtr, v)
+            }
+        }
+    }
+
+    var parent: XMLElement? {
+        get {
+            return libxmlHTMLNode(docPtr: docPtr!, node: (nodePtr?.pointee.parent)!)
+        }
+
+        set {
+            if let node = newValue as? libxmlHTMLNode {
+                node.addChild(self)
+            }
+        }
+    }
+
+    fileprivate var docPtr:  htmlDocPtr? = nil
+    fileprivate var nodePtr: xmlNodePtr? = nil
+    fileprivate var isRoot:  Bool       = false
     
     
     subscript(attributeName: String) -> String?
@@ -82,7 +115,7 @@ internal final class libxmlHTMLNode: XMLElement {
             var attr = nodePtr?.pointee.properties
             while attr != nil {
                 let mem = attr?.pointee
-                if let tagName = String(validatingUTF8: UnsafePointer((mem?.name)!)) {
+                if let tagName = String(validatingUTF8: UnsafeRawPointer((mem?.name)!).assumingMemoryBound(to: CChar.self)) {
                     if attributeName == tagName {
                         return libxmlGetNodeContent((mem?.children)!)
                     }
@@ -186,14 +219,46 @@ internal final class libxmlHTMLNode: XMLElement {
         }
         xmlAddNextSibling(nodePtr, node.nodePtr)
     }
+
+    func addChild(_ node: XMLElement) {
+        guard let node = node as? libxmlHTMLNode else {
+            return
+        }
+        xmlUnlinkNode(node.nodePtr)
+        xmlAddChild(nodePtr, node.nodePtr)
+    }
+    
+    func removeChild(_ node: XMLElement) {
+        
+        guard let node = node as? libxmlHTMLNode else {
+            return
+        }
+        xmlUnlinkNode(node.nodePtr)
+        xmlFree(node.nodePtr)
+    }
 }
 
 private func libxmlGetNodeContent(_ nodePtr: xmlNodePtr) -> String? {
     let content = xmlNodeGetContent(nodePtr)
-    if let result  = String(validatingUTF8: UnsafePointer(content!)) {
-        content?.deallocateCapacity(1)
+    if let result  = String(validatingUTF8: UnsafeRawPointer(content!).assumingMemoryBound(to: CChar.self)) {
+        content?.deallocate(capacity: 1)
         return result
     }
-    content?.deallocateCapacity(1)
+    content?.deallocate(capacity: 1)
     return nil
 }
+
+let entities = [
+    "&": "&amp;",
+    "<" : "&lt;",
+    ">" : "&gt;",
+]
+
+private func escape(_ str: String) -> String {
+    var newStr = str
+    for (unesc, esc) in entities {
+        newStr = newStr.replacingOccurrences(of: unesc, with: esc, options: .regularExpression, range: nil)
+    }
+    return newStr
+}
+

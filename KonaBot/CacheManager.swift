@@ -17,13 +17,13 @@ class CacheManager: NSObject {
 	
 	lazy var applicationDocumentsDirectory: URL = {
 		// The directory the application uses to store the Core Data store file. This code uses a directory named "uk.co.plymouthsoftware.core_data" in the application's documents Application Support directory.
-		let urls = FileManager.default.urlsForDirectory(.cachesDirectory, inDomains: .userDomainMask)
-		return urls[urls.count-1]
+		let urls = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask);
+		return urls.last!;
 	}()
 	
 	lazy var managedObjectModel: NSManagedObjectModel = {
 		// The managed object model for the application. This property is not optional. It is a fatal error for the application not to be able to find and load its model.
-		let modelURL = Bundle.main.urlForResource("CacheModel", withExtension: "momd")!
+		let modelURL = Bundle.main.url(forResource: "CacheModel", withExtension: "momd")!
 		return NSManagedObjectModel(contentsOf: modelURL)!
 	}()
 	
@@ -31,15 +31,15 @@ class CacheManager: NSObject {
 		// The persistent store coordinator for the application. This implementation creates and return a coordinator, having added the store for the application to it. This property is optional since there are legitimate error conditions that could cause the creation of the store to fail.
 		// Create the coordinator and store
 		let coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
-		let url = try! self.applicationDocumentsDirectory.appendingPathComponent("KonaBot.sqlite")
+		let url = self.applicationDocumentsDirectory.appendingPathComponent("KonaBot.sqlite")
 		var failureReason = "There was an error creating or loading the application's saved data."
 		do {
 			try coordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: url, options: nil)
 		} catch {
 			// Report any error we got.
 			var dict = [String: AnyObject]()
-			dict[NSLocalizedDescriptionKey] = "Failed to initialize the application's saved data"
-			dict[NSLocalizedFailureReasonErrorKey] = failureReason
+			dict[NSLocalizedDescriptionKey] = "Failed to initialize the application's saved data" as AnyObject?
+			dict[NSLocalizedFailureReasonErrorKey] = failureReason as AnyObject?
 			
 			dict[NSUnderlyingErrorKey] = error as NSError
 			let wrappedError = NSError(domain: "YOUR_ERROR_DOMAIN", code: 9999, userInfo: dict)

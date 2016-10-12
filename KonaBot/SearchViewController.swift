@@ -133,9 +133,9 @@ class SearchViewController: UIViewController, UISearchBarDelegate, KonaAPITagDel
 		self.performSegue(withIdentifier: "segueFromSearchVCToCollectionVC", sender: self)
 	}
 	
-	override func prepare(for segue: UIStoryboardSegue, sender: AnyObject?) {
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		if (segue.identifier == "segueFromSearchVCToCollectionVC"){
-			let destVC = segue.destinationViewController as! CollectionViewController
+			let destVC = segue.destination as! CollectionViewController
 			destVC.keyword = self.keyword
 			destVC.searchVC = self
 		}
@@ -241,7 +241,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, KonaAPITagDel
 		self.showTopTags()
 	}
 	
-	func konaAPIGotError(_ error: NSError) {
+	func konaAPIGotError(_ error: Error) {
 		let alert = AWAlertView.networkAlertFromError(error)
 		self.navigationController?.view.addSubview(alert)
 		alert.showAlert()

@@ -42,10 +42,10 @@ extension XPathObject {
 //Some data such as comments of a post can not be accessed using API, so I have to parse the HTML and get the information I need
 class KonaHTMLParser: NSObject {
 	
-	private var delegate : KonaHTMLParserDelegate!
-	private var tagDelegate : KonaHTMLParserTagsDelegate!
-	private var errorDelegate : KonaAPIErrorDelegate!
-	private var parsedPost : ParsedPost!
+	fileprivate var delegate : KonaHTMLParserDelegate!
+	fileprivate var tagDelegate : KonaHTMLParserTagsDelegate!
+	fileprivate var errorDelegate : KonaAPIErrorDelegate!
+	fileprivate var parsedPost : ParsedPost!
 	
 	init(delegate : KonaHTMLParserDelegate, errorDelegate : KonaAPIErrorDelegate){
 		self.delegate = delegate
@@ -58,25 +58,31 @@ class KonaHTMLParser: NSObject {
 	}
 	
 	func getPostInformation (_ postUrl : String) {
-		let successBlock : ((html : String) -> Void) = {(html) in
+		print ("parsing \(postUrl)")
+		let successBlock : ((_ html : String) -> Void) = {(html) in
 			self.parseHTML(html)
 		}
 		self.getHTML(postUrl, successBlock: successBlock)
 	}
 	
-	private func getHTML (_ url : String, successBlock : ((html : String) -> Void)) {
+	fileprivate func getHTML (_ url : String, successBlock : @escaping ((_ html : String) -> Void)) {
 		let manager = AFHTTPSessionManager()
 		manager.responseSerializer = AFHTTPResponseSerializer()
 		manager.get(url, parameters: nil, progress: nil, success: {(task, response) in
 			let html = NSString(data: response as! NSData as Data, encoding: String.Encoding.ascii.rawValue)! as String
-			successBlock(html: html)
+			successBlock(html)
 			}, failure: {(operation, error) -> Void in
-				self.errorDelegate.konaAPIGotError(error)
+				self.errorDelegate.konaAPIGotError(error as NSError)
 				print ("Error : \(error)")
 		})
 	}
 	
-	private func parseHTML (_ html : String) {
+	fileprivate func parseHTML (_ html : String) {
+		
+		let failBlock : ((Void) -> Void) = {
+			self.triggerErrorFrom("Failed to parse page")
+		}
+		
 		let doc = Kanna.HTML(html: html, encoding: String.Encoding.utf8)!
 		
 		var imageUrl = ""
@@ -87,28 +93,55 @@ class KonaHTMLParser: NSObject {
 		var score : String = ""
 		
 		let divAry = doc.at_css("body")?.at_css("div#content")?.at_css("div#post-view")?.at_css("div#right-col.content")?.css("div")
+		
+		if divAry == nil {
+			failBlock()
+			return
+		}
+		
 		for div in divAry! {
 			if let img = div.at_css("img#image.image") {
-				imageUrl = img["src"]!
+				if let src = img["src"] {
+					imageUrl = src
+				}
 			}
 		}
-		let sideBar = doc.at_css("body")?.at_css("div#content")?.at_css("div#post-view")?.at_css("div.sidebar")
-		let divs = sideBar!.css("div")
-		for div in divs {
-			if let sideBar = div.at_css("ul#tag-sidebar") {
-				let tagUl = sideBar.css("li")
-				let tag = tagUl.last!.text!.replacingOccurrences(of: " ", with: "_")
-				tags.append(tag)
-				break
-			}
-		}
-		let stats = sideBar?.at_css("div#stats.vote-container")!
-		let lis = stats!.at_css("ul")!.css("li")
 		
-		time = lis[1].at_css("a")!["title"]!.konaChanTimeToUnixTime()
-		author = lis[1].css("a").count > 1 ? lis[1].css("a")[1].text! : "Unknown"
-		rating = lis[4].text!.components(separatedBy: " ")[1].localized
-		score = lis[5].at_css("span")!.text!
+		if imageUrl == "" {
+			failBlock()
+			return
+		}
+		
+		let sideBar = doc.at_css("body")?.at_css("div#content")?.at_css("div#post-view")?.at_css("div.sidebar")
+		
+		if sideBar == nil {
+			failBlock()
+			return
+		}
+		
+		if let sideBar = sideBar?.at_css("ul#tag-sidebar") {
+			let tagLis = sideBar.css("li.tag-link")
+			for ls in tagLis {
+				if let tag = ls["data-name"] {
+					tags.append(tag)
+				}
+			}
+		}
+		
+		let stats = sideBar?.at_css("div#stats.vote-container")
+		let lis = stats?.at_css("ul")!.css("li")
+		
+		if lis == nil {
+			failBlock()
+			return
+		}
+		
+		let hasSource = lis!.count == 7
+		
+		time = lis![1].at_css("a")!["title"]!.konaChanTimeToUnixTime()
+		author = lis![1].css("a").count > 1 ? lis![1].css("a")[1].text! : "Unknown"
+		rating = lis![hasSource ? 4 : 3].text!.components(separatedBy: " ")[1].localized
+		score = lis![hasSource ? 5 : 4].at_css("span")!.text!
 		
 		if !Yuno.r18 {
 			tags = KonaAPI.r18Filter(tags)
@@ -118,7 +151,7 @@ class KonaHTMLParser: NSObject {
 		self.delegate.konaHTMLParserFinishedParsing(self.parsedPost)
 	}
 	
-	private func parseSuggestedTagsFromHTML (_ html : String) -> [String] {
+	fileprivate func parseSuggestedTagsFromHTML (_ html : String) -> [String] {
 		var suggestedTag : [String] = []
 		if let doc = Kanna.HTML(html: html, encoding: String.Encoding.utf8) {
 			let ulList = doc.css("ul#post-list-posts")
@@ -148,6 +181,12 @@ class KonaHTMLParser: NSObject {
 		}
 		self.getHTML("\(Yuno().baseUrl())/post?tags=\(tag)", successBlock: successBlock)
 	}
+	
+	fileprivate func triggerErrorFrom(_ string: String) {
+		let userInfo : [NSObject : String] = [NSLocalizedDescriptionKey as NSObject : string]
+		let error = NSError(domain: "com.hkalexling.konabot", code: 200, userInfo: userInfo)
+		self.errorDelegate.konaAPIGotError(error)
+	}
 }
 
 extension String {
@@ -166,16 +205,16 @@ extension String {
 		let minute = (timeAry[1] as NSString).integerValue
 		let second = (timeAry[2] as NSString).integerValue
 		
-		let component = DateComponents()
-		(component as NSDateComponents).setValue(year, forComponent: .year)
-		(component as NSDateComponents).setValue(month, forComponent: .month)
-		(component as NSDateComponents).setValue(day, forComponent: .day)
-		(component as NSDateComponents).setValue(hour, forComponent: .hour)
-		(component as NSDateComponents).setValue(minute, forComponent: .minute)
-		(component as NSDateComponents).setValue(second, forComponent: .second)
+		var component = DateComponents()
+		component.setValue(year, for: .year)
+		component.setValue(month, for: .month)
+		component.setValue(day, for: .day)
+		component.setValue(hour, for: .hour)
+		component.setValue(minute, for: .minute)
+		component.setValue(second, for: .second)
 		
-		(component as NSDateComponents).calendar = Calendar.current
-		(component as NSDateComponents).calendar!.timeZone = TimeZone(forSecondsFromGMT: 0)
+		component.calendar = Calendar.current
+		component.calendar?.timeZone = TimeZone(secondsFromGMT: 0)!
 		
 		return Int((component as NSDateComponents).date!.timeIntervalSince1970)
 	}

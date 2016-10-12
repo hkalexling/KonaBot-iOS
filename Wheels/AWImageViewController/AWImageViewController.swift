@@ -52,42 +52,42 @@ extension UIImage {
 
 class AWImageViewController: UIViewController, URLSessionDownloadDelegate {
 	
-	private var delegate : AWImageViewControllerDelegate?
-	private var longPressDelegate : AWImageViewControllerLongPressDelegate?
-	private var downloadDelegate : AWImageViewControllerDownloadDelegate?
+	fileprivate var delegate : AWImageViewControllerDelegate?
+	fileprivate var longPressDelegate : AWImageViewControllerLongPressDelegate?
+	fileprivate var downloadDelegate : AWImageViewControllerDownloadDelegate?
 	
-	private var animationDuration : TimeInterval?
+	fileprivate var animationDuration : TimeInterval?
 	
-	private var parentView : UIView!
-	private var backgroundStyle : AWImageViewBackgroundStyle?
-	private var bgImageView : UIImageView!
+	fileprivate var parentView : UIView!
+	fileprivate var backgroundStyle : AWImageViewBackgroundStyle?
+	fileprivate var bgImageView : UIImageView!
 	
-	private var originImageView : UIImageView!
+	fileprivate var originImageView : UIImageView!
 	var image : UIImage!
-	private var originFrame : CGRect!
+	fileprivate var originFrame : CGRect!
 	
-	private var scrollView : UIScrollView!
-	private var imageView : UIImageView?
+	fileprivate var scrollView : UIScrollView!
+	fileprivate var imageView : UIImageView?
 	
-	private var finishedDisplaying : Bool = false
+	fileprivate var finishedDisplaying : Bool = false
 	
-	private var awIndicator : AWProgressIndicatorView!
+	fileprivate var awIndicator : AWProgressIndicatorView!
 	
-	private var urlString : String?
-	private var downloadTask : URLSessionDownloadTask?
+	fileprivate var urlString : String?
+	fileprivate var downloadTask : URLSessionDownloadTask?
 	
-	private var dismissButton : UIImageView!
-	private var dismissButtonColor : UIColor!
-	private var dismissButtonWidth : CGFloat!
+	fileprivate var dismissButton : UIImageView!
+	fileprivate var dismissButtonColor : UIColor!
+	fileprivate var dismissButtonWidth : CGFloat!
 	
-	private var panRecognizer : UIPanGestureRecognizer!
-	private var lastTranslation : CGFloat = 0
-	private var thresholdVelocity : CGFloat = 2500
-	private var maxVelocity : CGFloat = 0
+	fileprivate var panRecognizer : UIPanGestureRecognizer!
+	fileprivate var lastTranslation : CGFloat = 0
+	fileprivate var thresholdVelocity : CGFloat = 2500
+	fileprivate var maxVelocity : CGFloat = 0
 	
-	var progressIndicatorColor : UIColor = UIColor.white()
-	var progressIndicatorTextColor : UIColor = UIColor.white()
-	var progressIndicatorBgColor : UIColor = UIColor.clear()
+	var progressIndicatorColor : UIColor = UIColor.white
+	var progressIndicatorTextColor : UIColor = UIColor.white
+	var progressIndicatorBgColor : UIColor = UIColor.clear
 	var progressIndicatorShowLabel : Bool = true
 	var progressIndicatorWidth : CGFloat = 10
 	var progressIndicatorLabelFont : UIFont = UIFont.systemFont(ofSize: 40)
@@ -142,12 +142,12 @@ class AWImageViewController: UIViewController, URLSessionDownloadDelegate {
 			else{
 				bgImg = UIImage.imageFromUIView(self.parentView).applyKonaDarkEffect()!
 			}
-			self.bgImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: UIScreen.main().bounds.width, height: UIScreen.main().bounds.height))
+			self.bgImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
 			self.bgImageView.image = bgImg
 			self.view.addSubview(self.bgImageView)
 		}
 		
-		self.scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: UIScreen.main().bounds.width, height: UIScreen.main().bounds.height))
+		self.scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
 		self.scrollView.showsHorizontalScrollIndicator = false
 		self.scrollView.showsVerticalScrollIndicator = false
 		
@@ -158,7 +158,7 @@ class AWImageViewController: UIViewController, URLSessionDownloadDelegate {
 		self.awIndicator.center = self.view.center
 		self.view.addSubview(self.awIndicator)
 		
-		self.view.backgroundColor = UIColor.clear()
+		self.view.backgroundColor = UIColor.clear
 		
 		self.dismissButton = UIImageView(frame: CGRect(x: 20, y: 40, width: self.dismissButtonWidth, height: self.dismissButtonWidth))
 		self.dismissButton.image = UIImage(named: "Dismiss")!.coloredImage(self.dismissButtonColor)
@@ -197,7 +197,7 @@ class AWImageViewController: UIViewController, URLSessionDownloadDelegate {
 		else{
 			if self.backgroundStyle == .none {
 				UIView.animate(withDuration: self.animationDuration!, animations: {
-					self.view.backgroundColor = UIColor.black()
+					self.view.backgroundColor = UIColor.black
 					}, completion: {(finished : Bool) in
 						self.awIndicator.isHidden = false
 				})
@@ -211,13 +211,13 @@ class AWImageViewController: UIViewController, URLSessionDownloadDelegate {
 	func pinched(_ sender: UIPinchGestureRecognizer) {
 		if self.finishedDisplaying {
 			if sender.state == UIGestureRecognizerState.ended {
-				if self.imageView!.frame.width < UIScreen.main().bounds.width {
-					let scale : CGFloat = UIScreen.main().bounds.width / self.imageView!.frame.width
-					self.imageView!.transform = self.imageView!.transform.scaleBy(x: scale, y: scale)
+				if self.imageView!.frame.width < UIScreen.main.bounds.width {
+					let scale : CGFloat = UIScreen.main.bounds.width / self.imageView!.frame.width
+					self.imageView!.transform = self.imageView!.transform.scaledBy(x: scale, y: scale);
 				}
 			}
 			else{
-				self.imageView!.transform = self.imageView!.transform.scaleBy(x: sender.scale, y: sender.scale)
+				self.imageView!.transform = self.imageView!.transform.scaledBy(x: sender.scale, y: sender.scale)
 				sender.scale = 1
 			}
 			self.updateContentInset()
@@ -270,11 +270,11 @@ class AWImageViewController: UIViewController, URLSessionDownloadDelegate {
 	func initialAnimation(){
 		UIView.animate(withDuration: self.animationDuration!, animations: {
 			if self.backgroundStyle == .none {
-				self.view.backgroundColor = UIColor.black()
+				self.view.backgroundColor = UIColor.black
 			}
-			let width : CGFloat = UIScreen.main().bounds.width
+			let width : CGFloat = UIScreen.main.bounds.width
 			let height : CGFloat = width * self.image.size.height/self.image.size.width
-			self.imageView!.frame = CGRect(x: 0, y: UIScreen.main().bounds.height/2 - height/2, width: width, height: height)
+			self.imageView!.frame = CGRect(x: 0, y: UIScreen.main.bounds.height/2 - height/2, width: width, height: height)
 			}, completion: {(finished : Bool) in
 				self.finishedDisplaying = true
 				self.updateContentInset()
@@ -282,23 +282,23 @@ class AWImageViewController: UIViewController, URLSessionDownloadDelegate {
 	}
 	
 	func toggleFullSize(){
-		if abs(self.imageView!.bounds.width - UIScreen.main().bounds.width) < 1 {
+		if abs(self.imageView!.bounds.width - UIScreen.main.bounds.width) < 1 {
 			
 			self.panRecognizer.isEnabled = false
 			
 			let width : CGFloat = self.image.size.width
 			let height : CGFloat = self.image.size.height
 			UIView.animate(withDuration: self.animationDuration!, animations: {
-				self.imageView!.frame = CGRect(x: UIScreen.main().bounds.width/2 - width/2, y: UIScreen.main().bounds.height/2 - height/2, width: width, height: height)
+				self.imageView!.frame = CGRect(x: UIScreen.main.bounds.width/2 - width/2, y: UIScreen.main.bounds.height/2 - height/2, width: width, height: height)
 				}, completion: {(finished : Bool) in
 					self.updateContentInset()
 			})
 		}
 		else{
 			UIView.animate(withDuration: self.animationDuration!, animations: {
-				let width : CGFloat = UIScreen.main().bounds.width
+				let width : CGFloat = UIScreen.main.bounds.width
 				let height : CGFloat = width * self.image.size.height/self.image.size.width
-				self.imageView!.frame = CGRect(x: 0, y: UIScreen.main().bounds.height/2 - height/2, width: width, height: height)
+				self.imageView!.frame = CGRect(x: 0, y: UIScreen.main.bounds.height/2 - height/2, width: width, height: height)
 				self.updateContentInset()
 				}, completion: {(finished) in
 					self.panRecognizer.isEnabled = true
@@ -335,7 +335,7 @@ class AWImageViewController: UIViewController, URLSessionDownloadDelegate {
 		self.rotateDismissBtn(-1)
 		
 		UIView.animate(withDuration: self.animationDuration!, animations: {
-			self.view.backgroundColor = UIColor.clear()
+			self.view.backgroundColor = UIColor.clear
 			if self.imageView == nil {
 				//Dismiss during download
 				self.view.alpha += 0.1
@@ -378,14 +378,14 @@ class AWImageViewController: UIViewController, URLSessionDownloadDelegate {
 	
 	func awImageViewDidLongPress(){
 		if self.imageView != nil {
-			if self.imageView!.bounds.width == UIScreen.main().bounds.width {
+			if self.imageView!.bounds.width == UIScreen.main.bounds.width {
 				let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
 				
 				let saveAction = UIAlertAction(title: "Save Image", style: .default, handler: {(alert : UIAlertAction) -> Void in
 					UIImageWriteToSavedPhotosAlbum(self.image, nil, nil, nil)
 				})
 				let copyAction = UIAlertAction(title: "Copy Image", style: .default, handler: {(alert : UIAlertAction) -> Void in
-					UIPasteboard.general().image = self.image
+					UIPasteboard.general.image = self.image
 				})
 				let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
 				sheet.addAction(saveAction)
@@ -416,8 +416,8 @@ class AWImageViewController: UIViewController, URLSessionDownloadDelegate {
 			
 			let imgWidth = downloadedImage.size.width
 			let imgHeight = downloadedImage.size.height
-			let finalHeight = UIScreen.main().bounds.width * imgHeight/imgWidth
-			self.imageView = UIImageView(frame: CGRect(x: 0, y: UIScreen.main().bounds.height/2 - finalHeight/2, width: UIScreen.main().bounds.width, height: finalHeight))
+			let finalHeight = UIScreen.main.bounds.width * imgHeight/imgWidth
+			self.imageView = UIImageView(frame: CGRect(x: 0, y: UIScreen.main.bounds.height/2 - finalHeight/2, width: UIScreen.main.bounds.width, height: finalHeight))
 			self.imageView!.image = downloadedImage
 			self.image = downloadedImage
 			
