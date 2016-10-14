@@ -32,7 +32,7 @@ class DetailViewController: UIViewController {
 	
 	var imageUrl : String?
 	
-	var favoriteList : [String]!
+	var favoriteList : [String] = []
 	
 	var shouldDownloadWhenViewAppeared : Bool = true
 	var allowLongPress : Bool = true
@@ -151,14 +151,17 @@ class DetailViewController: UIViewController {
 	
 	override func viewWillAppear(_ animated: Bool) {
 		
-		self.favoriteList = self.yuno.favoriteList()
+		
+		self.yuno.asyncFavoriteList { (list : [String]) in
+			self.favoriteList = list
+			if list.contains(self.postUrl) {
+				self.stared()
+			}
+			else{
+				self.unstared()
+			}
+		}
 
-		if (self.favoriteList.contains(self.postUrl)){
-			self.stared()
-		}
-		else{
-			self.unstared()
-		}
 	}
 	
 	func stared(){

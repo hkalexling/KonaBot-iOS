@@ -59,6 +59,8 @@ class FavoriteCollectionViewController: UICollectionViewController, UICollection
 		let layout : UICollectionViewFlowLayout = self.collectionViewLayout as! UICollectionViewFlowLayout
 		layout.sectionInset = UIEdgeInsetsMake(0, (CGSize.screenSize().width/CGFloat(self.columnNum) - self.cellWidth)/2, 0, (CGSize.screenSize().width/CGFloat(self.columnNum) - self.cellWidth)/2)
 		
+		self.favoritePostList = []
+		self.collectionView?.reloadData()
 		self.yuno.asyncFavoriteList { (list : [String]) in
 			self.favoritePostList = list
 			self.reload()
