@@ -25,6 +25,25 @@ protocol KonaAPIErrorDelegate {
 	func konaAPIGotError(_ error : Error)
 }
 
+private extension String {
+	func toValidURL() -> String {
+		// convert
+		// 1. //blablabla
+		// 2. blablabla
+		// to http://blablabla
+		
+		if (self.hasPrefix("http://") || self.hasPrefix("https://")) {
+			return self
+		}
+		else if (self.hasPrefix("//")) {
+			return "http:\(self)"
+		}
+		else{
+			return "http://\(self)"
+		}
+	}
+}
+
 class KonaAPI: NSObject {
 	
 	fileprivate let baseUrl = "http://konachan.com"
@@ -72,8 +91,8 @@ class KonaAPI: NSObject {
 				}
 				rating = _rating
 				let id : Int = post["id"] as! Int
-				let previewUrl : String = post["preview_url"] as! String
-				let url : String = post["jpeg_url"] as! String
+				let previewUrl : String = (post["preview_url"] as! String).toValidURL()
+				let url : String = (post["jpeg_url"] as! String).toValidURL()
 				let heightOverWidth = (post["height"] as! CGFloat)/(post["width"] as! CGFloat)
 				let postTags : [String] = (post["tags"] as! String).components(separatedBy: " ")
 				let score : Int = post["score"] as! Int

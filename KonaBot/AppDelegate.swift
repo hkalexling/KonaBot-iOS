@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import AFNetworking
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -40,6 +41,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		UITableViewCell.appearance().backgroundColor = UIColor.lighterThemeColor()
 		application.setStatusBarStyle(UIStatusBarStyle.styleAccordingToTheme(), animated: false)
 		UICollectionView.appearance().indicatorStyle = UIScrollViewIndicatorStyle.styleAccordingToTheme()
+		
+		AFNetworkActivityIndicatorManager.shared().isEnabled = true
 		
 		return true
 	}
